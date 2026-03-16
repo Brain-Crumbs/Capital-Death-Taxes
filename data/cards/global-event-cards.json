@@ -1,185 +1,1080 @@
-# Borrow & Die — Project Description
-
-## What this project is
-
-Borrow & Die is a strategy board game in active design. The core theme is wealth-building through asset leverage: players buy assets, borrow against them, offset taxable income with loan draws, and try to maximise their net asset value before they die. The game is a teaching tool as much as a game — it simulates the financial dynamics used by the ultra-wealthy to grow wealth without ever realising (and therefore taxing) gains.
-
-The project consists of a complete card game design including all card data in JSON schema format, card visual mockups in HTML, and a full design rationale developed through iterative conversation. It is ready for physical playtesting.
-
----
-
-## Core scoring formula
-
-```
-Final Score = Total Asset Value – Total Taxes Paid
-```
-
-Players win by owning the most paper wealth while paying the least tax. Income is the enemy. Leverage is the strategy.
-
----
-
-## Game arc
-
-**Labor phase** — no assets owned. Players earn CEO income ($0–$3/yr) and try to buy their first asset.
-
-**Growth phase** — 1–2 assets. Building loan capacity, managing stress, minimising taxable income.
-
-**Legacy phase** — 3 assets owned and/or stress reaches death roll threshold. Death rolls begin (d6, 1–2 = death, 3–6 = survive).
-
-**End trigger** — first player death triggers one final round for all remaining players, then final scoring.
-
----
-
-## Key mechanics
-
-### Asset Value
-`Asset Value = running total, updated each year by: GMI delta + deltaLocalValue (d6 roll)`
-
-Base Value is fixed at purchase (the IPO price). Local Value accumulates from annual d6 rolls. GMI is a shared annual delta applied to every asset.
-
-### Loans and loan capacity
-- Loan capacity tracked with a red peg per asset. Grows by `loanCapacityIncreasePer10AssetValue` each time asset value crosses a +10 boundary.
-- Loans drawn tracked with a black peg. Cannot exceed red peg position.
-- Collateral violation: black peg exceeds red peg → must resolve immediately (repay, restructure, or forced sale).
-- Annual settlement: roll d6 per 10 loan units. Trigger = pay $1 + remove 1 loan. Roll of 6 = remove 1 loan free.
-
-### Taxes
-- Flat 50% rate on net taxable income.
-- First $1 always tax-free.
-- Every $1 borrowed this year offsets $1 of income before tax calculation.
-- Never reset through bankruptcy. Permanent score penalty.
-
-### Stress and death
-- Stress accumulates from: acquiring assets (printed stress value on card), bankruptcy (+2), global/personal event cards.
-- Stress removed by: selling assets, integration bonuses, held personal event cards.
-- Death roll triggers when stress ≥ threshold (default 6, Bureaucrat CEO = 8).
-- Death roll: d6. 1–2 = death. 3–6 = survive.
-
-### GMI (Global Market Index)
-- Shared delta applied to all assets every year.
-- Set by global event card drawn at year start.
-- Categories: Bull Run (+4 base, d6 modifier), Boom (+2 flat), Normal (+1), Flat (0 base, d6 modifier), Correction (–1), Recession (–2), Depression (–2 persistent face-up card).
-- d6 modifier rule where applicable: 1–2 = –1, 3–4 = 0, 5–6 = +1.
-
-### Bankruptcy
-- Triggered when loans cannot be resolved and no assets remain.
-- Cash resets to `max(5, GMI + 5)`.
-- All assets and loans wiped. Stress +2. Taxes paid remain.
-- Player must reselect a CEO card from available options.
-
----
-
-## Turn sequence (per year)
-
-```
-YEAR START (shared, once)
-  1. Draw global event card → apply GMI to all assets
-  2. Market refresh if applicable
-
-ROUND ROBIN (rotating starting player each year)
-  3. Auction — 4 market cards exposed, min bid = Base Value
-  4. Personal actions — draw personal event card, roll value updates per asset
-  5. Settlement (free-form within turn):
-       sell assets · take out loans · repayment roll · repay loans
-       pay taxes · death roll check if stress ≥ threshold
-```
-
----
-
-## Card inventory
-
-| Card type | Count | Notes |
-|---|---|---|
-| Asset cards | 50 | 20 T1, 23 T2, 7 T3 across 6 industries + 8 hybrids |
-| CEO cards (original) | 6 | Worker, Suit, Gambler, Visionary, Bureaucrat, Raider |
-| CEO cards (expansion) | 6 | Tax Attorney, Lobbyist, Influencer, Operator, Heir, Short Seller |
-| Global event cards | 50 | 10 drawn per game |
-| Personal event cards | 50 | ~40 drawn per 4-player game |
-
----
-
-## Industries (asset cards)
-
-Each industry has a unique mechanical identity:
-
-| Industry | Identity | Unique mechanic |
-|---|---|---|
-| Technology | Paper wealth engine | Weak loans; integration unlocks lender confidence |
-| Energy | GMI-sensitive income trap | GMI applied double (or triple for T3) |
-| Real Estate | The floor — stable, high LTV | Highest base loan capacity; once-per-game refinancing |
-| Finance | Meta-industry — manipulates loans | Modifies repayment rules on other assets; asymmetric depression mechanic |
-| Manufacturing | GMI-resistant grinder | GMI halved; full-stack ignores one depression delta |
-| Media & Entertainment | Wild card — buzz die | Roll twice per year, take higher or lower based on buzz die |
-
-**Hybrid cards (8)** span two industries simultaneously, enabling cross-sector combos.
-
----
-
-## Vertical integration
-
-Owning 2 of 3 placements (Upstream/Midstream/Downstream) in one industry activates one integration bonus. All 3 activates both. Bonuses include: loan capacity increases, crash floors, repayment relief, stress reduction, income offset, free loan restructuring.
-
-Cross-industry synergies also exist — e.g. Real Estate + Finance unlocks leveraged property fund mechanics; Technology + Media unlocks streaming platform loan capacity.
-
----
-
-## CEO cards
-
-All 12 CEOs are permanent identities — no upgrading. Selected at game start by auction (min $0 bid). Replaced only on bankruptcy or via specific card effects.
-
-Each CEO has:
-- Base annual income ($0–$3)
-- Starting stress (0–3)
-- Death roll threshold (6 for most, 8 for Bureaucrat)
-- T3 access rule (standard: requires owning one T2; Visionary: unrestricted)
-- 2 abilities (passive, triggered, once-per-year, once-per-game, or risk)
-- A starter asset (flat, weak, does not occupy an asset slot — discarded on first market purchase; passive reassignment transfers one ability to first purchased asset)
-
-**Exception:** The Heir's starter asset is permanent, occupies a full asset slot from game start, and is only removed by voluntary sale.
-
----
-
-## Global event cards
-
-50 cards, 10 drawn per game. Categories:
-- Boom (×6) — GMI +2, one industry gets +1 to all value update rolls
-- Bull Run (×2) — GMI +4 base with d6 modifier, strong secondary effects
-- Normal (×10) — GMI +1, minor secondary effects
-- Flat (×6) — GMI 0 with d6 modifier, friction effects
-- Correction (×8) — GMI –1, sector pressure
-- Recession (×6) — GMI –2, systemic effects
-- Depression (×3) — GMI –2 persistent face-up; roll to escape each year; failed escape = all players +1 stress
-- Bubble (×3) — industry-specific; raises delta floor while active; pops on next negative GMI, dealing –3 immediate value + collateral pressure
-- Stress Event (×3) — all players +1 stress immediately; rarest category
-- Wildcard (×3) — unusual effects (turn order reversal, player-set GMI, forced CEO replacement)
-
----
-
-## Personal event cards
-
-50 cards, ~40 drawn per 4-player game. Timings: IMMEDIATE (resolves on draw), HOLD (player decides when to play or sell for $1), PASSIVE (always-on, auto-discards on trigger).
-
-Categories: Stress Relief (×8), Death Prevention (×4), Cash Windfall (×6), Cash Drain (×4), Tax Event (×5), Loan Event (×6), Market Manipulation (×5), Dice Modifier (×4), Asset Event (×2), Information & Social (×4), Legacy Effect (×2).
-
----
-
-## Files in this project
-
-| File | Contents |
-|---|---|
-| `card.schema.json` | Full JSON schema for all card types |
-| `SCHEMA_REFERENCE.md` | Annotated schema guide with examples and design rules |
-| `CONSOLIDATED_RULE_SET` | Core rules reference |
-| `Turn_Sequence` | Formal turn sequence |
-| `ceo-cards.json` | Original 6 CEO cards with starter assets |
-| `ceo-cards-new-6.json` | Expansion 6 CEO cards with starter assets |
-| `energy-cards.json` | 7 Energy sector asset cards |
-| `technology-cards.json` | 7 Technology sector asset cards |
-| `real-estate-cards.json` | 7 Real Estate sector asset cards |
-| `finance-cards.json` | 7 Finance sector asset cards |
-| `manufacturing-cards.json` | 7 Manufacturing sector asset cards |
-| `media-cards.json` | 7 Media & Entertainment sector asset cards |
-| `hybrid-cards.json` | 8 hybrid/cross-industry asset cards |
-| `global-event-cards.json` | 50 Global Event cards |
-| `personal-event-cards.json` | 50 Personal Event cards |
-| `*-card-mockup.html` | Interactive card viewer for each sector |
+[
+  {
+    "cardType": "GLOBAL_EVENT",
+    "eventName": "Tailwinds",
+    "eventCategory": "BOOM",
+    "gmiBase": 2,
+    "gmiDieRoll": null,
+    "gmiDescription": "GMI +2 this year (no roll \u2014 boom years are flat).",
+    "targetIndustry": "ENERGY",
+    "duration": {
+      "years": 1
+    },
+    "effects": [
+      {
+        "effectType": "INDUSTRY_SPECIFIC",
+        "targetIndustry": "ENERGY",
+        "magnitude": 1,
+        "description": "ENERGY assets: add +1 to every value update die result this year. Energy demand drives the broader expansion."
+      }
+    ],
+    "flavourText": "Demand outpaces supply. Everyone's drilling."
+  },
+  {
+    "cardType": "GLOBAL_EVENT",
+    "eventName": "Rising Tide",
+    "eventCategory": "BOOM",
+    "gmiBase": 2,
+    "gmiDieRoll": null,
+    "gmiDescription": "GMI +2 this year.",
+    "targetIndustry": "TECHNOLOGY",
+    "duration": {
+      "years": 1
+    },
+    "effects": [
+      {
+        "effectType": "INDUSTRY_SPECIFIC",
+        "targetIndustry": "TECHNOLOGY",
+        "magnitude": 1,
+        "description": "TECHNOLOGY assets: add +1 to every value update die result this year. Tech multiples expand with the market."
+      }
+    ],
+    "flavourText": "Every portfolio is a tech portfolio this year."
+  },
+  {
+    "cardType": "GLOBAL_EVENT",
+    "eventName": "Property Cycle Peak",
+    "eventCategory": "BOOM",
+    "gmiBase": 2,
+    "gmiDieRoll": null,
+    "gmiDescription": "GMI +2 this year.",
+    "targetIndustry": "REAL_ESTATE",
+    "duration": {
+      "years": 1
+    },
+    "effects": [
+      {
+        "effectType": "INDUSTRY_SPECIFIC",
+        "targetIndustry": "REAL_ESTATE",
+        "magnitude": 1,
+        "description": "REAL_ESTATE assets: add +1 to every value update die result this year. Property values surge across all segments."
+      }
+    ],
+    "flavourText": "They're not building any more land."
+  },
+  {
+    "cardType": "GLOBAL_EVENT",
+    "eventName": "Capital Flows",
+    "eventCategory": "BOOM",
+    "gmiBase": 2,
+    "gmiDieRoll": null,
+    "gmiDescription": "GMI +2 this year.",
+    "targetIndustry": "FINANCE",
+    "duration": {
+      "years": 1
+    },
+    "effects": [
+      {
+        "effectType": "INDUSTRY_SPECIFIC",
+        "targetIndustry": "FINANCE",
+        "magnitude": 1,
+        "description": "FINANCE assets: add +1 to every value update die result this year. Credit conditions are loose. Everything is fundable."
+      }
+    ],
+    "flavourText": "Rates are low. Ambition is high. What could go wrong."
+  },
+  {
+    "cardType": "GLOBAL_EVENT",
+    "eventName": "Industrial Output",
+    "eventCategory": "BOOM",
+    "gmiBase": 2,
+    "gmiDieRoll": null,
+    "gmiDescription": "GMI +2 this year.",
+    "targetIndustry": "MANUFACTURING",
+    "duration": {
+      "years": 1
+    },
+    "effects": [
+      {
+        "effectType": "INDUSTRY_SPECIFIC",
+        "targetIndustry": "MANUFACTURING",
+        "magnitude": 1,
+        "description": "MANUFACTURING assets: add +1 to every value update die result this year. Orders are strong. Factories running at capacity."
+      }
+    ],
+    "flavourText": "The machines don't stop. Neither do the margins."
+  },
+  {
+    "cardType": "GLOBAL_EVENT",
+    "eventName": "Cultural Moment",
+    "eventCategory": "BOOM",
+    "gmiBase": 2,
+    "gmiDieRoll": null,
+    "gmiDescription": "GMI +2 this year.",
+    "targetIndustry": "MEDIA_ENTERTAINMENT",
+    "duration": {
+      "years": 1
+    },
+    "effects": [
+      {
+        "effectType": "INDUSTRY_SPECIFIC",
+        "targetIndustry": "MEDIA_ENTERTAINMENT",
+        "magnitude": 1,
+        "description": "MEDIA_ENTERTAINMENT assets: add +1 to every value update die result AND treat this year's buzz die as HIGH buzz regardless of roll. The culture is paying attention."
+      }
+    ],
+    "flavourText": "Everyone is watching. Everyone is spending. Everyone is famous."
+  },
+  {
+    "cardType": "GLOBAL_EVENT",
+    "eventName": "Bull Run",
+    "eventCategory": "BULL_RUN",
+    "gmiBase": 4,
+    "gmiDieRoll": "d6",
+    "gmiDieMapping": "1\u20132: \u20131, 3\u20134: 0, 5\u20136: +1",
+    "gmiDescription": "GMI +4 base. Roll d6: 1\u20132 = \u20131, 3\u20134 = +0, 5\u20136 = +1. Final GMI is +3, +4, or +5.",
+    "duration": {
+      "years": 1
+    },
+    "effects": [
+      {
+        "effectType": "MARKET_REFRESH",
+        "description": "Immediately refresh the entire market \u2014 discard all current cards and replace them. The bull market brings new opportunities."
+      },
+      {
+        "effectType": "REPAYMENT_MODIFIER",
+        "magnitude": -1,
+        "description": "All loan repayment rolls this year: trigger threshold one lower (e.g. triggers on 1\u20132 now triggers only on 1). Lender confidence is high."
+      }
+    ],
+    "flavourText": "Everyone is a genius in a bull market."
+  },
+  {
+    "cardType": "GLOBAL_EVENT",
+    "eventName": "Irrational Exuberance",
+    "eventCategory": "BULL_RUN",
+    "gmiBase": 4,
+    "gmiDieRoll": "d6",
+    "gmiDieMapping": "1\u20132: \u20131, 3\u20134: 0, 5\u20136: +1",
+    "gmiDescription": "GMI +4 base. Roll d6: 1\u20132 = \u20131, 3\u20134 = +0, 5\u20136 = +1. Final GMI is +3, +4, or +5.",
+    "duration": {
+      "years": 1
+    },
+    "effects": [
+      {
+        "effectType": "STRESS_MODIFIER",
+        "magnitude": 1,
+        "description": "All players gain +1 stress. The market is euphoric \u2014 ambition outpaces caution. Everyone is overextended."
+      }
+    ],
+    "flavourText": "The valuations make no sense. Everyone buys more anyway."
+  },
+  {
+    "cardType": "GLOBAL_EVENT",
+    "eventName": "Steady as She Goes",
+    "eventCategory": "NEUTRAL",
+    "gmiBase": 1,
+    "gmiDieRoll": null,
+    "gmiDescription": "GMI +1 this year.",
+    "duration": {
+      "years": 1
+    },
+    "effects": [
+      {
+        "effectType": "DICE_MODIFIER",
+        "magnitude": 0,
+        "description": "No secondary effect. A perfectly ordinary year."
+      }
+    ],
+    "flavourText": "Nothing happened. The markets were fine."
+  },
+  {
+    "cardType": "GLOBAL_EVENT",
+    "eventName": "Modest Growth",
+    "eventCategory": "NEUTRAL",
+    "gmiBase": 1,
+    "gmiDieRoll": null,
+    "gmiDescription": "GMI +1 this year.",
+    "duration": {
+      "years": 1
+    },
+    "effects": [
+      {
+        "effectType": "DICE_MODIFIER",
+        "magnitude": 0,
+        "description": "No secondary effect. GDP growth is positive but unexciting."
+      }
+    ],
+    "flavourText": "The economy expanded. Nobody got a bonus."
+  },
+  {
+    "cardType": "GLOBAL_EVENT",
+    "eventName": "Quiet Quarter",
+    "eventCategory": "NEUTRAL",
+    "gmiBase": 1,
+    "gmiDieRoll": null,
+    "gmiDescription": "GMI +1 this year.",
+    "duration": {
+      "years": 1
+    },
+    "effects": [
+      {
+        "effectType": "DICE_MODIFIER",
+        "magnitude": 0,
+        "description": "No secondary effect. A quiet year with no major events."
+      }
+    ],
+    "flavourText": "Nothing to report. The spreadsheets updated themselves."
+  },
+  {
+    "cardType": "GLOBAL_EVENT",
+    "eventName": "Market Peek",
+    "eventCategory": "NEUTRAL",
+    "gmiBase": 1,
+    "gmiDieRoll": null,
+    "gmiDescription": "GMI +1 this year.",
+    "duration": {
+      "years": 1
+    },
+    "effects": [
+      {
+        "effectType": "MARKET_REFRESH",
+        "description": "Before the auction, all players may look at the top 3 cards of the market deck in order. Analyst reports are in \u2014 no secrets this year."
+      }
+    ],
+    "flavourText": "The analyst predicted it. Nobody listened. Then everyone did."
+  },
+  {
+    "cardType": "GLOBAL_EVENT",
+    "eventName": "Favourable Conditions",
+    "eventCategory": "NEUTRAL",
+    "gmiBase": 1,
+    "gmiDieRoll": null,
+    "gmiDescription": "GMI +1 this year.",
+    "duration": {
+      "years": 1
+    },
+    "effects": [
+      {
+        "effectType": "REPAYMENT_MODIFIER",
+        "magnitude": -1,
+        "description": "All loan repayment rolls this year: trigger threshold one lower. Lenders are lenient. Credit conditions are accommodating."
+      }
+    ],
+    "flavourText": "Nobody is calling in favours this year."
+  },
+  {
+    "cardType": "GLOBAL_EVENT",
+    "eventName": "Tech Tailwind",
+    "eventCategory": "NEUTRAL",
+    "gmiBase": 1,
+    "gmiDieRoll": null,
+    "gmiDescription": "GMI +1 this year.",
+    "targetIndustry": "TECHNOLOGY",
+    "duration": {
+      "years": 1
+    },
+    "effects": [
+      {
+        "effectType": "INDUSTRY_SPECIFIC",
+        "targetIndustry": "TECHNOLOGY",
+        "magnitude": 1,
+        "description": "TECHNOLOGY assets: add +1 to every value update die result this year. A modest innovation cycle drives modest multiple expansion."
+      }
+    ],
+    "flavourText": "A new framework was released. Investors approved."
+  },
+  {
+    "cardType": "GLOBAL_EVENT",
+    "eventName": "Infrastructure Demand",
+    "eventCategory": "NEUTRAL",
+    "gmiBase": 1,
+    "gmiDieRoll": null,
+    "gmiDescription": "GMI +1 this year.",
+    "targetIndustry": "MANUFACTURING",
+    "duration": {
+      "years": 1
+    },
+    "effects": [
+      {
+        "effectType": "INDUSTRY_SPECIFIC",
+        "targetIndustry": "MANUFACTURING",
+        "magnitude": 1,
+        "description": "MANUFACTURING UPSTREAM and MIDSTREAM assets: add +1 to every value update die result. Supply chain investment drives input demand."
+      }
+    ],
+    "flavourText": "Someone ordered a lot of concrete."
+  },
+  {
+    "cardType": "GLOBAL_EVENT",
+    "eventName": "Yield Compression",
+    "eventCategory": "NEUTRAL",
+    "gmiBase": 1,
+    "gmiDieRoll": null,
+    "gmiDescription": "GMI +1 this year.",
+    "targetIndustry": "REAL_ESTATE",
+    "duration": {
+      "years": 1
+    },
+    "effects": [
+      {
+        "effectType": "INDUSTRY_SPECIFIC",
+        "targetIndustry": "REAL_ESTATE",
+        "magnitude": 1,
+        "description": "REAL_ESTATE assets: loan capacity +2 this year only. Low rates drive cap rate compression \u2014 property is more bankable."
+      }
+    ],
+    "flavourText": "Rates fell. Prices rose. The math somehow worked."
+  },
+  {
+    "cardType": "GLOBAL_EVENT",
+    "eventName": "Slow Year",
+    "eventCategory": "NEUTRAL",
+    "gmiBase": 1,
+    "gmiDieRoll": null,
+    "gmiDescription": "GMI +1 this year.",
+    "duration": {
+      "years": 1
+    },
+    "effects": [
+      {
+        "effectType": "DICE_MODIFIER",
+        "magnitude": 0,
+        "description": "No secondary effect. Nothing remarkable occurred. Analysts upgraded their outlooks for next year."
+      }
+    ],
+    "flavourText": "At least it wasn't a bad year."
+  },
+  {
+    "cardType": "GLOBAL_EVENT",
+    "eventName": "Consumer Confidence",
+    "eventCategory": "NEUTRAL",
+    "gmiBase": 1,
+    "gmiDieRoll": null,
+    "gmiDescription": "GMI +1 this year.",
+    "targetIndustry": "REAL_ESTATE",
+    "duration": {
+      "years": 1
+    },
+    "effects": [
+      {
+        "effectType": "INDUSTRY_SPECIFIC",
+        "targetIndustry": "REAL_ESTATE",
+        "magnitude": 0,
+        "description": "REAL_ESTATE DOWNSTREAM assets: income counts as 1 higher for tax offset purposes only this year. Renters are paying. Vacancy rates are low."
+      }
+    ],
+    "flavourText": "People feel good about the future. Some of them even mean it."
+  },
+  {
+    "cardType": "GLOBAL_EVENT",
+    "eventName": "Holding Pattern",
+    "eventCategory": "FLAT",
+    "gmiBase": 0,
+    "gmiDieRoll": "d6",
+    "gmiDieMapping": "1\u20132: \u20131, 3\u20134: 0, 5\u20136: +1",
+    "gmiDescription": "GMI base 0. Roll d6: 1\u20132 = \u20131, 3\u20134 = 0, 5\u20136 = +1.",
+    "duration": {
+      "years": 1
+    },
+    "effects": [
+      {
+        "effectType": "DICE_MODIFIER",
+        "magnitude": 0,
+        "description": "No secondary effect. Everything is waiting for a catalyst."
+      }
+    ],
+    "flavourText": "The market is closed. Spiritually."
+  },
+  {
+    "cardType": "GLOBAL_EVENT",
+    "eventName": "Dead Cat Bounce",
+    "eventCategory": "FLAT",
+    "gmiBase": 0,
+    "gmiDieRoll": "d6",
+    "gmiDieMapping": "1\u20132: \u20131, 3\u20134: 0, 5\u20136: +1",
+    "gmiDescription": "GMI base 0. Roll d6: 1\u20132 = \u20131, 3\u20134 = 0, 5\u20136 = +1.",
+    "duration": {
+      "years": 1
+    },
+    "effects": [
+      {
+        "effectType": "DICE_MODIFIER",
+        "magnitude": 0,
+        "description": "No secondary effect. A temporary reversal after a decline. Don't read into it."
+      }
+    ],
+    "flavourText": "It went up a little. It will go back down."
+  },
+  {
+    "cardType": "GLOBAL_EVENT",
+    "eventName": "Market Freeze",
+    "eventCategory": "FLAT",
+    "gmiBase": 0,
+    "gmiDieRoll": "d6",
+    "gmiDieMapping": "1\u20132: \u20131, 3\u20134: 0, 5\u20136: +1",
+    "gmiDescription": "GMI base 0. Roll d6: 1\u20132 = \u20131, 3\u20134 = 0, 5\u20136 = +1.",
+    "duration": {
+      "years": 1
+    },
+    "effects": [
+      {
+        "effectType": "MARKET_REFRESH",
+        "description": "The market does NOT refresh this year \u2014 all current market cards remain in place for the auction. What you see is what you get."
+      }
+    ],
+    "flavourText": "New issuances paused. Existing inventory only."
+  },
+  {
+    "cardType": "GLOBAL_EVENT",
+    "eventName": "Credit Tightening",
+    "eventCategory": "FLAT",
+    "gmiBase": 0,
+    "gmiDieRoll": "d6",
+    "gmiDieMapping": "1\u20132: \u20131, 3\u20134: 0, 5\u20136: +1",
+    "gmiDescription": "GMI base 0. Roll d6: 1\u20132 = \u20131, 3\u20134 = 0, 5\u20136 = +1.",
+    "duration": {
+      "years": 1
+    },
+    "effects": [
+      {
+        "effectType": "LOAN_PRESSURE",
+        "magnitude": 5,
+        "description": "Any player with more than 5 total loan tokens makes one additional repayment roll this year. Lenders are reviewing their exposure."
+      }
+    ],
+    "flavourText": "The banks are reading their own fine print."
+  },
+  {
+    "cardType": "GLOBAL_EVENT",
+    "eventName": "Sideways Market",
+    "eventCategory": "FLAT",
+    "gmiBase": 0,
+    "gmiDieRoll": "d6",
+    "gmiDieMapping": "1\u20132: \u20131, 3\u20134: 0, 5\u20136: +1",
+    "gmiDescription": "GMI base 0. Roll d6: 1\u20132 = \u20131, 3\u20134 = 0, 5\u20136 = +1.",
+    "duration": {
+      "years": 1
+    },
+    "effects": [
+      {
+        "effectType": "DICE_MODIFIER",
+        "magnitude": 0,
+        "description": "Volatility suppressed: value update rolls of 1 are treated as 2, and rolls of 6 are treated as 5. The market is range-bound."
+      }
+    ],
+    "flavourText": "Two years of trading and no one went anywhere."
+  },
+  {
+    "cardType": "GLOBAL_EVENT",
+    "eventName": "Policy Uncertainty",
+    "eventCategory": "FLAT",
+    "gmiBase": 0,
+    "gmiDieRoll": "d6",
+    "gmiDieMapping": "1\u20132: \u20131, 3\u20134: 0, 5\u20136: +1",
+    "gmiDescription": "GMI base 0. Roll d6: 1\u20132 = \u20131, 3\u20134 = 0, 5\u20136 = +1.",
+    "duration": {
+      "years": 1
+    },
+    "effects": [
+      {
+        "effectType": "REPAYMENT_MODIFIER",
+        "magnitude": 1,
+        "description": "All loan repayment rolls this year: trigger threshold one higher. Regulatory ambiguity increases lender caution."
+      }
+    ],
+    "flavourText": "No one knows what the rules are. Everyone is lending anyway."
+  },
+  {
+    "cardType": "GLOBAL_EVENT",
+    "eventName": "Sector Rotation",
+    "eventCategory": "CORRECTION",
+    "gmiBase": -1,
+    "gmiDieRoll": null,
+    "gmiDescription": "GMI \u20131 this year.",
+    "targetIndustry": "MEDIA_ENTERTAINMENT",
+    "duration": {
+      "years": 1
+    },
+    "effects": [
+      {
+        "effectType": "INDUSTRY_SPECIFIC",
+        "targetIndustry": "MEDIA_ENTERTAINMENT",
+        "magnitude": -1,
+        "description": "MEDIA_ENTERTAINMENT assets: subtract 1 from every value update die result this year (minimum 1). Media multiples contract faster than the broader market."
+      }
+    ],
+    "flavourText": "Money moved. It moved away from you."
+  },
+  {
+    "cardType": "GLOBAL_EVENT",
+    "eventName": "Rate Shock",
+    "eventCategory": "CORRECTION",
+    "gmiBase": -1,
+    "gmiDieRoll": null,
+    "gmiDescription": "GMI \u20131 this year.",
+    "duration": {
+      "years": 1
+    },
+    "effects": [
+      {
+        "effectType": "REPAYMENT_MODIFIER",
+        "magnitude": 1,
+        "description": "All loan repayment rolls this year: trigger threshold one higher. Rising rates increase debt service pressure across all portfolios."
+      }
+    ],
+    "flavourText": "The central bank met. Nobody was happy about it."
+  },
+  {
+    "cardType": "GLOBAL_EVENT",
+    "eventName": "Tech Rout",
+    "eventCategory": "CORRECTION",
+    "gmiBase": -1,
+    "gmiDieRoll": null,
+    "gmiDescription": "GMI \u20131 this year.",
+    "targetIndustry": "TECHNOLOGY",
+    "duration": {
+      "years": 1
+    },
+    "effects": [
+      {
+        "effectType": "INDUSTRY_SPECIFIC",
+        "targetIndustry": "TECHNOLOGY",
+        "magnitude": -1,
+        "description": "TECHNOLOGY assets: subtract 1 from every value update die result (minimum 1). Tech leads the correction \u2014 high multiple assets fall fastest."
+      }
+    ],
+    "flavourText": "Profitability is suddenly relevant again."
+  },
+  {
+    "cardType": "GLOBAL_EVENT",
+    "eventName": "Property Stall",
+    "eventCategory": "CORRECTION",
+    "gmiBase": -1,
+    "gmiDieRoll": null,
+    "gmiDescription": "GMI \u20131 this year.",
+    "targetIndustry": "REAL_ESTATE",
+    "duration": {
+      "years": 1
+    },
+    "effects": [
+      {
+        "effectType": "INDUSTRY_SPECIFIC",
+        "targetIndustry": "REAL_ESTATE",
+        "magnitude": -2,
+        "description": "REAL_ESTATE assets: loan capacity \u20132 this year only. Tightening lending standards hit property first. Check for collateral violations \u2014 resolve immediately."
+      }
+    ],
+    "flavourText": "The buyers went on holiday. They haven't come back."
+  },
+  {
+    "cardType": "GLOBAL_EVENT",
+    "eventName": "Commodity Slump",
+    "eventCategory": "CORRECTION",
+    "gmiBase": -1,
+    "gmiDieRoll": null,
+    "gmiDescription": "GMI \u20131 this year.",
+    "targetIndustry": "ENERGY",
+    "duration": {
+      "years": 1
+    },
+    "effects": [
+      {
+        "effectType": "INDUSTRY_SPECIFIC",
+        "targetIndustry": "ENERGY",
+        "magnitude": -1,
+        "description": "ENERGY assets: subtract 1 from every value update die result (minimum 1). ENERGY's GMI-sensitive double-delta mechanic also applies on top."
+      }
+    ],
+    "flavourText": "Prices fell. Everyone was surprised. Nobody should have been."
+  },
+  {
+    "cardType": "GLOBAL_EVENT",
+    "eventName": "Credit Crunch",
+    "eventCategory": "CORRECTION",
+    "gmiBase": -1,
+    "gmiDieRoll": null,
+    "gmiDescription": "GMI \u20131 this year.",
+    "duration": {
+      "years": 1
+    },
+    "effects": [
+      {
+        "effectType": "STRESS_MODIFIER",
+        "magnitude": 1,
+        "description": "The player with the highest total loan count gains +1 stress. Lenders are reviewing the most leveraged portfolios first."
+      },
+      {
+        "effectType": "COLLATERAL_TRIGGER",
+        "description": "All players must check for collateral violations at the start of this year (before value updates) as well as the end. Two collateral checks this year."
+      }
+    ],
+    "flavourText": "The phone calls from the bank started Monday. By Friday, everyone had lawyers."
+  },
+  {
+    "cardType": "GLOBAL_EVENT",
+    "eventName": "Liquidity Squeeze",
+    "eventCategory": "CORRECTION",
+    "gmiBase": -1,
+    "gmiDieRoll": null,
+    "gmiDescription": "GMI \u20131 this year.",
+    "duration": {
+      "years": 1
+    },
+    "effects": [
+      {
+        "effectType": "LOAN_PRESSURE",
+        "description": "FINANCE assets: the asymmetric double-delta mechanic activates this year even though GMI is not at depression level. Finance feels corrections before anyone else."
+      }
+    ],
+    "flavourText": "The desk stopped picking up. Then the desk stopped existing."
+  },
+  {
+    "cardType": "GLOBAL_EVENT",
+    "eventName": "Downturn",
+    "eventCategory": "CORRECTION",
+    "gmiBase": -1,
+    "gmiDieRoll": null,
+    "gmiDescription": "GMI \u20131 this year.",
+    "duration": {
+      "years": 1
+    },
+    "effects": [
+      {
+        "effectType": "DICE_MODIFIER",
+        "magnitude": -1,
+        "description": "All asset value update rolls this year treat their result as 1 lower (minimum 1). A broad-based decline \u2014 no sector is spared."
+      }
+    ],
+    "flavourText": "Everyone lost a little. Some lost a lot."
+  },
+  {
+    "cardType": "GLOBAL_EVENT",
+    "eventName": "Recession",
+    "eventCategory": "RECESSION",
+    "gmiBase": -2,
+    "gmiDieRoll": null,
+    "gmiDescription": "GMI \u20132 this year. Single year only \u2014 recessions do not persist.",
+    "duration": {
+      "years": 1
+    },
+    "effects": [
+      {
+        "effectType": "DICE_MODIFIER",
+        "magnitude": -1,
+        "description": "All asset value update rolls treat their result as 1 lower (minimum 1)."
+      },
+      {
+        "effectType": "LOAN_PRESSURE",
+        "description": "FINANCE assets: the asymmetric double-delta mechanic activates. Finance collapses faster in a recession."
+      }
+    ],
+    "flavourText": "Two negative quarters. One very bad year."
+  },
+  {
+    "cardType": "GLOBAL_EVENT",
+    "eventName": "Hard Landing",
+    "eventCategory": "RECESSION",
+    "gmiBase": -2,
+    "gmiDieRoll": null,
+    "gmiDescription": "GMI \u20132 this year.",
+    "duration": {
+      "years": 1
+    },
+    "effects": [
+      {
+        "effectType": "COLLATERAL_TRIGGER",
+        "description": "All players check for collateral violations on all assets BEFORE value updates occur. Resolve all violations before proceeding."
+      },
+      {
+        "effectType": "REPAYMENT_MODIFIER",
+        "magnitude": 1,
+        "description": "All loan repayment rolls this year: trigger threshold one higher. Lenders are pulling back."
+      }
+    ],
+    "flavourText": "The soft landing was cancelled."
+  },
+  {
+    "cardType": "GLOBAL_EVENT",
+    "eventName": "Supply Shock",
+    "eventCategory": "RECESSION",
+    "gmiBase": -2,
+    "gmiDieRoll": null,
+    "gmiDescription": "GMI \u20132 this year.",
+    "duration": {
+      "years": 1
+    },
+    "effects": [
+      {
+        "effectType": "INDUSTRY_SPECIFIC",
+        "targetIndustry": "ENERGY",
+        "magnitude": -2,
+        "description": "ENERGY: subtract 2 from every value update die result (minimum 1). GMI-sensitive double-delta also applies on top."
+      },
+      {
+        "effectType": "INDUSTRY_SPECIFIC",
+        "targetIndustry": "MANUFACTURING",
+        "magnitude": -1,
+        "description": "MANUFACTURING: subtract 1 from every value update die result (minimum 1). Input costs spike. Margins collapse."
+      }
+    ],
+    "flavourText": "The pipeline closed. Everything else followed."
+  },
+  {
+    "cardType": "GLOBAL_EVENT",
+    "eventName": "Financial Contagion",
+    "eventCategory": "RECESSION",
+    "gmiBase": -2,
+    "gmiDieRoll": null,
+    "gmiDescription": "GMI \u20132 this year.",
+    "duration": {
+      "years": 1
+    },
+    "effects": [
+      {
+        "effectType": "STRESS_MODIFIER",
+        "magnitude": 1,
+        "description": "Any player who owns a FINANCE asset gains +1 stress. Financial exposure becomes a liability in contagion."
+      },
+      {
+        "effectType": "INDUSTRY_SPECIFIC",
+        "targetIndustry": "FINANCE",
+        "magnitude": -2,
+        "description": "FINANCE: subtract 2 from every value update die result (minimum 1). Double-delta asymmetric mechanic also activates."
+      }
+    ],
+    "flavourText": "It started with one bank. It didn't stay there."
+  },
+  {
+    "cardType": "GLOBAL_EVENT",
+    "eventName": "Credit Lockdown",
+    "eventCategory": "RECESSION",
+    "gmiBase": -2,
+    "gmiDieRoll": null,
+    "gmiDescription": "GMI \u20132 this year.",
+    "duration": {
+      "years": 1
+    },
+    "effects": [
+      {
+        "effectType": "LOAN_PRESSURE",
+        "description": "No new loan tokens may be drawn this year. Existing loans may be repaid or restructured but no new borrowing is permitted. Credit markets are closed."
+      }
+    ],
+    "flavourText": "The window is closed. Come back later. Maybe."
+  },
+  {
+    "cardType": "GLOBAL_EVENT",
+    "eventName": "Confidence Collapse",
+    "eventCategory": "RECESSION",
+    "gmiBase": -2,
+    "gmiDieRoll": null,
+    "gmiDescription": "GMI \u20132 this year.",
+    "duration": {
+      "years": 1
+    },
+    "effects": [
+      {
+        "effectType": "DICE_MODIFIER",
+        "magnitude": -1,
+        "description": "All asset value update rolls treat their result as 1 lower (minimum 1)."
+      },
+      {
+        "effectType": "STRESS_MODIFIER",
+        "magnitude": 1,
+        "description": "The player with the most total asset value loses 1 point from their highest-value asset's current value. The richest players have the most to lose."
+      }
+    ],
+    "flavourText": "The headlines did more damage than the fundamentals."
+  },
+  {
+    "cardType": "GLOBAL_EVENT",
+    "eventName": "Great Depression",
+    "eventCategory": "DEPRESSION",
+    "gmiBase": -2,
+    "gmiDieRoll": null,
+    "gmiDescription": "GMI \u20132 every year this card is active.",
+    "persistent": true,
+    "persistenceRule": "Leave this card face-up on the table. At the start of each subsequent year, roll d6: on 4\u20136 the depression ends and this card is discarded; on 1\u20133 it persists and all players gain +1 stress.",
+    "duration": {
+      "years": 2,
+      "durationRoll": {
+        "die": "d6",
+        "resultMapping": "Each year: roll d6. 4\u20136 = depression ends. 1\u20133 = persists, all players +1 stress."
+      }
+    },
+    "effects": [
+      {
+        "effectType": "DICE_MODIFIER",
+        "magnitude": -1,
+        "description": "FACE-UP PERSISTENT: all asset value update rolls treat their result as 1 lower (minimum 1) every year this card remains active."
+      },
+      {
+        "effectType": "LOAN_PRESSURE",
+        "description": "FINANCE assets: double-delta asymmetric mechanic activates every year this card is active."
+      }
+    ],
+    "flavourText": "This isn't a correction. This is a reckoning."
+  },
+  {
+    "cardType": "GLOBAL_EVENT",
+    "eventName": "Debt Crisis",
+    "eventCategory": "DEPRESSION",
+    "gmiBase": -2,
+    "gmiDieRoll": null,
+    "gmiDescription": "GMI \u20132 every year this card is active.",
+    "persistent": true,
+    "persistenceRule": "Leave this card face-up. At the start of each subsequent year, roll d6: on 5\u20136 the crisis resolves; on 1\u20134 it persists and all players gain +1 stress.",
+    "duration": {
+      "years": 2,
+      "durationRoll": {
+        "die": "d6",
+        "resultMapping": "Each year: roll d6. 5\u20136 = crisis ends. 1\u20134 = persists, all players +1 stress."
+      }
+    },
+    "effects": [
+      {
+        "effectType": "LOAN_PRESSURE",
+        "description": "FACE-UP PERSISTENT: no new loan tokens may be drawn while this card is active. Each year it remains: all players with 3+ total loans must remove 1 loan token (paying $1 as normal)."
+      },
+      {
+        "effectType": "COLLATERAL_TRIGGER",
+        "description": "All collateral violations resolved at the start of each year while active, before value updates."
+      }
+    ],
+    "flavourText": "The number on the debt is larger than the number that exists."
+  },
+  {
+    "cardType": "GLOBAL_EVENT",
+    "eventName": "Systemic Collapse",
+    "eventCategory": "DEPRESSION",
+    "gmiBase": -2,
+    "gmiDieRoll": null,
+    "gmiDescription": "GMI \u20132 every year this card is active.",
+    "persistent": true,
+    "persistenceRule": "Leave this card face-up. At the start of each subsequent year, roll d6: on 6 only the collapse ends; on 1\u20135 it persists and all players gain +1 stress. The hardest possible escape condition.",
+    "duration": {
+      "years": 2,
+      "durationRoll": {
+        "die": "d6",
+        "resultMapping": "Each year: roll d6. 6 only = collapse ends. 1\u20135 = persists, all players +1 stress."
+      }
+    },
+    "effects": [
+      {
+        "effectType": "DICE_MODIFIER",
+        "magnitude": -2,
+        "description": "FACE-UP PERSISTENT: all value update rolls treat their result as 2 lower (minimum 1) every year this card remains active."
+      },
+      {
+        "effectType": "REPAYMENT_MODIFIER",
+        "magnitude": 2,
+        "description": "All loan repayment rolls: trigger threshold two higher. Lenders are calling everything."
+      }
+    ],
+    "flavourText": "The system didn't fail. The system did exactly what it was designed to do."
+  },
+  {
+    "cardType": "GLOBAL_EVENT",
+    "eventName": "Tech Bubble",
+    "eventCategory": "BUBBLE",
+    "gmiBase": 2,
+    "gmiDieRoll": null,
+    "gmiDescription": "GMI +2 this year.",
+    "targetIndustry": "TECHNOLOGY",
+    "persistent": true,
+    "persistenceRule": "Leave this card face-up. While active, the minimum delta outcome for all TECHNOLOGY assets is raised by 1 (e.g. a printed floor of \u20134 becomes \u20133; a floor of \u20131 becomes 0). When any GMI update is negative while this card is active, the bubble pops: remove this card, all TECHNOLOGY asset values drop by 3 immediately, and any player holding more than 2 loan tokens secured on TECHNOLOGY assets must remove 1 token per excess loan above 2 (paying $1 per removal as normal).",
+    "duration": {
+      "years": 1
+    },
+    "effects": [
+      {
+        "effectType": "INDUSTRY_SPECIFIC",
+        "targetIndustry": "TECHNOLOGY",
+        "magnitude": 2,
+        "description": "TECHNOLOGY assets: add +2 to every value update die result this year. See persistence rule above \u2014 bubble floor protection is active until a negative GMI year triggers the pop."
+      }
+    ],
+    "flavourText": "The revenue doesn't matter. The story does."
+  },
+  {
+    "cardType": "GLOBAL_EVENT",
+    "eventName": "Property Bubble",
+    "eventCategory": "BUBBLE",
+    "gmiBase": 2,
+    "gmiDieRoll": null,
+    "gmiDescription": "GMI +2 this year.",
+    "targetIndustry": "REAL_ESTATE",
+    "persistent": true,
+    "persistenceRule": "Leave this card face-up. While active, the minimum delta outcome for all REAL_ESTATE assets is raised by 1 (e.g. a printed floor of \u20132 becomes \u20131). When any GMI update is negative while this card is active, the bubble pops: remove this card, all REAL_ESTATE asset values drop by 3 immediately, and any player whose total loans exceed 80% of their total REAL_ESTATE asset value must resolve a collateral violation immediately.",
+    "duration": {
+      "years": 1
+    },
+    "effects": [
+      {
+        "effectType": "INDUSTRY_SPECIFIC",
+        "targetIndustry": "REAL_ESTATE",
+        "magnitude": 2,
+        "description": "REAL_ESTATE assets: add +2 to every value update die result this year. Bubble floor protection active \u2014 see persistence rule."
+      }
+    ],
+    "flavourText": "It's different this time. They said that last time too."
+  },
+  {
+    "cardType": "GLOBAL_EVENT",
+    "eventName": "Energy Bubble",
+    "eventCategory": "BUBBLE",
+    "gmiBase": 2,
+    "gmiDieRoll": null,
+    "gmiDescription": "GMI +2 this year.",
+    "targetIndustry": "ENERGY",
+    "persistent": true,
+    "persistenceRule": "Leave this card face-up. While active, the minimum delta outcome for all ENERGY assets is raised by 1 (e.g. a printed floor of \u20133 becomes \u20132). When any GMI update is negative while this card is active, the bubble pops: remove this card, ENERGY's GMI-sensitive mechanic applies at triple (not double) this year, and any player holding more than 3 loan tokens secured on ENERGY assets must remove 1 token (paying $1) and gains +1 stress.",
+    "duration": {
+      "years": 1
+    },
+    "effects": [
+      {
+        "effectType": "INDUSTRY_SPECIFIC",
+        "targetIndustry": "ENERGY",
+        "magnitude": 2,
+        "description": "ENERGY assets: add +2 to every value update die result this year. Bubble floor protection active \u2014 see persistence rule."
+      }
+    ],
+    "flavourText": "The commodity supercycle is different from all the other supercycles."
+  },
+  {
+    "cardType": "GLOBAL_EVENT",
+    "eventName": "Pandemic",
+    "eventCategory": "STRESS_EVENT",
+    "gmiBase": -1,
+    "gmiDieRoll": null,
+    "gmiDescription": "GMI \u20131 this year.",
+    "duration": {
+      "years": 1
+    },
+    "effects": [
+      {
+        "effectType": "STRESS_MODIFIER",
+        "magnitude": 1,
+        "description": "All players gain +1 stress immediately. No exceptions."
+      },
+      {
+        "effectType": "INDUSTRY_SPECIFIC",
+        "targetIndustry": "MEDIA_ENTERTAINMENT",
+        "magnitude": -2,
+        "description": "MEDIA_ENTERTAINMENT DOWNSTREAM (live events): subtract 2 from every value update die result (minimum 1). Live events cannot happen."
+      }
+    ],
+    "flavourText": "The calendar cleared. So did the portfolio."
+  },
+  {
+    "cardType": "GLOBAL_EVENT",
+    "eventName": "Geopolitical Crisis",
+    "eventCategory": "STRESS_EVENT",
+    "gmiBase": 0,
+    "gmiDieRoll": "d6",
+    "gmiDieMapping": "1\u20132: \u20131, 3\u20134: 0, 5\u20136: +1",
+    "gmiDescription": "GMI base 0. Roll d6: 1\u20132 = \u20131, 3\u20134 = 0, 5\u20136 = +1. Uncertainty more than damage.",
+    "duration": {
+      "years": 1
+    },
+    "effects": [
+      {
+        "effectType": "STRESS_MODIFIER",
+        "magnitude": 1,
+        "description": "All players gain +1 stress immediately."
+      },
+      {
+        "effectType": "INDUSTRY_SPECIFIC",
+        "targetIndustry": "ENERGY",
+        "magnitude": 1,
+        "description": "ENERGY assets: add +1 to every value update die result. Geopolitical instability drives energy price volatility upward."
+      }
+    ],
+    "flavourText": "The conflict is far away. The fuel prices are not."
+  },
+  {
+    "cardType": "GLOBAL_EVENT",
+    "eventName": "Regulatory Shock",
+    "eventCategory": "STRESS_EVENT",
+    "gmiBase": 0,
+    "gmiDieRoll": null,
+    "gmiDescription": "GMI 0 this year.",
+    "duration": {
+      "years": 1
+    },
+    "effects": [
+      {
+        "effectType": "STRESS_MODIFIER",
+        "magnitude": 1,
+        "description": "All players gain +1 stress immediately."
+      },
+      {
+        "effectType": "TAX_MODIFIER",
+        "magnitude": 1,
+        "description": "All players pay taxes as if they earned $1 more this year. Tax authorities are expanding their definition of taxable income."
+      }
+    ],
+    "flavourText": "The rules changed. Retroactively."
+  },
+  {
+    "cardType": "GLOBAL_EVENT",
+    "eventName": "Reversal of Fortune",
+    "eventCategory": "WILDCARD",
+    "gmiBase": 0,
+    "gmiDieRoll": "d6",
+    "gmiDieMapping": "1\u20132: \u20131, 3\u20134: 0, 5\u20136: +1",
+    "gmiDescription": "GMI base 0. Roll d6: 1\u20132 = \u20131, 3\u20134 = 0, 5\u20136 = +1.",
+    "duration": {
+      "years": 1
+    },
+    "effects": [
+      {
+        "effectType": "DICE_MODIFIER",
+        "magnitude": 0,
+        "description": "Turn order is reversed for this entire year \u2014 all phases (auction, value updates, settlement) proceed in the opposite direction. The player who normally goes last goes first."
+      }
+    ],
+    "flavourText": "The last shall be first. For now."
+  },
+  {
+    "cardType": "GLOBAL_EVENT",
+    "eventName": "People's Market",
+    "eventCategory": "WILDCARD",
+    "gmiBase": 0,
+    "gmiDieRoll": null,
+    "gmiDescription": "The player with the lowest current score (Total Asset Value \u2013 Total Taxes Paid) sets the GMI delta for this year. They choose any integer between \u20131 and +3 and announce before value updates.",
+    "duration": {
+      "years": 1
+    },
+    "effects": [
+      {
+        "effectType": "DICE_MODIFIER",
+        "magnitude": 0,
+        "description": "Lowest-score player sets the GMI delta this year (choose \u20131 to +3). Announced before value updates. Final and binding."
+      }
+    ],
+    "flavourText": "For once, the market listens to the little guy."
+  },
+  {
+    "cardType": "GLOBAL_EVENT",
+    "eventName": "Leadership Vacuum",
+    "eventCategory": "WILDCARD",
+    "gmiBase": 0,
+    "gmiDieRoll": "d6",
+    "gmiDieMapping": "1\u20132: \u20131, 3\u20134: 0, 5\u20136: +1",
+    "gmiDescription": "GMI base 0. Roll d6: 1\u20132 = \u20131, 3\u20134 = 0, 5\u20136 = +1.",
+    "duration": {
+      "years": 1
+    },
+    "effects": [
+      {
+        "effectType": "DICE_MODIFIER",
+        "magnitude": 0,
+        "description": "Each player must immediately discard their current CEO card and draw a replacement at random from the available CEO tier they qualify for. New CEO effects begin this year."
+      }
+    ],
+    "flavourText": "The board met. Nobody left happy. Nobody left as CEO."
+  }
+]
