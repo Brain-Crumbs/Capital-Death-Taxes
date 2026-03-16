@@ -1,0 +1,666 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Borrow & Die — Card Schema v2",
+  "description": "Schema definitions for all card types in Borrow & Die.",
+
+  "definitions": {
+
+    "industry": {
+      "type": "string",
+      "enum": [
+        "TECHNOLOGY",
+        "ENERGY",
+        "REAL_ESTATE",
+        "FINANCE",
+        "MANUFACTURING",
+        "MEDIA_ENTERTAINMENT"
+      ]
+    },
+
+    "placement": {
+      "type": "string",
+      "enum": ["UPSTREAM", "MIDSTREAM", "DOWNSTREAM"],
+      "description": "Position in the industry supply chain. Determines vertical integration eligibility."
+    },
+
+    "tier": {
+      "type": "integer",
+      "enum": [1, 2, 3],
+      "description": "Asset tier. Tier 1 = starter/labor phase accessible. Tier 2 = mid game. Tier 3 = high growth, high stress, gated by CEO level."
+    },
+
+    "d6OutcomeRange": {
+      "type": "object",
+      "description": "A single outcome band on a d6 roll.",
+      "required": ["range", "delta"],
+      "additionalProperties": false,
+      "properties": {
+        "range": {
+          "type": "array",
+          "items": { "type": "integer", "minimum": 1, "maximum": 6 },
+          "minItems": 2,
+          "maxItems": 2,
+          "description": "[min, max] inclusive. All outcomes across the full rule must cover 1–6 exactly once."
+        },
+        "delta": {
+          "type": "integer",
+          "description": "Change to Asset Value when this range is rolled. Negative = value loss. Zero = no change."
+        }
+      }
+    },
+
+    "baseValueUpdateRule": {
+      "type": "object",
+      "description": "Defines how this asset's value changes each year via a d6 roll. Outcomes must fully cover 1–6.",
+      "required": ["outcomes"],
+      "additionalProperties": false,
+      "properties": {
+        "outcomes": {
+          "type": "array",
+          "items": { "$ref": "#/definitions/d6OutcomeRange" },
+          "minItems": 2,
+          "maxItems": 6,
+          "description": "All outcome bands. Must collectively and exclusively cover 1–6."
+        },
+        "industryMechanic": {
+          "type": "string",
+          "description": "Optional. Describes any special industry mechanic that modifies how this rule is applied (e.g. Manufacturing GMI halving, Media buzz die, Energy GMI amplification)."
+        }
+      }
+    },
+
+    "loanRepaymentRule": {
+      "type": "object",
+      "description": "Per-10-loan-units repayment pressure rolled during settlement each year.",
+      "required": ["outcomes"],
+      "additionalProperties": false,
+      "properties": {
+        "outcomes": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": ["range", "trigger"],
+            "additionalProperties": false,
+            "properties": {
+              "range": {
+                "type": "array",
+                "items": { "type": "integer", "minimum": 1, "maximum": 6 },
+                "minItems": 2,
+                "maxItems": 2
+              },
+              "trigger": {
+                "type": "boolean",
+                "description": "If true: player must pay $1 cash and remove 1 loan token."
+              },
+              "relief": {
+                "type": "boolean",
+                "description": "If true: player may remove 1 loan token for free (no cash cost). Used for roll-of-6 relief rule."
+              }
+            }
+          },
+          "minItems": 2,
+          "maxItems": 6,
+          "description": "Must fully cover 1–6. Roll of 6 should always have relief: true per core rules."
+        },
+        "paymentOnTrigger": {
+          "type": "integer",
+          "enum": [1],
+          "default": 1,
+          "description": "Cash cost when trigger fires. Always 1 per core rules."
+        }
+      }
+    },
+
+    "verticalIntegrationRule": {
+      "type": "object",
+      "description": "Bonus activated when player also owns another asset in this industry at the required placement.",
+      "required": ["requiresIndustry", "requiresPlacement", "effectType", "effectDescription"],
+      "additionalProperties": false,
+      "properties": {
+        "requiresIndustry": {
+          "$ref": "#/definitions/industry",
+          "description": "Must match this card's own industry."
+        },
+        "requiresPlacement": {
+          "$ref": "#/definitions/placement",
+          "description": "The placement the player must also own to activate this bonus."
+        },
+        "effectType": {
+          "type": "string",
+          "enum": [
+            "LOAN_CAPACITY_BONUS",
+            "REPAYMENT_RELIEF",
+            "CRASH_FLOOR",
+            "STRESS_REDUCTION",
+            "INCOME_OFFSET",
+            "GMI_RESISTANCE",
+            "LOAN_RESTRUCTURE_FREE",
+            "VALUE_GROWTH_BOOST",
+            "SPECIAL"
+          ],
+          "description": "Category of effect for card generator and rules clarity."
+        },
+        "effectMagnitude": {
+          "type": "integer",
+          "description": "Numeric magnitude of the effect where applicable (e.g. +2 loan capacity, -1 stress). Omit for SPECIAL effects."
+        },
+        "effectDescription": {
+          "type": "string",
+          "description": "Human-readable rules text printed on the card. Must be unambiguous and reference only placements and industry."
+        },
+        "stressReduction": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 2,
+          "description": "If this integration bonus reduces player stress, the amount. 0 if no stress effect."
+        }
+      }
+    },
+
+    "crossIndustrySynergy": {
+      "type": "object",
+      "description": "Optional bonus activated when player owns an asset in a different industry at the specified placement. Represents cross-industry combos.",
+      "required": ["requiresIndustry", "requiresPlacement", "effectType", "effectDescription"],
+      "additionalProperties": false,
+      "properties": {
+        "requiresIndustry": {
+          "$ref": "#/definitions/industry"
+        },
+        "requiresPlacement": {
+          "$ref": "#/definitions/placement"
+        },
+        "effectType": {
+          "type": "string",
+          "enum": [
+            "LOAN_CAPACITY_BONUS",
+            "REPAYMENT_RELIEF",
+            "CRASH_FLOOR",
+            "STRESS_REDUCTION",
+            "INCOME_OFFSET",
+            "GMI_RESISTANCE",
+            "LOAN_RESTRUCTURE_FREE",
+            "VALUE_GROWTH_BOOST",
+            "SPECIAL"
+          ]
+        },
+        "effectMagnitude": {
+          "type": "integer"
+        },
+        "effectDescription": {
+          "type": "string"
+        }
+      }
+    },
+
+    "assetCard": {
+      "type": "object",
+      "description": "A company or asset that players can own. The core game object.",
+      "required": [
+        "cardType",
+        "companyName",
+        "industry",
+        "placement",
+        "tier",
+        "baseValue",
+        "stress",
+        "income",
+        "baseLoanCapacity",
+        "loanCapacityIncreasePer10AssetValue",
+        "baseValueUpdateRule",
+        "loanRepaymentRule",
+        "verticalIntegrationRules",
+        "flavourText"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "cardType": { "type": "string", "enum": ["ASSET"] },
+
+        "companyName": {
+          "type": "string",
+          "description": "Thematic name of the company. Should reflect industry and tier."
+        },
+
+        "industry": { "$ref": "#/definitions/industry" },
+        "placement": { "$ref": "#/definitions/placement" },
+        "tier": { "$ref": "#/definitions/tier" },
+
+        "baseValue": {
+          "type": "integer",
+          "minimum": 1,
+          "description": "Fixed starting value. Also the IPO price — minimum auction bid. Never changes after card is printed."
+        },
+
+        "stress": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 3,
+          "description": "Stress added to player when this asset is acquired. Removed when sold. Tier 1: 0–1. Tier 2: 1–2. Tier 3: 2–3."
+        },
+
+        "income": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 3,
+          "description": "Income generated by this asset each year. Added to player's taxable income pool before loan offset. Tier 3 high-growth assets should be 0."
+        },
+
+        "baseLoanCapacity": {
+          "type": "integer",
+          "minimum": 0,
+          "description": "Starting loan capacity at acquisition regardless of asset value. Red peg starting position."
+        },
+
+        "loanCapacityIncreasePer10AssetValue": {
+          "type": "integer",
+          "minimum": 0,
+          "description": "Additional loan capacity granted each time asset value crosses a +10 boundary. Approximates LTV ratio. E.g. 5 = ~50% LTV, 3 = ~30% LTV."
+        },
+
+        "baseValueUpdateRule": { "$ref": "#/definitions/baseValueUpdateRule" },
+        "loanRepaymentRule": { "$ref": "#/definitions/loanRepaymentRule" },
+
+        "verticalIntegrationRules": {
+          "type": "array",
+          "description": "One entry per adjacent placement this card can pair with for integration bonuses. Max 2 entries (one per adjacent tier).",
+          "items": { "$ref": "#/definitions/verticalIntegrationRule" },
+          "minItems": 0,
+          "maxItems": 2
+        },
+
+        "crossIndustrySynergies": {
+          "type": "array",
+          "description": "Optional cross-industry combo bonuses. Max 1 per card to avoid complexity.",
+          "items": { "$ref": "#/definitions/crossIndustrySynergy" },
+          "minItems": 0,
+          "maxItems": 1
+        },
+
+        "flavourText": {
+          "type": "string",
+          "description": "Short thematic quote or description printed at the bottom of the card."
+        }
+      }
+    },
+
+    "ceoCard": {
+      "type": "object",
+      "description": "The player's active leadership identity. Determines starting income, stress, asset tier access, and special abilities.",
+      "required": [
+        "cardType",
+        "ceoName",
+        "archetype",
+        "ceoTier",
+        "annualIncome",
+        "startingStress",
+        "maxAssetTier",
+        "deathRollThreshold",
+        "laborPhaseRule",
+        "abilities",
+        "flavourText"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "cardType": { "type": "string", "enum": ["CEO"] },
+
+        "ceoName": {
+          "type": "string",
+          "description": "Name or title of the CEO archetype."
+        },
+
+        "archetype": {
+          "type": "string",
+          "enum": [
+            "STARTER",
+            "HIGH_INCOME",
+            "DICE_MODIFIER",
+            "LOW_STRESS",
+            "MARKET_MANIPULATOR",
+            "AGGRESSIVE",
+            "PREDATOR"
+          ]
+        },
+
+        "ceoTier": {
+          "type": "integer",
+          "enum": [0, 1, 2],
+          "description": "0 = starter (everyone begins here). 1 = first upgrade (requires owning 1 Tier 1 asset). 2 = advanced (requires owning 1 Tier 2 asset)."
+        },
+
+        "upgradeRequirement": {
+          "type": "object",
+          "description": "What the player must own to equip this CEO. Omit for Tier 0 starter.",
+          "required": ["minOwnedAssetTier"],
+          "additionalProperties": false,
+          "properties": {
+            "minOwnedAssetTier": {
+              "type": "integer",
+              "enum": [1, 2],
+              "description": "Player must own at least one asset of this tier to unlock this CEO."
+            }
+          }
+        },
+
+        "annualIncome": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 4,
+          "description": "Base cash income per year from the CEO card alone, before asset income."
+        },
+
+        "startingStress": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 4,
+          "description": "Stress assigned to player when this CEO is equipped or re-equipped after bankruptcy."
+        },
+
+        "maxAssetTier": {
+          "type": "integer",
+          "enum": [2, 3],
+          "description": "Highest asset tier this CEO permits the player to bid on. Tier 0 and 1 CEOs cap at 2. Tier 2 CEOs unlock Tier 3."
+        },
+
+        "deathRollThreshold": {
+          "type": "integer",
+          "minimum": 4,
+          "maximum": 10,
+          "default": 6,
+          "description": "Stress value at which death rolls begin. Default 6. The Bureaucrat raises this to 8."
+        },
+
+        "laborPhaseRule": {
+          "type": "object",
+          "description": "Special rules that apply during the labor phase (no assets owned).",
+          "required": ["bonusIncomeRoll"],
+          "additionalProperties": false,
+          "properties": {
+            "bonusIncomeRoll": {
+              "type": "object",
+              "description": "Optional d6 bonus income roll during labor phase.",
+              "required": ["triggerRange", "bonusAmount"],
+              "properties": {
+                "triggerRange": {
+                  "type": "array",
+                  "items": { "type": "integer", "minimum": 1, "maximum": 6 },
+                  "minItems": 2,
+                  "maxItems": 2,
+                  "description": "[min, max] — roll within this range earns bonus cash."
+                },
+                "bonusAmount": {
+                  "type": "integer",
+                  "minimum": 1,
+                  "description": "Cash earned when bonus roll triggers."
+                }
+              }
+            },
+            "heldCardSaleValue": {
+              "type": "integer",
+              "default": 1,
+              "description": "Cash received when selling a held personal event card during labor phase. Default 1."
+            }
+          }
+        },
+
+        "abilities": {
+          "type": "array",
+          "description": "Special rules this CEO grants. Each ability is a distinct effect.",
+          "items": {
+            "type": "object",
+            "required": ["abilityType", "frequency", "description"],
+            "additionalProperties": false,
+            "properties": {
+              "abilityType": {
+                "type": "string",
+                "enum": [
+                  "PASSIVE",
+                  "ONCE_PER_YEAR",
+                  "ONCE_PER_GAME",
+                  "TRIGGERED",
+                  "RISK"
+                ],
+                "description": "PASSIVE = always active. ONCE_PER_YEAR / ONCE_PER_GAME = player-activated. TRIGGERED = fires on a specific condition. RISK = a downside that activates on a condition."
+              },
+              "frequency": {
+                "type": "string",
+                "enum": ["ALWAYS", "ONCE_PER_YEAR", "ONCE_PER_GAME", "ON_TRIGGER"],
+                "description": "How often this ability can fire."
+              },
+              "description": {
+                "type": "string",
+                "description": "Rules text printed on the card. Unambiguous, complete, self-contained."
+              },
+              "stressEffect": {
+                "type": "integer",
+                "description": "Stress delta caused by this ability when it fires. Negative = relief. Positive = penalty."
+              }
+            }
+          },
+          "minItems": 1,
+          "maxItems": 3
+        },
+
+        "flavourText": {
+          "type": "string",
+          "description": "Short character quote printed at the bottom of the card."
+        }
+      }
+    },
+
+    "globalEventCard": {
+      "type": "object",
+      "description": "Drawn publicly at the start of each year. Affects all players and the GMI.",
+      "required": [
+        "cardType",
+        "eventName",
+        "eventCategory",
+        "gmiDelta",
+        "duration",
+        "effects",
+        "flavourText"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "cardType": { "type": "string", "enum": ["GLOBAL_EVENT"] },
+
+        "eventName": {
+          "type": "string",
+          "description": "Thematic name of the event."
+        },
+
+        "eventCategory": {
+          "type": "string",
+          "enum": [
+            "BOOM",
+            "BUST",
+            "DEPRESSION",
+            "SUPPLY_SHOCK",
+            "REGULATORY",
+            "NEUTRAL",
+            "MARKET_DISRUPTION"
+          ],
+          "description": "Category for thematic and mechanical grouping."
+        },
+
+        "gmiDelta": {
+          "type": "integer",
+          "description": "Change to GMI this year. Positive = market growth. Negative = contraction. Range: -5 to +5."
+        },
+
+        "duration": {
+          "type": "object",
+          "required": ["years"],
+          "additionalProperties": false,
+          "properties": {
+            "years": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 4,
+              "description": "How many years this event persists. 1 = single year. 2–4 = multi-year (depression mechanic)."
+            },
+            "durationRoll": {
+              "type": "object",
+              "description": "Optional: roll a die to determine how many years the event lasts.",
+              "required": ["die", "resultMapping"],
+              "properties": {
+                "die": { "type": "string", "enum": ["d3", "d6"] },
+                "resultMapping": {
+                  "type": "string",
+                  "description": "Human-readable mapping of roll to years. E.g. '1–2: 1 year, 3–4: 2 years, 5–6: 3 years'."
+                }
+              }
+            }
+          }
+        },
+
+        "effects": {
+          "type": "array",
+          "description": "Mechanical effects applied to all players this year.",
+          "items": {
+            "type": "object",
+            "required": ["effectType", "description"],
+            "additionalProperties": false,
+            "properties": {
+              "effectType": {
+                "type": "string",
+                "enum": [
+                  "DICE_MODIFIER",
+                  "MARKET_REFRESH",
+                  "LOAN_PRESSURE",
+                  "TAX_MODIFIER",
+                  "STRESS_MODIFIER",
+                  "REPAYMENT_MODIFIER",
+                  "COLLATERAL_TRIGGER",
+                  "INDUSTRY_SPECIFIC"
+                ]
+              },
+              "targetIndustry": {
+                "$ref": "#/definitions/industry",
+                "description": "If effectType is INDUSTRY_SPECIFIC, which industry is targeted."
+              },
+              "magnitude": {
+                "type": "integer",
+                "description": "Numeric magnitude of the effect where applicable."
+              },
+              "description": {
+                "type": "string",
+                "description": "Rules text printed on card. Self-contained and unambiguous."
+              }
+            }
+          },
+          "minItems": 1,
+          "maxItems": 3
+        },
+
+        "flavourText": {
+          "type": "string",
+          "description": "Thematic quote or headline flavour text."
+        }
+      }
+    },
+
+    "personalEventCard": {
+      "type": "object",
+      "description": "Drawn once per player per year. Some play immediately; some are held for later use or sold.",
+      "required": [
+        "cardType",
+        "eventName",
+        "playTiming",
+        "immediateEffect",
+        "flavourText"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "cardType": { "type": "string", "enum": ["PERSONAL_EVENT"] },
+
+        "eventName": {
+          "type": "string",
+          "description": "Thematic name of the event."
+        },
+
+        "playTiming": {
+          "type": "string",
+          "enum": ["IMMEDIATE", "HOLD"],
+          "description": "IMMEDIATE = resolves the moment it is drawn, cannot be held. HOLD = player may keep this card and play it later or sell it for $1."
+        },
+
+        "immediateEffect": {
+          "type": "object",
+          "description": "Effect that fires when this card is played (for IMMEDIATE) or activated (for HOLD).",
+          "required": ["effectType", "description"],
+          "additionalProperties": false,
+          "properties": {
+            "effectType": {
+              "type": "string",
+              "enum": [
+                "STRESS_CHANGE",
+                "CASH_CHANGE",
+                "DEATH_PREVENTION",
+                "DICE_MODIFIER",
+                "LOAN_RELIEF",
+                "MARKET_ACCESS",
+                "TAX_RELIEF",
+                "ASSET_VALUE_CHANGE",
+                "FORCE_SALE",
+                "SPECIAL"
+              ]
+            },
+            "magnitude": {
+              "type": "integer",
+              "description": "Numeric magnitude where applicable. Positive or negative."
+            },
+            "description": {
+              "type": "string",
+              "description": "Full rules text of the effect. Self-contained."
+            },
+            "targetScope": {
+              "type": "string",
+              "enum": ["SELF", "ANY_PLAYER", "ALL_PLAYERS", "OWNED_ASSET"],
+              "description": "Who or what is affected by this card."
+            }
+          }
+        },
+
+        "deathRollEffect": {
+          "type": "object",
+          "description": "If present, this card interacts with the death roll mechanic when played.",
+          "required": ["effectType", "description"],
+          "additionalProperties": false,
+          "properties": {
+            "effectType": {
+              "type": "string",
+              "enum": ["NEGATE_DEATH_ROLL", "REROLL_DEATH", "REDUCE_DEATH_THRESHOLD"],
+              "description": "NEGATE_DEATH_ROLL: cancel a death roll entirely. REROLL_DEATH: roll again and take the better result. REDUCE_DEATH_THRESHOLD: lower stress by amount before this turn's death roll."
+            },
+            "magnitude": {
+              "type": "integer",
+              "description": "For REDUCE_DEATH_THRESHOLD: how much stress is reduced before the roll."
+            },
+            "description": {
+              "type": "string",
+              "description": "Rules text printed on card."
+            }
+          }
+        },
+
+        "saleValue": {
+          "type": "integer",
+          "default": 1,
+          "description": "Cash received if player sells this held card instead of playing it. Default 1 per core rules."
+        },
+
+        "flavourText": {
+          "type": "string",
+          "description": "Thematic quote — ideally darkly funny for death-adjacent cards."
+        }
+      }
+    }
+
+  },
+
+  "oneOf": [
+    { "$ref": "#/definitions/assetCard" },
+    { "$ref": "#/definitions/ceoCard" },
+    { "$ref": "#/definitions/globalEventCard" },
+    { "$ref": "#/definitions/personalEventCard" }
+  ]
+}
