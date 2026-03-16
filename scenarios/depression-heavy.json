@@ -1,0 +1,15 @@
+{
+  "scenarioName": "depression-heavy",
+  "seed": "borrow-and-die-v1",
+  "runs": 100,
+  "players": [
+    { "id": "p1", "agentType": "conservative", "ceoBid": 0 },
+    { "id": "p2", "agentType": "aggressive",   "ceoBid": 2 },
+    { "id": "p3", "agentType": "tech-stack",   "ceoBid": 1 },
+    { "id": "p4", "agentType": "income",       "ceoBid": 0 }
+  ],
+  "industries": ["TECHNOLOGY", "REAL_ESTATE", "ENERGY", "FINANCE", "MANUFACTURING", "MEDIA"],
+  "startingCash": 3,
+  "globalEventDeckBias": { "DEPRESSION": 3 },
+  "marketSeed": null
+}

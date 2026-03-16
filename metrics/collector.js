@@ -346,7 +346,7 @@ export function collect(state) {
     loan_utilization_by_player,
     gmi_by_round,
     tax_offset_by_player,
-    personal_event_actions,
+    personal_event_actions:    personalEventActions,
     integration_bonuses_fired: integrationBonusesFired,
     stress_at_death_roll:      stressAtDeathRolls,
     t3_acquisitions,
