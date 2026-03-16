@@ -1,0 +1,754 @@
+[
+  {
+    "cardType": "CEO",
+    "ceoName": "The Worker",
+    "archetype": "STARTER",
+    "annualIncome": 1,
+    "startingStress": 0,
+    "t3AccessRule": "May bid on Tier 3 assets once you own at least one Tier 2 asset.",
+    "deathRollThreshold": 6,
+    "selectionRule": "Available to all players at game start. Auctioned with minimum bid $0.",
+    "replacementRule": "Replaced on bankruptcy (reselect from available CEOs) or via specific card effects.",
+    "laborPhaseRule": {
+      "bonusIncomeRoll": { "triggerRange": [4, 6], "bonusAmount": 1 },
+      "heldCardSaleValue": 1
+    },
+    "abilities": [
+      {
+        "abilityType": "PASSIVE",
+        "frequency": "ALWAYS",
+        "description": "Roll d6 each year during your personal turn. On 4–6, earn +$1 bonus income on top of your base $1.",
+        "stressEffect": 0
+      },
+      {
+        "abilityType": "PASSIVE",
+        "frequency": "ALWAYS",
+        "description": "Held personal event cards may be sold for $1 each at any time during your settlement phase.",
+        "stressEffect": 0
+      }
+    ],
+    "starterAsset": {
+      "cardType": "ASSET",
+      "companyName": "Day Job",
+      "industry": "MANUFACTURING",
+      "placement": "DOWNSTREAM",
+      "tier": 1,
+      "baseValue": 3,
+      "stress": 0,
+      "income": 1,
+      "baseLoanCapacity": 1,
+      "loanCapacityIncreasePer10AssetValue": 3,
+      "baseValueUpdateRule": {
+        "outcomes": [
+          { "range": [1, 2], "delta": -1 },
+          { "range": [3, 5], "delta": 0 },
+          { "range": [6, 6], "delta": 1 }
+        ],
+        "industryMechanic": "Starter asset — does not occupy an asset slot. Discarded when first market asset is purchased. Passive reassignment: once on discard, transfer the +1 income bonus to your first purchased asset."
+      },
+      "loanRepaymentRule": {
+        "paymentOnTrigger": 1,
+        "outcomes": [
+          { "range": [1, 1], "trigger": true,  "relief": false },
+          { "range": [2, 5], "trigger": false, "relief": false },
+          { "range": [6, 6], "trigger": false, "relief": true  }
+        ]
+      },
+      "verticalIntegrationRules": [],
+      "crossIndustrySynergies": [],
+      "flavourText": "It pays the bills. For now."
+    },
+    "flavourText": "Still figuring out how money works."
+  },
+
+  {
+    "cardType": "CEO",
+    "ceoName": "The Suit",
+    "archetype": "HIGH_INCOME",
+    "annualIncome": 3,
+    "startingStress": 1,
+    "t3AccessRule": "May bid on Tier 3 assets once you own at least one Tier 2 asset.",
+    "deathRollThreshold": 6,
+    "selectionRule": "Available to all players at game start. Auctioned with minimum bid $0.",
+    "replacementRule": "Replaced on bankruptcy (reselect from available CEOs) or via specific card effects.",
+    "laborPhaseRule": {
+      "bonusIncomeRoll": { "triggerRange": [5, 6], "bonusAmount": 1 },
+      "heldCardSaleValue": 1
+    },
+    "abilities": [
+      {
+        "abilityType": "PASSIVE",
+        "frequency": "ALWAYS",
+        "description": "Earn $3 base income per year regardless of assets owned. This income is fully taxable — you must offset it with loan draws or pay 50% tax on the net amount above $1.",
+        "stressEffect": 0
+      },
+      {
+        "abilityType": "ONCE_PER_GAME",
+        "frequency": "ONCE_PER_GAME",
+        "description": "Once per game: before the auction phase, force a full market refresh — discard all 4 current market cards and replace them with 4 new draws. Announce before any bids are placed.",
+        "stressEffect": 0
+      }
+    ],
+    "starterAsset": {
+      "cardType": "ASSET",
+      "companyName": "Corporate Salary Package",
+      "industry": "FINANCE",
+      "placement": "DOWNSTREAM",
+      "tier": 1,
+      "baseValue": 4,
+      "stress": 0,
+      "income": 2,
+      "baseLoanCapacity": 2,
+      "loanCapacityIncreasePer10AssetValue": 4,
+      "baseValueUpdateRule": {
+        "outcomes": [
+          { "range": [1, 2], "delta": -1 },
+          { "range": [3, 5], "delta": 0 },
+          { "range": [6, 6], "delta": 1 }
+        ],
+        "industryMechanic": "Starter asset — high income, moderate loan capacity. Passive reassignment: once on discard, transfer +1 income bonus to your first purchased FINANCE or REAL_ESTATE asset."
+      },
+      "loanRepaymentRule": {
+        "paymentOnTrigger": 1,
+        "outcomes": [
+          { "range": [1, 1], "trigger": true,  "relief": false },
+          { "range": [2, 5], "trigger": false, "relief": false },
+          { "range": [6, 6], "trigger": false, "relief": true  }
+        ]
+      },
+      "verticalIntegrationRules": [],
+      "crossIndustrySynergies": [],
+      "flavourText": "Generous package. Generous tax bill."
+    },
+    "flavourText": "I have a very important meeting. About money."
+  },
+
+  {
+    "cardType": "CEO",
+    "ceoName": "The Gambler",
+    "archetype": "DICE_MODIFIER",
+    "annualIncome": 1,
+    "startingStress": 2,
+    "t3AccessRule": "May bid on Tier 3 assets once you own at least one Tier 2 asset.",
+    "deathRollThreshold": 6,
+    "selectionRule": "Available to all players at game start. Auctioned with minimum bid $0.",
+    "replacementRule": "Replaced on bankruptcy (reselect from available CEOs) or via specific card effects.",
+    "laborPhaseRule": {
+      "bonusIncomeRoll": { "triggerRange": [4, 6], "bonusAmount": 1 },
+      "heldCardSaleValue": 1
+    },
+    "abilities": [
+      {
+        "abilityType": "ONCE_PER_YEAR",
+        "frequency": "ONCE_PER_YEAR",
+        "description": "Once per year during the value update phase: after rolling any one of your asset value update dice, you may reroll it and take the new result. You must take the new result — you cannot revert to the original.",
+        "stressEffect": 0
+      },
+      {
+        "abilityType": "RISK",
+        "frequency": "ON_TRIGGER",
+        "description": "If the rerolled result is strictly lower than the original roll, gain +1 stress immediately. The house always wins eventually.",
+        "stressEffect": 1
+      }
+    ],
+    "starterAsset": {
+      "cardType": "ASSET",
+      "companyName": "Angel Investment",
+      "industry": "FINANCE",
+      "placement": "UPSTREAM",
+      "tier": 1,
+      "baseValue": 3,
+      "stress": 0,
+      "income": 0,
+      "baseLoanCapacity": 1,
+      "loanCapacityIncreasePer10AssetValue": 3,
+      "baseValueUpdateRule": {
+        "outcomes": [
+          { "range": [1, 2], "delta": -2 },
+          { "range": [3, 4], "delta": 0 },
+          { "range": [5, 5], "delta": 2 },
+          { "range": [6, 6], "delta": 4 }
+        ],
+        "industryMechanic": "Starter asset — volatile, zero income, high ceiling. Passive reassignment: once on discard, the reroll ability may be applied to one chosen TECHNOLOGY or MEDIA asset you own for the remainder of the game."
+      },
+      "loanRepaymentRule": {
+        "paymentOnTrigger": 1,
+        "outcomes": [
+          { "range": [1, 2], "trigger": true,  "relief": false },
+          { "range": [3, 5], "trigger": false, "relief": false },
+          { "range": [6, 6], "trigger": false, "relief": true  }
+        ]
+      },
+      "verticalIntegrationRules": [],
+      "crossIndustrySynergies": [],
+      "flavourText": "The deck was stacked. You shuffled it differently."
+    },
+    "flavourText": "The house always wins. I am the house."
+  },
+
+  {
+    "cardType": "CEO",
+    "ceoName": "The Visionary",
+    "archetype": "AGGRESSIVE",
+    "annualIncome": 0,
+    "startingStress": 3,
+    "t3AccessRule": "May bid on Tier 3 assets at any time — does not require owning a Tier 2 asset first. This is the Visionary's unique privilege.",
+    "deathRollThreshold": 6,
+    "selectionRule": "Available to all players at game start. Auctioned with minimum bid $0.",
+    "replacementRule": "Replaced on bankruptcy (reselect from available CEOs) or via specific card effects.",
+    "laborPhaseRule": {
+      "bonusIncomeRoll": { "triggerRange": [5, 6], "bonusAmount": 2 },
+      "heldCardSaleValue": 1
+    },
+    "abilities": [
+      {
+        "abilityType": "PASSIVE",
+        "frequency": "ALWAYS",
+        "description": "May bid on Tier 3 assets in the auction at any time, without needing to own a Tier 2 asset first. The Visionary does not wait for prerequisites.",
+        "stressEffect": 0
+      },
+      {
+        "abilityType": "RISK",
+        "frequency": "ON_TRIGGER",
+        "description": "At the end of any year in which your total asset value did not increase compared to the start of that year, gain +1 stress. Stagnation is existential.",
+        "stressEffect": 1
+      }
+    ],
+    "starterAsset": {
+      "cardType": "ASSET",
+      "companyName": "Stealth Mode",
+      "industry": "TECHNOLOGY",
+      "placement": "UPSTREAM",
+      "tier": 1,
+      "baseValue": 3,
+      "stress": 1,
+      "income": 0,
+      "baseLoanCapacity": 1,
+      "loanCapacityIncreasePer10AssetValue": 2,
+      "baseValueUpdateRule": {
+        "outcomes": [
+          { "range": [1, 1], "delta": -2 },
+          { "range": [2, 3], "delta": 0 },
+          { "range": [4, 5], "delta": 2 },
+          { "range": [6, 6], "delta": 5 }
+        ],
+        "industryMechanic": "Starter asset — high variance, zero income. Passive reassignment: once on discard, transfer the T3 access privilege to one owned TECHNOLOGY or ENERGY asset — that asset counts as unlocking T3 access for integration bonus purposes."
+      },
+      "loanRepaymentRule": {
+        "paymentOnTrigger": 1,
+        "outcomes": [
+          { "range": [1, 2], "trigger": true,  "relief": false },
+          { "range": [3, 5], "trigger": false, "relief": false },
+          { "range": [6, 6], "trigger": false, "relief": true  }
+        ]
+      },
+      "verticalIntegrationRules": [],
+      "crossIndustrySynergies": [],
+      "flavourText": "Pre-revenue. Pre-product. Pre-everything. Fully valued."
+    },
+    "flavourText": "We're not building a company. We're building a legacy."
+  },
+
+  {
+    "cardType": "CEO",
+    "ceoName": "The Bureaucrat",
+    "archetype": "LOW_STRESS",
+    "annualIncome": 2,
+    "startingStress": 0,
+    "t3AccessRule": "May bid on Tier 3 assets once you own at least one Tier 2 asset.",
+    "deathRollThreshold": 8,
+    "selectionRule": "Available to all players at game start. Auctioned with minimum bid $0.",
+    "replacementRule": "Replaced on bankruptcy (reselect from available CEOs) or via specific card effects.",
+    "laborPhaseRule": {
+      "bonusIncomeRoll": { "triggerRange": [4, 6], "bonusAmount": 1 },
+      "heldCardSaleValue": 1
+    },
+    "abilities": [
+      {
+        "abilityType": "PASSIVE",
+        "frequency": "ALWAYS",
+        "description": "Death roll threshold is 8 instead of 6. You must reach stress 8 before any death rolls begin. Extremely hard to kill — but you earn less and grow more slowly than aggressive CEOs.",
+        "stressEffect": 0
+      },
+      {
+        "abilityType": "PASSIVE",
+        "frequency": "ALWAYS",
+        "description": "Loan repayment rolls of 5 also trigger the free loan removal (not just 6). The Bureaucrat has filed the right forms. Lenders comply.",
+        "stressEffect": 0
+      }
+    ],
+    "starterAsset": {
+      "cardType": "ASSET",
+      "companyName": "Government Pension",
+      "industry": "REAL_ESTATE",
+      "placement": "DOWNSTREAM",
+      "tier": 1,
+      "baseValue": 5,
+      "stress": 0,
+      "income": 2,
+      "baseLoanCapacity": 3,
+      "loanCapacityIncreasePer10AssetValue": 5,
+      "baseValueUpdateRule": {
+        "outcomes": [
+          { "range": [1, 3], "delta": 0 },
+          { "range": [4, 5], "delta": 0 },
+          { "range": [6, 6], "delta": 1 }
+        ],
+        "industryMechanic": "Starter asset — near-zero growth, high income, good loan capacity. The safest starter in the game. Passive reassignment: once on discard, transfer +2 base loan capacity to your first purchased REAL_ESTATE or MANUFACTURING asset."
+      },
+      "loanRepaymentRule": {
+        "paymentOnTrigger": 1,
+        "outcomes": [
+          { "range": [1, 1], "trigger": true,  "relief": false },
+          { "range": [2, 4], "trigger": false, "relief": false },
+          { "range": [5, 5], "trigger": false, "relief": true  },
+          { "range": [6, 6], "trigger": false, "relief": true  }
+        ]
+      },
+      "verticalIntegrationRules": [],
+      "crossIndustrySynergies": [],
+      "flavourText": "Defined benefit. Undefined ambition."
+    },
+    "flavourText": "I've filed for an extension on that."
+  },
+
+  {
+    "cardType": "CEO",
+    "ceoName": "The Raider",
+    "archetype": "PREDATOR",
+    "annualIncome": 1,
+    "startingStress": 2,
+    "t3AccessRule": "May bid on Tier 3 assets once you own at least one Tier 2 asset.",
+    "deathRollThreshold": 6,
+    "selectionRule": "Available to all players at game start. Auctioned with minimum bid $0.",
+    "replacementRule": "Replaced on bankruptcy (reselect from available CEOs) or via specific card effects.",
+    "laborPhaseRule": {
+      "bonusIncomeRoll": { "triggerRange": [4, 6], "bonusAmount": 1 },
+      "heldCardSaleValue": 1
+    },
+    "abilities": [
+      {
+        "abilityType": "TRIGGERED",
+        "frequency": "ON_TRIGGER",
+        "description": "Whenever you win a forced sale auction (any asset being sold under duress by another player), pay $1 less than your winning bid (minimum $0). Gain –1 stress. The Raider profits from collapse.",
+        "stressEffect": -1
+      },
+      {
+        "abilityType": "ONCE_PER_YEAR",
+        "frequency": "ONCE_PER_YEAR",
+        "description": "Once per year before the auction phase begins: look at the top 3 cards of the market deck without revealing them to other players. You may leave them in any order.",
+        "stressEffect": 0
+      }
+    ],
+    "starterAsset": {
+      "cardType": "ASSET",
+      "companyName": "Distressed Acquisition",
+      "industry": "FINANCE",
+      "placement": "MIDSTREAM",
+      "tier": 1,
+      "baseValue": 4,
+      "stress": 1,
+      "income": 1,
+      "baseLoanCapacity": 2,
+      "loanCapacityIncreasePer10AssetValue": 4,
+      "baseValueUpdateRule": {
+        "outcomes": [
+          { "range": [1, 1], "delta": -2 },
+          { "range": [2, 3], "delta": 0 },
+          { "range": [4, 5], "delta": 1 },
+          { "range": [6, 6], "delta": 3 }
+        ],
+        "industryMechanic": "Starter asset — moderate risk, moderate income. Passive reassignment: once on discard, transfer the forced-sale discount and –1 stress ability to any owned FINANCE or MANUFACTURING asset."
+      },
+      "loanRepaymentRule": {
+        "paymentOnTrigger": 1,
+        "outcomes": [
+          { "range": [1, 2], "trigger": true,  "relief": false },
+          { "range": [3, 5], "trigger": false, "relief": false },
+          { "range": [6, 6], "trigger": false, "relief": true  }
+        ]
+      },
+      "verticalIntegrationRules": [],
+      "crossIndustrySynergies": [],
+      "flavourText": "Bought it for nothing. It was worth exactly that. For now."
+    },
+    "flavourText": "I don't create value. I acquire it."
+  },
+  {
+    "cardType": "CEO",
+    "ceoName": "The Tax Attorney",
+    "archetype": "TAX_SPECIALIST",
+    "annualIncome": 2,
+    "startingStress": 1,
+    "t3AccessRule": "May bid on Tier 3 assets once you own at least one Tier 2 asset.",
+    "deathRollThreshold": 6,
+    "selectionRule": "Available to all players at game start. Auctioned with minimum bid $0.",
+    "replacementRule": "Replaced on bankruptcy (reselect from available CEOs) or via specific card effects.",
+    "laborPhaseRule": {
+      "bonusIncomeRoll": { "triggerRange": [4, 6], "bonusAmount": 1 },
+      "heldCardSaleValue": 1
+    },
+    "abilities": [
+      {
+        "abilityType": "PASSIVE",
+        "frequency": "ALWAYS",
+        "description": "Your first $2 of income each year is always tax-free (instead of the standard $1 free). The Attorney knows which forms to file.",
+        "stressEffect": 0
+      },
+      {
+        "abilityType": "ONCE_PER_YEAR",
+        "frequency": "ONCE_PER_YEAR",
+        "description": "Once per year during the tax phase: you may treat one loan draw made this year as if it were made against any other owned asset — even one that did not actually receive the loan. This allows income from any single asset to be fully offset regardless of which asset has available capacity.",
+        "stressEffect": 0
+      }
+    ],
+    "starterAsset": {
+      "cardType": "ASSET",
+      "companyName": "Retainer Agreement",
+      "industry": "FINANCE",
+      "placement": "DOWNSTREAM",
+      "tier": 1,
+      "baseValue": 4,
+      "stress": 0,
+      "income": 2,
+      "baseLoanCapacity": 2,
+      "loanCapacityIncreasePer10AssetValue": 4,
+      "baseValueUpdateRule": {
+        "outcomes": [
+          { "range": [1, 2], "delta": -1 },
+          { "range": [3, 5], "delta":  0 },
+          { "range": [6, 6], "delta":  1 }
+        ],
+        "industryMechanic": "Starter asset — steady income, flat growth. Passive reassignment: once on discard, transfer the +$2 tax-free threshold to your first purchased FINANCE or REAL_ESTATE asset for one year."
+      },
+      "loanRepaymentRule": {
+        "paymentOnTrigger": 1,
+        "outcomes": [
+          { "range": [1, 1], "trigger": true,  "relief": false },
+          { "range": [2, 5], "trigger": false, "relief": false },
+          { "range": [6, 6], "trigger": false, "relief": true  }
+        ]
+      },
+      "verticalIntegrationRules": [],
+      "crossIndustrySynergies": [],
+      "flavourText": "Billed hourly. Saved annually."
+    },
+    "flavourText": "It's not tax avoidance. It's tax optimisation. There's a difference. Legally."
+  },
+
+  {
+    "cardType": "CEO",
+    "ceoName": "The Lobbyist",
+    "archetype": "MARKET_MANIPULATOR",
+    "annualIncome": 2,
+    "startingStress": 1,
+    "t3AccessRule": "May bid on Tier 3 assets once you own at least one Tier 2 asset.",
+    "deathRollThreshold": 6,
+    "selectionRule": "Available to all players at game start. Auctioned with minimum bid $0.",
+    "replacementRule": "Replaced on bankruptcy (reselect from available CEOs) or via specific card effects.",
+    "laborPhaseRule": {
+      "bonusIncomeRoll": { "triggerRange": [4, 6], "bonusAmount": 1 },
+      "heldCardSaleValue": 1
+    },
+    "abilities": [
+      {
+        "abilityType": "ONCE_PER_YEAR",
+        "frequency": "ONCE_PER_YEAR",
+        "description": "Once per year immediately after the global event card is drawn: you may adjust the GMI by +1 or –1 before any asset values are updated. Announce your adjustment publicly. The Lobbyist shapes the environment.",
+        "stressEffect": 0
+      },
+      {
+        "abilityType": "PASSIVE",
+        "frequency": "ALWAYS",
+        "description": "Whenever a REGULATORY or STRESS_EVENT global event card is drawn, you may choose to ignore its stress effect entirely — it does not add stress to you this year. You have friends in the right places.",
+        "stressEffect": 0
+      }
+    ],
+    "starterAsset": {
+      "cardType": "ASSET",
+      "companyName": "Political Capital",
+      "industry": "REAL_ESTATE",
+      "placement": "MIDSTREAM",
+      "tier": 1,
+      "baseValue": 4,
+      "stress": 0,
+      "income": 1,
+      "baseLoanCapacity": 2,
+      "loanCapacityIncreasePer10AssetValue": 4,
+      "baseValueUpdateRule": {
+        "outcomes": [
+          { "range": [1, 2], "delta": -1 },
+          { "range": [3, 4], "delta":  0 },
+          { "range": [5, 5], "delta":  1 },
+          { "range": [6, 6], "delta":  2 }
+        ],
+        "industryMechanic": "Starter asset — steady, moderate income, insulated from regulatory events. Passive reassignment: once on discard, transfer the GMI adjustment ability to one ENERGY or MANUFACTURING asset for one use."
+      },
+      "loanRepaymentRule": {
+        "paymentOnTrigger": 1,
+        "outcomes": [
+          { "range": [1, 1], "trigger": true,  "relief": false },
+          { "range": [2, 5], "trigger": false, "relief": false },
+          { "range": [6, 6], "trigger": false, "relief": true  }
+        ]
+      },
+      "verticalIntegrationRules": [],
+      "crossIndustrySynergies": [],
+      "flavourText": "The meeting never happened. The outcome did."
+    },
+    "flavourText": "The policy was going to pass anyway. I just helped it along."
+  },
+
+  {
+    "cardType": "CEO",
+    "ceoName": "The Influencer",
+    "archetype": "FAME_ENGINE",
+    "annualIncome": 0,
+    "startingStress": 2,
+    "t3AccessRule": "May bid on Tier 3 assets once you own at least one Tier 2 asset.",
+    "deathRollThreshold": 6,
+    "selectionRule": "Available to all players at game start. Auctioned with minimum bid $0.",
+    "replacementRule": "Replaced on bankruptcy (reselect from available CEOs) or via specific card effects.",
+    "laborPhaseRule": {
+      "bonusIncomeRoll": { "triggerRange": [4, 6], "bonusAmount": 1 },
+      "heldCardSaleValue": 2
+    },
+    "abilities": [
+      {
+        "abilityType": "PASSIVE",
+        "frequency": "ALWAYS",
+        "description": "Held personal event cards may be sold for $2 each instead of $1. Your personal brand adds a premium to everything.",
+        "stressEffect": 0
+      },
+      {
+        "abilityType": "PASSIVE",
+        "frequency": "ALWAYS",
+        "description": "Whenever your stress increases from any source, your highest-value owned MEDIA_ENTERTAINMENT asset gains +1 current value immediately. Stress is content. Controversy is currency.",
+        "stressEffect": 0
+      }
+    ],
+    "starterAsset": {
+      "cardType": "ASSET",
+      "companyName": "Personal Brand",
+      "industry": "MEDIA_ENTERTAINMENT",
+      "placement": "DOWNSTREAM",
+      "tier": 1,
+      "baseValue": 3,
+      "stress": 1,
+      "income": 0,
+      "baseLoanCapacity": 1,
+      "loanCapacityIncreasePer10AssetValue": 3,
+      "baseValueUpdateRule": {
+        "outcomes": [
+          { "range": [1, 1], "delta": -3 },
+          { "range": [2, 2], "delta":  0 },
+          { "range": [3, 4], "delta":  1 },
+          { "range": [5, 5], "delta":  3 },
+          { "range": [6, 6], "delta":  5 }
+        ],
+        "industryMechanic": "Starter asset — volatile, zero income, entirely dependent on public attention. Buzz die applies. Passive reassignment: once on discard, transfer the stress-to-value conversion to your first purchased MEDIA_ENTERTAINMENT asset."
+      },
+      "loanRepaymentRule": {
+        "paymentOnTrigger": 1,
+        "outcomes": [
+          { "range": [1, 2], "trigger": true,  "relief": false },
+          { "range": [3, 5], "trigger": false, "relief": false },
+          { "range": [6, 6], "trigger": false, "relief": true  }
+        ]
+      },
+      "verticalIntegrationRules": [],
+      "crossIndustrySynergies": [],
+      "flavourText": "The content is the asset. The asset is the content."
+    },
+    "flavourText": "Every crisis is a content opportunity. Every bankruptcy is a redemption arc."
+  },
+
+  {
+    "cardType": "CEO",
+    "ceoName": "The Operator",
+    "archetype": "INTEGRATOR",
+    "annualIncome": 1,
+    "startingStress": 1,
+    "t3AccessRule": "May bid on Tier 3 assets once you own at least one Tier 2 asset.",
+    "deathRollThreshold": 6,
+    "selectionRule": "Available to all players at game start. Auctioned with minimum bid $0.",
+    "replacementRule": "Replaced on bankruptcy (reselect from available CEOs) or via specific card effects.",
+    "laborPhaseRule": {
+      "bonusIncomeRoll": { "triggerRange": [4, 6], "bonusAmount": 1 },
+      "heldCardSaleValue": 1
+    },
+    "abilities": [
+      {
+        "abilityType": "PASSIVE",
+        "frequency": "ALWAYS",
+        "description": "Whenever you activate a vertical integration bonus (2-of-3 or full-stack), you may also activate any one cross-industry synergy you qualify for on the same asset at the same time — no additional asset required. The Operator finds efficiencies others miss.",
+        "stressEffect": 0
+      },
+      {
+        "abilityType": "PASSIVE",
+        "frequency": "ALWAYS",
+        "description": "All vertical integration stress reduction bonuses (printed as '–1 stress' on integration effects) are doubled — they reduce your stress by 2 instead of 1. Building coherent portfolios is what you do.",
+        "stressEffect": 0
+      }
+    ],
+    "starterAsset": {
+      "cardType": "ASSET",
+      "companyName": "Management Consultancy",
+      "industry": "MANUFACTURING",
+      "placement": "MIDSTREAM",
+      "tier": 1,
+      "baseValue": 4,
+      "stress": 0,
+      "income": 1,
+      "baseLoanCapacity": 2,
+      "loanCapacityIncreasePer10AssetValue": 4,
+      "baseValueUpdateRule": {
+        "outcomes": [
+          { "range": [1, 2], "delta": -1 },
+          { "range": [3, 4], "delta":  0 },
+          { "range": [5, 5], "delta":  1 },
+          { "range": [6, 6], "delta":  2 }
+        ],
+        "industryMechanic": "Starter asset — steady, moderate income, manufacturing-aligned. Passive reassignment: once on discard, transfer the doubled stress reduction bonus to your first purchased MANUFACTURING or REAL_ESTATE asset for one integration activation."
+      },
+      "loanRepaymentRule": {
+        "paymentOnTrigger": 1,
+        "outcomes": [
+          { "range": [1, 1], "trigger": true,  "relief": false },
+          { "range": [2, 5], "trigger": false, "relief": false },
+          { "range": [6, 6], "trigger": false, "relief": true  }
+        ]
+      },
+      "verticalIntegrationRules": [],
+      "crossIndustrySynergies": [],
+      "flavourText": "The synergies are real. The savings are on a slide deck. The stress reduction is immediate."
+    },
+    "flavourText": "Every inefficiency is an opportunity. I own all of them."
+  },
+
+  {
+    "cardType": "CEO",
+    "ceoName": "The Heir",
+    "archetype": "OLD_MONEY",
+    "annualIncome": 1,
+    "startingStress": 1,
+    "t3AccessRule": "May bid on Tier 3 assets once you own at least one Tier 2 asset.",
+    "deathRollThreshold": 6,
+    "selectionRule": "Available to all players at game start. Auctioned with minimum bid $0.",
+    "replacementRule": "Replaced on bankruptcy (reselect from available CEOs) or via specific card effects.",
+    "laborPhaseRule": {
+      "bonusIncomeRoll": { "triggerRange": [4, 6], "bonusAmount": 1 },
+      "heldCardSaleValue": 1
+    },
+    "abilities": [
+      {
+        "abilityType": "PASSIVE",
+        "frequency": "ALWAYS",
+        "description": "At game start, before the first auction round, place your starter asset into your asset slots as a full owned asset — it counts toward your 3-asset limit and occupies a real slot. You begin with a functional portfolio from round one. The starter asset's full rules apply including stress.",
+        "stressEffect": 0
+      },
+      {
+        "abilityType": "PASSIVE",
+        "frequency": "ALWAYS",
+        "description": "Your starter asset is never discarded when you purchase your first market asset — you keep it in your asset slot. You may voluntarily sell it like any other asset. The family doesn't let go of things easily.",
+        "stressEffect": 0
+      }
+    ],
+    "starterAsset": {
+      "cardType": "ASSET",
+      "companyName": "Family Estate",
+      "industry": "REAL_ESTATE",
+      "placement": "UPSTREAM",
+      "tier": 1,
+      "baseValue": 7,
+      "stress": 1,
+      "income": 1,
+      "baseLoanCapacity": 4,
+      "loanCapacityIncreasePer10AssetValue": 6,
+      "baseValueUpdateRule": {
+        "outcomes": [
+          { "range": [1, 2], "delta":  0 },
+          { "range": [3, 4], "delta":  0 },
+          { "range": [5, 5], "delta":  1 },
+          { "range": [6, 6], "delta":  2 }
+        ],
+        "industryMechanic": "This starter asset is permanent — it occupies a full asset slot and is never discarded on first purchase. Higher base value and loan capacity than any other starter. Very low growth — old wealth preserves, it does not multiply."
+      },
+      "loanRepaymentRule": {
+        "paymentOnTrigger": 1,
+        "outcomes": [
+          { "range": [1, 1], "trigger": true,  "relief": false },
+          { "range": [2, 5], "trigger": false, "relief": false },
+          { "range": [6, 6], "trigger": false, "relief": true  }
+        ]
+      },
+      "verticalIntegrationRules": [],
+      "crossIndustrySynergies": [],
+      "flavourText": "It was in the family for three generations. It will be borrowed against for one."
+    },
+    "flavourText": "I didn't build this. That's not the point. The point is it's mine."
+  },
+
+  {
+    "cardType": "CEO",
+    "ceoName": "The Short Seller",
+    "archetype": "CONTRARIAN",
+    "annualIncome": 1,
+    "startingStress": 2,
+    "t3AccessRule": "May bid on Tier 3 assets once you own at least one Tier 2 asset.",
+    "deathRollThreshold": 6,
+    "selectionRule": "Available to all players at game start. Auctioned with minimum bid $0.",
+    "replacementRule": "Replaced on bankruptcy (reselect from available CEOs) or via specific card effects.",
+    "laborPhaseRule": {
+      "bonusIncomeRoll": { "triggerRange": [4, 6], "bonusAmount": 1 },
+      "heldCardSaleValue": 1
+    },
+    "abilities": [
+      {
+        "abilityType": "ONCE_PER_YEAR",
+        "frequency": "ONCE_PER_YEAR",
+        "description": "Once per year before the value update phase: declare one asset owned by any player (including yourself) as your 'short position'. If that asset's value decreases this year, gain $2 cash. If it increases, gain +1 stress. You are betting against someone. It might be yourself.",
+        "stressEffect": 0
+      },
+      {
+        "abilityType": "PASSIVE",
+        "frequency": "ALWAYS",
+        "description": "Whenever the GMI delta is negative this year (any CORRECTION, RECESSION, DEPRESSION, or STRESS_EVENT card), gain $1 cash at the start of the value update phase. Bad years are your business model.",
+        "stressEffect": 0
+      }
+    ],
+    "starterAsset": {
+      "cardType": "ASSET",
+      "companyName": "Bear Fund",
+      "industry": "FINANCE",
+      "placement": "UPSTREAM",
+      "tier": 1,
+      "baseValue": 3,
+      "stress": 1,
+      "income": 0,
+      "baseLoanCapacity": 1,
+      "loanCapacityIncreasePer10AssetValue": 3,
+      "baseValueUpdateRule": {
+        "outcomes": [
+          { "range": [1, 2], "delta":  2 },
+          { "range": [3, 4], "delta":  0 },
+          { "range": [5, 5], "delta": -1 },
+          { "range": [6, 6], "delta": -2 }
+        ],
+        "industryMechanic": "Starter asset — inverted delta table. High rolls are bad; low rolls are good. This asset grows in bad times and falls in good ones. Zero income — this is a hedging instrument, not a business. Passive reassignment: once on discard, transfer the negative-GMI $1 bonus to your first purchased FINANCE asset."
+      },
+      "loanRepaymentRule": {
+        "paymentOnTrigger": 1,
+        "outcomes": [
+          { "range": [1, 2], "trigger": true,  "relief": false },
+          { "range": [3, 5], "trigger": false, "relief": false },
+          { "range": [6, 6], "trigger": false, "relief": true  }
+        ]
+      },
+      "verticalIntegrationRules": [],
+      "crossIndustrySynergies": [],
+      "flavourText": "The table is set for everyone else. You're eating the tablecloth."
+    },
+    "flavourText": "I don't root for failure. I just profit from it. There's a difference. Financially."
+  }
+]
