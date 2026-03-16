@@ -1,0 +1,764 @@
+[
+
+  {
+    "cardType": "PERSONAL_EVENT",
+    "category": "STRESS_RELIEF",
+    "eventName": "Therapist Session",
+    "playTiming": "HOLD",
+    "immediateEffect": {
+      "effectType": "STRESS_CHANGE",
+      "magnitude": -1,
+      "description": "Play at any time during your turn. Reduce your stress by 1.",
+      "targetScope": "SELF"
+    },
+    "saleValue": 1,
+    "flavourText": "She said I have control issues. I said I have leverage issues. Same thing."
+  },
+
+  {
+    "cardType": "PERSONAL_EVENT",
+    "category": "STRESS_RELIEF",
+    "eventName": "Green Juice Cleanse",
+    "playTiming": "HOLD",
+    "immediateEffect": {
+      "effectType": "STRESS_CHANGE",
+      "magnitude": -1,
+      "description": "Play at any time during your turn. Reduce your stress by 1.",
+      "targetScope": "SELF"
+    },
+    "deathRollEffect": {
+      "effectType": "NEGATE_DEATH_ROLL",
+      "description": "Alternatively, discard this card instead of making a death roll. You survive this year automatically."
+    },
+    "saleValue": 1,
+    "flavourText": "Cold-pressed. Small-batch. Completely ineffective against leveraged debt."
+  },
+
+  {
+    "cardType": "PERSONAL_EVENT",
+    "category": "STRESS_RELIEF",
+    "eventName": "Weekend in Tuscany",
+    "playTiming": "HOLD",
+    "immediateEffect": {
+      "effectType": "STRESS_CHANGE",
+      "magnitude": -2,
+      "description": "Play at any time during your turn. Reduce your stress by 2.",
+      "targetScope": "SELF"
+    },
+    "saleValue": 1,
+    "flavourText": "No phone. No news. Fourteen emails about collateral violations when you return."
+  },
+
+  {
+    "cardType": "PERSONAL_EVENT",
+    "category": "STRESS_RELIEF",
+    "eventName": "Bought a Boat",
+    "playTiming": "HOLD",
+    "immediateEffect": {
+      "effectType": "STRESS_CHANGE",
+      "magnitude": -1,
+      "description": "Play at any time during your turn. Reduce your stress by 1.",
+      "targetScope": "SELF"
+    },
+    "saleValue": 1,
+    "flavourText": "The two best days: the day you buy it, and the day you use it to offset income."
+  },
+
+  {
+    "cardType": "PERSONAL_EVENT",
+    "category": "STRESS_RELIEF",
+    "eventName": "Meditation App Subscription",
+    "playTiming": "HOLD",
+    "immediateEffect": {
+      "effectType": "STRESS_CHANGE",
+      "magnitude": -1,
+      "description": "Play at any time during your turn. Reduce your stress by 1.",
+      "targetScope": "SELF"
+    },
+    "saleValue": 1,
+    "flavourText": "Breathe in. Breathe out. Your loan-to-value ratio is still 94%."
+  },
+
+  {
+    "cardType": "PERSONAL_EVENT",
+    "category": "STRESS_RELIEF",
+    "eventName": "Ignored All News",
+    "playTiming": "HOLD",
+    "immediateEffect": {
+      "effectType": "STRESS_CHANGE",
+      "magnitude": -1,
+      "description": "Play at any time during your turn. Reduce your stress by 1. Note: you may not use Market Manipulation cards or Information cards this year.",
+      "targetScope": "SELF"
+    },
+    "saleValue": 1,
+    "flavourText": "Bliss is a news blackout. Until the margin call."
+  },
+
+  {
+    "cardType": "PERSONAL_EVENT",
+    "category": "STRESS_RELIEF",
+    "eventName": "Personal Trainer",
+    "playTiming": "HOLD",
+    "immediateEffect": {
+      "effectType": "STRESS_CHANGE",
+      "magnitude": -1,
+      "description": "Play at any time during your turn. Reduce your stress by 1.",
+      "targetScope": "SELF"
+    },
+    "saleValue": 1,
+    "flavourText": "Cortisol is down. Net worth is up. Stress is complicated."
+  },
+
+  {
+    "cardType": "PERSONAL_EVENT",
+    "category": "STRESS_RELIEF",
+    "eventName": "Early Retirement Consultant",
+    "playTiming": "HOLD",
+    "immediateEffect": {
+      "effectType": "STRESS_CHANGE",
+      "magnitude": -2,
+      "description": "Play at any time during your turn. Reduce your stress by 2. You may only play this card if your current stress is 4 or higher.",
+      "targetScope": "SELF"
+    },
+    "saleValue": 1,
+    "flavourText": "She ran the numbers. The numbers said don't retire yet. You feel better anyway."
+  },
+
+  {
+    "cardType": "PERSONAL_EVENT",
+    "category": "DEATH_PREVENTION",
+    "eventName": "Bribed the Right Doctor",
+    "playTiming": "HOLD",
+    "immediateEffect": {
+      "effectType": "DEATH_PREVENTION",
+      "description": "Hold this card. When you are required to make a death roll, you may discard this card instead — you survive automatically. No roll is made.",
+      "targetScope": "SELF"
+    },
+    "deathRollEffect": {
+      "effectType": "NEGATE_DEATH_ROLL",
+      "description": "Discard this card instead of making a death roll. You survive this year automatically."
+    },
+    "saleValue": 1,
+    "flavourText": "The report said excellent health. The invoice was more honest."
+  },
+
+  {
+    "cardType": "PERSONAL_EVENT",
+    "category": "DEATH_PREVENTION",
+    "eventName": "Miracle Supplement Regimen",
+    "playTiming": "HOLD",
+    "immediateEffect": {
+      "effectType": "DEATH_PREVENTION",
+      "description": "Hold this card. When you are required to make a death roll, you may discard this card instead — you survive automatically. No roll is made.",
+      "targetScope": "SELF"
+    },
+    "deathRollEffect": {
+      "effectType": "NEGATE_DEATH_ROLL",
+      "description": "Discard this card instead of making a death roll. You survive automatically."
+    },
+    "saleValue": 1,
+    "flavourText": "$400 a month. Clinically unproven. Absolutely worth it."
+  },
+
+  {
+    "cardType": "PERSONAL_EVENT",
+    "category": "DEATH_PREVENTION",
+    "eventName": "Found God Momentarily",
+    "playTiming": "HOLD",
+    "immediateEffect": {
+      "effectType": "STRESS_CHANGE",
+      "magnitude": -1,
+      "description": "Hold this card. When played normally: reduce your stress by 1. Alternatively, see death roll effect.",
+      "targetScope": "SELF"
+    },
+    "deathRollEffect": {
+      "effectType": "REROLL_DEATH",
+      "description": "Discard this card to reroll your death die and take the better of the two results. Divine intervention has a limited-time offer."
+    },
+    "saleValue": 1,
+    "flavourText": "It didn't last. But it lasted long enough."
+  },
+
+  {
+    "cardType": "PERSONAL_EVENT",
+    "category": "DEATH_PREVENTION",
+    "eventName": "The Numbers Looked Wrong",
+    "playTiming": "PASSIVE",
+    "passiveRule": "Hold this card. It is always active. If you would die on a death roll of 1, treat a roll of 1 as a roll of 2 instead (you survive). Discard this card at the end of the year in which it saves you.",
+    "immediateEffect": {
+      "effectType": "DEATH_PREVENTION",
+      "description": "PASSIVE — always active while held. If your death roll result is 1, treat it as 2 (survive) instead. Auto-discards after it saves you.",
+      "targetScope": "SELF"
+    },
+    "deathRollEffect": {
+      "effectType": "REDUCE_DEATH_THRESHOLD",
+      "magnitude": 0,
+      "description": "If the death roll result is 1, treat it as 2 (the minimum surviving roll). Does not affect results of 2 or higher."
+    },
+    "saleValue": 1,
+    "flavourText": "Everyone said the model was fine. It wasn't, but you survived anyway."
+  },
+
+  {
+    "cardType": "PERSONAL_EVENT",
+    "category": "CASH_WINDFALL",
+    "eventName": "Inheritance",
+    "playTiming": "IMMEDIATE",
+    "immediateEffect": {
+      "effectType": "CASH_CHANGE",
+      "magnitude": 3,
+      "description": "Gain $3 immediately.",
+      "targetScope": "SELF"
+    },
+    "saleValue": 1,
+    "flavourText": "You didn't know him well. The estate was well-structured."
+  },
+
+  {
+    "cardType": "PERSONAL_EVENT",
+    "category": "CASH_WINDFALL",
+    "eventName": "Side Hustle Pays Off",
+    "playTiming": "IMMEDIATE",
+    "immediateEffect": {
+      "effectType": "CASH_CHANGE",
+      "magnitude": 2,
+      "description": "Gain $2 immediately.",
+      "targetScope": "SELF"
+    },
+    "saleValue": 1,
+    "flavourText": "It was never about the money. But also: it was about the money."
+  },
+
+  {
+    "cardType": "PERSONAL_EVENT",
+    "category": "CASH_WINDFALL",
+    "eventName": "Consulting Gig",
+    "playTiming": "IMMEDIATE",
+    "immediateEffect": {
+      "effectType": "CASH_CHANGE",
+      "magnitude": 2,
+      "description": "Gain $2 immediately. If you currently own no assets (labor phase), gain $3 instead.",
+      "targetScope": "SELF"
+    },
+    "saleValue": 1,
+    "flavourText": "They paid full rate. You told them what they already knew."
+  },
+
+  {
+    "cardType": "PERSONAL_EVENT",
+    "category": "CASH_WINDFALL",
+    "eventName": "Legal Settlement",
+    "playTiming": "IMMEDIATE",
+    "immediateEffect": {
+      "effectType": "CASH_CHANGE",
+      "magnitude": 3,
+      "description": "Gain $3 immediately. This income is tax-free — do not add it to your taxable income this year.",
+      "targetScope": "SELF"
+    },
+    "saleValue": 1,
+    "flavourText": "Non-disclosure. Non-taxable. Non-regrettable."
+  },
+
+  {
+    "cardType": "PERSONAL_EVENT",
+    "category": "CASH_WINDFALL",
+    "eventName": "Speaking Fee",
+    "playTiming": "IMMEDIATE",
+    "immediateEffect": {
+      "effectType": "CASH_CHANGE",
+      "magnitude": 2,
+      "description": "Gain $2 immediately. If GMI was positive this year (the global event card had a positive base GMI), gain $3 instead.",
+      "targetScope": "SELF"
+    },
+    "saleValue": 1,
+    "flavourText": "Forty minutes on 'building wealth in uncertain times.' The irony was lost on nobody."
+  },
+
+  {
+    "cardType": "PERSONAL_EVENT",
+    "category": "CASH_WINDFALL",
+    "eventName": "Dividend Surprise",
+    "playTiming": "IMMEDIATE",
+    "immediateEffect": {
+      "effectType": "CASH_CHANGE",
+      "magnitude": 2,
+      "description": "Gain $2 immediately. If you own at least 2 assets, gain $3 instead.",
+      "targetScope": "SELF"
+    },
+    "saleValue": 1,
+    "flavourText": "The board voted. For once, the money moved in the right direction."
+  },
+
+  {
+    "cardType": "PERSONAL_EVENT",
+    "category": "CASH_DRAIN",
+    "eventName": "Lawyer Bills",
+    "playTiming": "IMMEDIATE",
+    "immediateEffect": {
+      "effectType": "CASH_CHANGE",
+      "magnitude": -2,
+      "description": "Lose $2 immediately. If you cannot pay, gain +1 stress instead.",
+      "targetScope": "SELF"
+    },
+    "saleValue": 1,
+    "flavourText": "Six hundred an hour. The invoice arrived before the advice."
+  },
+
+  {
+    "cardType": "PERSONAL_EVENT",
+    "category": "CASH_DRAIN",
+    "eventName": "Lifestyle Inflation",
+    "playTiming": "IMMEDIATE",
+    "immediateEffect": {
+      "effectType": "CASH_CHANGE",
+      "magnitude": -1,
+      "description": "Lose $1 immediately. If you own 3 assets, lose $2 instead — success has a higher overhead.",
+      "targetScope": "SELF"
+    },
+    "saleValue": 1,
+    "flavourText": "The house got bigger. The number got smaller. Same feeling."
+  },
+
+  {
+    "cardType": "PERSONAL_EVENT",
+    "category": "CASH_DRAIN",
+    "eventName": "Friend's Startup",
+    "playTiming": "IMMEDIATE",
+    "immediateEffect": {
+      "effectType": "CASH_CHANGE",
+      "magnitude": -1,
+      "description": "Lose $1 immediately. If you cannot pay, gain +1 stress instead. You supported it. There are no regrets. There are only memories.",
+      "targetScope": "SELF"
+    },
+    "saleValue": 1,
+    "flavourText": "The pitch deck was excellent. The product was not."
+  },
+
+  {
+    "cardType": "PERSONAL_EVENT",
+    "category": "CASH_DRAIN",
+    "eventName": "Renovation Overrun",
+    "playTiming": "IMMEDIATE",
+    "immediateEffect": {
+      "effectType": "CASH_CHANGE",
+      "magnitude": -2,
+      "description": "Lose $2 immediately. If you own a REAL_ESTATE asset, lose $1 instead — at least the property value went up.",
+      "targetScope": "SELF"
+    },
+    "saleValue": 1,
+    "flavourText": "It was supposed to take six weeks. It took fourteen. The quote was decorative."
+  },
+
+  {
+    "cardType": "PERSONAL_EVENT",
+    "category": "TAX_EVENT",
+    "eventName": "Audited",
+    "playTiming": "IMMEDIATE",
+    "immediateEffect": {
+      "effectType": "TAX_RELIEF",
+      "magnitude": -2,
+      "description": "Pay $2 in taxes immediately. This cannot be offset by loans this year — the payment is mandatory. If you cannot pay, gain +1 stress instead.",
+      "targetScope": "SELF"
+    },
+    "saleValue": 1,
+    "flavourText": "Turns out 'aggressive tax planning' has a legal definition."
+  },
+
+  {
+    "cardType": "PERSONAL_EVENT",
+    "category": "TAX_EVENT",
+    "eventName": "Tax Shelter",
+    "playTiming": "HOLD",
+    "immediateEffect": {
+      "effectType": "TAX_RELIEF",
+      "magnitude": 2,
+      "description": "Play during the tax phase this year. Offset up to $2 of additional taxable income for free this year — as if you had borrowed an extra $2 against your assets. Discard after use.",
+      "targetScope": "SELF"
+    },
+    "saleValue": 1,
+    "flavourText": "It's in the Caymans. It's perfectly legal. You prefer not to explain further."
+  },
+
+  {
+    "cardType": "PERSONAL_EVENT",
+    "category": "TAX_EVENT",
+    "eventName": "Refund",
+    "playTiming": "IMMEDIATE",
+    "immediateEffect": {
+      "effectType": "TAX_RELIEF",
+      "magnitude": 1,
+      "description": "Reduce your total taxes paid by $1. This is a permanent reduction — your score improves by 1.",
+      "targetScope": "SELF"
+    },
+    "saleValue": 1,
+    "flavourText": "They owed you. They admitted it. In writing. Frame it."
+  },
+
+  {
+    "cardType": "PERSONAL_EVENT",
+    "category": "TAX_EVENT",
+    "eventName": "Deferred Liability",
+    "playTiming": "PASSIVE",
+    "passiveRule": "Hold this card. It is always active. At the end of the game during final scoring, add $2 to your total taxes paid. This card cannot be discarded voluntarily — it must be held until scoring unless you go bankrupt (bankruptcy discards all held cards).",
+    "immediateEffect": {
+      "effectType": "TAX_RELIEF",
+      "magnitude": -2,
+      "description": "PASSIVE — always active while held. At final scoring, add $2 to your total taxes paid. Cannot be discarded voluntarily. Going bankrupt discards it.",
+      "targetScope": "SELF"
+    },
+    "saleValue": 0,
+    "flavourText": "You'll deal with it later. Later has arrived."
+  },
+
+  {
+    "cardType": "PERSONAL_EVENT",
+    "category": "TAX_EVENT",
+    "eventName": "Whistleblower",
+    "playTiming": "HOLD",
+    "immediateEffect": {
+      "effectType": "TAX_RELIEF",
+      "magnitude": -1,
+      "description": "Play at any time during your turn. Choose one other player. That player must immediately pay $1 in taxes — this cannot be offset by loans and cannot be refused. If they cannot pay, they gain +1 stress instead. You gain +$1 as an informant's reward.",
+      "targetScope": "ANY_PLAYER"
+    },
+    "saleValue": 1,
+    "flavourText": "You noticed the discrepancy. You reported it. It was the right thing to do and also $1."
+  },
+
+  {
+    "cardType": "PERSONAL_EVENT",
+    "category": "LOAN_EVENT",
+    "eventName": "Margin Call",
+    "playTiming": "IMMEDIATE",
+    "immediateEffect": {
+      "effectType": "LOAN_RELIEF",
+      "magnitude": -1,
+      "description": "Remove 1 loan token from any of your assets, paying $1 as normal. If you cannot pay the $1, a collateral violation is triggered on that asset — resolve immediately.",
+      "targetScope": "OWNED_ASSET"
+    },
+    "saleValue": 1,
+    "flavourText": "The call came at 6am. They don't wait for business hours."
+  },
+
+  {
+    "cardType": "PERSONAL_EVENT",
+    "category": "LOAN_EVENT",
+    "eventName": "Refinancing Window",
+    "playTiming": "HOLD",
+    "immediateEffect": {
+      "effectType": "LOAN_RELIEF",
+      "magnitude": 2,
+      "description": "Play during the settlement phase. Remove up to 2 loan tokens from any combination of your assets for free — no cash payment required. Lenders are offering better terms.",
+      "targetScope": "OWNED_ASSET"
+    },
+    "saleValue": 1,
+    "flavourText": "The rate dropped. You called them before they called you."
+  },
+
+  {
+    "cardType": "PERSONAL_EVENT",
+    "category": "LOAN_EVENT",
+    "eventName": "Emergency Credit Line",
+    "playTiming": "HOLD",
+    "immediateEffect": {
+      "effectType": "LOAN_RELIEF",
+      "magnitude": 3,
+      "description": "Play during the loan phase. Draw up to 3 additional loan tokens on one owned asset this year, even if this exceeds that asset's current loan capacity. Next year's settlement: this asset makes 1 additional repayment roll regardless of loan count.",
+      "targetScope": "OWNED_ASSET"
+    },
+    "saleValue": 1,
+    "flavourText": "They extended the facility. The interest was not discussed. The interest was enormous."
+  },
+
+  {
+    "cardType": "PERSONAL_EVENT",
+    "category": "LOAN_EVENT",
+    "eventName": "Lender Confidence",
+    "playTiming": "PASSIVE",
+    "passiveRule": "Hold this card. While held, one owned asset of your choice gains +2 loan capacity. When you sell that asset, draw a different asset to apply the bonus to, or discard this card if you own no assets.",
+    "immediateEffect": {
+      "effectType": "LOAN_RELIEF",
+      "magnitude": 2,
+      "description": "PASSIVE — always active while held. One owned asset of your choice has +2 loan capacity. Reassign when the asset is sold.",
+      "targetScope": "OWNED_ASSET"
+    },
+    "saleValue": 1,
+    "flavourText": "The bank called to increase your limit. For once, you didn't need it. You took it anyway."
+  },
+
+  {
+    "cardType": "PERSONAL_EVENT",
+    "category": "LOAN_EVENT",
+    "eventName": "Covenant Breach",
+    "playTiming": "IMMEDIATE",
+    "immediateEffect": {
+      "effectType": "LOAN_RELIEF",
+      "magnitude": -1,
+      "description": "All your loan repayment roll trigger thresholds increase by 1 this year only — a card that triggers on 1 now triggers on 1–2, and a card that triggers on 1–2 now triggers on 1–3. You breached a lending covenant. The lenders noticed.",
+      "targetScope": "SELF"
+    },
+    "saleValue": 1,
+    "flavourText": "It was in the footnotes. You didn't read the footnotes."
+  },
+
+  {
+    "cardType": "PERSONAL_EVENT",
+    "category": "LOAN_EVENT",
+    "eventName": "Debt-to-Income Review",
+    "playTiming": "IMMEDIATE",
+    "immediateEffect": {
+      "effectType": "LOAN_RELIEF",
+      "magnitude": -1,
+      "description": "If your total loan tokens exceed your total income (from all owned assets plus CEO), remove 1 loan token of your choice immediately (paying $1). If you cannot pay, gain +1 stress instead. If your loans do not exceed your income, nothing happens — discard this card.",
+      "targetScope": "SELF"
+    },
+    "saleValue": 1,
+    "flavourText": "The underwriter has questions. Mostly about the leverage."
+  },
+
+  {
+    "cardType": "PERSONAL_EVENT",
+    "category": "MARKET_MANIPULATION",
+    "eventName": "Inside Information",
+    "playTiming": "HOLD",
+    "immediateEffect": {
+      "effectType": "MARKET_ACCESS",
+      "description": "Play before the auction begins this year. Look at the top 3 cards of the market deck in order without revealing them to other players. You may reorder them in any sequence.",
+      "targetScope": "SELF"
+    },
+    "saleValue": 1,
+    "flavourText": "A source. An email. A very specific set of asset purchases."
+  },
+
+  {
+    "cardType": "PERSONAL_EVENT",
+    "category": "MARKET_MANIPULATION",
+    "eventName": "Block Bid",
+    "playTiming": "HOLD",
+    "immediateEffect": {
+      "effectType": "MARKET_ACCESS",
+      "description": "Play at the start of the auction phase. Choose one other player. That player may not bid on any market card this auction round. They may still pass normally.",
+      "targetScope": "ANY_PLAYER"
+    },
+    "saleValue": 1,
+    "flavourText": "There was a conflict of interest. You made sure the conflict was theirs."
+  },
+
+  {
+    "cardType": "PERSONAL_EVENT",
+    "category": "MARKET_MANIPULATION",
+    "eventName": "Market Refresh",
+    "playTiming": "HOLD",
+    "immediateEffect": {
+      "effectType": "MARKET_ACCESS",
+      "description": "Play before the auction begins this year. Discard all current market cards and replace them with new cards drawn from the market deck. The refresh happens before any bids are placed.",
+      "targetScope": "SELF"
+    },
+    "saleValue": 1,
+    "flavourText": "You didn't like what was on the table. You changed what was on the table."
+  },
+
+  {
+    "cardType": "PERSONAL_EVENT",
+    "category": "MARKET_MANIPULATION",
+    "eventName": "Recall",
+    "playTiming": "HOLD",
+    "immediateEffect": {
+      "effectType": "MARKET_ACCESS",
+      "description": "Play before the auction begins this year. Choose any one asset card from the discard pile and place it face-up in the market alongside the current market cards. It is available for bidding this auction at its printed IPO price.",
+      "targetScope": "SELF"
+    },
+    "saleValue": 1,
+    "flavourText": "The asset came back. The original owner should have held on."
+  },
+
+  {
+    "cardType": "PERSONAL_EVENT",
+    "category": "MARKET_MANIPULATION",
+    "eventName": "Preferred Buyer",
+    "playTiming": "HOLD",
+    "immediateEffect": {
+      "effectType": "MARKET_ACCESS",
+      "description": "Play at the start of the auction phase. Choose one market card currently available. You may bid on it before normal auction order begins — other players then bid in normal order after you. You do not get a second bid in normal order for that card.",
+      "targetScope": "SELF"
+    },
+    "saleValue": 1,
+    "flavourText": "First mover advantage. The mover was you."
+  },
+
+  {
+    "cardType": "PERSONAL_EVENT",
+    "category": "DICE_MODIFIER",
+    "eventName": "Lucky Break",
+    "playTiming": "HOLD",
+    "immediateEffect": {
+      "effectType": "DICE_MODIFIER",
+      "description": "Play during the value update phase this year. Choose one of your asset value update dice after rolling it. You may reroll it and take either the original or new result — your choice.",
+      "targetScope": "OWNED_ASSET"
+    },
+    "saleValue": 1,
+    "flavourText": "The die was kind. Or you made it kind. The distinction doesn't matter."
+  },
+
+  {
+    "cardType": "PERSONAL_EVENT",
+    "category": "DICE_MODIFIER",
+    "eventName": "Forced Reroll",
+    "playTiming": "HOLD",
+    "immediateEffect": {
+      "effectType": "DICE_MODIFIER",
+      "description": "Play during the value update phase this year. Choose one other player. They must reroll their highest value update die result this year and take the new result — even if the new result is worse for them.",
+      "targetScope": "ANY_PLAYER"
+    },
+    "saleValue": 1,
+    "flavourText": "The result was inconvenient. You made it someone else's inconvenience."
+  },
+
+  {
+    "cardType": "PERSONAL_EVENT",
+    "category": "DICE_MODIFIER",
+    "eventName": "Optimism",
+    "playTiming": "HOLD",
+    "immediateEffect": {
+      "effectType": "DICE_MODIFIER",
+      "magnitude": 2,
+      "description": "Play during the value update phase this year. Add +2 to the result of one of your asset value update die rolls this year. Cannot raise a result above 6.",
+      "targetScope": "OWNED_ASSET"
+    },
+    "saleValue": 1,
+    "flavourText": "You believed in the asset. The asset, briefly, believed back."
+  },
+
+  {
+    "cardType": "PERSONAL_EVENT",
+    "category": "DICE_MODIFIER",
+    "eventName": "Pessimism",
+    "playTiming": "HOLD",
+    "immediateEffect": {
+      "effectType": "DICE_MODIFIER",
+      "magnitude": -2,
+      "description": "Play during the value update phase this year. Subtract 2 from the result of one other player's asset value update die roll (minimum result of 1). You choose which die and which player.",
+      "targetScope": "ANY_PLAYER"
+    },
+    "saleValue": 1,
+    "flavourText": "You saw the downside risk. You made sure they felt it too."
+  },
+
+  {
+    "cardType": "PERSONAL_EVENT",
+    "category": "ASSET_EVENT",
+    "eventName": "Windfall Gain",
+    "playTiming": "IMMEDIATE",
+    "immediateEffect": {
+      "effectType": "ASSET_VALUE_CHANGE",
+      "magnitude": 3,
+      "description": "Choose one asset you own. Its current value increases by 3 immediately. This is not a dice roll — the increase is applied directly to the asset's running total.",
+      "targetScope": "OWNED_ASSET"
+    },
+    "saleValue": 1,
+    "flavourText": "The market moved. Specifically, it moved toward you."
+  },
+
+  {
+    "cardType": "PERSONAL_EVENT",
+    "category": "ASSET_EVENT",
+    "eventName": "Market Correction",
+    "playTiming": "HOLD",
+    "immediateEffect": {
+      "effectType": "ASSET_VALUE_CHANGE",
+      "magnitude": -2,
+      "description": "Play at any time during your turn. Choose any asset owned by any player (including yourself). That asset's current value decreases by 2 immediately. This may trigger a collateral violation — resolve immediately.",
+      "targetScope": "ANY_PLAYER"
+    },
+    "saleValue": 1,
+    "flavourText": "Gravity is not a theory. It is a schedule."
+  },
+
+  {
+    "cardType": "PERSONAL_EVENT",
+    "category": "INFORMATION_SOCIAL",
+    "eventName": "Networking Event",
+    "playTiming": "IMMEDIATE",
+    "immediateEffect": {
+      "effectType": "SPECIAL",
+      "description": "Choose one other player. They must truthfully reveal their current total taxes paid to you. This information is private — only you learn it. You may use it to inform your bidding and tax strategy.",
+      "targetScope": "ANY_PLAYER"
+    },
+    "saleValue": 1,
+    "flavourText": "Three canapés and a confession about tax exposure."
+  },
+
+  {
+    "cardType": "PERSONAL_EVENT",
+    "category": "INFORMATION_SOCIAL",
+    "eventName": "Press Coverage",
+    "playTiming": "IMMEDIATE",
+    "immediateEffect": {
+      "effectType": "ASSET_VALUE_CHANGE",
+      "magnitude": 2,
+      "description": "Your lowest-value owned asset gains +2 current value immediately. If you own no assets, gain $2 cash instead — brand value without the asset.",
+      "targetScope": "OWNED_ASSET"
+    },
+    "saleValue": 1,
+    "flavourText": "The article was flattering. The fundamentals were not. Nobody read the fundamentals."
+  },
+
+  {
+    "cardType": "PERSONAL_EVENT",
+    "category": "INFORMATION_SOCIAL",
+    "eventName": "Industry Conference",
+    "playTiming": "IMMEDIATE",
+    "immediateEffect": {
+      "effectType": "SPECIAL",
+      "description": "Draw an additional personal event card from the deck immediately. Resolve it normally — if it is IMMEDIATE, apply it now; if it is HOLD or PASSIVE, add it to your hand.",
+      "targetScope": "SELF"
+    },
+    "saleValue": 1,
+    "flavourText": "The keynote was useless. The hallway conversation was worth $2."
+  },
+
+  {
+    "cardType": "PERSONAL_EVENT",
+    "category": "INFORMATION_SOCIAL",
+    "eventName": "Cold Open",
+    "playTiming": "IMMEDIATE",
+    "immediateEffect": {
+      "effectType": "SPECIAL",
+      "description": "Look at the top card of the global event deck without revealing it to other players. You now know what next year's global event will be. You may factor this into your bidding, loan strategy, and asset management for the remainder of this year.",
+      "targetScope": "SELF"
+    },
+    "saleValue": 1,
+    "flavourText": "You saw the headline before anyone else. A one-year advantage. Use it."
+  },
+
+  {
+    "cardType": "PERSONAL_EVENT",
+    "category": "LEGACY_EFFECT",
+    "eventName": "Final Dividend",
+    "playTiming": "PASSIVE",
+    "passiveRule": "Hold this card until the game ends. At final scoring, choose one asset you own — that asset's value counts as +5 higher for scoring purposes only. Does not affect actual asset value or loan capacity. Discards at scoring.",
+    "immediateEffect": {
+      "effectType": "SPECIAL",
+      "description": "PASSIVE — hold until game ends. At final scoring, one owned asset of your choice counts +5 higher for score calculation only. The asset's printed value is unchanged for all other purposes.",
+      "targetScope": "OWNED_ASSET"
+    },
+    "saleValue": 1,
+    "flavourText": "The last cheque is always the biggest."
+  },
+
+  {
+    "cardType": "PERSONAL_EVENT",
+    "category": "LEGACY_EFFECT",
+    "eventName": "Last Will",
+    "playTiming": "PASSIVE",
+    "passiveRule": "Hold this card until the game ends or you die. At final scoring, you may sell one owned asset to the bank at its current value — you receive that cash, which adds to your score. The asset does not go to auction. If you die before the final round, this card is discarded unused.",
+    "immediateEffect": {
+      "effectType": "SPECIAL",
+      "description": "PASSIVE — hold until game ends or death. At final scoring, sell one owned asset to the bank at current value (cash received counts toward your score). Bypasses auction. Discarded if you die before final scoring.",
+      "targetScope": "OWNED_ASSET"
+    },
+    "saleValue": 1,
+    "flavourText": "It was all in the will. The will was in the safe. The safe was in the Caymans."
+  }
+
+]
