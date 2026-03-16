@@ -1,0 +1,375 @@
+[
+  {
+    "cardType": "ASSET",
+    "companyName": "Hollow Sun Studios",
+    "industry": "MEDIA_ENTERTAINMENT",
+    "placement": "UPSTREAM",
+    "tier": 1,
+    "baseValue": 4,
+    "stress": 1,
+    "income": 0,
+    "baseLoanCapacity": 2,
+    "loanCapacityIncreasePer10AssetValue": 4,
+    "baseValueUpdateRule": {
+      "outcomes": [
+        { "range": [1, 1], "delta": -4 },
+        { "range": [2, 2], "delta": -1 },
+        { "range": [3, 3], "delta": 0 },
+        { "range": [4, 4], "delta": 2 },
+        { "range": [5, 5], "delta": 4 },
+        { "range": [6, 6], "delta": 7 }
+      ],
+      "industryMechanic": "Buzz die: each year before rolling your value update die, roll a separate d6 (the buzz die). On 1–2 (bad buzz) roll your value update die twice and take the LOWER result. On 3–6 (good buzz) roll twice and take the HIGHER result. The printed deltas represent single-roll outcomes — buzz determines which end of the distribution you land on."
+    },
+    "loanRepaymentRule": {
+      "paymentOnTrigger": 1,
+      "outcomes": [
+        { "range": [1, 2], "trigger": true,  "relief": false },
+        { "range": [3, 5], "trigger": false, "relief": false },
+        { "range": [6, 6], "trigger": false, "relief": true  }
+      ]
+    },
+    "verticalIntegrationRules": [
+      {
+        "requiresIndustry": "MEDIA_ENTERTAINMENT",
+        "requiresPlacement": "MIDSTREAM",
+        "effectType": "SPECIAL",
+        "effectDescription": "If you also own a MEDIA_ENTERTAINMENT MIDSTREAM asset, once per year you may lock in the buzz die result before rolling your value update die — choose HIGH buzz (take the higher of two rolls) regardless of what the buzz die shows. IP feeding a live platform guarantees distribution reach.",
+        "stressReduction": 0
+      }
+    ],
+    "crossIndustrySynergies": [
+      {
+        "requiresIndustry": "TECHNOLOGY",
+        "requiresPlacement": "UPSTREAM",
+        "effectType": "LOAN_CAPACITY_BONUS",
+        "effectMagnitude": 3,
+        "effectDescription": "If you also own a TECHNOLOGY UPSTREAM asset, this asset's loan capacity increases by 3. Cloud-hosted content libraries have physical infrastructure backing — lenders treat them differently to pure IP."
+      }
+    ],
+    "flavourText": "The script is great. The financing is creative."
+  },
+
+  {
+    "cardType": "ASSET",
+    "companyName": "Wavelength Streaming Co.",
+    "industry": "MEDIA_ENTERTAINMENT",
+    "placement": "MIDSTREAM",
+    "tier": 1,
+    "baseValue": 5,
+    "stress": 1,
+    "income": 1,
+    "baseLoanCapacity": 2,
+    "loanCapacityIncreasePer10AssetValue": 4,
+    "baseValueUpdateRule": {
+      "outcomes": [
+        { "range": [1, 1], "delta": -3 },
+        { "range": [2, 2], "delta": -1 },
+        { "range": [3, 3], "delta": 0 },
+        { "range": [4, 4], "delta": 2 },
+        { "range": [5, 5], "delta": 3 },
+        { "range": [6, 6], "delta": 6 }
+      ],
+      "industryMechanic": "Buzz die: each year before rolling your value update die, roll a separate d6. On 1–2 (bad buzz) roll twice and take the LOWER result. On 3–6 (good buzz) roll twice and take the HIGHER result. Subscriber churn is the bad buzz equivalent for a streaming platform — one bad content cycle and the numbers fall."
+    },
+    "loanRepaymentRule": {
+      "paymentOnTrigger": 1,
+      "outcomes": [
+        { "range": [1, 2], "trigger": true,  "relief": false },
+        { "range": [3, 5], "trigger": false, "relief": false },
+        { "range": [6, 6], "trigger": false, "relief": true  }
+      ]
+    },
+    "verticalIntegrationRules": [
+      {
+        "requiresIndustry": "MEDIA_ENTERTAINMENT",
+        "requiresPlacement": "UPSTREAM",
+        "effectType": "SPECIAL",
+        "effectDescription": "If you also own a MEDIA_ENTERTAINMENT UPSTREAM asset, once per year you may lock in HIGH buzz for this asset's value update roll. Owned IP supply removes the single biggest content risk for a streaming platform.",
+        "stressReduction": 0
+      },
+      {
+        "requiresIndustry": "MEDIA_ENTERTAINMENT",
+        "requiresPlacement": "DOWNSTREAM",
+        "effectType": "VALUE_GROWTH_BOOST",
+        "effectMagnitude": 1,
+        "effectDescription": "If you also own a MEDIA_ENTERTAINMENT DOWNSTREAM asset, add +1 to all positive delta outcomes on this asset's update roll. Live events drive platform subscriptions — the audience flywheel accelerates.",
+        "stressReduction": 0
+      }
+    ],
+    "crossIndustrySynergies": [],
+    "flavourText": "Three thousand titles. Four people actually watching."
+  },
+
+  {
+    "cardType": "ASSET",
+    "companyName": "Meridian Live Events",
+    "industry": "MEDIA_ENTERTAINMENT",
+    "placement": "DOWNSTREAM",
+    "tier": 1,
+    "baseValue": 4,
+    "stress": 1,
+    "income": 1,
+    "baseLoanCapacity": 2,
+    "loanCapacityIncreasePer10AssetValue": 4,
+    "baseValueUpdateRule": {
+      "outcomes": [
+        { "range": [1, 1], "delta": -4 },
+        { "range": [2, 2], "delta": -2 },
+        { "range": [3, 3], "delta": 0 },
+        { "range": [4, 4], "delta": 2 },
+        { "range": [5, 5], "delta": 4 },
+        { "range": [6, 6], "delta": 6 }
+      ],
+      "industryMechanic": "Buzz die: each year before rolling your value update die, roll a separate d6. On 1–2 (bad buzz) roll twice and take the LOWER result. On 3–6 (good buzz) roll twice and take the HIGHER result. Live events are binary — a sold-out tour is spectacular; a cancelled tour is catastrophic."
+    },
+    "loanRepaymentRule": {
+      "paymentOnTrigger": 1,
+      "outcomes": [
+        { "range": [1, 2], "trigger": true,  "relief": false },
+        { "range": [3, 5], "trigger": false, "relief": false },
+        { "range": [6, 6], "trigger": false, "relief": true  }
+      ]
+    },
+    "verticalIntegrationRules": [
+      {
+        "requiresIndustry": "MEDIA_ENTERTAINMENT",
+        "requiresPlacement": "MIDSTREAM",
+        "effectType": "CRASH_FLOOR",
+        "effectMagnitude": 1,
+        "effectDescription": "If you also own a MEDIA_ENTERTAINMENT MIDSTREAM asset, this asset's value update roll can never produce a delta lower than -2. Platform distribution provides a pre-sold audience floor — catastrophic event failures become manageable shortfalls.",
+        "stressReduction": 0
+      }
+    ],
+    "crossIndustrySynergies": [
+      {
+        "requiresIndustry": "REAL_ESTATE",
+        "requiresPlacement": "MIDSTREAM",
+        "effectType": "LOAN_CAPACITY_BONUS",
+        "effectMagnitude": 3,
+        "effectDescription": "If you also own a REAL_ESTATE MIDSTREAM asset, this asset's loan capacity increases by 3. Venue-owning real estate converts ephemeral live revenue into a bankable physical asset backing."
+      }
+    ],
+    "flavourText": "Rain date: TBD. Refund policy: non-existent."
+  },
+
+  {
+    "cardType": "ASSET",
+    "companyName": "Aurelius Content Group",
+    "industry": "MEDIA_ENTERTAINMENT",
+    "placement": "UPSTREAM",
+    "tier": 2,
+    "baseValue": 12,
+    "stress": 2,
+    "income": 0,
+    "baseLoanCapacity": 3,
+    "loanCapacityIncreasePer10AssetValue": 4,
+    "baseValueUpdateRule": {
+      "outcomes": [
+        { "range": [1, 1], "delta": -6 },
+        { "range": [2, 2], "delta": -2 },
+        { "range": [3, 3], "delta": 0 },
+        { "range": [4, 4], "delta": 3 },
+        { "range": [5, 5], "delta": 7 },
+        { "range": [6, 6], "delta": 11 }
+      ],
+      "industryMechanic": "Buzz die: each year before rolling your value update die, roll a separate d6. On 1–2 (bad buzz) roll twice and take the LOWER result. On 3–6 (good buzz) roll twice and take the HIGHER result. Major IP studios live and die on franchise cycles — one beloved property can sustain value for years; one misstep can crater it."
+    },
+    "loanRepaymentRule": {
+      "paymentOnTrigger": 1,
+      "outcomes": [
+        { "range": [1, 2], "trigger": true,  "relief": false },
+        { "range": [3, 5], "trigger": false, "relief": false },
+        { "range": [6, 6], "trigger": false, "relief": true  }
+      ]
+    },
+    "verticalIntegrationRules": [
+      {
+        "requiresIndustry": "MEDIA_ENTERTAINMENT",
+        "requiresPlacement": "MIDSTREAM",
+        "effectType": "SPECIAL",
+        "effectDescription": "If you also own a MEDIA_ENTERTAINMENT MIDSTREAM asset, once per year you may lock in HIGH buzz (take the higher of two rolls) on this asset's value update. Owned distribution guarantees IP reaches its audience — good content always lands.",
+        "stressReduction": 1
+      }
+    ],
+    "crossIndustrySynergies": [
+      {
+        "requiresIndustry": "FINANCE",
+        "requiresPlacement": "UPSTREAM",
+        "effectType": "LOAN_CAPACITY_BONUS",
+        "effectMagnitude": 4,
+        "effectDescription": "If you also own a FINANCE UPSTREAM asset, this asset's loan capacity increases by 4. Institutional capital markets treat major IP catalogues as an asset class — securitised royalty streams are bankable at scale."
+      }
+    ],
+    "flavourText": "The IP is the asset. Everything else is just licensing."
+  },
+
+  {
+    "cardType": "ASSET",
+    "companyName": "Nexus Broadcast Network",
+    "industry": "MEDIA_ENTERTAINMENT",
+    "placement": "MIDSTREAM",
+    "tier": 2,
+    "baseValue": 13,
+    "stress": 2,
+    "income": 1,
+    "baseLoanCapacity": 4,
+    "loanCapacityIncreasePer10AssetValue": 4,
+    "baseValueUpdateRule": {
+      "outcomes": [
+        { "range": [1, 1], "delta": -4 },
+        { "range": [2, 2], "delta": -1 },
+        { "range": [3, 3], "delta": 1 },
+        { "range": [4, 4], "delta": 3 },
+        { "range": [5, 5], "delta": 6 },
+        { "range": [6, 6], "delta": 9 }
+      ],
+      "industryMechanic": "Buzz die: each year before rolling your value update die, roll a separate d6. On 1–2 (bad buzz) roll twice and take the LOWER result. On 3–6 (good buzz) roll twice and take the HIGHER result. Broadcast platforms have the most stable income in Media — advertising contracts buffer against bad buzz years."
+    },
+    "loanRepaymentRule": {
+      "paymentOnTrigger": 1,
+      "outcomes": [
+        { "range": [1, 2], "trigger": true,  "relief": false },
+        { "range": [3, 5], "trigger": false, "relief": false },
+        { "range": [6, 6], "trigger": false, "relief": true  }
+      ]
+    },
+    "verticalIntegrationRules": [
+      {
+        "requiresIndustry": "MEDIA_ENTERTAINMENT",
+        "requiresPlacement": "UPSTREAM",
+        "effectType": "SPECIAL",
+        "effectDescription": "If you also own a MEDIA_ENTERTAINMENT UPSTREAM asset, once per year you may lock in HIGH buzz for either this asset or the UPSTREAM asset's value update roll (choose after seeing the buzz die result). Owned IP feed gives the platform editorial control over its own performance.",
+        "stressReduction": 0
+      },
+      {
+        "requiresIndustry": "MEDIA_ENTERTAINMENT",
+        "requiresPlacement": "DOWNSTREAM",
+        "effectType": "SPECIAL",
+        "effectDescription": "If you also own a MEDIA_ENTERTAINMENT DOWNSTREAM asset, once per game you may force a market refresh — remove all current market cards and draw replacements — and place one asset card from the discard pile face-up into the market for the next auction. Full stack controls the cultural moment.",
+        "stressReduction": 1
+      }
+    ],
+    "crossIndustrySynergies": [
+      {
+        "requiresIndustry": "TECHNOLOGY",
+        "requiresPlacement": "MIDSTREAM",
+        "effectType": "LOAN_CAPACITY_BONUS",
+        "effectMagnitude": 4,
+        "effectDescription": "If you also own a TECHNOLOGY MIDSTREAM asset, this asset's loan capacity increases by 4. A streaming platform backed by owned software infrastructure is treated by lenders as a technology asset — far more bankable than a pure media company."
+      }
+    ],
+    "flavourText": "We don't make culture. We schedule it."
+  },
+
+  {
+    "cardType": "ASSET",
+    "companyName": "Colosseum Sports & Live",
+    "industry": "MEDIA_ENTERTAINMENT",
+    "placement": "DOWNSTREAM",
+    "tier": 2,
+    "baseValue": 11,
+    "stress": 2,
+    "income": 1,
+    "baseLoanCapacity": 3,
+    "loanCapacityIncreasePer10AssetValue": 4,
+    "baseValueUpdateRule": {
+      "outcomes": [
+        { "range": [1, 1], "delta": -5 },
+        { "range": [2, 2], "delta": -2 },
+        { "range": [3, 3], "delta": 0 },
+        { "range": [4, 4], "delta": 3 },
+        { "range": [5, 5], "delta": 7 },
+        { "range": [6, 6], "delta": 11 }
+      ],
+      "industryMechanic": "Buzz die: each year before rolling your value update die, roll a separate d6. On 1–2 (bad buzz) roll twice and take the LOWER result. On 3–6 (good buzz) roll twice and take the HIGHER result. Sports franchises are the most extreme buzz assets — a championship run produces the highest possible deltas; a losing season produces the worst."
+    },
+    "loanRepaymentRule": {
+      "paymentOnTrigger": 1,
+      "outcomes": [
+        { "range": [1, 2], "trigger": true,  "relief": false },
+        { "range": [3, 5], "trigger": false, "relief": false },
+        { "range": [6, 6], "trigger": false, "relief": true  }
+      ]
+    },
+    "verticalIntegrationRules": [
+      {
+        "requiresIndustry": "MEDIA_ENTERTAINMENT",
+        "requiresPlacement": "MIDSTREAM",
+        "effectType": "CRASH_FLOOR",
+        "effectMagnitude": 1,
+        "effectDescription": "If you also own a MEDIA_ENTERTAINMENT MIDSTREAM asset, this asset's value update roll can never produce a delta lower than -2. Broadcast rights deals provide guaranteed floor revenue regardless of on-field performance.",
+        "stressReduction": 0
+      }
+    ],
+    "crossIndustrySynergies": [
+      {
+        "requiresIndustry": "TECHNOLOGY",
+        "requiresPlacement": "MIDSTREAM",
+        "effectType": "LOAN_CAPACITY_BONUS",
+        "effectMagnitude": 4,
+        "effectDescription": "If you also own a TECHNOLOGY MIDSTREAM asset, this asset's loan capacity increases by 4. Digital ticketing and streaming rights backed by an owned platform transforms live entertainment into a technology-class asset for lenders."
+      }
+    ],
+    "flavourText": "The players are assets. The fans are the product. The debt is everyone's."
+  },
+
+  {
+    "cardType": "ASSET",
+    "companyName": "Pantheon Global Media",
+    "industry": "MEDIA_ENTERTAINMENT",
+    "placement": "UPSTREAM",
+    "tier": 3,
+    "baseValue": 20,
+    "stress": 3,
+    "income": 0,
+    "baseLoanCapacity": 3,
+    "loanCapacityIncreasePer10AssetValue": 4,
+    "baseValueUpdateRule": {
+      "outcomes": [
+        { "range": [1, 1], "delta": -10 },
+        { "range": [2, 2], "delta": -4 },
+        { "range": [3, 3], "delta": 0 },
+        { "range": [4, 4], "delta": 5 },
+        { "range": [5, 5], "delta": 11 },
+        { "range": [6, 6], "delta": 17 }
+      ],
+      "industryMechanic": "Buzz die: each year before rolling your value update die, roll a separate d6. On 1–2 (bad buzz) roll twice and take the LOWER result. On 3–6 (good buzz) roll twice and take the HIGHER result. At conglomerate scale, the buzz mechanic is existential — a cultural moment generates the highest delta in the game; a scandal generates the lowest. No income: all earnings are reinvested into IP acquisition."
+    },
+    "loanRepaymentRule": {
+      "paymentOnTrigger": 1,
+      "outcomes": [
+        { "range": [1, 3], "trigger": true,  "relief": false },
+        { "range": [4, 5], "trigger": false, "relief": false },
+        { "range": [6, 6], "trigger": false, "relief": true  }
+      ]
+    },
+    "verticalIntegrationRules": [
+      {
+        "requiresIndustry": "MEDIA_ENTERTAINMENT",
+        "requiresPlacement": "MIDSTREAM",
+        "effectType": "SPECIAL",
+        "effectDescription": "If you also own a MEDIA_ENTERTAINMENT MIDSTREAM asset, once per year you may lock in HIGH buzz on this asset's value update roll AND reduce your stress by 1 for this year only. Cultural dominance through owned distribution eliminates bad buzz risk at scale.",
+        "stressReduction": 1
+      },
+      {
+        "requiresIndustry": "MEDIA_ENTERTAINMENT",
+        "requiresPlacement": "DOWNSTREAM",
+        "effectType": "LOAN_CAPACITY_BONUS",
+        "effectMagnitude": 5,
+        "effectDescription": "If you also own a MEDIA_ENTERTAINMENT DOWNSTREAM asset, this asset's loan capacity increases by 5. A full IP-to-audience stack — studio, platform, venue — is the only configuration that makes a media conglomerate bankable at this scale.",
+        "stressReduction": 0
+      }
+    ],
+    "crossIndustrySynergies": [
+      {
+        "requiresIndustry": "FINANCE",
+        "requiresPlacement": "MIDSTREAM",
+        "effectType": "REPAYMENT_RELIEF",
+        "effectMagnitude": 1,
+        "effectDescription": "If you also own a FINANCE MIDSTREAM asset, this asset's loan repayment roll triggers only on a 1 (instead of 1–3). Institutional banking relationships treat IP-backed conglomerates as a distinct asset class — the debt covenant structure is fundamentally different."
+      }
+    ],
+    "flavourText": "The studio owns the story. The story owns the culture. The culture owns everything else."
+  }
+]
