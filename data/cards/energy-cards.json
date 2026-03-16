@@ -1,0 +1,348 @@
+[
+  {
+    "cardType": "ASSET",
+    "companyName": "Duskfield Extraction Co.",
+    "industry": "ENERGY",
+    "placement": "UPSTREAM",
+    "tier": 1,
+    "baseValue": 6,
+    "stress": 1,
+    "income": 1,
+    "baseLoanCapacity": 3,
+    "loanCapacityIncreasePer10AssetValue": 6,
+    "baseValueUpdateRule": {
+      "outcomes": [
+        { "range": [1, 1], "delta": -3 },
+        { "range": [2, 2], "delta": -1 },
+        { "range": [3, 4], "delta": 1 },
+        { "range": [5, 5], "delta": 2 },
+        { "range": [6, 6], "delta": 4 }
+      ],
+      "industryMechanic": "GMI-sensitive: when applying the annual GMI delta to this asset, apply it twice (positive or negative). The ground amplifies everything."
+    },
+    "loanRepaymentRule": {
+      "paymentOnTrigger": 1,
+      "outcomes": [
+        { "range": [1, 2], "trigger": true,  "relief": false },
+        { "range": [3, 5], "trigger": false, "relief": false },
+        { "range": [6, 6], "trigger": false, "relief": true  }
+      ]
+    },
+    "verticalIntegrationRules": [
+      {
+        "requiresIndustry": "ENERGY",
+        "requiresPlacement": "MIDSTREAM",
+        "effectType": "LOAN_CAPACITY_BONUS",
+        "effectMagnitude": 3,
+        "effectDescription": "If you also own an ENERGY MIDSTREAM asset, this asset's loan capacity increases by 3. A pipeline off-take agreement improves lender confidence.",
+        "stressReduction": 0
+      }
+    ],
+    "crossIndustrySynergies": [],
+    "flavourText": "Oil doesn't care about your feelings. It either comes up or it doesn't."
+  },
+
+  {
+    "cardType": "ASSET",
+    "companyName": "Ironvein Pipeline Group",
+    "industry": "ENERGY",
+    "placement": "MIDSTREAM",
+    "tier": 1,
+    "baseValue": 7,
+    "stress": 0,
+    "income": 2,
+    "baseLoanCapacity": 4,
+    "loanCapacityIncreasePer10AssetValue": 6,
+    "baseValueUpdateRule": {
+      "outcomes": [
+        { "range": [1, 1], "delta": -1 },
+        { "range": [2, 3], "delta": 0 },
+        { "range": [4, 5], "delta": 1 },
+        { "range": [6, 6], "delta": 2 }
+      ],
+      "industryMechanic": "GMI-sensitive: when applying the annual GMI delta to this asset, apply it twice. Pipelines are toll roads — volume follows the market."
+    },
+    "loanRepaymentRule": {
+      "paymentOnTrigger": 1,
+      "outcomes": [
+        { "range": [1, 1], "trigger": true,  "relief": false },
+        { "range": [2, 5], "trigger": false, "relief": false },
+        { "range": [6, 6], "trigger": false, "relief": true  }
+      ]
+    },
+    "verticalIntegrationRules": [
+      {
+        "requiresIndustry": "ENERGY",
+        "requiresPlacement": "UPSTREAM",
+        "effectType": "INCOME_OFFSET",
+        "effectMagnitude": 1,
+        "effectDescription": "If you also own an ENERGY UPSTREAM asset, reduce your taxable income from this asset by 1 each year. Vertical supply reduces regulatory exposure.",
+        "stressReduction": 0
+      },
+      {
+        "requiresIndustry": "ENERGY",
+        "requiresPlacement": "DOWNSTREAM",
+        "effectType": "REPAYMENT_RELIEF",
+        "effectMagnitude": 1,
+        "effectDescription": "If you also own an ENERGY DOWNSTREAM asset, this asset's loan repayment roll triggers only on a 1 (instead of 1). Full pipeline control improves lender terms.",
+        "stressReduction": 0
+      }
+    ],
+    "crossIndustrySynergies": [],
+    "flavourText": "The most profitable thing in energy is the pipe between the well and the customer."
+  },
+
+  {
+    "cardType": "ASSET",
+    "companyName": "Bramble Fuel & Distribution",
+    "industry": "ENERGY",
+    "placement": "DOWNSTREAM",
+    "tier": 1,
+    "baseValue": 5,
+    "stress": 0,
+    "income": 2,
+    "baseLoanCapacity": 3,
+    "loanCapacityIncreasePer10AssetValue": 5,
+    "baseValueUpdateRule": {
+      "outcomes": [
+        { "range": [1, 2], "delta": -1 },
+        { "range": [3, 4], "delta": 0 },
+        { "range": [5, 5], "delta": 1 },
+        { "range": [6, 6], "delta": 2 }
+      ],
+      "industryMechanic": "GMI-sensitive: when applying the annual GMI delta to this asset, apply it twice. Consumer fuel demand tracks the broader economy."
+    },
+    "loanRepaymentRule": {
+      "paymentOnTrigger": 1,
+      "outcomes": [
+        { "range": [1, 1], "trigger": true,  "relief": false },
+        { "range": [2, 5], "trigger": false, "relief": false },
+        { "range": [6, 6], "trigger": false, "relief": true  }
+      ]
+    },
+    "verticalIntegrationRules": [
+      {
+        "requiresIndustry": "ENERGY",
+        "requiresPlacement": "MIDSTREAM",
+        "effectType": "CRASH_FLOOR",
+        "effectMagnitude": 1,
+        "effectDescription": "If you also own an ENERGY MIDSTREAM asset, this asset's value update roll can never produce a delta lower than -1 (treat worse results as -1). Supply security limits downside.",
+        "stressReduction": 0
+      }
+    ],
+    "crossIndustrySynergies": [
+      {
+        "requiresIndustry": "MANUFACTURING",
+        "requiresPlacement": "DOWNSTREAM",
+        "effectType": "INCOME_OFFSET",
+        "effectMagnitude": 1,
+        "effectDescription": "If you also own a MANUFACTURING DOWNSTREAM asset, reduce taxable income from this asset by 1. Industrial fuel contracts offset retail tax exposure."
+      }
+    ],
+    "flavourText": "Everyone complains about the price. Nobody stops buying."
+  },
+
+  {
+    "cardType": "ASSET",
+    "companyName": "Castellan Offshore Drilling",
+    "industry": "ENERGY",
+    "placement": "UPSTREAM",
+    "tier": 2,
+    "baseValue": 12,
+    "stress": 1,
+    "income": 2,
+    "baseLoanCapacity": 6,
+    "loanCapacityIncreasePer10AssetValue": 6,
+    "baseValueUpdateRule": {
+      "outcomes": [
+        { "range": [1, 1], "delta": -5 },
+        { "range": [2, 2], "delta": -2 },
+        { "range": [3, 3], "delta": 0 },
+        { "range": [4, 4], "delta": 2 },
+        { "range": [5, 5], "delta": 4 },
+        { "range": [6, 6], "delta": 7 }
+      ],
+      "industryMechanic": "GMI-sensitive: when applying the annual GMI delta to this asset, apply it twice. Offshore operations are levered to global commodity cycles — booms are spectacular, busts are brutal."
+    },
+    "loanRepaymentRule": {
+      "paymentOnTrigger": 1,
+      "outcomes": [
+        { "range": [1, 2], "trigger": true,  "relief": false },
+        { "range": [3, 5], "trigger": false, "relief": false },
+        { "range": [6, 6], "trigger": false, "relief": true  }
+      ]
+    },
+    "verticalIntegrationRules": [
+      {
+        "requiresIndustry": "ENERGY",
+        "requiresPlacement": "MIDSTREAM",
+        "effectType": "LOAN_CAPACITY_BONUS",
+        "effectMagnitude": 4,
+        "effectDescription": "If you also own an ENERGY MIDSTREAM asset, this asset's loan capacity increases by 4. Guaranteed off-take from a pipeline partner expands reserve-based lending.",
+        "stressReduction": 0
+      }
+    ],
+    "crossIndustrySynergies": [
+      {
+        "requiresIndustry": "TECHNOLOGY",
+        "requiresPlacement": "UPSTREAM",
+        "effectType": "GMI_RESISTANCE",
+        "effectMagnitude": 1,
+        "effectDescription": "If you also own a TECHNOLOGY UPSTREAM asset, the GMI double-application mechanic on this asset is reduced to a single application once per game. Sensor and automation tech hedges commodity exposure."
+      }
+    ],
+    "flavourText": "Every barrel is a bet. The platform just raises the stakes."
+  },
+
+  {
+    "cardType": "ASSET",
+    "companyName": "Meridian Power Grid",
+    "industry": "ENERGY",
+    "placement": "MIDSTREAM",
+    "tier": 2,
+    "baseValue": 14,
+    "stress": 1,
+    "income": 2,
+    "baseLoanCapacity": 7,
+    "loanCapacityIncreasePer10AssetValue": 6,
+    "baseValueUpdateRule": {
+      "outcomes": [
+        { "range": [1, 1], "delta": -2 },
+        { "range": [2, 3], "delta": 0 },
+        { "range": [4, 5], "delta": 2 },
+        { "range": [6, 6], "delta": 3 }
+      ],
+      "industryMechanic": "GMI-sensitive: when applying the annual GMI delta to this asset, apply it twice. Grid throughput scales with economic activity — regulated pricing provides a partial floor."
+    },
+    "loanRepaymentRule": {
+      "paymentOnTrigger": 1,
+      "outcomes": [
+        { "range": [1, 1], "trigger": true,  "relief": false },
+        { "range": [2, 5], "trigger": false, "relief": false },
+        { "range": [6, 6], "trigger": false, "relief": true  }
+      ]
+    },
+    "verticalIntegrationRules": [
+      {
+        "requiresIndustry": "ENERGY",
+        "requiresPlacement": "UPSTREAM",
+        "effectType": "INCOME_OFFSET",
+        "effectMagnitude": 1,
+        "effectDescription": "If you also own an ENERGY UPSTREAM asset, reduce taxable income from this asset by 1 each year. Owning your own supply source reduces pass-through costs and regulator scrutiny.",
+        "stressReduction": 0
+      },
+      {
+        "requiresIndustry": "ENERGY",
+        "requiresPlacement": "DOWNSTREAM",
+        "effectType": "LOAN_RESTRUCTURE_FREE",
+        "effectMagnitude": 1,
+        "effectDescription": "If you also own an ENERGY DOWNSTREAM asset, once per year you may move any number of loan tokens between those two assets at no cost, regardless of capacity at the time of transfer. Full vertical stack unlocks free internal refinancing.",
+        "stressReduction": 1
+      }
+    ],
+    "crossIndustrySynergies": [],
+    "flavourText": "The grid doesn't sleep. Neither does the interest."
+  },
+
+  {
+    "cardType": "ASSET",
+    "companyName": "Solace Utility Holdings",
+    "industry": "ENERGY",
+    "placement": "DOWNSTREAM",
+    "tier": 2,
+    "baseValue": 11,
+    "stress": 1,
+    "income": 2,
+    "baseLoanCapacity": 6,
+    "loanCapacityIncreasePer10AssetValue": 5,
+    "baseValueUpdateRule": {
+      "outcomes": [
+        { "range": [1, 2], "delta": -1 },
+        { "range": [3, 4], "delta": 1 },
+        { "range": [5, 5], "delta": 2 },
+        { "range": [6, 6], "delta": 3 }
+      ],
+      "industryMechanic": "GMI-sensitive: when applying the annual GMI delta to this asset, apply it twice. Regulated consumer pricing buffers against sharp swings but cannot fully insulate from macro shifts."
+    },
+    "loanRepaymentRule": {
+      "paymentOnTrigger": 1,
+      "outcomes": [
+        { "range": [1, 1], "trigger": true,  "relief": false },
+        { "range": [2, 5], "trigger": false, "relief": false },
+        { "range": [6, 6], "trigger": false, "relief": true  }
+      ]
+    },
+    "verticalIntegrationRules": [
+      {
+        "requiresIndustry": "ENERGY",
+        "requiresPlacement": "MIDSTREAM",
+        "effectType": "CRASH_FLOOR",
+        "effectMagnitude": 1,
+        "effectDescription": "If you also own an ENERGY MIDSTREAM asset, this asset's value update roll can never produce a delta lower than -1. Captive supply chain limits downside exposure.",
+        "stressReduction": 0
+      }
+    ],
+    "crossIndustrySynergies": [
+      {
+        "requiresIndustry": "FINANCE",
+        "requiresPlacement": "MIDSTREAM",
+        "effectType": "LOAN_CAPACITY_BONUS",
+        "effectMagnitude": 4,
+        "effectDescription": "If you also own a FINANCE MIDSTREAM asset, this asset's loan capacity increases by 4. Regulated utility cash flows are a preferred collateral class for institutional lenders."
+      }
+    ],
+    "flavourText": "Monopoly with paperwork. The best kind."
+  },
+
+  {
+    "cardType": "ASSET",
+    "companyName": "Abyssal Energy Ventures",
+    "industry": "ENERGY",
+    "placement": "UPSTREAM",
+    "tier": 3,
+    "baseValue": 18,
+    "stress": 3,
+    "income": 0,
+    "baseLoanCapacity": 5,
+    "loanCapacityIncreasePer10AssetValue": 4,
+    "baseValueUpdateRule": {
+      "outcomes": [
+        { "range": [1, 1], "delta": -8 },
+        { "range": [2, 2], "delta": -4 },
+        { "range": [3, 3], "delta": 0 },
+        { "range": [4, 4], "delta": 4 },
+        { "range": [5, 5], "delta": 8 },
+        { "range": [6, 6], "delta": 14 }
+      ],
+      "industryMechanic": "GMI-sensitive: when applying the annual GMI delta to this asset, apply it three times (positive or negative). Deep-sea exploration is maximally levered to the global commodity cycle. All capital is paper until the well comes in."
+    },
+    "loanRepaymentRule": {
+      "paymentOnTrigger": 1,
+      "outcomes": [
+        { "range": [1, 3], "trigger": true,  "relief": false },
+        { "range": [4, 5], "trigger": false, "relief": false },
+        { "range": [6, 6], "trigger": false, "relief": true  }
+      ]
+    },
+    "verticalIntegrationRules": [
+      {
+        "requiresIndustry": "ENERGY",
+        "requiresPlacement": "MIDSTREAM",
+        "effectType": "LOAN_CAPACITY_BONUS",
+        "effectMagnitude": 5,
+        "effectDescription": "If you also own an ENERGY MIDSTREAM asset, this asset's loan capacity increases by 5. A confirmed off-take agreement transforms speculative reserves into bankable infrastructure.",
+        "stressReduction": 1
+      }
+    ],
+    "crossIndustrySynergies": [
+      {
+        "requiresIndustry": "TECHNOLOGY",
+        "requiresPlacement": "UPSTREAM",
+        "effectType": "GMI_RESISTANCE",
+        "effectMagnitude": 1,
+        "effectDescription": "If you also own a TECHNOLOGY UPSTREAM asset, reduce the GMI triple-application on this asset to double-application. Autonomous subsea systems reduce operational blow-up risk."
+      }
+    ],
+    "flavourText": "Three kilometres down. Two years of runway. One chance."
+  }
+]
