@@ -31,6 +31,10 @@
  *   agent.gamblerWantsReroll(roll, asset, player, state)  → bool
  *     Called for The Gambler during the value update of each asset.
  *     Return true to consume the ONCE_PER_YEAR reroll on this asset's roll.
+ *
+ *   agent.chooseLoanDraw(player, state)  → number
+ *     Called during SETTLEMENT, before tax calculation.
+ *     Return the number of loan tokens to draw (0 to available capacity).
  */
 
 import {
@@ -44,7 +48,7 @@ import { resolveGlobalEvent, resolvePersonalEvent } from './events.js';
 import { auctionAsset }                              from './market.js';
 import { rollValueUpdate }                           from './asset.js';
 import { detectIntegration, applyIntegrationBonuses } from './integration.js';
-import { checkLoanRepayment, checkCollateralViolation } from './loans.js';
+import { checkLoanRepayment, checkCollateralViolation, computeLoanCapacity } from './loans.js';
 import { computeTaxableIncome, applyTax }            from './taxes.js';
 import { checkDeathRoll }                            from './stress.js';
 
@@ -381,6 +385,35 @@ function runSettlementPhase(state, agentMap, dice) {
       { gmiDelta: state.gmiDelta },
     );
     appendLog(state, ceoLog);
+
+    // ── a.5. Agent loan draw ───────────────────────────────────────────────
+    const agent = agentMap[player.id];
+    if (agent?.chooseLoanDraw) {
+      const assets        = player.assets ?? [];
+      const totalCapacity = assets.reduce(
+        (sum, a) => sum + computeLoanCapacity(a, assets),
+        0,
+      );
+      const available = Math.max(0, totalCapacity - (player.loans ?? 0));
+
+      if (available > 0) {
+        const requested  = agent.chooseLoanDraw(player, state) ?? 0;
+        const drawAmount = Math.min(Math.max(0, requested), available);
+
+        if (drawAmount > 0) {
+          player.loans              = (player.loans ?? 0) + drawAmount;
+          player.cash               = (player.cash  ?? 0) + drawAmount;
+          player.loansDrawnThisYear = (player.loansDrawnThisYear ?? 0) + drawAmount;
+          appendLog(state, [{
+            type:     'LOAN_DRAW',
+            playerId: player.id,
+            amount:   drawAmount,
+            newLoans: player.loans,
+            newCash:  player.cash,
+          }]);
+        }
+      }
+    }
 
     // ── b. Tax computation and settlement ─────────────────────────────────
     const loansDrawnThisYear = player.loansDrawnThisYear ?? 0;
