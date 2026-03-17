@@ -1,0 +1,9 @@
+# Non-core files — ignored by Claude
+README.md
+package-lock.json
+
+# Static data / card definitions
+data/
+
+# Scenario config files (not source code)
+scenarios/*.json
