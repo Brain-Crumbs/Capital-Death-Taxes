@@ -157,6 +157,14 @@ export function collect(state) {
   // playerId → t3 purchase count
   const t3ByPlayer = {};
 
+  // per-round notable events for replay display
+  // { [round]: Array<{ tag, tagClass, text }> }
+  const notableEventsByRound = {};
+  const addNotable = (r, tag, tagClass, text) => {
+    if (!notableEventsByRound[r]) notableEventsByRound[r] = [];
+    notableEventsByRound[r].push({ tag, tagClass, text });
+  };
+
   // ── Single-pass log scan ──────────────────────────────────────────────────
 
   for (const ev of log) {
@@ -177,7 +185,8 @@ export function collect(state) {
       case 'DEATH_ROLL': {
         if (first_death_roll_round === null) first_death_roll_round = round;
         if (!ev.survived) death_count++;
-        stressAtDeathRolls.push({ playerId: ev.playerId, stressLevel: ev.stress });
+        stressAtDeathRolls.push({ playerId: ev.playerId, stressLevel: ev.stress, round });
+        addNotable(round, 'DEATH ROLL', 'death', `${ev.playerId} — stress ${ev.stress}`);
         break;
       }
 
@@ -204,8 +213,13 @@ export function collect(state) {
       }
 
       case 'GMI_UPDATE': {
-        // Keep the last update seen for this round (Lobbyist may adjust after)
-        gmiByRound[round] = ev.newGmi;
+        // Keep the last update seen for this round (Lobbyist may adjust after).
+        // Store the per-round delta (not the cumulative newGmi) so the replay
+        // dashboard can display "GMI Delta this round" correctly.
+        gmiByRound[round] = ev.gmiDelta;
+        const sign = ev.gmiDelta > 0 ? '+' : '';
+        addNotable(round, 'MARKET', 'market',
+          `${ev.eventName}: GMI ${sign}${ev.gmiDelta}`);
         break;
       }
 
@@ -235,6 +249,7 @@ export function collect(state) {
       case 'PERSONAL_EVENT_APPLIED': {
         // IMMEDIATE cards resolve straight away → action PLAY
         personalEventActions.push({ cardName: ev.eventName, action: 'PLAY' });
+        addNotable(round, 'EVENT', 'event', `${ev.playerId}: ${ev.eventName}`);
         break;
       }
 
@@ -255,6 +270,7 @@ export function collect(state) {
           bonusType: ev.effectType,
           round,
         });
+        addNotable(round, 'BONUS', 'bonus', `${ev.playerId}: ${ev.effectType}`);
         break;
       }
 
@@ -352,5 +368,6 @@ export function collect(state) {
     t3_acquisitions,
     income_vs_score,
     has_vertical_stack,
+    notable_events_by_round:   notableEventsByRound,
   };
 }
