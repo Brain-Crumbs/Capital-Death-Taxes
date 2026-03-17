@@ -386,6 +386,9 @@ body {
     <p>Drag &amp; drop a <code>*.json</code> run file here,<br>or click to browse</p>
     <button id="file-btn">Choose File</button>
     <input type="file" id="file-input" accept=".json,application/json">
+    <select id="run-select" style="display:none;margin-top:12px;background:#1a1a3e;color:#e0e0e0;border:1px solid #2a2a5e;padding:6px 10px;border-radius:6px;font-size:0.9rem;">
+      <option value="">— or pick a run from server —</option>
+    </select>
   </div>
   <div id="drop-error"></div>
 </div>
@@ -1666,6 +1669,30 @@ function readFile(file) {
   reader.onload = ev => loadRuns(ev.target.result, file.name);
   reader.onerror = () => setDropError('Failed to read file.');
   reader.readAsText(file);
+}
+
+// ── Server-side run picker (only active when served via HTTP) ────────────
+if (location.protocol !== 'file:') {
+  fetch('/runs/')
+    .then(r => r.json())
+    .then(({ files }) => {
+      if (!files.length) return;
+      const sel = document.getElementById('run-select');
+      files.forEach(f => {
+        const opt = document.createElement('option');
+        opt.value = f;
+        opt.textContent = f;
+        sel.appendChild(opt);
+      });
+      sel.style.display = '';
+      sel.addEventListener('change', async () => {
+        if (!sel.value) return;
+        const res  = await fetch(`/runs/${encodeURIComponent(sel.value)}`);
+        const text = await res.text();
+        loadRuns(text, sel.value);
+      });
+    })
+    .catch(() => {});
 }
 
 // ── Reload button ──────────────────────────────────────────────────────────
