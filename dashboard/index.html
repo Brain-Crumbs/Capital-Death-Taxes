@@ -558,8 +558,8 @@ body {
     <div id="tab-replay" class="tab-panel">
       <div class="section-header">Single-Run Replay</div>
       <div class="replay-controls">
-        <label for="run-select">Run:</label>
-        <select id="run-select"></select>
+        <label for="replay-run-select">Run:</label>
+        <select id="replay-run-select"></select>
         <label for="round-slider">Round:</label>
         <input type="range" id="round-slider" min="1" max="1" value="1" style="width:160px">
         <span id="round-display">Round 1</span>
@@ -1404,7 +1404,7 @@ let _replayRunIdx = 0;
 let _replayRound  = 1;
 
 function populateRunSelect(runs) {
-  const sel = document.getElementById('run-select');
+  const sel = document.getElementById('replay-run-select');
   sel.innerHTML = '';
   runs.forEach((r, i) => {
     const opt = document.createElement('option');
@@ -1549,7 +1549,7 @@ function initReplay(runs) {
   populateRunSelect(runs);
   switchReplayRun(0);
 
-  document.getElementById('run-select').addEventListener('change', e => {
+  document.getElementById('replay-run-select').addEventListener('change', e => {
     switchReplayRun(+e.target.value);
   });
 
