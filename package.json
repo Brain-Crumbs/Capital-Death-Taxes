@@ -5,7 +5,8 @@
   "type": "module",
   "main": "index.js",
   "scripts": {
-    "test": "node test/smoke.js"
+    "test":    "node test/smoke.js",
+    "preview": "node dashboard/server.js"
   },
   "dependencies": {
     "chart.js": "^4.4.0",
