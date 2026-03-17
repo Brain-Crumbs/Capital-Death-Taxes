@@ -324,10 +324,12 @@ body {
   font-size: 0.7rem;
   margin-right: 6px;
 }
-.event-tag.death  { color: #ff1744; }
-.event-tag.bonus  { color: #ffd740; }
-.event-tag.asset  { color: #a5d6a7; }
-.event-tag.gmi    { color: #ce93d8; }
+.event-tag.death   { color: #ff1744; }
+.event-tag.bonus   { color: #ffd740; }
+.event-tag.asset   { color: #a5d6a7; }
+.event-tag.gmi     { color: #ce93d8; }
+.event-tag.market  { color: #ce93d8; }
+.event-tag.event   { color: #80deea; }
 
 /* ── Data table ────────────────────────────────────────────────────────────── */
 .data-table {
@@ -582,6 +584,7 @@ body {
       <div class="chart-wrap" style="margin-bottom:20px">
         <div class="chart-title">Asset Values This Round</div>
         <div class="chart-inner" style="height:220px">
+          <p id="replay-assets-empty" class="muted" style="display:none;padding:16px 0;text-align:center">No assets held this round</p>
           <canvas id="chart-replay-assets"></canvas>
         </div>
       </div>
@@ -1442,27 +1445,7 @@ function renderReplayRound() {
   // ── Events ────────────────────────────────────────────────────────────────
   const evList = document.getElementById('replay-event-list');
   evList.innerHTML = '';
-  const events = [];
-
-  // Integration bonuses this round
-  for (const b of (m.integration_bonuses_fired || [])) {
-    if (b.round === round) {
-      events.push({
-        tag: 'BONUS', tagClass: 'bonus',
-        text: `${b.playerId}: ${b.bonusType}`,
-      });
-    }
-  }
-
-  // Death roll (if this is the first death round)
-  if (m.first_death_roll_round === round) {
-    for (const dr of (m.stress_at_death_roll || [])) {
-      events.push({
-        tag: 'DEATH ROLL', tagClass: 'death',
-        text: `${dr.playerId} — stress ${dr.stressLevel}`,
-      });
-    }
-  }
+  const events = (m.notable_events_by_round ?? {})[round] ?? [];
 
   if (!events.length) {
     const li = document.createElement('li');
@@ -1480,6 +1463,9 @@ function renderReplayRound() {
   const activeAssets = (m.asset_value_trajectories || [])
     .map(t => ({ id: t.assetId, industry: t.industry, val: (t.valueByRound || [])[round - 1] }))
     .filter(a => a.val != null);
+
+  const assetsEmptyEl = document.getElementById('replay-assets-empty');
+  if (assetsEmptyEl) assetsEmptyEl.style.display = activeAssets.length === 0 ? 'block' : 'none';
 
   makeChart('chart-replay-assets', {
     type: 'bar',
