@@ -73,12 +73,24 @@ function aggregateEconomicRates(ms, totalRuns) {
 function aggregateGmi(ms) {
   const maxRounds = Math.max(...ms.map(m => (m.gmi_by_round || []).length), 0);
   const gmiMean = [], gmiStddev = [];
+  const gmiCumMean = [], gmiCumStddev = [];
   for (let r = 0; r < maxRounds; r++) {
     const vals = ms.map(m => (m.gmi_by_round || [])[r]).filter(v => v != null);
     gmiMean.push(mean(vals));
     gmiStddev.push(stddev(vals) || 0);
+
+    const cumVals = ms.map(m => {
+      const byRound = m.gmi_by_round || [];
+      let sum = 0;
+      for (let i = 0; i <= r; i++) {
+        if (byRound[i] != null) sum += byRound[i];
+      }
+      return sum;
+    });
+    gmiCumMean.push(mean(cumVals));
+    gmiCumStddev.push(stddev(cumVals) || 0);
   }
-  return { gmiMean, gmiStddev, maxRounds };
+  return { gmiMean, gmiStddev, gmiCumMean, gmiCumStddev, maxRounds };
 }
 
 function aggregateAssets(ms) {
@@ -171,7 +183,7 @@ export function aggregate(runs) {
   const numericStats = aggregateNumericStats(ms);
   const { winRateByCeo, winRateByIndustry } = aggregateWinRates(ms, runs.length);
   const { incomeTrapRate, taxOffsetRate, integrationRate, loanUtilMean } = aggregateEconomicRates(ms, runs.length);
-  const { gmiMean, gmiStddev, maxRounds } = aggregateGmi(ms);
+  const { gmiMean, gmiStddev, gmiCumMean, gmiCumStddev, maxRounds } = aggregateGmi(ms);
   const { assetMeanByIndustry, finalValsByIndustry } = aggregateAssets(ms);
   const { stressHist, stressScatter, meanStressByArch } = aggregateStress(ms);
   const deathEventsByRound = aggregateDeathEvents(ms);
@@ -186,6 +198,8 @@ export function aggregate(runs) {
     loanUtilMean,
     gmiMean,
     gmiStddev,
+    gmiCumMean,
+    gmiCumStddev,
     assetMeanByIndustry,
     finalValsByIndustry,
     stressHist,
