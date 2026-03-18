@@ -153,14 +153,19 @@ export function applyCEOAbilities(player, phase, state, dice, context = {}) {
       }
     }
 
-    // Visionary RISK: if asset value did not increase, +1 stress
+    // Visionary RISK: if asset value did not increase, roll d6 — stress only on a 1
     if (ceoName === 'The Visionary' && context.assetValueIncreased === false) {
-      player.stress += 1;
+      const roll = dice.d6();
+      const stressGained = roll === 1 ? 1 : 0;
+      if (stressGained > 0) {
+        player.stress += stressGained;
+      }
       logEvents.push({
         type:      'CEO_ABILITY',
         ceoName,
         ability:   'VISIONARY_STAGNATION_STRESS',
-        delta:     1,
+        roll,
+        delta:     stressGained,
         newStress: player.stress,
       });
     }
@@ -234,21 +239,24 @@ export function useGamblerReroll(player, originalRoll, dice) {
 
   as.gamblerRerollUsedThisYear = true;
 
-  const newRoll     = dice.d6();
-  const stressGained = newRoll < originalRoll ? 1 : 0;
+  const newRoll        = dice.d6();
+  const lowerRoll      = newRoll < originalRoll;
+  const mitigationRoll = lowerRoll ? dice.d6() : 0;
+  const stressGained   = (lowerRoll && mitigationRoll === 1) ? 1 : 0;
 
   if (stressGained > 0) {
     player.stress += stressGained;
   }
 
   const logEvent = {
-    type:         'CEO_ABILITY',
-    ceoName:      'The Gambler',
-    ability:      'GAMBLER_REROLL',
-    oldRoll:      originalRoll,
+    type:           'CEO_ABILITY',
+    ceoName:        'The Gambler',
+    ability:        'GAMBLER_REROLL',
+    oldRoll:        originalRoll,
     newRoll,
+    mitigationRoll: lowerRoll ? mitigationRoll : null,
     stressGained,
-    newStress:    player.stress,
+    newStress:      player.stress,
   };
 
   return { newRoll, oldRoll: originalRoll, stressGained, logEvent };
