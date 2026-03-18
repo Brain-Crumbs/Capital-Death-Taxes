@@ -91,47 +91,41 @@ function findWinner(players) {
     p.score > b.score || (p.score === b.score && p.playerId < b.playerId) ? p : b);
 }
 
-function aggregate(runs) {
-  const ms = runs.map(r => r.metrics);
-
-  // scalar numeric stats
+function aggregateNumericStats(ms) {
   const numericStats = {};
   ['game_length_rounds','first_asset_round','first_death_roll_round',
    'death_count','bankruptcy_count','collateral_violation_count'].forEach(k => {
     const vals = ms.map(m => m[k]).filter(v => v != null);
     numericStats[k] = { mean: mean(vals), stddev: stddev(vals), vals };
   });
+  return numericStats;
+}
 
-  // win rate by CEO
+function aggregateWinRates(ms, totalRuns) {
   const winsByCeo = {};
-  for (const m of ms) {
-    const players = m.final_score_by_player || [];
-    if (!players.length) continue;
-    const winner = findWinner(players);
-    const arch = winner.ceoArchetype || 'UNKNOWN';
-    winsByCeo[arch] = (winsByCeo[arch] || 0) + 1;
-  }
-  const winRateByCeo = Object.fromEntries(
-    Object.entries(winsByCeo).map(([k,v]) => [k, v / runs.length])
-  );
-
-  // win rate by industry
   const winsByInd = {};
   let winCount = 0;
   for (const m of ms) {
     const players = m.final_score_by_player || [];
     if (!players.length) continue;
     const winner = findWinner(players);
+    const arch = winner.ceoArchetype || 'UNKNOWN';
+    winsByCeo[arch] = (winsByCeo[arch] || 0) + 1;
     winCount++;
     for (const ind of (winner.industries || [])) {
       winsByInd[ind] = (winsByInd[ind] || 0) + 1;
     }
   }
+  const winRateByCeo = Object.fromEntries(
+    Object.entries(winsByCeo).map(([k,v]) => [k, v / totalRuns])
+  );
   const winRateByIndustry = Object.fromEntries(
     Object.entries(winsByInd).map(([k,v]) => [k, v / (winCount || 1)])
   );
+  return { winRateByCeo, winRateByIndustry };
+}
 
-  // income trap rate
+function aggregateEconomicRates(ms, totalRuns) {
   const allPlayers = ms.flatMap(m => m.income_vs_score || []);
   const medScore = median(allPlayers.map(p => p.finalScore));
   const highIncome = allPlayers.filter(p => p.totalIncome > 2);
@@ -139,21 +133,21 @@ function aggregate(runs) {
     ? highIncome.filter(p => p.finalScore < medScore).length / highIncome.length
     : null;
 
-  // tax offset rate
   const offsetRatios = ms
     .flatMap(m => m.tax_offset_by_player || [])
     .filter(p => p.grossIncome > 0)
     .map(p => p.offset / p.grossIncome);
   const taxOffsetRate = mean(offsetRatios);
 
-  // integration achieved rate
-  const integrationRate = ms.filter(m => m.has_vertical_stack).length / runs.length;
+  const integrationRate = ms.filter(m => m.has_vertical_stack).length / totalRuns;
 
-  // loan utilization mean
   const allRatios = ms.flatMap(m => m.loan_utilization_by_player || []).map(p => p.ratio);
   const loanUtilMean = mean(allRatios);
 
-  // GMI per round: align arrays, compute mean ± stddev per position
+  return { incomeTrapRate, taxOffsetRate, integrationRate, loanUtilMean };
+}
+
+function aggregateGmi(ms) {
   const maxRounds = Math.max(...ms.map(m => (m.gmi_by_round || []).length), 0);
   const gmiMean = [], gmiStddev = [];
   for (let r = 0; r < maxRounds; r++) {
@@ -161,8 +155,10 @@ function aggregate(runs) {
     gmiMean.push(mean(vals));
     gmiStddev.push(stddev(vals) || 0);
   }
+  return { gmiMean, gmiStddev, maxRounds };
+}
 
-  // Asset value trajectories: group by industry, align by round, compute mean
+function aggregateAssets(ms) {
   const industryTrajectories = {};
   for (const m of ms) {
     for (const traj of (m.asset_value_trajectories || [])) {
@@ -182,7 +178,6 @@ function aggregate(runs) {
     assetMeanByIndustry[ind] = means;
   }
 
-  // Final asset values by industry (last non-null value per trajectory)
   const finalValsByIndustry = {};
   for (const m of ms) {
     for (const traj of (m.asset_value_trajectories || [])) {
@@ -195,9 +190,12 @@ function aggregate(runs) {
     }
   }
 
-  // Stress at death roll histogram (0–12)
+  return { assetMeanByIndustry, finalValsByIndustry };
+}
+
+function aggregateStress(ms) {
   const stressHist = new Array(13).fill(0);
-  const stressScatter = []; // { stress, score, arch }
+  const stressScatter = [];
   for (const m of ms) {
     const scoreMap = {};
     const archMap  = {};
@@ -216,7 +214,6 @@ function aggregate(runs) {
     }
   }
 
-  // Mean stress at death roll by CEO archetype
   const stressByArch = {};
   for (const ev of stressScatter) {
     if (!stressByArch[ev.arch]) stressByArch[ev.arch] = [];
@@ -226,7 +223,10 @@ function aggregate(runs) {
     Object.entries(stressByArch).map(([k,v]) => [k, mean(v)])
   );
 
-  // Death/bankruptcy by round
+  return { stressHist, stressScatter, meanStressByArch };
+}
+
+function aggregateDeathEvents(ms) {
   const deathEventsByRound = {};
   for (const m of ms) {
     const r = m.first_death_roll_round;
@@ -237,6 +237,19 @@ function aggregate(runs) {
       deathEventsByRound[r].runs   += 1;
     }
   }
+  return deathEventsByRound;
+}
+
+function aggregate(runs) {
+  const ms = runs.map(r => r.metrics);
+
+  const numericStats = aggregateNumericStats(ms);
+  const { winRateByCeo, winRateByIndustry } = aggregateWinRates(ms, runs.length);
+  const { incomeTrapRate, taxOffsetRate, integrationRate, loanUtilMean } = aggregateEconomicRates(ms, runs.length);
+  const { gmiMean, gmiStddev, maxRounds } = aggregateGmi(ms);
+  const { assetMeanByIndustry, finalValsByIndustry } = aggregateAssets(ms);
+  const { stressHist, stressScatter, meanStressByArch } = aggregateStress(ms);
+  const deathEventsByRound = aggregateDeathEvents(ms);
 
   return {
     numericStats,
