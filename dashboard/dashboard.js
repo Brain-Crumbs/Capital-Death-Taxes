@@ -70,6 +70,11 @@ function median(arr) { return percentile(arr, 50); }
 
 // ── Aggregate raw runs → summary stats ──────────────────────────────────────
 
+function findWinner(players) {
+  return players.reduce((b, p) =>
+    p.score > b.score || (p.score === b.score && p.playerId < b.playerId) ? p : b);
+}
+
 function aggregate(runs) {
   const ms = runs.map(r => r.metrics);
 
@@ -86,8 +91,7 @@ function aggregate(runs) {
   for (const m of ms) {
     const players = m.final_score_by_player || [];
     if (!players.length) continue;
-    const winner = players.reduce((b, p) =>
-      p.score > b.score || (p.score === b.score && p.playerId < b.playerId) ? p : b);
+    const winner = findWinner(players);
     const arch = winner.ceoArchetype || 'UNKNOWN';
     winsByCeo[arch] = (winsByCeo[arch] || 0) + 1;
   }
@@ -101,8 +105,7 @@ function aggregate(runs) {
   for (const m of ms) {
     const players = m.final_score_by_player || [];
     if (!players.length) continue;
-    const winner = players.reduce((b, p) =>
-      p.score > b.score || (p.score === b.score && p.playerId < b.playerId) ? p : b);
+    const winner = findWinner(players);
     winCount++;
     for (const ind of (winner.industries || [])) {
       winsByInd[ind] = (winsByInd[ind] || 0) + 1;
