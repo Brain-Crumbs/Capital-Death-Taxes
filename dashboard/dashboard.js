@@ -48,6 +48,22 @@ function healthColor(metric, val) {
   return 'card-red';
 }
 
+const HEALTH_RGBA = {
+  'card-green': (a) => `rgba(0,230,118,${a})`,
+  'card-amber': (a) => `rgba(255,215,64,${a})`,
+  'card-red':   (a) => `rgba(255,23,68,${a})`,
+};
+
+function healthRgba(metric, val, alpha = 0.7) {
+  return HEALTH_RGBA[healthColor(metric, val)](alpha);
+}
+
+function stressRgba(stressVal, alpha = 0.7) {
+  if (stressVal >= 6 && stressVal <= 8)   return `rgba(0,230,118,${alpha})`;
+  if (stressVal >= 4 && stressVal <= 10)  return `rgba(255,215,64,${alpha})`;
+  return `rgba(255,23,68,${alpha})`;
+}
+
 // ── Stat helpers ─────────────────────────────────────────────────────────────
 
 function mean(arr) {
@@ -373,12 +389,7 @@ function renderHealth(agg, runs) {
       datasets: [{
         label: 'Runs',
         data:  counts,
-        backgroundColor: labels2.map(r => {
-          const c = healthColor('game_length_rounds', r);
-          return c === 'card-green' ? 'rgba(0,230,118,0.7)'
-               : c === 'card-amber' ? 'rgba(255,215,64,0.7)'
-               :                      'rgba(255,23,68,0.7)';
-        }),
+        backgroundColor: labels2.map(r => healthRgba('game_length_rounds', r, 0.7)),
         borderWidth: 0,
         borderRadius: 3,
       }],
@@ -674,11 +685,7 @@ function renderAssets(agg) {
 function renderStress(agg) {
   // ── Stress histogram ───────────────────────────────────────────────────────
   const histLabels = agg.stressHist.map((_, i) => String(i));
-  const histColors = agg.stressHist.map((_, i) =>
-    (i >= 6 && i <= 8) ? 'rgba(0,230,118,0.8)'
-    : (i >= 4 && i <= 10) ? 'rgba(255,215,64,0.8)'
-    : 'rgba(255,23,68,0.8)'
-  );
+  const histColors = agg.stressHist.map((_, i) => stressRgba(i, 0.8));
 
   makeChart('chart-stress-hist', {
     type: 'bar',
@@ -743,11 +750,7 @@ function renderStress(agg) {
       datasets: [{
         label: 'Mean Stress',
         data:  archEntries.map(e => +(e[1] || 0).toFixed(2)),
-        backgroundColor: archEntries.map(([,v]) =>
-          v >= 6 && v <= 8 ? 'rgba(0,230,118,0.7)'
-          : v >= 4 && v <= 10 ? 'rgba(255,215,64,0.7)'
-          : 'rgba(255,23,68,0.7)'
-        ),
+        backgroundColor: archEntries.map(([,v]) => stressRgba(v, 0.7)),
         borderWidth: 0,
         borderRadius: 3,
       }],
