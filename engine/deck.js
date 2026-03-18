@@ -5,6 +5,58 @@ import { join, dirname } from 'path';
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const DATA_DIR = join(__dirname, '../data/cards');
 
+const PERSONAL_EVENT_CATEGORY_RATIOS = {
+  STRESS_RELIEF: 8,
+  DEATH_PREVENTION: 4,
+  CASH_WINDFALL: 6,
+  CASH_DRAIN: 4,
+  TAX_EVENT: 5,
+  LOAN_EVENT: 6,
+  MARKET_MANIPULATION: 5,
+  DICE_MODIFIER: 4,
+  ASSET_EVENT: 2,
+  INFORMATION_SOCIAL: 4,
+  LEGACY_EFFECT: 2,
+};
+
+const GLOBAL_EVENT_CATEGORY_RATIOS = {
+  BOOM: 6,
+  BULL_RUN: 2,
+  NEUTRAL: 10,
+  FLAT: 6,
+  CORRECTION: 8,
+  RECESSION: 6,
+  DEPRESSION: 3,
+  BUBBLE: 3,
+  STRESS_EVENT: 3,
+  WILDCARD: 3,
+};
+
+/**
+ * Validates that a loaded deck matches the expected per-category card counts.
+ * Throws a descriptive Error on any mismatch.
+ *
+ * @param {Array<object>} cards
+ * @param {Record<string, number>} ratios  — expected counts keyed by category
+ * @param {string} categoryField           — card property that holds the category value
+ * @param {string} deckName                — used in error messages
+ */
+function validateDeckRatios(cards, ratios, categoryField, deckName) {
+  const counts = {};
+  for (const card of cards) {
+    const cat = card[categoryField];
+    counts[cat] = (counts[cat] ?? 0) + 1;
+  }
+  for (const [category, expected] of Object.entries(ratios)) {
+    const actual = counts[category] ?? 0;
+    if (actual !== expected) {
+      throw new Error(
+        `${deckName} ratio mismatch: ${category} expected ${expected}, got ${actual}`
+      );
+    }
+  }
+}
+
 /**
  * Maps industry names (lowercase) to their data filenames.
  * Note: manufacturing-cards intentionally has no .json extension in the repo.
@@ -72,6 +124,7 @@ export function buildGlobalEventDeck(dice) {
   const cards = JSON.parse(
     readFileSync(join(DATA_DIR, 'global-event-cards.json'), 'utf8')
   );
+  validateDeckRatios(cards, GLOBAL_EVENT_CATEGORY_RATIOS, 'eventCategory', 'Global event deck');
   return shuffle(cards, dice);
 }
 
@@ -86,5 +139,6 @@ export function buildPersonalEventDeck(dice) {
   const cards = JSON.parse(
     readFileSync(join(DATA_DIR, 'personal-event-cards.json'), 'utf8')
   );
+  validateDeckRatios(cards, PERSONAL_EVENT_CATEGORY_RATIOS, 'category', 'Personal event deck');
   return shuffle(cards, dice);
 }
