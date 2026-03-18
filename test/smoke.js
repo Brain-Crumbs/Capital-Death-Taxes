@@ -66,14 +66,13 @@ const results10 = await runScenario({ ...baseConfig, runs: 10 }, {
       }
     }
 
-    // Assertion 4: all asset values >= 1 — scan once per completed game
-    // (state.log is complete when endTriggered because the final bonus year
-    //  runs inside the same runYear() call that set endTriggered)
+    // Assertion 3: all asset values >= 0 (floor is 0 per §6/§12) — scan once
+    // per completed game.
     if (state.endTriggered) {
       for (const ev of state.log) {
         if (ev.type !== 'ASSET_VALUE_UPDATE') continue;
         const val = ev.finalValue ?? ev.newValue;
-        if (typeof val === 'number' && val < 1) {
+        if (typeof val === 'number' && val < 0) {
           assetFloorViolations.push({
             assetId: ev.assetId,
             round:   ev.round,
@@ -104,9 +103,9 @@ report(
     : '',
 );
 
-// Assertion 3: all asset values >= 1 at all times (floor enforced)
+// Assertion 3: all asset values >= 0 at all times (floor is 0, §6/§12)
 report(
-  'all asset values >= 1 at all times',
+  'all asset values >= 0 at all times',
   assetFloorViolations.length === 0,
   assetFloorViolations.length > 0
     ? `first violation: ${JSON.stringify(assetFloorViolations[0])}`
