@@ -15,7 +15,7 @@ const INDUSTRY_FILES = {
   technology: 'technology-cards.json',
   media: 'media-cards.json',
   'real-estate': 'real-estate-cards.json',
-  manufacturing: 'manufacturing-cards',
+  manufacturing: 'manufacturing-cards.json',
   hybrid: 'hybrid-cards.json',
 };
 
