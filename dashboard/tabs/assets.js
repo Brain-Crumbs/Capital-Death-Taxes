@@ -172,6 +172,67 @@ export function renderAssets(agg) {
     },
   });
 
+  // ── Total GMI (cumulative) line ± stddev band ─────────────────────────────
+  const gmiCumLabels = Array.from({ length: agg.gmiCumMean.length }, (_, i) => `R${i + 1}`);
+  const gmiCumHi = agg.gmiCumMean.map((m, i) => m == null ? null : m + (agg.gmiCumStddev[i] || 0));
+  const gmiCumLo = agg.gmiCumMean.map((m, i) => m == null ? null : m - (agg.gmiCumStddev[i] || 0));
+
+  charts.make('chart-gmi-total', {
+    type: 'line',
+    data: {
+      labels: gmiCumLabels,
+      datasets: [
+        {
+          label:   '+1σ',
+          data:    gmiCumHi,
+          borderColor: 'rgba(206,147,216,0.2)',
+          backgroundColor: 'rgba(206,147,216,0.08)',
+          borderWidth: 1,
+          pointRadius: 0,
+          fill:  '+1',
+          spanGaps: true,
+          tension: 0.3,
+          order: 3,
+        },
+        {
+          label:   'Mean Total GMI',
+          data:    agg.gmiCumMean,
+          borderColor: '#ce93d8',
+          backgroundColor: 'transparent',
+          borderWidth: 2,
+          pointRadius: 2,
+          spanGaps: true,
+          tension: 0.3,
+          order: 1,
+        },
+        {
+          label:   '−1σ',
+          data:    gmiCumLo,
+          borderColor: 'rgba(206,147,216,0.2)',
+          backgroundColor: 'rgba(206,147,216,0.08)',
+          borderWidth: 1,
+          pointRadius: 0,
+          fill:  '-1',
+          spanGaps: true,
+          tension: 0.3,
+          order: 2,
+        },
+      ],
+    },
+    options: {
+      responsive: true,
+      maintainAspectRatio: false,
+      plugins: {
+        legend: { display: false },
+        tooltip: { callbacks: { label: ctx => ` ${ctx.dataset.label}: ${ctx.parsed.y?.toFixed(2)}` } },
+      },
+      scales: baseScales(
+        {},
+        { title: { display: true, text: 'Total GMI (Cumulative)', color: TICK_COLOR, font: BASE_FONT } }
+      ),
+    },
+  });
+
   // ── Loan utilization gauge ────────────────────────────────────────────────
   makeGauge('gauge-loan-util', 'gv-loan-util', agg.loanUtilMean, {
     greenRange: [0.50, 0.80], amberRange: [0.20, 0.95],

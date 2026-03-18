@@ -127,6 +127,12 @@
               <canvas id="chart-gmi"></canvas>
             </div>
           </div>
+          <div class="chart-wrap" style="margin-bottom:16px">
+            <div class="chart-title">Mean Total GMI (Cumulative) per Round ± 1 StdDev</div>
+            <div class="chart-inner" style="height:140px">
+              <canvas id="chart-gmi-total"></canvas>
+            </div>
+          </div>
           <div class="gauge-wrap">
             <div class="gauge-title">Loan Capacity Utilization</div>
             <div class="gauge-inner">
@@ -202,6 +208,9 @@
           <h3>GMI Delta</h3>
           <div class="replay-gmi" id="replay-gmi-value">—</div>
           <div class="muted" style="font-size:0.78rem" id="replay-gmi-note"></div>
+          <h3 style="margin-top:12px">Total GMI</h3>
+          <div class="replay-gmi" id="replay-gmi-total">—</div>
+          <div class="muted" style="font-size:0.78rem">Cumulative GMI through this round</div>
         </div>
         <div class="replay-panel" id="replay-events-panel">
           <h3>Events This Round</h3>
