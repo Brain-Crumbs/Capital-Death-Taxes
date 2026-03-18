@@ -35,7 +35,8 @@ class ReplayController {
     document.getElementById('round-slider').value = round;
 
     // ── GMI ─────────────────────────────────────────────────────────────────
-    const gmi   = (m.gmi_by_round || [])[round - 1];
+    const gmiByRound = m.gmi_by_round || [];
+    const gmi   = gmiByRound[round - 1];
     const gmiEl = document.getElementById('replay-gmi-value');
     if (gmi == null) {
       gmiEl.textContent = '—';
@@ -46,6 +47,19 @@ class ReplayController {
       gmiEl.textContent = (gmi > 0 ? '+' : '') + gmi + ' ' + arrow;
       gmiEl.style.color = gmi > 0 ? '#00e676' : gmi < 0 ? '#ff1744' : '#a0a0c0';
       document.getElementById('replay-gmi-note').textContent = 'Global Market Index delta this round';
+    }
+
+    // ── Total GMI (cumulative) ───────────────────────────────────────────────
+    const gmiTotalEl = document.getElementById('replay-gmi-total');
+    const gmiTotal = gmiByRound.slice(0, round).reduce((sum, v) => sum + (v ?? 0), 0);
+    const hasAnyGmi = gmiByRound.slice(0, round).some(v => v != null);
+    if (!hasAnyGmi) {
+      gmiTotalEl.textContent = '—';
+      gmiTotalEl.style.color = '#6c757d';
+    } else {
+      const totalArrow = gmiTotal > 0 ? '▲' : gmiTotal < 0 ? '▼' : '—';
+      gmiTotalEl.textContent = (gmiTotal > 0 ? '+' : '') + gmiTotal + ' ' + totalArrow;
+      gmiTotalEl.style.color = gmiTotal > 0 ? '#00e676' : gmiTotal < 0 ? '#ff1744' : '#a0a0c0';
     }
 
     // ── Events ──────────────────────────────────────────────────────────────
