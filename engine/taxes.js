@@ -20,12 +20,13 @@
  * @returns {{ grossIncome: number, loanOffset: number, netTaxable: number, taxDue: number }}
  */
 export function computeTaxableIncome(player, loansDrawnThisYear = 0) {
-  const assetIncome = (player.assets ?? []).reduce(
+  const assetIncome   = (player.assets ?? []).reduce(
     (sum, asset) => sum + (asset.income ?? 0),
     0,
   );
-  const ceoIncome  = player.ceo?.annualIncome ?? 0;
-  const grossIncome = assetIncome + ceoIncome;
+  const starterIncome = player.starterAsset?.income ?? 0;
+  const ceoIncome     = player.ceo?.annualIncome ?? 0;
+  const grossIncome   = assetIncome + starterIncome + ceoIncome;
 
   // loanOffset can only reduce the portion above the first free $1
   const loanOffset  = Math.min(Math.max(0, grossIncome - 1), Math.max(0, loansDrawnThisYear));
@@ -46,6 +47,7 @@ export function computeTaxableIncome(player, loansDrawnThisYear = 0) {
  * @returns {{ logEvent: object }}
  */
 export function applyTax(player, taxDue, { loanOffset = 0, grossIncome = 0 } = {}) {
+  player.cash      += grossIncome;
   player.cash      -= taxDue;
   player.taxesPaid += taxDue;
 

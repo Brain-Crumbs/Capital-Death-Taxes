@@ -234,8 +234,9 @@ function runAuctionPhase(state, agentMap, dice) {
       }
 
       if (winner) {
-        winner.cash -= winningBid;
-        winner.ceo   = card;
+        winner.cash         -= winningBid;
+        winner.ceo           = card;
+        winner.starterAsset  = card.starterAsset ?? null;
         // Apply CEO starting stress
         winner.stress = Math.max(winner.stress, card.startingStress ?? 0);
         appendLog(state, [{
@@ -423,9 +424,10 @@ function runSettlementPhase(state, agentMap, dice) {
 
     if (isTaxAttorney) {
       // Tax Attorney: first $2 of income is always tax-free (instead of $1)
-      const assetIncome = (player.assets ?? []).reduce((s, a) => s + (a.income ?? 0), 0);
-      const ceoIncome   = player.ceo?.annualIncome ?? 0;
-      grossIncome       = assetIncome + ceoIncome;
+      const assetIncome   = (player.assets ?? []).reduce((s, a) => s + (a.income ?? 0), 0);
+      const starterIncome = player.starterAsset?.income ?? 0;
+      const ceoIncome     = player.ceo?.annualIncome ?? 0;
+      grossIncome         = assetIncome + starterIncome + ceoIncome;
       loanOffset        = Math.min(
         Math.max(0, grossIncome - 2),
         Math.max(0, loansDrawnThisYear),
@@ -441,6 +443,7 @@ function runSettlementPhase(state, agentMap, dice) {
       const { logEvent } = applyTax(player, taxDue, { loanOffset, grossIncome });
       appendLog(state, [logEvent]);
     } else {
+      player.cash += grossIncome;
       appendLog(state, [{
         type:       'TAX_APPLIED',
         playerId:   player.id,
