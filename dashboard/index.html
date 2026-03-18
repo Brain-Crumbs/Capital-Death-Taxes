@@ -26,7 +26,7 @@ body {
 .text-right { text-align: right; }
 .text-center { text-align: center; }
 
-/* ── Drop zone ─────────────────────────────────────────────────────────────── */
+/* ── Drop / selection screen ────────────────────────────────────────────────── */
 #drop-screen {
   display: flex;
   flex-direction: column;
@@ -36,36 +36,38 @@ body {
   gap: 20px;
   padding: 40px;
 }
-#drop-zone {
+#run-picker {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
   width: 100%;
-  max-width: 560px;
-  border: 2px dashed #2a2a4a;
-  border-radius: 12px;
-  padding: 60px 40px;
-  text-align: center;
+  max-width: 440px;
+}
+#run-select {
+  width: 100%;
+  background: #1a1a3e;
+  color: #e0e0e0;
+  border: 1px solid #2a2a5e;
+  border-radius: 6px;
+  padding: 8px 12px;
+  font-family: inherit;
+  font-size: 0.9rem;
   cursor: pointer;
-  transition: border-color 0.2s, background 0.2s;
 }
-#drop-zone:hover, #drop-zone.drag-over {
-  border-color: #4fc3f7;
-  background: #13132a;
-}
-#drop-zone .icon { font-size: 48px; margin-bottom: 16px; }
-#drop-zone h2 { font-size: 1.3rem; margin-bottom: 8px; color: #4fc3f7; }
-#drop-zone p  { color: #6c757d; margin-bottom: 20px; }
-#file-btn {
+#run-select:focus { outline: none; border-color: #4fc3f7; }
+#load-btn {
   background: #1a1a3e;
   color: #4fc3f7;
   border: 1px solid #4fc3f7;
   border-radius: 6px;
-  padding: 8px 20px;
+  padding: 8px 28px;
   cursor: pointer;
   font-family: inherit;
   font-size: 0.95rem;
   transition: background 0.2s;
 }
-#file-btn:hover { background: #4fc3f7; color: #0d0d1a; }
-#file-input { display: none; }
+#load-btn:hover { background: #4fc3f7; color: #0d0d1a; }
 #drop-error { color: #ff1744; font-size: 0.9rem; }
 .drop-title {
   font-size: 2rem;
@@ -74,7 +76,7 @@ body {
   letter-spacing: 2px;
   margin-bottom: 8px;
 }
-.drop-subtitle { color: #6c757d; margin-bottom: 30px; }
+.drop-subtitle { color: #6c757d; margin-bottom: 10px; }
 
 /* ── Dashboard layout ──────────────────────────────────────────────────────── */
 #dashboard { display: none; flex-direction: column; min-height: 100vh; }
@@ -378,19 +380,15 @@ body {
 </head>
 <body>
 
-<!-- ── Drop screen ─────────────────────────────────────────────────────────── -->
+<!-- ── Selection screen ─────────────────────────────────────────────────────── -->
 <div id="drop-screen">
   <div class="drop-title">BORROW &amp; DIE</div>
   <div class="drop-subtitle">Simulator Dashboard</div>
-  <div id="drop-zone">
-    <div class="icon">📊</div>
-    <h2>Load a Run Output</h2>
-    <p>Drag &amp; drop a <code>*.json</code> run file here,<br>or click to browse</p>
-    <button id="file-btn">Choose File</button>
-    <input type="file" id="file-input" accept=".json,application/json">
-    <select id="run-select" style="display:none;margin-top:12px;background:#1a1a3e;color:#e0e0e0;border:1px solid #2a2a5e;padding:6px 10px;border-radius:6px;font-size:0.9rem;">
-      <option value="">— or pick a run from server —</option>
+  <div id="run-picker">
+    <select id="run-select">
+      <option value="">Loading runs…</option>
     </select>
+    <button id="load-btn">Load Run</button>
   </div>
   <div id="drop-error"></div>
 </div>
@@ -1619,67 +1617,52 @@ function setDropError(msg) {
   document.getElementById('drop-error').textContent = msg;
 }
 
-// ── Drop zone ──────────────────────────────────────────────────────────────
+// ── Run picker ─────────────────────────────────────────────────────────────
 
-const dropZone = document.getElementById('drop-zone');
+async function populateRunPicker() {
+  const sel = document.getElementById('run-select');
+  sel.innerHTML = '<option value="">Loading runs…</option>';
+  try {
+    const r = await fetch('/runs/');
+    const { files } = await r.json();
+    sel.innerHTML = '';
+    if (!files.length) {
+      sel.innerHTML = '<option value="">No runs found in output/runs</option>';
+      return;
+    }
+    const placeholder = document.createElement('option');
+    placeholder.value = '';
+    placeholder.textContent = '— select a run —';
+    sel.appendChild(placeholder);
+    files.forEach(f => {
+      const opt = document.createElement('option');
+      opt.value = f;
+      opt.textContent = f;
+      sel.appendChild(opt);
+    });
+  } catch {
+    sel.innerHTML = '<option value="">Failed to load run list</option>';
+  }
+}
 
-dropZone.addEventListener('click', () => document.getElementById('file-input').click());
-
-dropZone.addEventListener('dragover', e => {
-  e.preventDefault();
-  dropZone.classList.add('drag-over');
-});
-
-dropZone.addEventListener('dragleave', () => dropZone.classList.remove('drag-over'));
-
-dropZone.addEventListener('drop', e => {
-  e.preventDefault();
-  dropZone.classList.remove('drag-over');
-  const file = e.dataTransfer.files[0];
-  if (!file) return;
-  readFile(file);
-});
-
-document.getElementById('file-input').addEventListener('change', e => {
-  if (e.target.files[0]) readFile(e.target.files[0]);
-});
-
-document.getElementById('file-btn').addEventListener('click', e => {
-  e.stopPropagation();
-  document.getElementById('file-input').click();
-});
-
-function readFile(file) {
+async function loadSelectedRun() {
+  const sel = document.getElementById('run-select');
+  const filename = sel.value;
+  if (!filename) return;
   setDropError('');
-  const reader = new FileReader();
-  reader.onload = ev => loadRuns(ev.target.result, file.name);
-  reader.onerror = () => setDropError('Failed to read file.');
-  reader.readAsText(file);
+  try {
+    const res  = await fetch(`/runs/${encodeURIComponent(filename)}`);
+    const text = await res.text();
+    loadRuns(text, filename);
+  } catch (e) {
+    setDropError('Failed to load run: ' + e.message);
+  }
 }
 
-// ── Server-side run picker (only active when served via HTTP) ────────────
-if (location.protocol !== 'file:') {
-  fetch('/runs/')
-    .then(r => r.json())
-    .then(({ files }) => {
-      if (!files.length) return;
-      const sel = document.getElementById('run-select');
-      files.forEach(f => {
-        const opt = document.createElement('option');
-        opt.value = f;
-        opt.textContent = f;
-        sel.appendChild(opt);
-      });
-      sel.style.display = '';
-      sel.addEventListener('change', async () => {
-        if (!sel.value) return;
-        const res  = await fetch(`/runs/${encodeURIComponent(sel.value)}`);
-        const text = await res.text();
-        loadRuns(text, sel.value);
-      });
-    })
-    .catch(() => {});
-}
+document.getElementById('load-btn').addEventListener('click', loadSelectedRun);
+document.getElementById('run-select').addEventListener('change', loadSelectedRun);
+
+populateRunPicker();
 
 // ── Reload button ──────────────────────────────────────────────────────────
 
@@ -1689,9 +1672,9 @@ document.getElementById('reload-btn').addEventListener('click', () => {
   for (const k in _charts) delete _charts[k];
   document.getElementById('dashboard').style.display   = 'none';
   document.getElementById('drop-screen').style.display = '';
-  document.getElementById('file-input').value = '';
   setDropError('');
   document.title = 'Borrow & Die — Simulator Dashboard';
+  populateRunPicker();
 });
 
 // ── Tab switching ──────────────────────────────────────────────────────────
