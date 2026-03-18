@@ -495,16 +495,22 @@ function runSettlementPhase(state, agentMap, dice) {
     appendLog(state, [cvLog]);
 
     if (violated) {
-      // Force loans down to current capacity; excess triggers +1 stress.
-      const excess     = totalLoans - totalCapacity;
-      player.loans     = totalCapacity;
-      player.stress   += 1;
+      // Force loans down to current capacity; excess triggers stress roll (stress on a 1).
+      const excess         = totalLoans - totalCapacity;
+      player.loans         = totalCapacity;
+      const mitigationRoll = dice.d6();
+      const stressGained   = mitigationRoll === 1 ? 1 : 0;
+      if (stressGained > 0) {
+        player.stress += stressGained;
+      }
       appendLog(state, [{
-        type:        'COLLATERAL_FORCED_REDUCTION',
-        playerId:    player.id,
-        excessLoans: excess,
-        newLoans:    player.loans,
-        newStress:   player.stress,
+        type:            'COLLATERAL_FORCED_REDUCTION',
+        playerId:        player.id,
+        excessLoans:     excess,
+        newLoans:        player.loans,
+        mitigationRoll,
+        stressGained,
+        newStress:       player.stress,
       }]);
     }
 

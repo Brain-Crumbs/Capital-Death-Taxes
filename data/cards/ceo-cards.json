@@ -147,7 +147,7 @@
       {
         "abilityType": "RISK",
         "frequency": "ON_TRIGGER",
-        "description": "If the rerolled result is strictly lower than the original roll, gain +1 stress immediately. The house always wins eventually.",
+        "description": "If the rerolled result is strictly lower than the original roll, roll a d6. On a 1, gain +1 stress immediately. The house always wins eventually.",
         "stressEffect": 1
       }
     ],
@@ -210,7 +210,7 @@
       {
         "abilityType": "RISK",
         "frequency": "ON_TRIGGER",
-        "description": "At the end of any year in which your total asset value did not increase compared to the start of that year, gain +1 stress. Stagnation is existential.",
+        "description": "At the end of any year in which your total asset value did not increase compared to the start of that year, roll a d6. On a 1, gain +1 stress. Stagnation is existential.",
         "stressEffect": 1
       }
     ],
