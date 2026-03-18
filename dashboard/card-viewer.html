@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Borrow &amp; Die — Card Viewer</title>
+</head>
+<body>
+  <h1>Borrow &amp; Die — All Cards</h1>
+  <ul id="card-list"></ul>
+
+  <script type="module">
+    // Card JSON files are served from data/cards/ via the /cards/ route.
+    // Run `npm run preview` then open http://localhost:3000/card-viewer.html
+    const CARD_FILES = [
+      { variable: 'DATA_TECHNOLOGY',     file: 'technology-cards.json'     },
+      { variable: 'DATA_ENERGY',         file: 'energy-cards.json'         },
+      { variable: 'DATA_REAL_ESTATE',    file: 'real-estate-cards.json'    },
+      { variable: 'DATA_FINANCE',        file: 'finance-cards.json'        },
+      { variable: 'DATA_MANUFACTURING',  file: 'manufacturing-cards.json'  },
+      { variable: 'DATA_MEDIA',          file: 'media-cards.json'          },
+      { variable: 'DATA_HYBRID',         file: 'hybrid-cards.json'         },
+      { variable: 'DATA_CEO',            file: 'ceo-cards.json'            },
+      { variable: 'DATA_GLOBAL_EVENTS',  file: 'global-event-cards.json'   },
+      { variable: 'DATA_PERSONAL_EVENTS',file: 'personal-event-cards.json' },
+    ];
+
+    function getPrimaryName(card) {
+      switch (card.cardType) {
+        case 'ASSET':          return card.companyName;
+        case 'CEO':            return card.ceoName;
+        case 'GLOBAL_EVENT':
+        case 'PERSONAL_EVENT': return card.eventName;
+        default:               return undefined;
+      }
+    }
+
+    const datasets = await Promise.all(
+      CARD_FILES.map(({ file }) => fetch(`/cards/${file}`).then(r => r.json()))
+    );
+
+    const allCards = datasets.flat();
+    const ul = document.getElementById('card-list');
+
+    allCards.forEach((card, i) => {
+      const name = getPrimaryName(card);
+
+      if (!name) {
+        console.warn(`Card at index ${i} is missing its primary name field.`, card);
+      }
+
+      const li = document.createElement('li');
+      li.textContent = `[${card.cardType}] ${name ?? '(unnamed)'}`;
+      ul.appendChild(li);
+    });
+  </script>
+</body>
+</html>
