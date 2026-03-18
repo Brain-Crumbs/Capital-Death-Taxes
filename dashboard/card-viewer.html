@@ -80,6 +80,8 @@
   <script type="module">
     // ── Constants ──────────────────────────────────────────────────
 
+    const KNOWN_CARD_TYPES = new Set(['ASSET', 'CEO', 'GLOBAL_EVENT', 'PERSONAL_EVENT']);
+
     const INDUSTRY_COLORS = {
       TECHNOLOGY:          'var(--color-industry-TECHNOLOGY)',
       ENERGY:              'var(--color-industry-ENERGY)',
@@ -136,6 +138,15 @@
       if (delta > 0)  return `<span class="delta-positive">+${delta}</span>`;
       if (delta < 0)  return `<span class="delta-negative">−${Math.abs(delta)}</span>`;
       return `<span class="delta-zero">0</span>`;
+    }
+
+    // ── Card validation ────────────────────────────────────────────
+
+    function validateCard(card) {
+      if (!card || typeof card !== 'object') return false;
+      if (!KNOWN_CARD_TYPES.has(card.cardType)) return false;
+      const name = card.companyName ?? card.ceoName ?? card.eventName;
+      return Boolean(name);
     }
 
     // ── Constants (continued) ──────────────────────────────────────
@@ -799,25 +810,24 @@
       return parts;
     }
 
+    // ── Clear filters (resets active-tab filters + search) ─────────
+
+    function clearActiveTabFilters() {
+      switch (activeTab) {
+        case 'ASSETS':          resetAssetFilters();          break;
+        case 'GLOBAL EVENTS':   resetGlobalEventFilters();    break;
+        case 'PERSONAL EVENTS': resetPersonalEventFilters();  break;
+      }
+      searchQuery = '';
+      document.getElementById('search-input').value = '';
+    }
+
     function renderCount(cards) {
       const el    = document.getElementById('card-count');
       const count = cards.length;
 
       if (count === 0) {
-        const hasFilters = getActiveFilterSummary().length > 0;
-        el.innerHTML = `
-          <span class="count-no-match">No cards match these filters</span>
-          ${hasFilters ? '<button class="clear-filters-link">Clear filters</button>' : ''}`;
-        if (hasFilters) {
-          el.querySelector('.clear-filters-link').addEventListener('click', () => {
-            switch (activeTab) {
-              case 'ASSETS':          resetAssetFilters();          break;
-              case 'GLOBAL EVENTS':   resetGlobalEventFilters();    break;
-              case 'PERSONAL EVENTS': resetPersonalEventFilters();  break;
-            }
-            renderGrid(allCards);
-          });
-        }
+        el.innerHTML = '';
         return;
       }
 
@@ -833,20 +843,37 @@
       const cards = getTabCards(allCards);
       const grid  = document.getElementById('card-grid');
 
-      renderCount(cards);
+      // Per-card validation — skip malformed cards rather than letting them crash
+      const validCards = cards.filter(card => {
+        if (!validateCard(card)) {
+          console.warn('[CardViewer] Skipping malformed card:', card);
+          return false;
+        }
+        return true;
+      });
 
-      if (cards.length === 0) {
-        grid.innerHTML = '';
+      renderCount(validCards);
+
+      if (validCards.length === 0) {
+        grid.innerHTML = `
+          <div class="empty-state">
+            <p>No cards match these filters.</p>
+            <button class="clear-filters-link">Clear filters</button>
+          </div>`;
+        grid.querySelector('.clear-filters-link').addEventListener('click', () => {
+          clearActiveTabFilters();
+          renderGrid(allCards);
+        });
         return;
       }
 
-      // Validate cards before rendering
-      grid.innerHTML = cards.map((card, i) => {
-        const name = card.companyName ?? card.ceoName ?? card.eventName;
-        if (!name) {
-          console.warn(`Card at index ${i} is missing its primary name field.`, card);
+      grid.innerHTML = validCards.map(card => {
+        try {
+          return renderCard(card);
+        } catch (e) {
+          console.warn('[CardViewer] Skipping malformed card:', card);
+          return '';
         }
-        return renderCard(card);
       }).join('');
     }
 
@@ -869,8 +896,15 @@
       CARD_FILES.map(file =>
         fetch(`/cards/${file}`)
           .then(r => r.json())
+          .then(data => {
+            if (!Array.isArray(data)) {
+              console.warn(`[CardViewer] Missing or invalid data: ${file}`);
+              return [];
+            }
+            return data;
+          })
           .catch(() => {
-            console.warn(`Failed to load ${file} — some cards may be missing`);
+            console.warn(`[CardViewer] Missing or invalid data: ${file}`);
             const banner = document.createElement('div');
             banner.style.cssText = 'position:fixed;top:0;left:0;right:0;background:#9a2a2a;color:#fff;font-size:12px;padding:6px 12px;z-index:9999;';
             banner.textContent = `Failed to load ${file} — some cards may be missing`;
