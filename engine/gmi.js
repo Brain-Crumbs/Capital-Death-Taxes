@@ -6,8 +6,8 @@
  */
 
 /**
- * Modifier table used by BULL_RUN, FLAT, and WILDCARD cards.
- * d6 roll → adjustment to add to gmiBase.
+ * Modifier table: d6 roll → adjustment to add to gmiBase.
+ * Used by any card whose gmiDieRoll field is "d6".
  */
 function rollModifier(roll) {
   if (roll <= 2) return -1;
@@ -16,28 +16,29 @@ function rollModifier(roll) {
 }
 
 /**
- * Categories whose gmiBase is augmented by a d6 roll using rollModifier().
- * All other categories use gmiBase directly (gmiDieRoll is null on the card).
- */
-const ROLL_MODIFIER_CATEGORIES = new Set(['BULL_RUN', 'FLAT', 'WILDCARD']);
-
-/**
  * Computes the integer GMI delta for the current year.
+ *
+ * Cards that need a d6 modifier carry `gmiDieRoll: "d6"` in their data.
+ * Cards with `playerSetGMI: true` (e.g. "People's Market") cannot be resolved
+ * here — the caller must obtain the player-chosen value and pass it elsewhere.
  *
  * @param {object} globalEventCard  — a card from global-event-cards.json
  * @param {import('./dice.js').Dice} dice
  * @returns {number}  integer delta (may be negative)
+ * @throws {Error} if the card requires a player to set the GMI
  */
 export function computeGMIDelta(globalEventCard, dice) {
+  if (globalEventCard.playerSetGMI) {
+    throw new Error(
+      `computeGMIDelta: card "${globalEventCard.eventName}" requires the ` +
+      `lowest-score player to set the GMI delta — resolve this before calling ` +
+      `computeGMIDelta, or pass the chosen delta directly to applyGMIToAsset.`
+    );
+  }
+
   const base = globalEventCard.gmiBase;
 
-  // Use the category set first; fall back to the card's own gmiDieRoll field
-  // so future card additions are handled automatically.
-  const needsRoll =
-    ROLL_MODIFIER_CATEGORIES.has(globalEventCard.eventCategory) ||
-    globalEventCard.gmiDieRoll === 'd6';
-
-  if (needsRoll) {
+  if (globalEventCard.gmiDieRoll === 'd6') {
     return base + rollModifier(dice.d6());
   }
 
