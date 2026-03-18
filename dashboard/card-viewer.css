@@ -129,6 +129,44 @@ body {
   color: var(--color-nav-active-text);
 }
 
+/* ── Card count label ───────────────────────────────────────── */
+#card-count {
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  color: var(--color-text-muted);
+  margin-bottom: 14px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+#card-count .count-text {
+  color: var(--color-text);
+}
+
+#card-count .count-no-match {
+  color: var(--color-text-muted);
+  font-style: italic;
+}
+
+#card-count .clear-filters-link {
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-family: inherit;
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--color-text-muted);
+  text-decoration: underline;
+  padding: 0;
+  letter-spacing: 0.04em;
+}
+
+#card-count .clear-filters-link:hover {
+  color: var(--color-text);
+}
+
 /* ── Card grid ──────────────────────────────────────────────── */
 #card-grid {
   display: grid;
