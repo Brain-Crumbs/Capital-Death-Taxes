@@ -17,11 +17,6 @@ const INDUSTRY_COLORS = {
   HYBRID:          '#ffe082',
 };
 
-const INDUSTRY_ORDER = [
-  'TECHNOLOGY','ENERGY','REAL_ESTATE','FINANCE','MANUFACTURING',
-  'MEDIA_ENTERTAINMENT','MEDIA','HYBRID'
-];
-
 // Colour for an industry (normalises MEDIA → MEDIA_ENTERTAINMENT etc.)
 function industryColor(ind) {
   return INDUSTRY_COLORS[ind] || INDUSTRY_COLORS[(ind||'').replace('-','_').toUpperCase()] || '#888';
@@ -46,6 +41,22 @@ function healthColor(metric, val) {
   if (val >= t.green[0] && val <= t.green[1]) return 'card-green';
   if (val >= t.amber[0] && val <= t.amber[1]) return 'card-amber';
   return 'card-red';
+}
+
+const HEALTH_RGBA = {
+  'card-green': (a) => `rgba(0,230,118,${a})`,
+  'card-amber': (a) => `rgba(255,215,64,${a})`,
+  'card-red':   (a) => `rgba(255,23,68,${a})`,
+};
+
+function healthRgba(metric, val, alpha = 0.7) {
+  return HEALTH_RGBA[healthColor(metric, val)](alpha);
+}
+
+function stressRgba(stressVal, alpha = 0.7) {
+  if (stressVal >= 6 && stressVal <= 8)   return `rgba(0,230,118,${alpha})`;
+  if (stressVal >= 4 && stressVal <= 10)  return `rgba(255,215,64,${alpha})`;
+  return `rgba(255,23,68,${alpha})`;
 }
 
 // ── Stat helpers ─────────────────────────────────────────────────────────────
@@ -75,6 +86,11 @@ function median(arr) { return percentile(arr, 50); }
 
 // ── Aggregate raw runs → summary stats ──────────────────────────────────────
 
+function findWinner(players) {
+  return players.reduce((b, p) =>
+    p.score > b.score || (p.score === b.score && p.playerId < b.playerId) ? p : b);
+}
+
 function aggregate(runs) {
   const ms = runs.map(r => r.metrics);
 
@@ -91,8 +107,7 @@ function aggregate(runs) {
   for (const m of ms) {
     const players = m.final_score_by_player || [];
     if (!players.length) continue;
-    const winner = players.reduce((b, p) =>
-      p.score > b.score || (p.score === b.score && p.playerId < b.playerId) ? p : b);
+    const winner = findWinner(players);
     const arch = winner.ceoArchetype || 'UNKNOWN';
     winsByCeo[arch] = (winsByCeo[arch] || 0) + 1;
   }
@@ -106,8 +121,7 @@ function aggregate(runs) {
   for (const m of ms) {
     const players = m.final_score_by_player || [];
     if (!players.length) continue;
-    const winner = players.reduce((b, p) =>
-      p.score > b.score || (p.score === b.score && p.playerId < b.playerId) ? p : b);
+    const winner = findWinner(players);
     winCount++;
     for (const ind of (winner.industries || [])) {
       winsByInd[ind] = (winsByInd[ind] || 0) + 1;
@@ -213,15 +227,6 @@ function aggregate(runs) {
   );
 
   // Death/bankruptcy by round
-  const deathsByRound = {};
-  const banksByRound  = {};
-  for (const m of ms) {
-    const r = m.first_death_roll_round;
-    if (r != null) deathsByRound[r] = (deathsByRound[r] || 0) + (m.death_count || 0);
-    const br = m.game_length_rounds;
-    if (br != null) banksByRound[br] = (banksByRound[br] || 0) + (m.bankruptcy_count || 0);
-  }
-  // simpler: per-run death round bucketing
   const deathEventsByRound = {};
   for (const m of ms) {
     const r = m.first_death_roll_round;
@@ -373,12 +378,7 @@ function renderHealth(agg, runs) {
       datasets: [{
         label: 'Runs',
         data:  counts,
-        backgroundColor: labels2.map(r => {
-          const c = healthColor('game_length_rounds', r);
-          return c === 'card-green' ? 'rgba(0,230,118,0.7)'
-               : c === 'card-amber' ? 'rgba(255,215,64,0.7)'
-               :                      'rgba(255,23,68,0.7)';
-        }),
+        backgroundColor: labels2.map(r => healthRgba('game_length_rounds', r, 0.7)),
         borderWidth: 0,
         borderRadius: 3,
       }],
@@ -674,11 +674,7 @@ function renderAssets(agg) {
 function renderStress(agg) {
   // ── Stress histogram ───────────────────────────────────────────────────────
   const histLabels = agg.stressHist.map((_, i) => String(i));
-  const histColors = agg.stressHist.map((_, i) =>
-    (i >= 6 && i <= 8) ? 'rgba(0,230,118,0.8)'
-    : (i >= 4 && i <= 10) ? 'rgba(255,215,64,0.8)'
-    : 'rgba(255,23,68,0.8)'
-  );
+  const histColors = agg.stressHist.map((_, i) => stressRgba(i, 0.8));
 
   makeChart('chart-stress-hist', {
     type: 'bar',
@@ -743,11 +739,7 @@ function renderStress(agg) {
       datasets: [{
         label: 'Mean Stress',
         data:  archEntries.map(e => +(e[1] || 0).toFixed(2)),
-        backgroundColor: archEntries.map(([,v]) =>
-          v >= 6 && v <= 8 ? 'rgba(0,230,118,0.7)'
-          : v >= 4 && v <= 10 ? 'rgba(255,215,64,0.7)'
-          : 'rgba(255,23,68,0.7)'
-        ),
+        backgroundColor: archEntries.map(([,v]) => stressRgba(v, 0.7)),
         borderWidth: 0,
         borderRadius: 3,
       }],
