@@ -334,6 +334,93 @@
         </div>`;
     }
 
+    // ── renderPersonalEventCard ────────────────────────────────────
+
+    const PLAY_TIMING_COLORS = {
+      IMMEDIATE: '#9a2a2a',
+      HOLD:      '#c9860a',
+      PASSIVE:   '#4a7c9e',
+    };
+
+    /**
+     * Render a single PERSONAL_EVENT card object into an HTML string.
+     * @param {object} card  — card data conforming to card_schema.json
+     * @returns {string}     — HTML string for the card element
+     */
+    function renderPersonalEventCard(card) {
+      const timingColor = PLAY_TIMING_COLORS[card.playTiming] ?? '#888780';
+
+      // ── Header ──────────────────────────────────────────────────
+      const headerHtml = `
+        <div class="card-section card-header">
+          <div class="card-header-badges">
+            <span class="badge" style="background:#555451">PERSONAL EVENT</span>
+            <span class="badge" style="background:${timingColor}">${esc(card.playTiming ?? '')}</span>
+          </div>
+          <div class="card-title">${esc(card.eventName)}</div>
+        </div>`;
+
+      // ── Effect section ───────────────────────────────────────────
+      const fx = card.immediateEffect ?? {};
+      const magHtml = fx.magnitude != null ? magnitudeHtml(fx.magnitude) : '';
+      const scopeHtml = fx.targetScope
+        ? `<div class="effect-scope">Target: ${esc(fx.targetScope)}</div>`
+        : '';
+
+      const effectHtml = `
+        <div class="card-section">
+          <div class="section-heading">Effect</div>
+          <div class="effect-block">
+            <div class="effect-badges">
+              <span class="badge" style="background:#555451">${esc(fx.effectType ?? '')}</span>
+              ${magHtml}
+            </div>
+            <div class="effect-desc">${esc(fx.description ?? '')}</div>
+            ${scopeHtml}
+          </div>
+        </div>`;
+
+      // ── Death Roll Effect section ────────────────────────────────
+      let deathRollHtml = '';
+      if (card.deathRollEffect) {
+        const drf = card.deathRollEffect;
+        deathRollHtml = `
+          <div class="card-section death-roll-section">
+            <div class="section-heading death-roll-heading">☠ Death Prevention</div>
+            <div class="effect-block">
+              <div class="effect-badges">
+                <span class="badge" style="background:#5a3a7a">${esc(drf.effectType ?? '')}</span>
+              </div>
+              <div class="effect-desc">${esc(drf.description ?? '')}</div>
+            </div>
+          </div>`;
+      }
+
+      // ── Sale value ───────────────────────────────────────────────
+      let saleValueHtml = '';
+      if (card.playTiming !== 'IMMEDIATE' && card.saleValue != null) {
+        saleValueHtml = `
+          <div class="card-section">
+            <div class="sale-value">Sale value: $${esc(card.saleValue)}</div>
+          </div>`;
+      }
+
+      // ── Flavour text ─────────────────────────────────────────────
+      const flavourHtml = card.flavourText
+        ? `<div class="flavour-text">"${esc(card.flavourText)}"</div>`
+        : '';
+
+      // ── Assemble ─────────────────────────────────────────────────
+      return `
+        <div class="card">
+          ${headerHtml}
+          ${effectHtml}
+          ${deathRollHtml}
+          ${saleValueHtml}
+          ${flavourHtml}
+        </div>`;
+    }
+
     // ── Data loading ───────────────────────────────────────────────
 
     const CARD_FILES = [
@@ -390,8 +477,10 @@
         grid.insertAdjacentHTML('beforeend', renderAssetCard(card));
       } else if (card.cardType === 'GLOBAL_EVENT') {
         grid.insertAdjacentHTML('beforeend', renderGlobalEventCard(card));
+      } else if (card.cardType === 'PERSONAL_EVENT') {
+        grid.insertAdjacentHTML('beforeend', renderPersonalEventCard(card));
       } else {
-        // Non-ASSET / non-GLOBAL_EVENT card types will be rendered in future stories
+        // Other card types will be rendered in future stories
         const li = document.createElement('li');
         li.textContent = `[${card.cardType}] ${name ?? '(unnamed)'}`;
         ul.appendChild(li);

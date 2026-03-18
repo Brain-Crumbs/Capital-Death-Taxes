@@ -303,3 +303,24 @@ h1 {
   color: var(--color-text);
   line-height: 1.4;
 }
+
+/* ── Personal Event card ─────────────────────────────────────── */
+.effect-scope {
+  font-size: 10px;
+  color: var(--color-text-muted);
+  margin-top: 4px;
+  letter-spacing: 0.03em;
+}
+
+.death-roll-section {
+  background: #f7f3fb;
+}
+
+.death-roll-heading {
+  color: #5a3a7a;
+}
+
+.sale-value {
+  font-size: 11px;
+  color: var(--color-text-muted);
+}
