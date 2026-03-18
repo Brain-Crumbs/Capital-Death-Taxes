@@ -1044,6 +1044,8 @@
     "eventCategory": "WILDCARD",
     "gmiBase": 0,
     "gmiDieRoll": null,
+    "playerSetGMI": true,
+    "playerSetGMIRange": [-1, 3],
     "gmiDescription": "The player with the lowest current score (Total Asset Value \u2013 Total Taxes Paid) sets the GMI delta for this year. They choose any integer between \u20131 and +3 and announce before value updates.",
     "duration": {
       "years": 1
