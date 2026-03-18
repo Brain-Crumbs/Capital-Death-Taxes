@@ -70,6 +70,7 @@
     </div>
   </div>
 
+  <div id="card-count"></div>
   <div id="card-grid"></div>
 
   <script type="module">
@@ -733,12 +734,64 @@
       }
     }
 
+    // ── Card count display ─────────────────────────────────────
+
+    function getActiveFilterSummary() {
+      const parts = [];
+      switch (activeTab) {
+        case 'ASSETS':
+          if (assetFilter.industry !== 'ALL') parts.push(assetFilter.industry === 'REAL_ESTATE' ? 'REAL ESTATE' : assetFilter.industry);
+          if (assetFilter.tier !== 'ALL')     parts.push(`TIER ${assetFilter.tier}`);
+          if (assetFilter.placement !== 'ALL') parts.push(assetFilter.placement);
+          break;
+        case 'GLOBAL EVENTS':
+          if (globalEventFilter.eventCategory !== 'ALL') parts.push(globalEventFilter.eventCategory);
+          break;
+        case 'PERSONAL EVENTS':
+          if (personalEventFilter.playTiming !== 'ALL') parts.push(personalEventFilter.playTiming);
+          break;
+      }
+      return parts;
+    }
+
+    function renderCount(cards) {
+      const el    = document.getElementById('card-count');
+      const count = cards.length;
+
+      if (count === 0) {
+        const hasFilters = getActiveFilterSummary().length > 0;
+        el.innerHTML = `
+          <span class="count-no-match">No cards match these filters</span>
+          ${hasFilters ? '<button class="clear-filters-link">Clear filters</button>' : ''}`;
+        if (hasFilters) {
+          el.querySelector('.clear-filters-link').addEventListener('click', () => {
+            switch (activeTab) {
+              case 'ASSETS':          resetAssetFilters();          break;
+              case 'GLOBAL EVENTS':   resetGlobalEventFilters();    break;
+              case 'PERSONAL EVENTS': resetPersonalEventFilters();  break;
+            }
+            renderGrid(allCards);
+          });
+        }
+        return;
+      }
+
+      const summary = getActiveFilterSummary();
+      if (summary.length > 0) {
+        el.innerHTML = `<span class="count-text">Showing ${count} card${count === 1 ? '' : 's'} · ${summary.join(' · ')}</span>`;
+      } else {
+        el.innerHTML = `<span class="count-text">Showing ${count} card${count === 1 ? '' : 's'}</span>`;
+      }
+    }
+
     function renderGrid(allCards) {
       const cards = getTabCards(allCards);
       const grid  = document.getElementById('card-grid');
 
+      renderCount(cards);
+
       if (cards.length === 0) {
-        grid.innerHTML = '<p class="no-cards">No cards match these filters.</p>';
+        grid.innerHTML = '';
         return;
       }
 
