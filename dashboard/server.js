@@ -8,6 +8,7 @@ const PORT       = Number(process.env.PORT) || 3000;
 
 const DASHBOARD_ROOT = __dirname;
 const RUNS_ROOT      = path.resolve(__dirname, '../output/runs');
+const CARDS_ROOT     = path.resolve(__dirname, '../data/cards');
 
 const MIME = {
   '.html': 'text/html; charset=utf-8',
@@ -50,6 +51,13 @@ const server = http.createServer((req, res) => {
     return;
   }
 
+  // /cards/<file> → serve individual card JSON file
+  if (urlPath.startsWith('/cards/')) {
+    const filename = path.basename(urlPath); // prevents path traversal
+    serveFile(res, path.join(CARDS_ROOT, filename));
+    return;
+  }
+
   // dashboard/ static files
   const relPath  = urlPath === '/' ? '/index.html' : urlPath;
   const filePath = path.resolve(DASHBOARD_ROOT, '.' + relPath);
@@ -61,7 +69,8 @@ const server = http.createServer((req, res) => {
 });
 
 server.listen(PORT, () => {
-  console.log(`Dashboard →  http://localhost:${PORT}`);
-  console.log(`Runs list →  http://localhost:${PORT}/runs/`);
+  console.log(`Dashboard    →  http://localhost:${PORT}`);
+  console.log(`Card viewer  →  http://localhost:${PORT}/card-viewer.html`);
+  console.log(`Runs list    →  http://localhost:${PORT}/runs/`);
   console.log('Ctrl+C to stop.');
 });
