@@ -6,7 +6,8 @@
   "main": "index.js",
   "scripts": {
     "test":    "node test/smoke.js",
-    "preview": "node dashboard/server.js"
+    "preview": "node dashboard/server.js",
+    "scenario-default": "node cli/run.js --scenario default-4p --runs 100"
   },
   "dependencies": {
     "chart.js": "^4.4.0",

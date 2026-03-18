@@ -1,24 +1,24 @@
 [
   {
     "cardType": "ASSET",
-    "companyName": "Duskfield Extraction Co.",
-    "industry": "ENERGY",
+    "companyName": "GridRoot Systems",
+    "industry": "TECHNOLOGY",
     "placement": "UPSTREAM",
     "tier": 1,
-    "baseValue": 6,
+    "baseValue": 5,
     "stress": 1,
-    "income": 1,
-    "baseLoanCapacity": 3,
-    "loanCapacityIncreasePer10AssetValue": 6,
+    "income": 0,
+    "baseLoanCapacity": 2,
+    "loanCapacityIncreasePer10AssetValue": 3,
     "baseValueUpdateRule": {
       "outcomes": [
         { "range": [1, 1], "delta": -3 },
         { "range": [2, 2], "delta": -1 },
         { "range": [3, 4], "delta": 1 },
-        { "range": [5, 5], "delta": 2 },
-        { "range": [6, 6], "delta": 4 }
+        { "range": [5, 5], "delta": 3 },
+        { "range": [6, 6], "delta": 5 }
       ],
-      "industryMechanic": "GMI-sensitive: when applying the annual GMI delta to this asset, apply it twice (positive or negative). The ground amplifies everything."
+      "industryMechanic": "Banks distrust standalone tech. Loan capacity is suppressed until vertical integration is achieved. No income — growth is the only return."
     },
     "loanRepaymentRule": {
       "paymentOnTrigger": 1,
@@ -30,139 +30,199 @@
     },
     "verticalIntegrationRules": [
       {
-        "requiresIndustry": "ENERGY",
+        "requiresIndustry": "TECHNOLOGY",
         "requiresPlacement": "MIDSTREAM",
         "effectType": "LOAN_CAPACITY_BONUS",
-        "effectMagnitude": 3,
-        "effectDescription": "If you also own an ENERGY MIDSTREAM asset, this asset's loan capacity increases by 3. A pipeline off-take agreement improves lender confidence.",
-        "stressReduction": 0
-      }
-    ],
-    "crossIndustrySynergies": [],
-    "flavourText": "Oil doesn't care about your feelings. It either comes up or it doesn't."
-  },
-
-  {
-    "cardType": "ASSET",
-    "companyName": "Ironvein Pipeline Group",
-    "industry": "ENERGY",
-    "placement": "MIDSTREAM",
-    "tier": 1,
-    "baseValue": 7,
-    "stress": 0,
-    "income": 2,
-    "baseLoanCapacity": 4,
-    "loanCapacityIncreasePer10AssetValue": 6,
-    "baseValueUpdateRule": {
-      "outcomes": [
-        { "range": [1, 1], "delta": -1 },
-        { "range": [2, 3], "delta": 0 },
-        { "range": [4, 5], "delta": 1 },
-        { "range": [6, 6], "delta": 2 }
-      ],
-      "industryMechanic": "GMI-sensitive: when applying the annual GMI delta to this asset, apply it twice. Pipelines are toll roads — volume follows the market."
-    },
-    "loanRepaymentRule": {
-      "paymentOnTrigger": 1,
-      "outcomes": [
-        { "range": [1, 1], "trigger": true,  "relief": false },
-        { "range": [2, 5], "trigger": false, "relief": false },
-        { "range": [6, 6], "trigger": false, "relief": true  }
-      ]
-    },
-    "verticalIntegrationRules": [
-      {
-        "requiresIndustry": "ENERGY",
-        "requiresPlacement": "UPSTREAM",
-        "effectType": "INCOME_OFFSET",
-        "effectMagnitude": 1,
-        "effectDescription": "If you also own an ENERGY UPSTREAM asset, reduce your taxable income from this asset by 1 each year. Vertical supply reduces regulatory exposure.",
-        "stressReduction": 0
-      },
-      {
-        "requiresIndustry": "ENERGY",
-        "requiresPlacement": "DOWNSTREAM",
-        "effectType": "REPAYMENT_RELIEF",
-        "effectMagnitude": 1,
-        "effectDescription": "If you also own an ENERGY DOWNSTREAM asset, this asset's loan repayment roll triggers only on a 1 (instead of 1). Full pipeline control improves lender terms.",
-        "stressReduction": 0
-      }
-    ],
-    "crossIndustrySynergies": [],
-    "flavourText": "The most profitable thing in energy is the pipe between the well and the customer."
-  },
-
-  {
-    "cardType": "ASSET",
-    "companyName": "Bramble Fuel & Distribution",
-    "industry": "ENERGY",
-    "placement": "DOWNSTREAM",
-    "tier": 1,
-    "baseValue": 5,
-    "stress": 0,
-    "income": 2,
-    "baseLoanCapacity": 3,
-    "loanCapacityIncreasePer10AssetValue": 5,
-    "baseValueUpdateRule": {
-      "outcomes": [
-        { "range": [1, 2], "delta": -1 },
-        { "range": [3, 4], "delta": 0 },
-        { "range": [5, 5], "delta": 1 },
-        { "range": [6, 6], "delta": 2 }
-      ],
-      "industryMechanic": "GMI-sensitive: when applying the annual GMI delta to this asset, apply it twice. Consumer fuel demand tracks the broader economy."
-    },
-    "loanRepaymentRule": {
-      "paymentOnTrigger": 1,
-      "outcomes": [
-        { "range": [1, 1], "trigger": true,  "relief": false },
-        { "range": [2, 5], "trigger": false, "relief": false },
-        { "range": [6, 6], "trigger": false, "relief": true  }
-      ]
-    },
-    "verticalIntegrationRules": [
-      {
-        "requiresIndustry": "ENERGY",
-        "requiresPlacement": "MIDSTREAM",
-        "effectType": "CRASH_FLOOR",
-        "effectMagnitude": 1,
-        "effectDescription": "If you also own an ENERGY MIDSTREAM asset, this asset's value update roll can never produce a delta lower than -1 (treat worse results as -1). Supply security limits downside.",
+        "effectMagnitude": 4,
+        "effectDescription": "If you also own a TECHNOLOGY MIDSTREAM asset, this asset's loan capacity increases by 4. Lenders gain confidence when infrastructure supports a live platform.",
         "stressReduction": 0
       }
     ],
     "crossIndustrySynergies": [
       {
-        "requiresIndustry": "MANUFACTURING",
-        "requiresPlacement": "DOWNSTREAM",
-        "effectType": "INCOME_OFFSET",
+        "requiresIndustry": "ENERGY",
+        "requiresPlacement": "UPSTREAM",
+        "effectType": "STRESS_REDUCTION",
         "effectMagnitude": 1,
-        "effectDescription": "If you also own a MANUFACTURING DOWNSTREAM asset, reduce taxable income from this asset by 1. Industrial fuel contracts offset retail tax exposure."
+        "effectDescription": "If you also own an ENERGY UPSTREAM asset, reduce your stress by 1. Co-located power infrastructure reduces operational risk perception."
       }
     ],
-    "flavourText": "Everyone complains about the price. Nobody stops buying."
+    "flavourText": "The pipes nobody sees. The margin nobody envies."
   },
-
   {
     "cardType": "ASSET",
-    "companyName": "Castellan Offshore Drilling",
-    "industry": "ENERGY",
+    "companyName": "QuasarSuite",
+    "industry": "TECHNOLOGY",
+    "placement": "MIDSTREAM",
+    "tier": 1,
+    "baseValue": 6,
+    "stress": 1,
+    "income": 0,
+    "baseLoanCapacity": 1,
+    "loanCapacityIncreasePer10AssetValue": 3,
+    "baseValueUpdateRule": {
+      "outcomes": [
+        { "range": [1, 1], "delta": -4 },
+        { "range": [2, 2], "delta": -1 },
+        { "range": [3, 3], "delta": 0 },
+        { "range": [4, 4], "delta": 2 },
+        { "range": [5, 5], "delta": 4 },
+        { "range": [6, 6], "delta": 6 }
+      ],
+      "industryMechanic": "Banks distrust standalone software. baseLoanCapacity is near-zero — integration with UPSTREAM infrastructure unlocks lender access."
+    },
+    "loanRepaymentRule": {
+      "paymentOnTrigger": 1,
+      "outcomes": [
+        { "range": [1, 2], "trigger": true,  "relief": false },
+        { "range": [3, 5], "trigger": false, "relief": false },
+        { "range": [6, 6], "trigger": false, "relief": true  }
+      ]
+    },
+    "verticalIntegrationRules": [
+      {
+        "requiresIndustry": "TECHNOLOGY",
+        "requiresPlacement": "UPSTREAM",
+        "effectType": "LOAN_CAPACITY_BONUS",
+        "effectMagnitude": 4,
+        "effectDescription": "If you also own a TECHNOLOGY UPSTREAM asset, this asset's loan capacity increases by 4. Infrastructure backing converts intangible software value into bankable collateral.",
+        "stressReduction": 0
+      },
+      {
+        "requiresIndustry": "TECHNOLOGY",
+        "requiresPlacement": "DOWNSTREAM",
+        "effectType": "VALUE_GROWTH_BOOST",
+        "effectMagnitude": 1,
+        "effectDescription": "If you also own a TECHNOLOGY DOWNSTREAM asset, add +1 to all positive delta outcomes on this asset's update roll. A distribution channel amplifies platform revenue.",
+        "stressReduction": 0
+      }
+    ],
+    "crossIndustrySynergies": [],
+    "flavourText": "Twelve integrations. Three customers. Infinite runway."
+  },
+  {
+    "cardType": "ASSET",
+    "companyName": "Flock Consumer Apps",
+    "industry": "TECHNOLOGY",
+    "placement": "DOWNSTREAM",
+    "tier": 1,
+    "baseValue": 4,
+    "stress": 1,
+    "income": 0,
+    "baseLoanCapacity": 1,
+    "loanCapacityIncreasePer10AssetValue": 3,
+    "baseValueUpdateRule": {
+      "outcomes": [
+        { "range": [1, 1], "delta": -4 },
+        { "range": [2, 2], "delta": -2 },
+        { "range": [3, 3], "delta": 0 },
+        { "range": [4, 4], "delta": 3 },
+        { "range": [5, 5], "delta": 5 },
+        { "range": [6, 6], "delta": 7 }
+      ],
+      "industryMechanic": "Banks distrust consumer apps entirely. Loan capacity is minimal — this card is a pure growth bet with no income and no lending floor."
+    },
+    "loanRepaymentRule": {
+      "paymentOnTrigger": 1,
+      "outcomes": [
+        { "range": [1, 2], "trigger": true,  "relief": false },
+        { "range": [3, 5], "trigger": false, "relief": false },
+        { "range": [6, 6], "trigger": false, "relief": true  }
+      ]
+    },
+    "verticalIntegrationRules": [
+      {
+        "requiresIndustry": "TECHNOLOGY",
+        "requiresPlacement": "MIDSTREAM",
+        "effectType": "CRASH_FLOOR",
+        "effectMagnitude": 1,
+        "effectDescription": "If you also own a TECHNOLOGY MIDSTREAM asset, this asset's value update roll can never produce a delta lower than -2. Platform infrastructure buffers consumer volatility.",
+        "stressReduction": 0
+      }
+    ],
+    "crossIndustrySynergies": [
+      {
+        "requiresIndustry": "MEDIA_ENTERTAINMENT",
+        "requiresPlacement": "DOWNSTREAM",
+        "effectType": "VALUE_GROWTH_BOOST",
+        "effectMagnitude": 1,
+        "effectDescription": "If you also own a MEDIA_ENTERTAINMENT DOWNSTREAM asset, add +1 to all positive delta outcomes on this asset's update roll. Content drives acquisition; acquisition drives value."
+      }
+    ],
+    "flavourText": "User growth is up. Revenue is a Q3 conversation."
+  },
+  {
+    "cardType": "ASSET",
+    "companyName": "Stratum Cloud Holdings",
+    "industry": "TECHNOLOGY",
     "placement": "UPSTREAM",
     "tier": 2,
-    "baseValue": 12,
-    "stress": 1,
-    "income": 2,
-    "baseLoanCapacity": 6,
-    "loanCapacityIncreasePer10AssetValue": 6,
+    "baseValue": 13,
+    "stress": 2,
+    "income": 0,
+    "baseLoanCapacity": 4,
+    "loanCapacityIncreasePer10AssetValue": 3,
+    "baseValueUpdateRule": {
+      "outcomes": [
+        { "range": [1, 1], "delta": -6 },
+        { "range": [2, 2], "delta": -2 },
+        { "range": [3, 3], "delta": 0 },
+        { "range": [4, 4], "delta": 3 },
+        { "range": [5, 5], "delta": 6 },
+        { "range": [6, 6], "delta": 10 }
+      ],
+      "industryMechanic": "Banks distrust standalone tech infrastructure at scale. Loan capacity remains weak without a confirmed software stack. No income — paper wealth only."
+    },
+    "loanRepaymentRule": {
+      "paymentOnTrigger": 1,
+      "outcomes": [
+        { "range": [1, 2], "trigger": true,  "relief": false },
+        { "range": [3, 5], "trigger": false, "relief": false },
+        { "range": [6, 6], "trigger": false, "relief": true  }
+      ]
+    },
+    "verticalIntegrationRules": [
+      {
+        "requiresIndustry": "TECHNOLOGY",
+        "requiresPlacement": "MIDSTREAM",
+        "effectType": "LOAN_CAPACITY_BONUS",
+        "effectMagnitude": 5,
+        "effectDescription": "If you also own a TECHNOLOGY MIDSTREAM asset, this asset's loan capacity increases by 5. Enterprise SaaS backed by owned infrastructure is the one combination lenders will fund.",
+        "stressReduction": 1
+      }
+    ],
+    "crossIndustrySynergies": [
+      {
+        "requiresIndustry": "ENERGY",
+        "requiresPlacement": "UPSTREAM",
+        "effectType": "STRESS_REDUCTION",
+        "effectMagnitude": 1,
+        "effectDescription": "If you also own an ENERGY UPSTREAM asset, reduce your stress by 1. Captive power supply at data centre scale is a structural moat — markets reward it."
+      }
+    ],
+    "flavourText": "We don't sell compute. We sell certainty."
+  },
+  {
+    "cardType": "ASSET",
+    "companyName": "Vantage Enterprise Systems",
+    "industry": "TECHNOLOGY",
+    "placement": "MIDSTREAM",
+    "tier": 2,
+    "baseValue": 15,
+    "stress": 2,
+    "income": 0,
+    "baseLoanCapacity": 3,
+    "loanCapacityIncreasePer10AssetValue": 3,
     "baseValueUpdateRule": {
       "outcomes": [
         { "range": [1, 1], "delta": -5 },
         { "range": [2, 2], "delta": -2 },
-        { "range": [3, 3], "delta": 0 },
-        { "range": [4, 4], "delta": 2 },
-        { "range": [5, 5], "delta": 4 },
-        { "range": [6, 6], "delta": 7 }
+        { "range": [3, 3], "delta": 1 },
+        { "range": [4, 4], "delta": 3 },
+        { "range": [5, 5], "delta": 6 },
+        { "range": [6, 6], "delta": 9 }
       ],
-      "industryMechanic": "GMI-sensitive: when applying the annual GMI delta to this asset, apply it twice. Offshore operations are levered to global commodity cycles — booms are spectacular, busts are brutal."
+      "industryMechanic": "Banks distrust enterprise software without physical collateral. No income — the entire return is value appreciation. Integration is mandatory for meaningful leverage."
     },
     "loanRepaymentRule": {
       "paymentOnTrigger": 1,
@@ -174,147 +234,97 @@
     },
     "verticalIntegrationRules": [
       {
-        "requiresIndustry": "ENERGY",
-        "requiresPlacement": "MIDSTREAM",
-        "effectType": "LOAN_CAPACITY_BONUS",
-        "effectMagnitude": 4,
-        "effectDescription": "If you also own an ENERGY MIDSTREAM asset, this asset's loan capacity increases by 4. Guaranteed off-take from a pipeline partner expands reserve-based lending.",
-        "stressReduction": 0
-      }
-    ],
-    "crossIndustrySynergies": [
-      {
         "requiresIndustry": "TECHNOLOGY",
         "requiresPlacement": "UPSTREAM",
-        "effectType": "GMI_RESISTANCE",
-        "effectMagnitude": 1,
-        "effectDescription": "If you also own a TECHNOLOGY UPSTREAM asset, the GMI double-application mechanic on this asset is reduced to a single application once per game. Sensor and automation tech hedges commodity exposure."
-      }
-    ],
-    "flavourText": "Every barrel is a bet. The platform just raises the stakes."
-  },
-
-  {
-    "cardType": "ASSET",
-    "companyName": "Meridian Power Grid",
-    "industry": "ENERGY",
-    "placement": "MIDSTREAM",
-    "tier": 2,
-    "baseValue": 14,
-    "stress": 1,
-    "income": 2,
-    "baseLoanCapacity": 7,
-    "loanCapacityIncreasePer10AssetValue": 6,
-    "baseValueUpdateRule": {
-      "outcomes": [
-        { "range": [1, 1], "delta": -2 },
-        { "range": [2, 3], "delta": 0 },
-        { "range": [4, 5], "delta": 2 },
-        { "range": [6, 6], "delta": 3 }
-      ],
-      "industryMechanic": "GMI-sensitive: when applying the annual GMI delta to this asset, apply it twice. Grid throughput scales with economic activity — regulated pricing provides a partial floor."
-    },
-    "loanRepaymentRule": {
-      "paymentOnTrigger": 1,
-      "outcomes": [
-        { "range": [1, 1], "trigger": true,  "relief": false },
-        { "range": [2, 5], "trigger": false, "relief": false },
-        { "range": [6, 6], "trigger": false, "relief": true  }
-      ]
-    },
-    "verticalIntegrationRules": [
-      {
-        "requiresIndustry": "ENERGY",
-        "requiresPlacement": "UPSTREAM",
-        "effectType": "INCOME_OFFSET",
-        "effectMagnitude": 1,
-        "effectDescription": "If you also own an ENERGY UPSTREAM asset, reduce taxable income from this asset by 1 each year. Owning your own supply source reduces pass-through costs and regulator scrutiny.",
+        "effectType": "LOAN_CAPACITY_BONUS",
+        "effectMagnitude": 5,
+        "effectDescription": "If you also own a TECHNOLOGY UPSTREAM asset, this asset's loan capacity increases by 5. Owned infrastructure converts recurring software revenue into reserve-based lending.",
         "stressReduction": 0
       },
       {
-        "requiresIndustry": "ENERGY",
+        "requiresIndustry": "TECHNOLOGY",
         "requiresPlacement": "DOWNSTREAM",
-        "effectType": "LOAN_RESTRUCTURE_FREE",
+        "effectType": "REPAYMENT_RELIEF",
         "effectMagnitude": 1,
-        "effectDescription": "If you also own an ENERGY DOWNSTREAM asset, once per year you may move any number of loan tokens between those two assets at no cost, regardless of capacity at the time of transfer. Full vertical stack unlocks free internal refinancing.",
+        "effectDescription": "If you also own a TECHNOLOGY DOWNSTREAM asset, this asset's loan repayment roll triggers only on a 1 (instead of 1-2). Full stack ownership signals durability to lenders.",
         "stressReduction": 1
       }
     ],
     "crossIndustrySynergies": [],
-    "flavourText": "The grid doesn't sleep. Neither does the interest."
+    "flavourText": "Fortune 500 contracts. Series D valuations. No profit in sight."
   },
-
   {
     "cardType": "ASSET",
-    "companyName": "Solace Utility Holdings",
-    "industry": "ENERGY",
+    "companyName": "Nexbridge Marketplace",
+    "industry": "TECHNOLOGY",
     "placement": "DOWNSTREAM",
     "tier": 2,
-    "baseValue": 11,
-    "stress": 1,
-    "income": 2,
-    "baseLoanCapacity": 6,
-    "loanCapacityIncreasePer10AssetValue": 5,
+    "baseValue": 12,
+    "stress": 2,
+    "income": 0,
+    "baseLoanCapacity": 2,
+    "loanCapacityIncreasePer10AssetValue": 3,
     "baseValueUpdateRule": {
       "outcomes": [
-        { "range": [1, 2], "delta": -1 },
-        { "range": [3, 4], "delta": 1 },
-        { "range": [5, 5], "delta": 2 },
-        { "range": [6, 6], "delta": 3 }
+        { "range": [1, 1], "delta": -6 },
+        { "range": [2, 2], "delta": -2 },
+        { "range": [3, 3], "delta": 0 },
+        { "range": [4, 4], "delta": 4 },
+        { "range": [5, 5], "delta": 7 },
+        { "range": [6, 6], "delta": 11 }
       ],
-      "industryMechanic": "GMI-sensitive: when applying the annual GMI delta to this asset, apply it twice. Regulated consumer pricing buffers against sharp swings but cannot fully insulate from macro shifts."
+      "industryMechanic": "Banks treat marketplace models as uncollateralised until scale is proven. Near-zero loan capacity standalone. Highest growth ceiling in the Technology Tier 2 set."
     },
     "loanRepaymentRule": {
       "paymentOnTrigger": 1,
       "outcomes": [
-        { "range": [1, 1], "trigger": true,  "relief": false },
-        { "range": [2, 5], "trigger": false, "relief": false },
+        { "range": [1, 2], "trigger": true,  "relief": false },
+        { "range": [3, 5], "trigger": false, "relief": false },
         { "range": [6, 6], "trigger": false, "relief": true  }
       ]
     },
     "verticalIntegrationRules": [
       {
-        "requiresIndustry": "ENERGY",
+        "requiresIndustry": "TECHNOLOGY",
         "requiresPlacement": "MIDSTREAM",
-        "effectType": "CRASH_FLOOR",
-        "effectMagnitude": 1,
-        "effectDescription": "If you also own an ENERGY MIDSTREAM asset, this asset's value update roll can never produce a delta lower than -1. Captive supply chain limits downside exposure.",
+        "effectType": "LOAN_CAPACITY_BONUS",
+        "effectMagnitude": 4,
+        "effectDescription": "If you also own a TECHNOLOGY MIDSTREAM asset, this asset's loan capacity increases by 4. An owned platform layer transforms a marketplace from a spreadsheet into infrastructure.",
         "stressReduction": 0
       }
     ],
     "crossIndustrySynergies": [
       {
-        "requiresIndustry": "FINANCE",
+        "requiresIndustry": "MEDIA_ENTERTAINMENT",
         "requiresPlacement": "MIDSTREAM",
-        "effectType": "LOAN_CAPACITY_BONUS",
-        "effectMagnitude": 4,
-        "effectDescription": "If you also own a FINANCE MIDSTREAM asset, this asset's loan capacity increases by 4. Regulated utility cash flows are a preferred collateral class for institutional lenders."
+        "effectType": "VALUE_GROWTH_BOOST",
+        "effectMagnitude": 2,
+        "effectDescription": "If you also own a MEDIA_ENTERTAINMENT MIDSTREAM asset, add +2 to all positive delta outcomes on this asset's update roll. Distribution platform synergies create compounding demand loops."
       }
     ],
-    "flavourText": "Monopoly with paperwork. The best kind."
+    "flavourText": "Take rate: 3%. Scale: everything. That's the whole pitch."
   },
-
   {
     "cardType": "ASSET",
-    "companyName": "Abyssal Energy Ventures",
-    "industry": "ENERGY",
-    "placement": "UPSTREAM",
+    "companyName": "Apex Cognition Ltd.",
+    "industry": "TECHNOLOGY",
+    "placement": "MIDSTREAM",
     "tier": 3,
-    "baseValue": 18,
+    "baseValue": 20,
     "stress": 3,
     "income": 0,
-    "baseLoanCapacity": 5,
-    "loanCapacityIncreasePer10AssetValue": 4,
+    "baseLoanCapacity": 2,
+    "loanCapacityIncreasePer10AssetValue": 2,
     "baseValueUpdateRule": {
       "outcomes": [
-        { "range": [1, 1], "delta": -8 },
+        { "range": [1, 1], "delta": -10 },
         { "range": [2, 2], "delta": -4 },
         { "range": [3, 3], "delta": 0 },
-        { "range": [4, 4], "delta": 4 },
-        { "range": [5, 5], "delta": 8 },
-        { "range": [6, 6], "delta": 14 }
+        { "range": [4, 4], "delta": 5 },
+        { "range": [5, 5], "delta": 10 },
+        { "range": [6, 6], "delta": 16 }
       ],
-      "industryMechanic": "GMI-sensitive: when applying the annual GMI delta to this asset, apply it three times (positive or negative). Deep-sea exploration is maximally levered to the global commodity cycle. All capital is paper until the well comes in."
+      "industryMechanic": "Banks treat AI platforms as uncollateralised speculation. baseLoanCapacity is near-zero standalone — the lowest in the game. No income. The entire value proposition is explosive appreciation or total collapse."
     },
     "loanRepaymentRule": {
       "paymentOnTrigger": 1,
@@ -326,23 +336,31 @@
     },
     "verticalIntegrationRules": [
       {
-        "requiresIndustry": "ENERGY",
-        "requiresPlacement": "MIDSTREAM",
+        "requiresIndustry": "TECHNOLOGY",
+        "requiresPlacement": "UPSTREAM",
         "effectType": "LOAN_CAPACITY_BONUS",
-        "effectMagnitude": 5,
-        "effectDescription": "If you also own an ENERGY MIDSTREAM asset, this asset's loan capacity increases by 5. A confirmed off-take agreement transforms speculative reserves into bankable infrastructure.",
+        "effectMagnitude": 6,
+        "effectDescription": "If you also own a TECHNOLOGY UPSTREAM asset, this asset's loan capacity increases by 6. Owned compute infrastructure is the only thing that makes an AI company bankable.",
         "stressReduction": 1
+      },
+      {
+        "requiresIndustry": "TECHNOLOGY",
+        "requiresPlacement": "DOWNSTREAM",
+        "effectType": "VALUE_GROWTH_BOOST",
+        "effectMagnitude": 2,
+        "effectDescription": "If you also own a TECHNOLOGY DOWNSTREAM asset, add +2 to all positive delta outcomes on this asset's update roll. Distribution turns a model into a product.",
+        "stressReduction": 0
       }
     ],
     "crossIndustrySynergies": [
       {
-        "requiresIndustry": "TECHNOLOGY",
+        "requiresIndustry": "FINANCE",
         "requiresPlacement": "UPSTREAM",
-        "effectType": "GMI_RESISTANCE",
+        "effectType": "LOAN_RESTRUCTURE_FREE",
         "effectMagnitude": 1,
-        "effectDescription": "If you also own a TECHNOLOGY UPSTREAM asset, reduce the GMI triple-application on this asset to double-application. Autonomous subsea systems reduce operational blow-up risk."
+        "effectDescription": "If you also own a FINANCE UPSTREAM asset, once per year you may move any number of loan tokens onto this asset from any other asset at no cost, regardless of capacity. Quantitative capital markets treat AI as a distinct asset class."
       }
     ],
-    "flavourText": "Three kilometres down. Two years of runway. One chance."
+    "flavourText": "The model is the moat. The moat is the company. The company is the debt."
   }
 ]
