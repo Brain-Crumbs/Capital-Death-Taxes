@@ -1078,32 +1078,36 @@ async function loadSelectedRun() {
   }
 }
 
-document.getElementById('load-btn').addEventListener('click', loadSelectedRun);
-document.getElementById('run-select').addEventListener('change', loadSelectedRun);
+function init() {
+  document.getElementById('load-btn').addEventListener('click', loadSelectedRun);
+  document.getElementById('run-select').addEventListener('change', loadSelectedRun);
 
-populateRunPicker();
-
-// ── Reload button ──────────────────────────────────────────────────────────
-
-document.getElementById('reload-btn').addEventListener('click', () => {
-  charts.destroyAll();
-  document.getElementById('dashboard').style.display   = 'none';
-  document.getElementById('drop-screen').style.display = '';
-  setDropError('');
-  document.title = 'Borrow & Die — Simulator Dashboard';
   populateRunPicker();
-});
 
-// ── Tab switching ──────────────────────────────────────────────────────────
+  // ── Reload button ──────────────────────────────────────────────────────────
 
-document.querySelectorAll('.tab-btn').forEach(btn => {
-  btn.addEventListener('click', () => {
-    document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
-    document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
-    btn.classList.add('active');
-    document.getElementById(btn.dataset.tab).classList.add('active');
-
-    // Force chart resize after tab switch (Chart.js needs visible canvas)
-    setTimeout(() => { charts.resizeAll(); }, 50);
+  document.getElementById('reload-btn').addEventListener('click', () => {
+    charts.destroyAll();
+    document.getElementById('dashboard').style.display   = 'none';
+    document.getElementById('drop-screen').style.display = '';
+    setDropError('');
+    document.title = 'Borrow & Die — Simulator Dashboard';
+    populateRunPicker();
   });
-});
+
+  // ── Tab switching ──────────────────────────────────────────────────────────
+
+  document.querySelectorAll('.tab-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+      document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+      btn.classList.add('active');
+      document.getElementById(btn.dataset.tab).classList.add('active');
+
+      // Force chart resize after tab switch (Chart.js needs visible canvas)
+      setTimeout(() => { charts.resizeAll(); }, 50);
+    });
+  });
+}
+
+document.addEventListener('DOMContentLoaded', init);
