@@ -16,6 +16,10 @@
     <p class="subtitle">Card Viewer</p>
   </div>
 
+  <div class="search-bar">
+    <input type="search" id="search-input" placeholder="Search cards…" autocomplete="off">
+  </div>
+
   <nav class="tab-nav" id="tab-nav">
     <button class="tab-btn active" data-tab="ASSETS">ASSETS</button>
     <button class="tab-btn" data-tab="CEOs">CEOs</button>
@@ -715,6 +719,47 @@
       });
     }
 
+    // ── Search state ───────────────────────────────────────────────
+
+    let searchQuery = '';
+
+    function cardMatchesSearch(card, query) {
+      if (!query) return true;
+      const q = query.toLowerCase();
+
+      // Primary name fields
+      if ([card.companyName, card.ceoName, card.eventName].some(f => f && String(f).toLowerCase().includes(q))) return true;
+
+      // Industry
+      if (card.industry && card.industry.toLowerCase().includes(q)) return true;
+
+      // Flavour text
+      if (card.flavourText && card.flavourText.toLowerCase().includes(q)) return true;
+
+      // effects[].description
+      if (Array.isArray(card.effects) && card.effects.some(fx => fx.description && fx.description.toLowerCase().includes(q))) return true;
+
+      // abilities[].description
+      if (Array.isArray(card.abilities) && card.abilities.some(ab => ab.description && ab.description.toLowerCase().includes(q))) return true;
+
+      // immediateEffect.description
+      if (card.immediateEffect?.description && card.immediateEffect.description.toLowerCase().includes(q)) return true;
+
+      // deathRollEffect.description
+      if (card.deathRollEffect?.description && card.deathRollEffect.description.toLowerCase().includes(q)) return true;
+
+      // baseValueUpdateRule.industryMechanic
+      if (card.baseValueUpdateRule?.industryMechanic && card.baseValueUpdateRule.industryMechanic.toLowerCase().includes(q)) return true;
+
+      // verticalIntegrationRules[].effectDescription
+      if (Array.isArray(card.verticalIntegrationRules) && card.verticalIntegrationRules.some(r => r.effectDescription && r.effectDescription.toLowerCase().includes(q))) return true;
+
+      // crossIndustrySynergies[].effectDescription
+      if (Array.isArray(card.crossIndustrySynergies) && card.crossIndustrySynergies.some(s => s.effectDescription && s.effectDescription.toLowerCase().includes(q))) return true;
+
+      return false;
+    }
+
     // ── Tab state + rendering ─────────────────────────────────────
 
     let activeTab = 'ASSETS';
@@ -722,13 +767,13 @@
     function getTabCards(allCards) {
       switch (activeTab) {
         case 'ASSETS':
-          return sortAssets(allCards.filter(c => c.cardType === 'ASSET' && matchesAssetFilter(c)));
+          return sortAssets(allCards.filter(c => c.cardType === 'ASSET' && matchesAssetFilter(c) && cardMatchesSearch(c, searchQuery)));
         case 'CEOs':
-          return sortCeos(allCards.filter(c => c.cardType === 'CEO'));
+          return sortCeos(allCards.filter(c => c.cardType === 'CEO' && cardMatchesSearch(c, searchQuery)));
         case 'GLOBAL EVENTS':
-          return allCards.filter(c => c.cardType === 'GLOBAL_EVENT' && matchesGlobalEventFilter(c));
+          return allCards.filter(c => c.cardType === 'GLOBAL_EVENT' && matchesGlobalEventFilter(c) && cardMatchesSearch(c, searchQuery));
         case 'PERSONAL EVENTS':
-          return allCards.filter(c => c.cardType === 'PERSONAL_EVENT' && matchesPersonalEventFilter(c));
+          return allCards.filter(c => c.cardType === 'PERSONAL_EVENT' && matchesPersonalEventFilter(c) && cardMatchesSearch(c, searchQuery));
         default:
           return [];
       }
@@ -892,6 +937,17 @@
         b.classList.toggle('active', b === btn);
       });
       renderGrid(allCards);
+    });
+
+    // ── Search input ───────────────────────────────────────────────
+
+    let searchDebounceTimer = null;
+    document.getElementById('search-input').addEventListener('input', e => {
+      clearTimeout(searchDebounceTimer);
+      searchDebounceTimer = setTimeout(() => {
+        searchQuery = e.target.value.trim();
+        renderGrid(allCards);
+      }, 150);
     });
 
     // Initial render
