@@ -12,7 +12,8 @@
      The value must be valid JSON (double-quoted keys and strings).
   4. Save and reload in your browser.
 
-  TIP: You can regenerate all variables at once by running:
+  TIP: You can regenerate all variables at once by running this from the
+  repo root:
     python3 -c "
 import json, pathlib
 vars = [
@@ -29,7 +30,8 @@ vars = [
 ]
 for name, fname in vars:
     d = json.loads(pathlib.Path('data/cards/' + fname).read_text())
-    print(f'const {name} = {json.dumps(d, indent=2)};\n')
+    print(f'const {name} = {json.dumps(d, indent=2)};')
+    print()
 "
   then paste the output into the script block, replacing everything between
   the START DATA / END DATA comments.
@@ -50,6 +52,7 @@ for name, fname in vars:
     // All card data is embedded here as plain JS variables to avoid CORS
     // restrictions when opening this file directly from the filesystem
     // (file:// URLs block fetch() cross-origin requests in most browsers).
+    // Source files are in data/cards/*.json relative to the repo root.
 
 const DATA_TECHNOLOGY = [
   {
