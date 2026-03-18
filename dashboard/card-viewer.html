@@ -48,6 +48,28 @@
     </div>
   </div>
 
+  <div id="global-event-filters" class="filter-bar-group" hidden>
+    <div class="filter-row">
+      <button class="filter-btn active" data-filter="eventCategory" data-value="ALL">ALL</button>
+      <button class="filter-btn" data-filter="eventCategory" data-value="BOOM">BOOM</button>
+      <button class="filter-btn" data-filter="eventCategory" data-value="BUST">BUST</button>
+      <button class="filter-btn" data-filter="eventCategory" data-value="DEPRESSION">DEPRESSION</button>
+      <button class="filter-btn" data-filter="eventCategory" data-value="SUPPLY_SHOCK">SUPPLY_SHOCK</button>
+      <button class="filter-btn" data-filter="eventCategory" data-value="REGULATORY">REGULATORY</button>
+      <button class="filter-btn" data-filter="eventCategory" data-value="NEUTRAL">NEUTRAL</button>
+      <button class="filter-btn" data-filter="eventCategory" data-value="MARKET_DISRUPTION">MARKET_DISRUPTION</button>
+    </div>
+  </div>
+
+  <div id="personal-event-filters" class="filter-bar-group" hidden>
+    <div class="filter-row">
+      <button class="filter-btn active" data-filter="playTiming" data-value="ALL">ALL</button>
+      <button class="filter-btn" data-filter="playTiming" data-value="IMMEDIATE">IMMEDIATE</button>
+      <button class="filter-btn" data-filter="playTiming" data-value="HOLD">HOLD</button>
+      <button class="filter-btn" data-filter="playTiming" data-value="PASSIVE">PASSIVE</button>
+    </div>
+  </div>
+
   <div id="card-grid"></div>
 
   <script type="module">
@@ -658,6 +680,40 @@
       });
     }
 
+    // ── Global Event filter state ──────────────────────────────────
+
+    const globalEventFilter = { eventCategory: 'ALL' };
+
+    function matchesGlobalEventFilter(card) {
+      const { eventCategory } = globalEventFilter;
+      if (eventCategory !== 'ALL' && card.eventCategory !== eventCategory) return false;
+      return true;
+    }
+
+    function resetGlobalEventFilters() {
+      globalEventFilter.eventCategory = 'ALL';
+      document.querySelectorAll('#global-event-filters .filter-btn').forEach(btn => {
+        btn.classList.toggle('active', btn.dataset.value === 'ALL');
+      });
+    }
+
+    // ── Personal Event filter state ────────────────────────────────
+
+    const personalEventFilter = { playTiming: 'ALL' };
+
+    function matchesPersonalEventFilter(card) {
+      const { playTiming } = personalEventFilter;
+      if (playTiming !== 'ALL' && card.playTiming !== playTiming) return false;
+      return true;
+    }
+
+    function resetPersonalEventFilters() {
+      personalEventFilter.playTiming = 'ALL';
+      document.querySelectorAll('#personal-event-filters .filter-btn').forEach(btn => {
+        btn.classList.toggle('active', btn.dataset.value === 'ALL');
+      });
+    }
+
     // ── Tab state + rendering ─────────────────────────────────────
 
     let activeTab = 'ASSETS';
@@ -669,9 +725,9 @@
         case 'CEOs':
           return sortCeos(allCards.filter(c => c.cardType === 'CEO'));
         case 'GLOBAL EVENTS':
-          return allCards.filter(c => c.cardType === 'GLOBAL_EVENT');
+          return allCards.filter(c => c.cardType === 'GLOBAL_EVENT' && matchesGlobalEventFilter(c));
         case 'PERSONAL EVENTS':
-          return allCards.filter(c => c.cardType === 'PERSONAL_EVENT');
+          return allCards.filter(c => c.cardType === 'PERSONAL_EVENT' && matchesPersonalEventFilter(c));
         default:
           return [];
       }
@@ -739,7 +795,11 @@
         b.classList.toggle('active', b === btn)
       );
       resetAssetFilters();
+      resetGlobalEventFilters();
+      resetPersonalEventFilters();
       document.getElementById('asset-filters').hidden = activeTab !== 'ASSETS';
+      document.getElementById('global-event-filters').hidden = activeTab !== 'GLOBAL EVENTS';
+      document.getElementById('personal-event-filters').hidden = activeTab !== 'PERSONAL EVENTS';
       renderGrid(allCards);
     });
 
@@ -751,6 +811,30 @@
       const dim   = btn.dataset.filter;
       const value = btn.dataset.value;
       assetFilter[dim] = value;
+      btn.closest('.filter-row').querySelectorAll('.filter-btn').forEach(b => {
+        b.classList.toggle('active', b === btn);
+      });
+      renderGrid(allCards);
+    });
+
+    // ── Global Event filter interactions ───────────────────────────
+
+    document.getElementById('global-event-filters').addEventListener('click', e => {
+      const btn = e.target.closest('.filter-btn');
+      if (!btn) return;
+      globalEventFilter.eventCategory = btn.dataset.value;
+      btn.closest('.filter-row').querySelectorAll('.filter-btn').forEach(b => {
+        b.classList.toggle('active', b === btn);
+      });
+      renderGrid(allCards);
+    });
+
+    // ── Personal Event filter interactions ─────────────────────────
+
+    document.getElementById('personal-event-filters').addEventListener('click', e => {
+      const btn = e.target.closest('.filter-btn');
+      if (!btn) return;
+      personalEventFilter.playTiming = btn.dataset.value;
       btn.closest('.filter-row').querySelectorAll('.filter-btn').forEach(b => {
         b.classList.toggle('active', b === btn);
       });
