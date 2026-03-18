@@ -5,6 +5,7 @@
  *   bidOnAsset(card, myPlayer, state)            → integer bid (0 = pass)
  *   choosePersonalEventAction(card, myPlayer, state) → "HOLD" | "PLAY" | "SELL"
  *   chooseSellAsset(myPlayer, state)             → assetId (companyName) | null
+ *   chooseSwapSale(myPlayer, state)              → assetId (companyName) | null
  *   chooseLoanDraw(myPlayer, state)              → integer tokens to draw (0 = none)
  *
  * The base class also implements the turn.js agent interface by wrapping
@@ -96,6 +97,22 @@ export class BaseAgent {
    */
   // eslint-disable-next-line no-unused-vars
   chooseSellAsset(myPlayer, state) {
+    return null;
+  }
+
+  /**
+   * Optionally sells one owned asset immediately before the auction phase
+   * (a "swap sale") to free a portfolio slot and fund a new purchase.
+   * Proceeds are added to cash immediately; any portion not spent on a new
+   * asset purchase is taxed as ordinary income at settlement.
+   * Return the asset's companyName to sell it, or null to hold.
+   *
+   * @param {object} myPlayer
+   * @param {object} state
+   * @returns {string|null}
+   */
+  // eslint-disable-next-line no-unused-vars
+  chooseSwapSale(myPlayer, state) {
     return null;
   }
 

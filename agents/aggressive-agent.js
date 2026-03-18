@@ -104,6 +104,62 @@ export class AggressiveAgent extends BaseAgent {
     return 'PLAY';
   }
 
+  // ── chooseSwapSale ─────────────────────────────────────────────────────────
+
+  chooseSwapSale(myPlayer, state) {
+    const round  = state.round ?? 0;
+    const assets = myPlayer.assets ?? [];
+
+    // Swap only needed when portfolio is full
+    if (assets.length < 3) return null;
+
+    // Need T3 CEO access
+    if ((myPlayer.ceo?.maxAssetTier ?? 2) < 3) return null;
+
+    // Back off if near the death-roll threshold
+    const deathThreshold = myPlayer.ceo?.deathRollThreshold ?? 6;
+    if (myPlayer.stress >= deathThreshold - 1) return null;
+
+    // Find a T3 card in the market we can't yet afford
+    const t3Cards = (state.marketCards ?? []).filter(
+      c => c && c.cardType === 'ASSET' && c.tier === 3,
+    );
+    if (t3Cards.length === 0) return null;
+
+    const targetCard = t3Cards.find(c => (myPlayer.cash ?? 0) < c.baseValue);
+    if (!targetCard) return null;
+
+    // Avoid selling the last T2 — the engine requires a T2 to bid on T3 cards
+    const ownedT2Count = assets.filter(a => a.tier === 2).length;
+    const candidates   = ownedT2Count <= 1
+      ? assets.filter(a => a.tier !== 2)
+      : assets;
+    if (candidates.length === 0) return null;
+
+    // Sell the lowest-value candidate
+    const toSell    = candidates.slice().sort(
+      (a, b) => (a.currentValue ?? a.baseValue) - (b.currentValue ?? b.baseValue),
+    )[0];
+    const saleValue = toSell.currentValue ?? toSell.baseValue;
+
+    // Confirm the swap actually makes the bid affordable
+    if ((myPlayer.cash ?? 0) + saleValue < targetCard.baseValue) {
+      this.logDecision(
+        'PASS',
+        `Aggressive: swap of ${toSell.companyName} still not enough for T3 ${targetCard.companyName}`,
+        round,
+      );
+      return null;
+    }
+
+    this.logDecision(
+      'SWAP_SELL',
+      `Aggressive: sells ${toSell.companyName} (value=${saleValue}) to fund T3 ${targetCard.companyName} (base=${targetCard.baseValue})`,
+      round,
+    );
+    return toSell.companyName;
+  }
+
   // ── chooseSellAsset ────────────────────────────────────────────────────────
 
   chooseSellAsset(myPlayer, state) {
