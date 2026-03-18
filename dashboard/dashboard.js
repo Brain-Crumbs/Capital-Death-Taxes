@@ -17,11 +17,6 @@ const INDUSTRY_COLORS = {
   HYBRID:          '#ffe082',
 };
 
-const INDUSTRY_ORDER = [
-  'TECHNOLOGY','ENERGY','REAL_ESTATE','FINANCE','MANUFACTURING',
-  'MEDIA_ENTERTAINMENT','MEDIA','HYBRID'
-];
-
 // Colour for an industry (normalises MEDIA → MEDIA_ENTERTAINMENT etc.)
 function industryColor(ind) {
   return INDUSTRY_COLORS[ind] || INDUSTRY_COLORS[(ind||'').replace('-','_').toUpperCase()] || '#888';
@@ -91,6 +86,11 @@ function median(arr) { return percentile(arr, 50); }
 
 // ── Aggregate raw runs → summary stats ──────────────────────────────────────
 
+function findWinner(players) {
+  return players.reduce((b, p) =>
+    p.score > b.score || (p.score === b.score && p.playerId < b.playerId) ? p : b);
+}
+
 function aggregate(runs) {
   const ms = runs.map(r => r.metrics);
 
@@ -107,8 +107,7 @@ function aggregate(runs) {
   for (const m of ms) {
     const players = m.final_score_by_player || [];
     if (!players.length) continue;
-    const winner = players.reduce((b, p) =>
-      p.score > b.score || (p.score === b.score && p.playerId < b.playerId) ? p : b);
+    const winner = findWinner(players);
     const arch = winner.ceoArchetype || 'UNKNOWN';
     winsByCeo[arch] = (winsByCeo[arch] || 0) + 1;
   }
@@ -122,8 +121,7 @@ function aggregate(runs) {
   for (const m of ms) {
     const players = m.final_score_by_player || [];
     if (!players.length) continue;
-    const winner = players.reduce((b, p) =>
-      p.score > b.score || (p.score === b.score && p.playerId < b.playerId) ? p : b);
+    const winner = findWinner(players);
     winCount++;
     for (const ind of (winner.industries || [])) {
       winsByInd[ind] = (winsByInd[ind] || 0) + 1;
@@ -229,15 +227,6 @@ function aggregate(runs) {
   );
 
   // Death/bankruptcy by round
-  const deathsByRound = {};
-  const banksByRound  = {};
-  for (const m of ms) {
-    const r = m.first_death_roll_round;
-    if (r != null) deathsByRound[r] = (deathsByRound[r] || 0) + (m.death_count || 0);
-    const br = m.game_length_rounds;
-    if (br != null) banksByRound[br] = (banksByRound[br] || 0) + (m.bankruptcy_count || 0);
-  }
-  // simpler: per-run death round bucketing
   const deathEventsByRound = {};
   for (const m of ms) {
     const r = m.first_death_roll_round;
