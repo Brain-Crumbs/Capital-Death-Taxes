@@ -1400,9 +1400,10 @@ function renderStress(agg) {
 // TAB 5: REPLAY
 // ════════════════════════════════════════════════════════════════════════════
 
-let _replayRuns   = [];
-let _replayRunIdx = 0;
-let _replayRound  = 1;
+let _replayRuns              = [];
+let _replayRunIdx            = 0;
+let _replayRound             = 1;
+let _replayListenersAttached = false;
 
 function populateRunSelect(runs) {
   const sel = document.getElementById('replay-run-select');
@@ -1532,6 +1533,9 @@ function initReplay(runs) {
   _replayRuns = runs;
   populateRunSelect(runs);
   switchReplayRun(0);
+
+  if (_replayListenersAttached) return;
+  _replayListenersAttached = true;
 
   document.getElementById('replay-run-select').addEventListener('change', e => {
     switchReplayRun(+e.target.value);
