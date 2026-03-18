@@ -23,6 +23,31 @@
     <button class="tab-btn" data-tab="PERSONAL EVENTS">PERSONAL EVENTS</button>
   </nav>
 
+  <div id="asset-filters" class="filter-bar-group">
+    <div class="filter-row">
+      <button class="filter-btn active" data-filter="industry" data-value="ALL">ALL</button>
+      <button class="filter-btn" data-filter="industry" data-value="TECHNOLOGY">TECHNOLOGY</button>
+      <button class="filter-btn" data-filter="industry" data-value="ENERGY">ENERGY</button>
+      <button class="filter-btn" data-filter="industry" data-value="REAL_ESTATE">REAL ESTATE</button>
+      <button class="filter-btn" data-filter="industry" data-value="FINANCE">FINANCE</button>
+      <button class="filter-btn" data-filter="industry" data-value="MANUFACTURING">MANUFACTURING</button>
+      <button class="filter-btn" data-filter="industry" data-value="MEDIA_ENTERTAINMENT">MEDIA</button>
+      <button class="filter-btn" data-filter="industry" data-value="HYBRID">HYBRID</button>
+    </div>
+    <div class="filter-row">
+      <button class="filter-btn active" data-filter="tier" data-value="ALL">ALL TIERS</button>
+      <button class="filter-btn" data-filter="tier" data-value="1">TIER 1</button>
+      <button class="filter-btn" data-filter="tier" data-value="2">TIER 2</button>
+      <button class="filter-btn" data-filter="tier" data-value="3">TIER 3</button>
+    </div>
+    <div class="filter-row">
+      <button class="filter-btn active" data-filter="placement" data-value="ALL">ALL</button>
+      <button class="filter-btn" data-filter="placement" data-value="UPSTREAM">UPSTREAM</button>
+      <button class="filter-btn" data-filter="placement" data-value="MIDSTREAM">MIDSTREAM</button>
+      <button class="filter-btn" data-filter="placement" data-value="DOWNSTREAM">DOWNSTREAM</button>
+    </div>
+  </div>
+
   <div id="card-grid"></div>
 
   <script type="module">
@@ -592,6 +617,47 @@
       return [...cards].sort((a, b) => (a.annualIncome ?? 0) - (b.annualIncome ?? 0));
     }
 
+    // ── Asset filter state ─────────────────────────────────────────
+
+    const CANONICAL_INDUSTRIES = [
+      'TECHNOLOGY', 'ENERGY', 'REAL_ESTATE', 'FINANCE',
+      'MANUFACTURING', 'MEDIA_ENTERTAINMENT',
+    ];
+
+    const assetFilter = { industry: 'ALL', tier: 'ALL', placement: 'ALL' };
+
+    function isHybridCard(card) {
+      return !CANONICAL_INDUSTRIES.includes(card.industry) ||
+        (card.baseValueUpdateRule?.industryMechanic ?? '').toLowerCase().includes('hybrid');
+    }
+
+    function matchesAssetFilter(card) {
+      const { industry, tier, placement } = assetFilter;
+
+      if (industry !== 'ALL') {
+        if (industry === 'HYBRID') {
+          if (!isHybridCard(card)) return false;
+        } else {
+          if (card.industry !== industry) return false;
+        }
+      }
+
+      if (tier !== 'ALL' && String(card.tier) !== tier) return false;
+
+      if (placement !== 'ALL' && card.placement !== placement) return false;
+
+      return true;
+    }
+
+    function resetAssetFilters() {
+      assetFilter.industry = 'ALL';
+      assetFilter.tier     = 'ALL';
+      assetFilter.placement = 'ALL';
+      document.querySelectorAll('#asset-filters .filter-btn').forEach(btn => {
+        btn.classList.toggle('active', btn.dataset.value === 'ALL');
+      });
+    }
+
     // ── Tab state + rendering ─────────────────────────────────────
 
     let activeTab = 'ASSETS';
@@ -599,7 +665,7 @@
     function getTabCards(allCards) {
       switch (activeTab) {
         case 'ASSETS':
-          return sortAssets(allCards.filter(c => c.cardType === 'ASSET'));
+          return sortAssets(allCards.filter(c => c.cardType === 'ASSET' && matchesAssetFilter(c)));
         case 'CEOs':
           return sortCeos(allCards.filter(c => c.cardType === 'CEO'));
         case 'GLOBAL EVENTS':
@@ -672,6 +738,22 @@
       document.querySelectorAll('.tab-btn').forEach(b =>
         b.classList.toggle('active', b === btn)
       );
+      resetAssetFilters();
+      document.getElementById('asset-filters').hidden = activeTab !== 'ASSETS';
+      renderGrid(allCards);
+    });
+
+    // ── Asset filter interactions ──────────────────────────────────
+
+    document.getElementById('asset-filters').addEventListener('click', e => {
+      const btn = e.target.closest('.filter-btn');
+      if (!btn) return;
+      const dim   = btn.dataset.filter;
+      const value = btn.dataset.value;
+      assetFilter[dim] = value;
+      btn.closest('.filter-row').querySelectorAll('.filter-btn').forEach(b => {
+        b.classList.toggle('active', b === btn);
+      });
       renderGrid(allCards);
     });
 

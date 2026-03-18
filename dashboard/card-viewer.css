@@ -90,6 +90,45 @@ body {
   border-radius: var(--radius-pill);
 }
 
+/* ── Asset filter bars ──────────────────────────────────────── */
+.filter-bar-group {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  margin-bottom: 20px;
+}
+
+.filter-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+}
+
+.filter-btn {
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  font-family: inherit;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--color-text-muted);
+  padding: 4px 10px;
+  border-radius: var(--radius-pill);
+  transition: background 0.1s, color 0.1s;
+}
+
+.filter-btn:hover {
+  color: var(--color-text);
+  background: rgba(0,0,0,0.05);
+}
+
+.filter-btn.active {
+  background: var(--color-nav-active-bg);
+  color: var(--color-nav-active-text);
+}
+
 /* ── Card grid ──────────────────────────────────────────────── */
 #card-grid {
   display: grid;
