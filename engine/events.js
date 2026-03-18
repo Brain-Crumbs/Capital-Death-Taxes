@@ -17,7 +17,8 @@
  *   PASSIVE    → add to player.hand (always-active rule)
  */
 
-import { computeGMIDelta } from './gmi.js';
+import { computeGMIDelta }         from './gmi.js';
+import { checkCollateralViolation } from './loans.js';
 
 /**
  * d6 threshold at which each persistent depression ends (roll >= threshold).
@@ -108,12 +109,14 @@ export function resolveGlobalEvent(card, state, dice) {
 
   for (const bubble of (state.activeBubbles ?? [])) {
     if (gmiDelta < 0) {
-      // Drop all assets in the bubble industry by 3 (floor 1)
+      // Drop all assets in the bubble industry by 3 (floor 0, §12).
+      const affectedPlayers = new Set();
       for (const player of state.players) {
         for (const asset of (player.assets ?? [])) {
           if (asset.industry !== bubble.targetIndustry) continue;
-          const oldValue    = asset.currentValue ?? asset.baseValue;
-          asset.currentValue = Math.max(1, oldValue - 3);
+          const oldValue     = asset.currentValue ?? asset.baseValue;
+          asset.currentValue = Math.max(0, oldValue - 3);
+          affectedPlayers.add(player);
           logEvents.push({
             type:     'BUBBLE_POP_ASSET_DROP',
             assetId:  asset.companyName,
@@ -124,6 +127,33 @@ export function resolveGlobalEvent(card, state, dice) {
           });
         }
       }
+
+      // §10: immediately check collateral violations for affected players.
+      for (const player of affectedPlayers) {
+        const { violated, totalLoans, totalCapacity } = checkCollateralViolation(player);
+        if (!violated) continue;
+        // Immediate resolution: repay with cash; shortfall → stress (§12).
+        const excess    = totalLoans - totalCapacity;
+        const repaid    = Math.min(excess, player.cash ?? 0);
+        player.loans   -= repaid;
+        player.cash    -= repaid;
+        const shortfall = excess - repaid;
+        if (shortfall > 0) {
+          player.stress  += shortfall;
+          player.loans   -= shortfall;  // loans reduced by stress-conversion
+        }
+        logEvents.push({
+          type:         'BUBBLE_POP_COLLATERAL_VIOLATION',
+          playerId:     player.id,
+          excess,
+          repaid,
+          shortfall,
+          newLoans:     player.loans,
+          newCash:      player.cash,
+          newStress:    player.stress,
+        });
+      }
+
       logEvents.push({
         type:           'BUBBLE_POPPED',
         eventName:      bubble.eventName,

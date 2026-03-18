@@ -56,7 +56,7 @@ export function computeGMIDelta(globalEventCard, dice) {
  * TECHNOLOGY        apply normally (note: does NOT affect loan capacity — enforced elsewhere)
  * REAL_ESTATE       apply normally
  *
- * The asset value floor is always 1.
+ * The asset value floor is 0 (§6, §12).
  *
  * @param {object} asset       — must have currentValue (or baseValue), industry, tier
  * @param {number} gmiDelta    — integer delta from computeGMIDelta
@@ -124,6 +124,6 @@ export function applyGMIToAsset(asset, gmiDelta, dice) {
       break;
   }
 
-  const newValue = Math.max(1, currentValue + gmiAdjustment);
+  const newValue = Math.max(0, currentValue + gmiAdjustment);
   return { newValue, gmiAdjustment, buzzRoll };
 }

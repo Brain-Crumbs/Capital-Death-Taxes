@@ -54,6 +54,18 @@ export function auctionAsset(card, players, agentBids, state) {
 
   for (const player of players) {
     if (!player.alive) continue;
+
+    // §6: Players with 3 assets may not bid.
+    if ((player.assets ?? []).length >= 3) continue;
+
+    // §5: Tier 3 cards require the bidder to own at least one Tier 2 asset,
+    // unless the bidder is The Visionary.
+    if (
+      card.tier === 3 &&
+      player.ceo?.ceoName !== 'The Visionary' &&
+      !(player.assets ?? []).some(a => a.tier === 2)
+    ) continue;
+
     const bid = agentBids[player.id] ?? 0;
     if (bid >= card.baseValue && bid > winningBid) {
       winner     = player;

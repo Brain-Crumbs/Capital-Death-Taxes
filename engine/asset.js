@@ -43,8 +43,10 @@ function lookupOutcome(outcomes, roll) {
  *                              industry, tier, baseValueUpdateRule, companyName
  * @param {import('./dice.js').Dice} dice
  * @param {number} gmiDelta   — integer from computeGMIDelta for this round
- * @param {string|null} [playerId]  — for the log event
- * @param {number|null} [round]     — for the log event
+ * @param {string|null} [playerId]    — for the log event
+ * @param {number|null} [round]       — for the log event
+ * @param {number|null} [overrideRoll] — when set, use this roll instead of rolling the die
+ *                                       (used by the Gambler's reroll ability)
  * @returns {{
  *   newValue:      number,
  *   delta:         number,   // total change from oldValue
@@ -55,15 +57,15 @@ function lookupOutcome(outcomes, roll) {
  *   logEvent:      object,
  * }}
  */
-export function rollValueUpdate(asset, dice, gmiDelta, playerId = null, round = null) {
+export function rollValueUpdate(asset, dice, gmiDelta, playerId = null, round = null, overrideRoll = null) {
   const oldValue = asset.currentValue ?? asset.baseValue;
 
   // ── Step 1: base value update roll ───────────────────────────────────────
-  const roll = dice.d6();
+  const roll = overrideRoll !== null ? overrideRoll : dice.d6();
   const baseDelta = lookupOutcome(asset.baseValueUpdateRule.outcomes, roll);
 
-  // ── Step 2: apply base delta (floor at 1) ────────────────────────────────
-  const valueAfterBase = Math.max(1, oldValue + baseDelta);
+  // ── Step 2: apply base delta (floor at 0, §6/§12) ───────────────────────
+  const valueAfterBase = Math.max(0, oldValue + baseDelta);
 
   // ── Step 3: apply GMI via industry mechanic ──────────────────────────────
   // Pass a shallow copy with the post-base-delta value so applyGMIToAsset

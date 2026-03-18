@@ -50,7 +50,7 @@ import { rollValueUpdate }                           from './asset.js';
 import { detectIntegration, applyIntegrationBonuses } from './integration.js';
 import { checkLoanRepayment, checkCollateralViolation, computeLoanCapacity } from './loans.js';
 import { computeTaxableIncome, applyTax }            from './taxes.js';
-import { checkDeathRoll }                            from './stress.js';
+import { checkDeathRoll, applyBankruptcy, removeAssetStress } from './stress.js';
 
 // ─────────────────────────────────────────────────────────────────────────────
 // Internal helpers
@@ -108,20 +108,23 @@ function portfolioValue(player) {
 
 /**
  * Computes final scores for all players.
- * score = sum(asset.currentValue) − player.taxesPaid
+ * score = sum(asset.currentValue) + floor(cash × 0.5)
+ *
+ * Taxes are paid in-year as a cash drain and are not subtracted here.
+ * Cash held at death is taxed 50% (rounded down) per §3 and §7.
  *
  * @param {object} state
- * @returns {{ [playerId]: { assetValue: number, taxesPaid: number, score: number } }}
+ * @returns {{ [playerId]: { assetValue: number, cashAfterTax: number, score: number } }}
  */
 export function computeScores(state) {
   const scores = {};
   for (const player of state.players) {
-    const assetValue = portfolioValue(player);
-    const taxesPaid  = player.taxesPaid ?? 0;
+    const assetValue   = portfolioValue(player);
+    const cashAfterTax = Math.floor((player.cash ?? 0) * 0.5);
     scores[player.id] = {
       assetValue,
-      taxesPaid,
-      score: assetValue - taxesPaid,
+      cashAfterTax,
+      score: assetValue + cashAfterTax,
       alive: player.alive,
     };
   }
@@ -145,13 +148,12 @@ function buildMetrics(state, scores = null) {
     activeBubbles:  state.activeBubbles.map(b => b.eventName),
     activeDepressions: state.activeDepressions.map(d => d.eventName),
     players:        state.players.map(p => ({
-      id:          p.id,
-      alive:       p.alive,
-      cash:        p.cash,
-      loans:       p.loans,
-      stress:      p.stress,
-      taxesPaid:   p.taxesPaid,
-      assetValue:  portfolioValue(p),
+      id:         p.id,
+      alive:      p.alive,
+      cash:       p.cash,
+      loans:      p.loans,
+      stress:     p.stress,
+      assetValue: portfolioValue(p),
     })),
     ...(scores ? { scores } : {}),
   };
@@ -177,6 +179,23 @@ function runYearStart(state, agentMap, dice) {
   const { gmiDelta, logEvents } = resolveGlobalEvent(eventCard, state, dice);
   state.gmiDelta = gmiDelta;
   appendLog(state, logEvents);
+
+  // §5: If the event card requires a market refresh, replace all 4 market cards now.
+  const requiresRefresh = (eventCard.effects ?? []).some(
+    e => e.effectType === 'MARKET_REFRESH',
+  );
+  if (requiresRefresh) {
+    const deck      = state.discardPiles.marketDeck ?? [];
+    const discarded = state.marketCards.filter(Boolean).map(c => c.companyName);
+    state.marketCards             = deck.splice(0, 4);
+    state.discardPiles.marketDeck = deck;
+    appendLog(state, [{
+      type:      'MARKET_REFRESH',
+      source:    eventCard.eventName,
+      discarded,
+      newCards:  state.marketCards.map(c => c?.companyName ?? null),
+    }]);
+  }
 
   // The Lobbyist: ONCE_PER_YEAR GMI adjustment, immediately after event drawn.
   for (const player of state.players) {
@@ -312,21 +331,23 @@ function runActionPhase(state, agentMap, dice) {
         asset, dice, state.gmiDelta, player.id, state.round,
       );
 
-      // Apply Gambler reroll if agent wants it (ONCE_PER_YEAR)
+      // Apply Gambler reroll if agent wants it (ONCE_PER_YEAR).
+      // Pass the new roll back into rollValueUpdate so the outcome table is
+      // re-evaluated from scratch with the replacement die (§4, CEO table).
       let finalValue = result.newValue;
       if (player.ceo?.ceoName === 'The Gambler') {
         const wants = agent?.gamblerWantsReroll?.(result.roll, asset, player, state) ?? false;
         if (wants) {
           const reroll = useGamblerReroll(player, result.roll, dice);
-          appendLog(state, [reroll.logEvent]);
-          // Re-run value update with the new roll baked in via a second
-          // rollValueUpdate call is not straightforward; we approximate by
-          // adjusting newValue by the roll difference.
-          // A full re-computation would call rollValueUpdate again, but that
-          // would consume another dice roll; instead we record the reroll
-          // and let the caller know via the log.
-          // For now: accept current newValue (reroll already happened in dice).
-          finalValue = result.newValue;
+          if (reroll.logEvent) {
+            appendLog(state, [reroll.logEvent]);
+            // Re-run the full value update using the new roll.
+            const rerolledResult = rollValueUpdate(
+              asset, dice, state.gmiDelta, player.id, state.round,
+              reroll.newRoll,
+            );
+            finalValue = rerolledResult.newValue;
+          }
         }
       }
 
@@ -343,7 +364,7 @@ function runActionPhase(state, agentMap, dice) {
         }
       }
       if (bubbleBonus !== 0) {
-        finalValue = Math.max(1, finalValue + bubbleBonus);
+        finalValue = Math.max(0, finalValue + bubbleBonus);
       }
 
       asset.currentValue = finalValue;
@@ -380,7 +401,14 @@ function runSettlementPhase(state, agentMap, dice) {
   const livePlayers = rotatedLivingPlayers(state);
 
   for (const player of livePlayers) {
-    // ── a. CEO SETTLEMENT phase abilities ─────────────────────────────────
+    // ── a. CEO LABOR phase abilities (e.g. The Worker bonus income roll) ──
+    const { logEvents: laborLog } = applyCEOAbilities(
+      player, 'LABOR', state, dice,
+      { gmiDelta: state.gmiDelta },
+    );
+    appendLog(state, laborLog);
+
+    // ── a2. CEO SETTLEMENT phase abilities ────────────────────────────────
     const { logEvents: ceoLog } = applyCEOAbilities(
       player, 'SETTLEMENT', state, dice,
       { gmiDelta: state.gmiDelta },
@@ -457,64 +485,151 @@ function runSettlementPhase(state, agentMap, dice) {
       }]);
     }
 
-    // ── c. Loan repayment rolls (once per owned asset that carries loans) ──
-    // The player's loan token pool is undifferentiated; we roll once per asset
-    // as the per-asset annual repayment check.
-    if (player.loans > 0) {
-      for (const asset of player.assets) {
-        if (!asset.loanRepaymentRule) continue;
+    // ── c. Loan repayment rolls — §8: "for every 10 total loan units on an
+    //    asset, roll one d6. An asset with 23 loans rolls twice."
+    // Loans are a pool; distribute them evenly across assets (round up per
+    // asset so that all loans are accounted for), then roll floor(share/10)
+    // times per asset.
+    if (player.loans > 0 && player.assets.length > 0) {
+      const assetsWithRule = player.assets.filter(a => a.loanRepaymentRule);
+      if (assetsWithRule.length > 0) {
+        const sharePerAsset = Math.ceil(player.loans / assetsWithRule.length);
 
-        const { triggered, relief, logEvent: repayLog } =
-          checkLoanRepayment(asset, dice);
-        appendLog(state, [repayLog]);
+        for (const asset of assetsWithRule) {
+          const rollCount = Math.floor(sharePerAsset / 10);
+          if (rollCount === 0) continue;
 
-        if (triggered) {
-          const payment = asset.loanRepaymentRule.paymentOnTrigger ?? 0;
-          player.cash  -= payment;
-          appendLog(state, [{
-            type:     'LOAN_PAYMENT',
-            playerId: player.id,
-            assetId:  asset.companyName,
-            amount:   payment,
-            newCash:  player.cash,
-          }]);
-        }
+          for (let r = 0; r < rollCount; r++) {
+            const { triggered, relief, logEvent: repayLog } =
+              checkLoanRepayment(asset, dice);
+            appendLog(state, [repayLog]);
 
-        if (relief && player.loans > 0) {
-          player.loans -= 1;
-          appendLog(state, [{
-            type:     'LOAN_RELIEF',
-            playerId: player.id,
-            assetId:  asset.companyName,
-            newLoans: player.loans,
-          }]);
+            if (triggered) {
+              const payment = asset.loanRepaymentRule.paymentOnTrigger ?? 0;
+              player.cash  -= payment;
+              appendLog(state, [{
+                type:     'LOAN_PAYMENT',
+                playerId: player.id,
+                assetId:  asset.companyName,
+                amount:   payment,
+                newCash:  player.cash,
+              }]);
+            }
+
+            if (relief && player.loans > 0) {
+              player.loans -= 1;
+              appendLog(state, [{
+                type:     'LOAN_RELIEF',
+                playerId: player.id,
+                assetId:  asset.companyName,
+                newLoans: player.loans,
+              }]);
+            }
+          }
         }
       }
     }
 
-    // ── d. Collateral violation check ─────────────────────────────────────
-    const { violated, totalLoans, totalCapacity, logEvent: cvLog } =
-      checkCollateralViolation(player);
-    appendLog(state, [cvLog]);
+    // ── d. Collateral violation check (§8, §13) ───────────────────────────
+    // Resolution order: (1) cash repayment, (2) forced sale, (3) bankruptcy.
+    {
+      let cv = checkCollateralViolation(player);
+      appendLog(state, [cv.logEvent]);
 
-    if (violated) {
-      // Force loans down to current capacity; excess triggers stress roll (stress on a 1).
-      const excess         = totalLoans - totalCapacity;
-      player.loans         = totalCapacity;
-      const mitigationRoll = dice.d6();
-      const stressGained   = mitigationRoll === 1 ? 1 : 0;
-      if (stressGained > 0) {
-        player.stress += stressGained;
+      if (cv.violated) {
+        // Step 1: repay excess with cash ($1 per excess loan unit; §8).
+        let excess = cv.totalLoans - cv.totalCapacity;
+        if (excess > 0 && (player.cash ?? 0) > 0) {
+          const repaid   = Math.min(excess, player.cash);
+          player.loans  -= repaid;
+          player.cash   -= repaid;
+          excess        -= repaid;
+          appendLog(state, [{
+            type:       'COLLATERAL_CASH_REPAYMENT',
+            playerId:   player.id,
+            repaid,
+            newLoans:   player.loans,
+            newCash:    player.cash,
+          }]);
+        }
+        // Remaining excess after cash: shortfall stress (§12).
+        if (excess > 0) {
+          player.stress += excess;
+          appendLog(state, [{
+            type:      'STRESS_CHANGE',
+            playerId:  player.id,
+            delta:     excess,
+            newStress: player.stress,
+            reason:    'COLLATERAL_SHORTFALL',
+          }]);
+        }
+
+        // Re-check after cash repayment.
+        cv = checkCollateralViolation(player);
+        appendLog(state, [cv.logEvent]);
+
+        if (cv.violated) {
+          // Step 2: forced sale — auction the most over-leveraged asset (§13).
+          // Find the asset with the most loans relative to capacity and sell it.
+          const livePlayers = rotatedLivingPlayers(state);
+          const assetToSell = player.assets.reduce((worst, a) => {
+            const cap  = computeLoanCapacity(a, player.assets);
+            const debt = cv.totalLoans / Math.max(1, player.assets.length);
+            const wCap = computeLoanCapacity(worst, player.assets);
+            const wDebt = cv.totalLoans / Math.max(1, player.assets.length);
+            return (debt - cap) > (wDebt - wCap) ? a : worst;
+          });
+
+          // Collect bids from all other living players (min $0).
+          const forcedBids = {};
+          for (const p of livePlayers) {
+            if (p.id === player.id) continue;
+            const agent       = agentMap[p.id];
+            const bids        = agent?.bid([assetToSell], p, state) ?? {};
+            forcedBids[p.id]  = bids[assetToSell.companyName] ?? 0;
+          }
+
+          // Find highest bidder (min bid $0 — any non-negative bid is valid).
+          let forcedWinner = null;
+          let forcedBid    = -1;
+          for (const p of livePlayers) {
+            if (p.id === player.id) continue;
+            const b = forcedBids[p.id] ?? 0;
+            if (b > forcedBid) { forcedWinner = p; forcedBid = b; }
+          }
+
+          if (forcedWinner) {
+            forcedWinner.cash  -= forcedBid;
+            player.cash        += forcedBid;
+            forcedWinner.assets.push({ ...assetToSell, currentValue: assetToSell.currentValue ?? assetToSell.baseValue });
+            const { logEvent: stressLog } = removeAssetStress(player, assetToSell);
+            appendLog(state, [stressLog]);
+          }
+
+          // Remove from seller's portfolio; all loans on it are cleared.
+          player.assets = player.assets.filter(a => a.companyName !== assetToSell.companyName);
+          // Reduce global loan pool by the asset's proportional share.
+          const loanShare = Math.min(player.loans, Math.ceil(cv.totalLoans / Math.max(1, (player.assets.length + 1))));
+          player.loans    = Math.max(0, player.loans - loanShare);
+
+          appendLog(state, [{
+            type:       'FORCED_SALE',
+            playerId:   player.id,
+            assetId:    assetToSell.companyName,
+            buyer:      forcedWinner?.id ?? 'BANK',
+            salePrice:  forcedBid < 0 ? 0 : forcedBid,
+            newCash:    player.cash,
+            newLoans:   player.loans,
+          }]);
+
+          // Step 3: if still violated, go bankrupt (§8).
+          const finalCv = checkCollateralViolation(player);
+          if (finalCv.violated) {
+            const { logEvent: bkLog } = applyBankruptcy(player, state.gmiDelta ?? 0);
+            appendLog(state, [bkLog]);
+          }
+        }
       }
-      appendLog(state, [{
-        type:            'COLLATERAL_FORCED_REDUCTION',
-        playerId:        player.id,
-        excessLoans:     excess,
-        newLoans:        player.loans,
-        mitigationRoll,
-        stressGained,
-        newStress:       player.stress,
-      }]);
     }
 
     // ── e. Death roll ──────────────────────────────────────────────────────
@@ -542,19 +657,16 @@ function runSettlementPhase(state, agentMap, dice) {
  * metrics snapshot.
  *
  * When a player dies during SETTLEMENT, state.endTriggered is set to true.
- * After the current round finishes, runYear calls itself once more with
- * isFinalRound=true so all surviving players get one last full turn.
- * computeScores() is then called and appended to the log.
+ * Per §3: all other players complete *their settlement phase for that year*
+ * (already handled inside runSettlementPhase which iterates all living
+ * players in order), then final scoring occurs immediately — no extra year.
  *
  * @param {object}   state   — GameState (mutated in-place)
  * @param {object[]} agents  — agent objects (see interface at top of file)
  * @param {import('./dice.js').Dice} dice
- * @param {{ isFinalRound?: boolean }} [opts]
  * @returns {{ state: object, metrics: object }}
  */
-export function runYear(state, agents, dice, opts = {}) {
-  const { isFinalRound = false } = opts;
-
+export function runYear(state, agents, dice) {
   state.round        += 1;
   state.endTriggered  = state.endTriggered ?? false;
 
@@ -577,11 +689,11 @@ export function runYear(state, agents, dice, opts = {}) {
   appendLog(state, [{ type: 'YEAR_END', round: state.round }]);
 
   // ── End check ─────────────────────────────────────────────────────────────
+  // A death was flagged during settlement this year. All living players already
+  // completed their settlements in the same runSettlementPhase call (§3), so
+  // score immediately without running another year.
   let scores = null;
-
-  if (state.endTriggered && !isFinalRound) {
-    // One final full year for all surviving players, then score.
-    runYear(state, agents, dice, { isFinalRound: true });
+  if (state.endTriggered) {
     scores = computeScores(state);
     appendLog(state, [{ type: 'GAME_OVER', scores }]);
   }
