@@ -1,12 +1,12 @@
 {
-  "scenarioName": "default-4p",
+  "scenarioName": "all-random",
   "seed": "reduced-stress-harder-to-kill-1",
   "runs": 100,
   "players": [
     { "id": "p1", "agentType": "random", "ceoBid": 0 },
-    { "id": "p2", "agentType": "aggressive",   "ceoBid": 0 },
-    { "id": "p3", "agentType": "tech-stack",   "ceoBid": 0 },
-    { "id": "p4", "agentType": "income",       "ceoBid": 0 }
+    { "id": "p2", "agentType": "random",   "ceoBid": 0 },
+    { "id": "p3", "agentType": "random",   "ceoBid": 0 },
+    { "id": "p4", "agentType": "random",       "ceoBid": 0 }
   ],
   "industries": ["TECHNOLOGY", "REAL_ESTATE", "ENERGY", "FINANCE", "MANUFACTURING", "MEDIA"],
   "startingCash": 3,

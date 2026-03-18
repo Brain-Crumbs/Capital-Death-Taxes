@@ -8,6 +8,8 @@
     "test":    "node test/smoke.js",
     "preview": "node dashboard/server.js",
     "scenario-default": "node cli/run.js --scenario default-4p --runs 100",
+    "scenario-random": "node cli/run.js --scenario all-random --runs 100",
+    "scenario-income": "node cli/run.js --scenario income-trap-test --runs 100",
     "step-default": "node cli/run.js --scenario default-4p --runs 1 --step",
     "clean": "rm output/runs/*"
   },

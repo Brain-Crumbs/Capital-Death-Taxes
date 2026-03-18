@@ -6,7 +6,7 @@
     "annualIncome": 1,
     "startingStress": 0,
     "t3AccessRule": "May bid on Tier 3 assets once you own at least one Tier 2 asset.",
-    "deathRollThreshold": 7,
+    "deathRollThreshold": 6,
     "selectionRule": "Available to all players at game start. Auctioned with minimum bid $0.",
     "replacementRule": "Replaced on bankruptcy (reselect from available CEOs) or via specific card effects.",
     "laborPhaseRule": {
@@ -68,7 +68,7 @@
     "annualIncome": 3,
     "startingStress": 1,
     "t3AccessRule": "May bid on Tier 3 assets once you own at least one Tier 2 asset.",
-    "deathRollThreshold": 7,
+    "deathRollThreshold": 6,
     "selectionRule": "Available to all players at game start. Auctioned with minimum bid $0.",
     "replacementRule": "Replaced on bankruptcy (reselect from available CEOs) or via specific card effects.",
     "laborPhaseRule": {
@@ -130,7 +130,7 @@
     "annualIncome": 1,
     "startingStress": 2,
     "t3AccessRule": "May bid on Tier 3 assets once you own at least one Tier 2 asset.",
-    "deathRollThreshold": 7,
+    "deathRollThreshold": 6,
     "selectionRule": "Available to all players at game start. Auctioned with minimum bid $0.",
     "replacementRule": "Replaced on bankruptcy (reselect from available CEOs) or via specific card effects.",
     "laborPhaseRule": {
@@ -193,7 +193,7 @@
     "annualIncome": 0,
     "startingStress": 3,
     "t3AccessRule": "May bid on Tier 3 assets at any time — does not require owning a Tier 2 asset first. This is the Visionary's unique privilege.",
-    "deathRollThreshold": 7,
+    "deathRollThreshold": 6,
     "selectionRule": "Available to all players at game start. Auctioned with minimum bid $0.",
     "replacementRule": "Replaced on bankruptcy (reselect from available CEOs) or via specific card effects.",
     "laborPhaseRule": {
@@ -256,7 +256,7 @@
     "annualIncome": 2,
     "startingStress": 0,
     "t3AccessRule": "May bid on Tier 3 assets once you own at least one Tier 2 asset.",
-    "deathRollThreshold": 10,
+    "deathRollThreshold": 8,
     "selectionRule": "Available to all players at game start. Auctioned with minimum bid $0.",
     "replacementRule": "Replaced on bankruptcy (reselect from available CEOs) or via specific card effects.",
     "laborPhaseRule": {
@@ -319,7 +319,7 @@
     "annualIncome": 1,
     "startingStress": 2,
     "t3AccessRule": "May bid on Tier 3 assets once you own at least one Tier 2 asset.",
-    "deathRollThreshold": 7,
+    "deathRollThreshold": 6,
     "selectionRule": "Available to all players at game start. Auctioned with minimum bid $0.",
     "replacementRule": "Replaced on bankruptcy (reselect from available CEOs) or via specific card effects.",
     "laborPhaseRule": {
@@ -381,7 +381,7 @@
     "annualIncome": 2,
     "startingStress": 1,
     "t3AccessRule": "May bid on Tier 3 assets once you own at least one Tier 2 asset.",
-    "deathRollThreshold": 7,
+    "deathRollThreshold": 6,
     "selectionRule": "Available to all players at game start. Auctioned with minimum bid $0.",
     "replacementRule": "Replaced on bankruptcy (reselect from available CEOs) or via specific card effects.",
     "laborPhaseRule": {
@@ -443,7 +443,7 @@
     "annualIncome": 2,
     "startingStress": 1,
     "t3AccessRule": "May bid on Tier 3 assets once you own at least one Tier 2 asset.",
-    "deathRollThreshold": 7,
+    "deathRollThreshold": 6,
     "selectionRule": "Available to all players at game start. Auctioned with minimum bid $0.",
     "replacementRule": "Replaced on bankruptcy (reselect from available CEOs) or via specific card effects.",
     "laborPhaseRule": {
@@ -506,7 +506,7 @@
     "annualIncome": 0,
     "startingStress": 2,
     "t3AccessRule": "May bid on Tier 3 assets once you own at least one Tier 2 asset.",
-    "deathRollThreshold": 7,
+    "deathRollThreshold": 6,
     "selectionRule": "Available to all players at game start. Auctioned with minimum bid $0.",
     "replacementRule": "Replaced on bankruptcy (reselect from available CEOs) or via specific card effects.",
     "laborPhaseRule": {
@@ -570,7 +570,7 @@
     "annualIncome": 1,
     "startingStress": 1,
     "t3AccessRule": "May bid on Tier 3 assets once you own at least one Tier 2 asset.",
-    "deathRollThreshold": 7,
+    "deathRollThreshold": 6,
     "selectionRule": "Available to all players at game start. Auctioned with minimum bid $0.",
     "replacementRule": "Replaced on bankruptcy (reselect from available CEOs) or via specific card effects.",
     "laborPhaseRule": {
@@ -633,7 +633,7 @@
     "annualIncome": 1,
     "startingStress": 1,
     "t3AccessRule": "May bid on Tier 3 assets once you own at least one Tier 2 asset.",
-    "deathRollThreshold": 7,
+    "deathRollThreshold": 6,
     "selectionRule": "Available to all players at game start. Auctioned with minimum bid $0.",
     "replacementRule": "Replaced on bankruptcy (reselect from available CEOs) or via specific card effects.",
     "laborPhaseRule": {
@@ -696,7 +696,7 @@
     "annualIncome": 1,
     "startingStress": 2,
     "t3AccessRule": "May bid on Tier 3 assets once you own at least one Tier 2 asset.",
-    "deathRollThreshold": 7,
+    "deathRollThreshold": 6,
     "selectionRule": "Available to all players at game start. Auctioned with minimum bid $0.",
     "replacementRule": "Replaced on bankruptcy (reselect from available CEOs) or via specific card effects.",
     "laborPhaseRule": {

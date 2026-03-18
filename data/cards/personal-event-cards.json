@@ -198,6 +198,204 @@
     "saleValue": 1,
     "flavourText": "Everyone said the model was fine. It wasn't, but you survived anyway."
   },
+  {
+    "cardType": "PERSONAL_EVENT",
+    "category": "STRESS_RELIEF",
+    "eventName": "Therapist Session",
+    "playTiming": "HOLD",
+    "immediateEffect": {
+      "effectType": "STRESS_CHANGE",
+      "magnitude": -1,
+      "description": "Play at any time during your turn. Reduce your stress by 1.",
+      "targetScope": "SELF"
+    },
+    "saleValue": 1,
+    "flavourText": "She said I have control issues. I said I have leverage issues. Same thing."
+  },
+
+  {
+    "cardType": "PERSONAL_EVENT",
+    "category": "STRESS_RELIEF",
+    "eventName": "Green Juice Cleanse",
+    "playTiming": "HOLD",
+    "immediateEffect": {
+      "effectType": "STRESS_CHANGE",
+      "magnitude": -1,
+      "description": "Play at any time during your turn. Reduce your stress by 1.",
+      "targetScope": "SELF"
+    },
+    "deathRollEffect": {
+      "effectType": "NEGATE_DEATH_ROLL",
+      "description": "Alternatively, discard this card instead of making a death roll. You survive this year automatically."
+    },
+    "saleValue": 1,
+    "flavourText": "Cold-pressed. Small-batch. Completely ineffective against leveraged debt."
+  },
+
+  {
+    "cardType": "PERSONAL_EVENT",
+    "category": "STRESS_RELIEF",
+    "eventName": "Weekend in Tuscany",
+    "playTiming": "HOLD",
+    "immediateEffect": {
+      "effectType": "STRESS_CHANGE",
+      "magnitude": -2,
+      "description": "Play at any time during your turn. Reduce your stress by 2.",
+      "targetScope": "SELF"
+    },
+    "saleValue": 1,
+    "flavourText": "No phone. No news. Fourteen emails about collateral violations when you return."
+  },
+
+  {
+    "cardType": "PERSONAL_EVENT",
+    "category": "STRESS_RELIEF",
+    "eventName": "Bought a Boat",
+    "playTiming": "HOLD",
+    "immediateEffect": {
+      "effectType": "STRESS_CHANGE",
+      "magnitude": -1,
+      "description": "Play at any time during your turn. Reduce your stress by 1.",
+      "targetScope": "SELF"
+    },
+    "saleValue": 1,
+    "flavourText": "The two best days: the day you buy it, and the day you use it to offset income."
+  },
+
+  {
+    "cardType": "PERSONAL_EVENT",
+    "category": "STRESS_RELIEF",
+    "eventName": "Meditation App Subscription",
+    "playTiming": "HOLD",
+    "immediateEffect": {
+      "effectType": "STRESS_CHANGE",
+      "magnitude": -1,
+      "description": "Play at any time during your turn. Reduce your stress by 1.",
+      "targetScope": "SELF"
+    },
+    "saleValue": 1,
+    "flavourText": "Breathe in. Breathe out. Your loan-to-value ratio is still 94%."
+  },
+
+  {
+    "cardType": "PERSONAL_EVENT",
+    "category": "STRESS_RELIEF",
+    "eventName": "Ignored All News",
+    "playTiming": "HOLD",
+    "immediateEffect": {
+      "effectType": "STRESS_CHANGE",
+      "magnitude": -1,
+      "description": "Play at any time during your turn. Reduce your stress by 1. Note: you may not use Market Manipulation cards or Information cards this year.",
+      "targetScope": "SELF"
+    },
+    "saleValue": 1,
+    "flavourText": "Bliss is a news blackout. Until the margin call."
+  },
+
+  {
+    "cardType": "PERSONAL_EVENT",
+    "category": "STRESS_RELIEF",
+    "eventName": "Personal Trainer",
+    "playTiming": "HOLD",
+    "immediateEffect": {
+      "effectType": "STRESS_CHANGE",
+      "magnitude": -1,
+      "description": "Play at any time during your turn. Reduce your stress by 1.",
+      "targetScope": "SELF"
+    },
+    "saleValue": 1,
+    "flavourText": "Cortisol is down. Net worth is up. Stress is complicated."
+  },
+
+  {
+    "cardType": "PERSONAL_EVENT",
+    "category": "STRESS_RELIEF",
+    "eventName": "Early Retirement Consultant",
+    "playTiming": "HOLD",
+    "immediateEffect": {
+      "effectType": "STRESS_CHANGE",
+      "magnitude": -2,
+      "description": "Play at any time during your turn. Reduce your stress by 2. You may only play this card if your current stress is 4 or higher.",
+      "targetScope": "SELF"
+    },
+    "saleValue": 1,
+    "flavourText": "She ran the numbers. The numbers said don't retire yet. You feel better anyway."
+  },
+
+  {
+    "cardType": "PERSONAL_EVENT",
+    "category": "DEATH_PREVENTION",
+    "eventName": "Bribed the Right Doctor",
+    "playTiming": "HOLD",
+    "immediateEffect": {
+      "effectType": "DEATH_PREVENTION",
+      "description": "Hold this card. When you are required to make a death roll, you may discard this card instead — you survive automatically. No roll is made.",
+      "targetScope": "SELF"
+    },
+    "deathRollEffect": {
+      "effectType": "NEGATE_DEATH_ROLL",
+      "description": "Discard this card instead of making a death roll. You survive this year automatically."
+    },
+    "saleValue": 1,
+    "flavourText": "The report said excellent health. The invoice was more honest."
+  },
+
+  {
+    "cardType": "PERSONAL_EVENT",
+    "category": "DEATH_PREVENTION",
+    "eventName": "Miracle Supplement Regimen",
+    "playTiming": "HOLD",
+    "immediateEffect": {
+      "effectType": "DEATH_PREVENTION",
+      "description": "Hold this card. When you are required to make a death roll, you may discard this card instead — you survive automatically. No roll is made.",
+      "targetScope": "SELF"
+    },
+    "deathRollEffect": {
+      "effectType": "NEGATE_DEATH_ROLL",
+      "description": "Discard this card instead of making a death roll. You survive automatically."
+    },
+    "saleValue": 1,
+    "flavourText": "$400 a month. Clinically unproven. Absolutely worth it."
+  },
+
+  {
+    "cardType": "PERSONAL_EVENT",
+    "category": "DEATH_PREVENTION",
+    "eventName": "Found God Momentarily",
+    "playTiming": "HOLD",
+    "immediateEffect": {
+      "effectType": "STRESS_CHANGE",
+      "magnitude": -1,
+      "description": "Hold this card. When played normally: reduce your stress by 1. Alternatively, see death roll effect.",
+      "targetScope": "SELF"
+    },
+    "deathRollEffect": {
+      "effectType": "REROLL_DEATH",
+      "description": "Discard this card to reroll your death die and take the better of the two results. Divine intervention has a limited-time offer."
+    },
+    "saleValue": 1,
+    "flavourText": "It didn't last. But it lasted long enough."
+  },
+
+  {
+    "cardType": "PERSONAL_EVENT",
+    "category": "DEATH_PREVENTION",
+    "eventName": "The Numbers Looked Wrong",
+    "playTiming": "PASSIVE",
+    "passiveRule": "Hold this card. It is always active. If you would die on a death roll of 1, treat a roll of 1 as a roll of 2 instead (you survive). Discard this card at the end of the year in which it saves you.",
+    "immediateEffect": {
+      "effectType": "DEATH_PREVENTION",
+      "description": "PASSIVE — always active while held. If your death roll result is 1, treat it as 2 (survive) instead. Auto-discards after it saves you.",
+      "targetScope": "SELF"
+    },
+    "deathRollEffect": {
+      "effectType": "REDUCE_DEATH_THRESHOLD",
+      "magnitude": 0,
+      "description": "If the death roll result is 1, treat it as 2 (the minimum surviving roll). Does not affect results of 2 or higher."
+    },
+    "saleValue": 1,
+    "flavourText": "Everyone said the model was fine. It wasn't, but you survived anyway."
+  },
 
   {
     "cardType": "PERSONAL_EVENT",
