@@ -94,7 +94,22 @@ export function resolveGlobalEvent(card, state, dice) {
   state.activeDepressions = survivingDepressions;
 
   // ── 2. Compute GMI delta ──────────────────────────────────────────────────
-  const gmiDelta = computeGMIDelta(card, dice);
+  let gmiDelta = 0;
+  if (card.playerSetGMI) {
+    const chance = dice.roll(6);
+    if (chance in [1, 2]) {
+      gmiDelta = -2;
+    }
+    if (chance in [3, 4]) {
+      gmiDelta = 2;
+    }
+    if (chance in [5, 6]) {
+      gmiDelta = 0;
+    }
+  } else {
+    gmiDelta = computeGMIDelta(card, dice);
+  }
+  
   state.gmi     += gmiDelta;
 
   logEvents.push({
