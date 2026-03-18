@@ -3,6 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <title>Borrow &amp; Die — Card Viewer</title>
+  <link rel="stylesheet" href="card-viewer.css">
 </head>
 <body>
   <h1>Borrow &amp; Die — All Cards</h1>
@@ -34,6 +35,69 @@
       }
     }
 
+    function getIndustrySlug(industry) {
+      if (!industry) return null;
+      return industry.toLowerCase().replace(/_/g, '-');
+    }
+
+    function buildCard(card, i) {
+      const name = getPrimaryName(card);
+
+      if (!name) {
+        console.warn(`Card at index ${i} is missing its primary name field.`, card);
+      }
+
+      const li = document.createElement('li');
+
+      const cardEl = document.createElement('div');
+      cardEl.className = 'card';
+
+      // ── Header: type badge + optional industry badge ──
+      const header = document.createElement('div');
+      header.className = 'card__header';
+
+      const typeRow = document.createElement('div');
+      typeRow.className = 'card__type-row';
+
+      const typeBadge = document.createElement('span');
+      typeBadge.className = 'badge';
+      typeBadge.textContent = card.cardType ?? 'UNKNOWN';
+      typeRow.appendChild(typeBadge);
+
+      if (card.industry) {
+        const industryBadge = document.createElement('span');
+        const slug = getIndustrySlug(card.industry);
+        industryBadge.className = `badge badge--${slug}`;
+        industryBadge.textContent = card.industry;
+        typeRow.appendChild(industryBadge);
+      }
+
+      header.appendChild(typeRow);
+      cardEl.appendChild(header);
+
+      // ── Body: card name ──
+      const body = document.createElement('div');
+      body.className = 'card__body';
+
+      const nameEl = document.createElement('div');
+      nameEl.className = 'card__name';
+      nameEl.textContent = name ?? '(unnamed)';
+      body.appendChild(nameEl);
+
+      cardEl.appendChild(body);
+
+      // ── Flavour text ──
+      if (card.flavourText) {
+        const flavour = document.createElement('div');
+        flavour.className = 'card__flavour';
+        flavour.textContent = card.flavourText;
+        cardEl.appendChild(flavour);
+      }
+
+      li.appendChild(cardEl);
+      return li;
+    }
+
     const datasets = await Promise.all(
       CARD_FILES.map(({ file }) => fetch(`/cards/${file}`).then(r => r.json()))
     );
@@ -42,15 +106,7 @@
     const ul = document.getElementById('card-list');
 
     allCards.forEach((card, i) => {
-      const name = getPrimaryName(card);
-
-      if (!name) {
-        console.warn(`Card at index ${i} is missing its primary name field.`, card);
-      }
-
-      const li = document.createElement('li');
-      li.textContent = `[${card.cardType}] ${name ?? '(unnamed)'}`;
-      ul.appendChild(li);
+      ul.appendChild(buildCard(card, i));
     });
   </script>
 </body>
