@@ -9,7 +9,7 @@
  * Computes this year's tax liability for a player (pure — does not mutate).
  *
  * Rules:
- *   grossIncome  = sum of income across all owned assets + CEO annualIncome
+ *   grossIncome  = sum of income across all owned assets + CEO annualIncome + extraIncome
  *   First $1 of income is always tax-free
  *   loanOffset   = min(grossIncome − 1, loansDrawnThisYear)   loans offset income $-for-$
  *   netTaxable   = max(0, grossIncome − 1 − loanOffset)
@@ -17,16 +17,17 @@
  *
  * @param {object} player
  * @param {number} [loansDrawnThisYear=0]  — tokens drawn this round (not stored on player)
+ * @param {number} [extraIncome=0]         — additional taxable income (e.g. unspent swap proceeds)
  * @returns {{ grossIncome: number, loanOffset: number, netTaxable: number, taxDue: number }}
  */
-export function computeTaxableIncome(player, loansDrawnThisYear = 0) {
+export function computeTaxableIncome(player, loansDrawnThisYear = 0, extraIncome = 0) {
   const assetIncome   = (player.assets ?? []).reduce(
     (sum, asset) => sum + (asset.income ?? 0),
     0,
   );
   const starterIncome = player.starterAsset?.income ?? 0;
   const ceoIncome     = player.ceo?.annualIncome ?? 0;
-  const grossIncome   = assetIncome + starterIncome + ceoIncome;
+  const grossIncome   = assetIncome + starterIncome + ceoIncome + extraIncome;
 
   // loanOffset can only reduce the portion above the first free $1
   const loanOffset  = Math.min(Math.max(0, grossIncome - 1), Math.max(0, loansDrawnThisYear));
