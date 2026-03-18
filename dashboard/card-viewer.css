@@ -19,6 +19,10 @@
   --color-tier-1: #aaaaaa;
   --color-tier-2: #c9860a;
   --color-tier-3: #9a2a2a;
+
+  --color-nav-active-bg:   #2c2c2a;
+  --color-nav-active-text: #ffffff;
+  --radius-pill:           99px;
 }
 
 /* ── Page chrome ────────────────────────────────────────────── */
@@ -32,19 +36,76 @@ body {
   padding: 24px;
 }
 
-h1 {
-  font-size: 18px;
+/* ── Page header ────────────────────────────────────────────── */
+.page-header {
+  margin-bottom: 20px;
+}
+
+.page-header h1 {
+  font-size: 22px;
   font-weight: 700;
-  margin-bottom: 24px;
   letter-spacing: 0.03em;
+  line-height: 1.2;
+}
+
+.page-header .subtitle {
+  font-size: 13px;
+  color: var(--color-text-muted);
+  margin-top: 2px;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  font-weight: 600;
+}
+
+/* ── Tab navigation ─────────────────────────────────────────── */
+.tab-nav {
+  display: flex;
+  gap: 4px;
+  margin-bottom: 24px;
+}
+
+.tab-btn {
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  font-family: inherit;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--color-text-muted);
+  padding: 6px 14px;
+  border-radius: var(--radius-pill);
+  transition: background 0.1s, color 0.1s;
+}
+
+.tab-btn:hover {
+  color: var(--color-text);
+  background: rgba(0,0,0,0.05);
+}
+
+.tab-btn.active {
+  background: var(--color-nav-active-bg);
+  color: var(--color-nav-active-text);
+  border-radius: var(--radius-pill);
 }
 
 /* ── Card grid ──────────────────────────────────────────────── */
 #card-grid {
-  display: flex;
-  flex-wrap: wrap;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, 280px);
   gap: 20px;
-  align-items: flex-start;
+  justify-content: center;
+  align-items: start;
+}
+
+/* ── Empty state ────────────────────────────────────────────── */
+.no-cards {
+  font-size: 13px;
+  color: var(--color-text-muted);
+  grid-column: 1 / -1;
+  text-align: center;
+  padding: 40px 0;
 }
 
 /* ── Card shell ─────────────────────────────────────────────── */
@@ -323,4 +384,35 @@ h1 {
 .sale-value {
   font-size: 11px;
   color: var(--color-text-muted);
+}
+
+/* ── CEO card ───────────────────────────────────────────────── */
+.ceo-archetype {
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--color-text-muted);
+}
+
+.ability-stress {
+  font-size: 10px;
+  color: var(--color-text-muted);
+  margin-top: 3px;
+  font-style: italic;
+}
+
+/* Nested (inset) asset card inside CEO card */
+.nested-asset {
+  transform: scale(0.9);
+  transform-origin: top left;
+  width: 112%;   /* compensate scale so it fills the section width */
+  margin-bottom: -10%;
+}
+
+.nested-asset .card {
+  width: 100%;
+  box-shadow: none;
+  border-color: var(--color-card-border);
+  background: #fafaf7;
 }
