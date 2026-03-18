@@ -131,7 +131,6 @@ export function collect(state) {
 
   let first_asset_round        = null;
   let first_death_roll_round   = null;
-  let game_length_rounds       = 0;
   let death_count              = 0;
   let bankruptcy_count         = 0;
   let collateral_violation_count = 0;
@@ -201,9 +200,6 @@ export function collect(state) {
       }
 
       case 'END_TRIGGER': {
-        // Record the round in which endTriggered was first set.
-        // Only take the first one (in case multiple players die somehow).
-        if (!game_length_rounds) game_length_rounds = round;
         break;
       }
 
@@ -279,9 +275,9 @@ export function collect(state) {
     }
   }
 
-  // ── Fallback for game_length_rounds ───────────────────────────────────────
-  // If END_TRIGGER never fired (shouldn't happen in normal play) use state.round.
-  if (!game_length_rounds) game_length_rounds = state.round ?? 0;
+  // ── game_length_rounds: use state.round, which reflects the true last round
+  // played (including the post-death final round run after END_TRIGGER fires).
+  const game_length_rounds = state.round ?? 0;
 
   // ── gmi_by_round: dense integer array, one entry per round (1-indexed) ────
   const gmi_by_round = [];
