@@ -273,15 +273,32 @@ function aggregate(runs) {
 
 // ── Chart registry (for destroy-on-reload) ───────────────────────────────────
 
-const _charts = {};
+class ChartRegistry {
+  #charts = {};
 
-function makeChart(id, config) {
-  if (_charts[id]) { _charts[id].destroy(); delete _charts[id]; }
-  const canvas = document.getElementById(id);
-  if (!canvas) return;
-  _charts[id] = new Chart(canvas, config);
-  return _charts[id];
+  make(id, config) {
+    if (this.#charts[id]) { this.#charts[id].destroy(); delete this.#charts[id]; }
+    const canvas = document.getElementById(id);
+    if (!canvas) return;
+    this.#charts[id] = new Chart(canvas, config);
+    return this.#charts[id];
+  }
+
+  destroyAll() {
+    for (const c of Object.values(this.#charts)) { try { c.destroy(); } catch {} }
+    for (const k in this.#charts) delete this.#charts[k];
+  }
+
+  resize(id) {
+    try { this.#charts[id]?.resize(); } catch {}
+  }
+
+  resizeAll() {
+    for (const c of Object.values(this.#charts)) { try { c.resize(); } catch {} }
+  }
 }
+
+const charts = new ChartRegistry();
 
 // ── Shared Chart.js defaults ─────────────────────────────────────────────────
 
@@ -318,7 +335,7 @@ function makeGauge(canvasId, valueId, value, {greenRange, amberRange} = {}) {
   document.getElementById(valueId).textContent = display;
   document.getElementById(valueId).style.color  = color;
 
-  makeChart(canvasId, {
+  charts.make(canvasId, {
     type: 'doughnut',
     data: {
       datasets: [{
@@ -384,7 +401,7 @@ function renderHealth(agg, runs) {
   const labels2 = Object.keys(buckets).map(Number).sort((a,b) => a-b);
   const counts   = labels2.map(r => buckets[r]);
 
-  makeChart('chart-game-length', {
+  charts.make('chart-game-length', {
     type: 'bar',
     data: {
       labels: labels2.map(String),
@@ -421,7 +438,7 @@ function renderEconomy(agg) {
   const ceoLabels  = ceoEntries.map(e => e[0]);
   const ceoVals    = ceoEntries.map(e => Math.round(e[1] * 100));
 
-  makeChart('chart-win-ceo', {
+  charts.make('chart-win-ceo', {
     type: 'bar',
     data: {
       labels: ceoLabels,
@@ -467,7 +484,7 @@ function renderEconomy(agg) {
   const indLabels  = indEntries.map(e => e[0]);
   const indVals    = indEntries.map(e => Math.round(e[1] * 100));
 
-  makeChart('chart-win-industry', {
+  charts.make('chart-win-industry', {
     type: 'bar',
     data: {
       labels: indLabels,
@@ -516,7 +533,7 @@ function renderAssets(agg) {
   const maxLen = Math.max(...Object.values(agg.assetMeanByIndustry).map(a => a.length), 0);
   const roundLabels = Array.from({length: maxLen}, (_, i) => `R${i+1}`);
 
-  makeChart('chart-asset-lines', {
+  charts.make('chart-asset-lines', {
     type: 'line',
     data: {
       labels: roundLabels,
@@ -555,7 +572,7 @@ function renderAssets(agg) {
   const q1   = boxIndustries.map(i => percentile(agg.finalValsByIndustry[i], 25));
   const q3   = boxIndustries.map(i => percentile(agg.finalValsByIndustry[i], 75));
 
-  makeChart('chart-asset-box', {
+  charts.make('chart-asset-box', {
     type: 'bar',
     data: {
       labels: boxIndustries,
@@ -618,7 +635,7 @@ function renderAssets(agg) {
   const gmiHi = agg.gmiMean.map((m, i) => m == null ? null : m + (agg.gmiStddev[i] || 0));
   const gmiLo = agg.gmiMean.map((m, i) => m == null ? null : m - (agg.gmiStddev[i] || 0));
 
-  makeChart('chart-gmi', {
+  charts.make('chart-gmi', {
     type: 'line',
     data: {
       labels: gmiLabels,
@@ -689,7 +706,7 @@ function renderStress(agg) {
   const histLabels = agg.stressHist.map((_, i) => String(i));
   const histColors = agg.stressHist.map((_, i) => stressRgba(i, 0.8));
 
-  makeChart('chart-stress-hist', {
+  charts.make('chart-stress-hist', {
     type: 'bar',
     data: {
       labels: histLabels,
@@ -718,7 +735,7 @@ function renderStress(agg) {
     .filter(p => p.score != null)
     .map(p => ({ x: p.stress, y: p.score }));
 
-  makeChart('chart-stress-scatter', {
+  charts.make('chart-stress-scatter', {
     type: 'scatter',
     data: {
       datasets: [{
@@ -745,7 +762,7 @@ function renderStress(agg) {
     .filter(([,v]) => v != null)
     .sort((a,b) => b[1]-a[1]);
 
-  makeChart('chart-stress-ceo', {
+  charts.make('chart-stress-ceo', {
     type: 'bar',
     data: {
       labels: archEntries.map(e => e[0]),
@@ -861,7 +878,7 @@ class ReplayController {
     const assetsEmptyEl = document.getElementById('replay-assets-empty');
     if (assetsEmptyEl) assetsEmptyEl.style.display = activeAssets.length === 0 ? 'block' : 'none';
 
-    makeChart('chart-replay-assets', {
+    charts.make('chart-replay-assets', {
       type: 'bar',
       data: {
         labels: activeAssets.map(a => a.id),
@@ -1069,9 +1086,7 @@ populateRunPicker();
 // ── Reload button ──────────────────────────────────────────────────────────
 
 document.getElementById('reload-btn').addEventListener('click', () => {
-  // Destroy all charts
-  for (const c of Object.values(_charts)) { try { c.destroy(); } catch {} }
-  for (const k in _charts) delete _charts[k];
+  charts.destroyAll();
   document.getElementById('dashboard').style.display   = 'none';
   document.getElementById('drop-screen').style.display = '';
   setDropError('');
@@ -1089,10 +1104,6 @@ document.querySelectorAll('.tab-btn').forEach(btn => {
     document.getElementById(btn.dataset.tab).classList.add('active');
 
     // Force chart resize after tab switch (Chart.js needs visible canvas)
-    setTimeout(() => {
-      for (const c of Object.values(_charts)) {
-        try { c.resize(); } catch {}
-      }
-    }, 50);
+    setTimeout(() => { charts.resizeAll(); }, 50);
   });
 });
