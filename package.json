@@ -8,7 +8,8 @@
     "test":    "node test/smoke.js",
     "preview": "node dashboard/server.js",
     "scenario-default": "node cli/run.js --scenario default-4p --runs 100",
-    "step-default": "node cli/run.js --scenario default-4p --runs 1 --step"
+    "step-default": "node cli/run.js --scenario default-4p --runs 1 --step",
+    "clean": "rm output/runs/*"
   },
   "dependencies": {
     "chart.js": "^4.4.0",
