@@ -3,111 +3,989 @@
 <head>
   <meta charset="UTF-8">
   <title>Borrow &amp; Die — Card Viewer</title>
+  <!--
+    Run `npm run preview` then open http://localhost:3000/card-viewer.html
+    (fetch() requires a local HTTP server — direct file:// access will not work
+     unless you launch Chrome/Edge with --allow-file-access-from-files)
+  -->
   <link rel="stylesheet" href="card-viewer.css">
 </head>
 <body>
-  <h1>Borrow &amp; Die — All Cards</h1>
-  <ul id="card-list"></ul>
+  <div class="page-header">
+    <h1>Borrow &amp; Die</h1>
+    <p class="subtitle">Card Viewer</p>
+  </div>
+
+  <div class="search-bar">
+    <input type="search" id="search-input" placeholder="Search cards…" autocomplete="off">
+  </div>
+
+  <nav class="tab-nav" id="tab-nav">
+    <button class="tab-btn active" data-tab="ASSETS">ASSETS</button>
+    <button class="tab-btn" data-tab="CEOs">CEOs</button>
+    <button class="tab-btn" data-tab="GLOBAL EVENTS">GLOBAL EVENTS</button>
+    <button class="tab-btn" data-tab="PERSONAL EVENTS">PERSONAL EVENTS</button>
+  </nav>
+
+  <div id="asset-filters" class="filter-bar-group">
+    <div class="filter-row">
+      <button class="filter-btn active" data-filter="industry" data-value="ALL">ALL</button>
+      <button class="filter-btn" data-filter="industry" data-value="TECHNOLOGY">TECHNOLOGY</button>
+      <button class="filter-btn" data-filter="industry" data-value="ENERGY">ENERGY</button>
+      <button class="filter-btn" data-filter="industry" data-value="REAL_ESTATE">REAL ESTATE</button>
+      <button class="filter-btn" data-filter="industry" data-value="FINANCE">FINANCE</button>
+      <button class="filter-btn" data-filter="industry" data-value="MANUFACTURING">MANUFACTURING</button>
+      <button class="filter-btn" data-filter="industry" data-value="MEDIA_ENTERTAINMENT">MEDIA</button>
+      <button class="filter-btn" data-filter="industry" data-value="HYBRID">HYBRID</button>
+    </div>
+    <div class="filter-row">
+      <button class="filter-btn active" data-filter="tier" data-value="ALL">ALL TIERS</button>
+      <button class="filter-btn" data-filter="tier" data-value="1">TIER 1</button>
+      <button class="filter-btn" data-filter="tier" data-value="2">TIER 2</button>
+      <button class="filter-btn" data-filter="tier" data-value="3">TIER 3</button>
+    </div>
+    <div class="filter-row">
+      <button class="filter-btn active" data-filter="placement" data-value="ALL">ALL</button>
+      <button class="filter-btn" data-filter="placement" data-value="UPSTREAM">UPSTREAM</button>
+      <button class="filter-btn" data-filter="placement" data-value="MIDSTREAM">MIDSTREAM</button>
+      <button class="filter-btn" data-filter="placement" data-value="DOWNSTREAM">DOWNSTREAM</button>
+    </div>
+  </div>
+
+  <div id="global-event-filters" class="filter-bar-group" hidden>
+    <div class="filter-row">
+      <button class="filter-btn active" data-filter="eventCategory" data-value="ALL">ALL</button>
+      <button class="filter-btn" data-filter="eventCategory" data-value="BOOM">BOOM</button>
+      <button class="filter-btn" data-filter="eventCategory" data-value="BUST">BUST</button>
+      <button class="filter-btn" data-filter="eventCategory" data-value="DEPRESSION">DEPRESSION</button>
+      <button class="filter-btn" data-filter="eventCategory" data-value="SUPPLY_SHOCK">SUPPLY_SHOCK</button>
+      <button class="filter-btn" data-filter="eventCategory" data-value="REGULATORY">REGULATORY</button>
+      <button class="filter-btn" data-filter="eventCategory" data-value="NEUTRAL">NEUTRAL</button>
+      <button class="filter-btn" data-filter="eventCategory" data-value="MARKET_DISRUPTION">MARKET_DISRUPTION</button>
+    </div>
+  </div>
+
+  <div id="personal-event-filters" class="filter-bar-group" hidden>
+    <div class="filter-row">
+      <button class="filter-btn active" data-filter="playTiming" data-value="ALL">ALL</button>
+      <button class="filter-btn" data-filter="playTiming" data-value="IMMEDIATE">IMMEDIATE</button>
+      <button class="filter-btn" data-filter="playTiming" data-value="HOLD">HOLD</button>
+      <button class="filter-btn" data-filter="playTiming" data-value="PASSIVE">PASSIVE</button>
+    </div>
+  </div>
+
+  <div id="card-count"></div>
+  <div id="card-grid"></div>
 
   <script type="module">
-    // Card JSON files are served from data/cards/ via the /cards/ route.
-    // Run `npm run preview` then open http://localhost:3000/card-viewer.html
-    const CARD_FILES = [
-      { variable: 'DATA_TECHNOLOGY',     file: 'technology-cards.json'     },
-      { variable: 'DATA_ENERGY',         file: 'energy-cards.json'         },
-      { variable: 'DATA_REAL_ESTATE',    file: 'real-estate-cards.json'    },
-      { variable: 'DATA_FINANCE',        file: 'finance-cards.json'        },
-      { variable: 'DATA_MANUFACTURING',  file: 'manufacturing-cards.json'  },
-      { variable: 'DATA_MEDIA',          file: 'media-cards.json'          },
-      { variable: 'DATA_HYBRID',         file: 'hybrid-cards.json'         },
-      { variable: 'DATA_CEO',            file: 'ceo-cards.json'            },
-      { variable: 'DATA_GLOBAL_EVENTS',  file: 'global-event-cards.json'   },
-      { variable: 'DATA_PERSONAL_EVENTS',file: 'personal-event-cards.json' },
+    // ── Constants ──────────────────────────────────────────────────
+
+    const KNOWN_CARD_TYPES = new Set(['ASSET', 'CEO', 'GLOBAL_EVENT', 'PERSONAL_EVENT']);
+
+    const INDUSTRY_COLORS = {
+      TECHNOLOGY:          'var(--color-industry-TECHNOLOGY)',
+      ENERGY:              'var(--color-industry-ENERGY)',
+      REAL_ESTATE:         'var(--color-industry-REAL_ESTATE)',
+      FINANCE:             'var(--color-industry-FINANCE)',
+      MANUFACTURING:       'var(--color-industry-MANUFACTURING)',
+      MEDIA_ENTERTAINMENT: 'var(--color-industry-MEDIA_ENTERTAINMENT)',
+      HYBRID:              'var(--color-industry-HYBRID)',
+    };
+
+    const TIER_COLORS = {
+      1: '#aaaaaa',
+      2: '#c9860a',
+      3: '#9a2a2a',
+    };
+
+    const LTV_MAP = { 7: 70, 6: 60, 5: 50, 4: 40, 3: 30, 2: 20 };
+
+    // ── Helpers ────────────────────────────────────────────────────
+
+    function esc(str) {
+      return String(str ?? '')
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;');
+    }
+
+    function industryColor(industry) {
+      return INDUSTRY_COLORS[industry] ?? '#888780';
+    }
+
+    function industryLabel(industry) {
+      if (industry === 'REAL_ESTATE') return 'REAL ESTATE';
+      if (industry === 'MEDIA_ENTERTAINMENT') return 'MEDIA';
+      return industry ?? 'UNKNOWN';
+    }
+
+    function formatRange(range) {
+      if (!Array.isArray(range) || range.length < 2) return '?';
+      return range[0] === range[1] ? String(range[0]) : `${range[0]}–${range[1]}`;
+    }
+
+    function stressPips(stress, maxPips = 3) {
+      const filled = Math.min(stress, maxPips);
+      const empty  = maxPips - filled;
+      const atMax  = filled >= maxPips;
+      const pips   = '●'.repeat(filled) + '○'.repeat(empty);
+      const cls    = atMax ? 'stress-pips at-max' : 'stress-pips';
+      return `<span class="${cls}">${pips}</span>`;
+    }
+
+    function deltaHtml(delta) {
+      if (delta > 0)  return `<span class="delta-positive">+${delta}</span>`;
+      if (delta < 0)  return `<span class="delta-negative">−${Math.abs(delta)}</span>`;
+      return `<span class="delta-zero">0</span>`;
+    }
+
+    // ── Card validation ────────────────────────────────────────────
+
+    function validateCard(card) {
+      if (!card || typeof card !== 'object') return false;
+      if (!KNOWN_CARD_TYPES.has(card.cardType)) return false;
+      const name = card.companyName ?? card.ceoName ?? card.eventName;
+      return Boolean(name);
+    }
+
+    // ── Constants (continued) ──────────────────────────────────────
+
+    const EVENT_CATEGORY_COLORS = {
+      BOOM:              '#2a7a2a',
+      BUST:              '#c9860a',
+      DEPRESSION:        '#9a2a2a',
+      SUPPLY_SHOCK:      '#b5651d',
+      REGULATORY:        '#5a5a8a',
+      NEUTRAL:           '#888780',
+      MARKET_DISRUPTION: '#7a6a5a',
+    };
+
+    function eventCategoryColor(category) {
+      return EVENT_CATEGORY_COLORS[category] ?? '#888780';
+    }
+
+    function gmiDeltaHtml(delta) {
+      if (delta > 0) return `<span class="gmi-delta delta-positive">+${delta}</span>`;
+      if (delta < 0) return `<span class="gmi-delta delta-negative">−${Math.abs(delta)}</span>`;
+      return `<span class="gmi-delta delta-zero">0</span>`;
+    }
+
+    function magnitudeHtml(magnitude) {
+      if (magnitude > 0) return `<span class="effect-magnitude delta-positive">+${magnitude}</span>`;
+      if (magnitude < 0) return `<span class="effect-magnitude delta-negative">−${Math.abs(magnitude)}</span>`;
+      return `<span class="effect-magnitude delta-zero">0</span>`;
+    }
+
+    // ── renderGlobalEventCard ──────────────────────────────────────
+
+    /**
+     * Render a single GLOBAL_EVENT card object into an HTML string.
+     * @param {object} card  — card data conforming to card_schema.json
+     * @returns {string}     — HTML string for the card element
+     */
+    function renderGlobalEventCard(card) {
+      const categoryColor = eventCategoryColor(card.eventCategory);
+
+      // ── Header ──────────────────────────────────────────────────
+      const headerHtml = `
+        <div class="card-section card-header">
+          <div class="card-header-badges">
+            <span class="badge" style="background:#555451">GLOBAL EVENT</span>
+            <span class="badge" style="background:${categoryColor}">${esc(card.eventCategory ?? '')}</span>
+          </div>
+          <div class="card-title">${esc(card.eventName)}</div>
+        </div>`;
+
+      // ── Persistent strip ─────────────────────────────────────────
+      const isPersistent = card.persistent === true || card.eventCategory === 'DEPRESSION';
+      const persistentHtml = isPersistent
+        ? `<div class="persistent-strip">PERSISTENT — stays face-up</div>`
+        : '';
+
+      // ── GMI section ──────────────────────────────────────────────
+      const dieNote = card.gmiDieRoll != null
+        ? `<div class="gmi-die-note">Modifier: roll d6 — 1–2: −1, 3–4: 0, 5–6: +1</div>`
+        : '';
+
+      const dur = card.duration ?? {};
+      const years = dur.years ?? 1;
+      const yearLabel = years === 1 ? '1 year' : `${years} years`;
+      const durationRollHtml = dur.durationRoll
+        ? `<div class="gmi-duration-roll">${esc(dur.durationRoll.resultMapping ?? '')}</div>`
+        : '';
+
+      const gmiHtml = `
+        <div class="card-section">
+          <div class="gmi-row">
+            <span class="gmi-label">GMI</span>
+            ${gmiDeltaHtml(card.gmiBase ?? 0)}
+          </div>
+          <div class="gmi-description">${esc(card.gmiDescription ?? '')}</div>
+          ${dieNote}
+          <div class="gmi-duration"><strong>Duration:</strong> ${esc(yearLabel)}</div>
+          ${durationRollHtml}
+        </div>`;
+
+      // ── Effects section ──────────────────────────────────────────
+      const effects = card.effects ?? [];
+      const effectBlocks = effects.map(fx => {
+        const industryBadge = fx.targetIndustry
+          ? `<span class="badge" style="background:${industryColor(fx.targetIndustry)}">${esc(industryLabel(fx.targetIndustry))}</span>`
+          : '';
+        const magHtml = fx.magnitude != null
+          ? magnitudeHtml(fx.magnitude)
+          : '';
+        return `
+          <div class="effect-block">
+            <div class="effect-badges">
+              <span class="badge" style="background:#555451">${esc(fx.effectType ?? '')}</span>
+              ${industryBadge}
+              ${magHtml}
+            </div>
+            <div class="effect-desc">${esc(fx.description ?? '')}</div>
+          </div>`;
+      }).join('');
+
+      const effectsHtml = `
+        <div class="card-section">
+          <div class="section-heading">Effects</div>
+          ${effectBlocks}
+        </div>`;
+
+      // ── Flavour text ─────────────────────────────────────────────
+      const flavourHtml = card.flavourText
+        ? `<div class="flavour-text">"${esc(card.flavourText)}"</div>`
+        : '';
+
+      // ── Assemble ─────────────────────────────────────────────────
+      return `
+        <div class="card">
+          ${headerHtml}
+          ${persistentHtml}
+          ${gmiHtml}
+          ${effectsHtml}
+          ${flavourHtml}
+        </div>`;
+    }
+
+    // ── renderAssetCard ────────────────────────────────────────────
+
+    /**
+     * Render a single ASSET card object into an HTML string.
+     * @param {object} card  — card data conforming to card_schema.json
+     * @returns {string}     — HTML string for the card element
+     */
+    function renderAssetCard(card) {
+      const industryBg  = industryColor(card.industry);
+      const tierBg      = TIER_COLORS[card.tier] ?? '#aaaaaa';
+      const tierLabel   = `TIER ${card.tier ?? '?'}`;
+      const ltvKey      = card.loanCapacityIncreasePer10AssetValue;
+      const ltvPct      = LTV_MAP[ltvKey] != null ? `~${LTV_MAP[ltvKey]}%` : '—';
+
+      // ── Header ──────────────────────────────────────────────────
+      const headerHtml = `
+        <div class="card-section card-header">
+          <div class="card-header-badges">
+            <span class="badge" style="background:${industryBg}">${esc(industryLabel(card.industry))}</span>
+            <span class="badge" style="background:${tierBg}">${esc(tierLabel)}</span>
+          </div>
+          <div class="card-title">${esc(card.companyName)}</div>
+          <div class="card-placement">${esc(card.placement ?? '')}</div>
+        </div>`;
+
+      // ── Stats ────────────────────────────────────────────────────
+      const statsHtml = `
+        <div class="card-section">
+          <div class="stats-grid">
+            <div class="stat-item"><strong>Base Value</strong> $${esc(card.baseValue)}</div>
+            <div class="stat-item"><strong>Stress</strong> ${stressPips(card.stress ?? 0)}</div>
+            <div class="stat-item"><strong>Income</strong> $${esc(card.income)}/yr</div>
+            <div class="stat-item"><strong>Loan Cap</strong> ${esc(card.baseLoanCapacity)}</div>
+            <div class="stat-item"><strong>LTV</strong> ${esc(ltvPct)}</div>
+          </div>
+        </div>`;
+
+      // ── Value Update Roll ────────────────────────────────────────
+      const vur = card.baseValueUpdateRule ?? {};
+      const vurOutcomes = (vur.outcomes ?? []).map(o => `
+        <tr>
+          <td>${esc(formatRange(o.range))}</td>
+          <td>${deltaHtml(o.delta)}</td>
+        </tr>`).join('');
+
+      const mechanic = vur.industryMechanic
+        ? `<div class="industry-mechanic">${esc(vur.industryMechanic)}</div>`
+        : '';
+
+      const valueUpdateHtml = `
+        <div class="card-section">
+          <div class="section-heading">Value Update Roll</div>
+          <table class="outcome-table">
+            <thead><tr><th>Roll</th><th>Delta</th></tr></thead>
+            <tbody>${vurOutcomes}</tbody>
+          </table>
+          ${mechanic}
+        </div>`;
+
+      // ── Loan Repayment Roll ──────────────────────────────────────
+      const lrr = card.loanRepaymentRule ?? {};
+      const lrrOutcomes = (lrr.outcomes ?? []).map(o => {
+        const rowCls = o.relief ? ' class="relief-row"' : '';
+        return `
+        <tr${rowCls}>
+          <td>${esc(formatRange(o.range))}</td>
+          <td>${o.trigger  ? '✓' : '✗'}</td>
+          <td>${o.relief   ? '✓' : '✗'}</td>
+        </tr>`;
+      }).join('');
+
+      const loanRepaymentHtml = `
+        <div class="card-section">
+          <div class="section-heading">Loan Repayment Roll</div>
+          <table class="outcome-table">
+            <thead><tr><th>Roll</th><th>Trigger</th><th>Relief</th></tr></thead>
+            <tbody>${lrrOutcomes}</tbody>
+          </table>
+        </div>`;
+
+      // ── Vertical Integration ─────────────────────────────────────
+      const viRules = card.verticalIntegrationRules ?? [];
+      let verticalIntegrationHtml = '';
+      if (viRules.length > 0) {
+        const blocks = viRules.map(rule => {
+          const pillBg = industryColor(rule.requiresIndustry ?? card.industry);
+          return `
+            <div class="integration-block">
+              <span class="requires-pill" style="background:${pillBg}">REQUIRES: ${esc(rule.requiresIndustry)} ${esc(rule.requiresPlacement)}</span>
+              <div class="integration-desc">${esc(rule.effectDescription)}</div>
+            </div>`;
+        }).join('');
+
+        verticalIntegrationHtml = `
+          <div class="card-section">
+            <div class="section-heading">Vertical Integration</div>
+            ${blocks}
+          </div>`;
+      }
+
+      // ── Cross-Industry Synergy ────────────────────────────────────
+      const ciSynergies = card.crossIndustrySynergies ?? [];
+      let crossIndustrySynergyHtml = '';
+      if (ciSynergies.length > 0) {
+        const blocks = ciSynergies.map(syn => {
+          const pillBg = industryColor(syn.requiresIndustry);
+          return `
+            <div class="integration-block">
+              <span class="requires-pill" style="background:${pillBg}">REQUIRES: ${esc(syn.requiresIndustry)} ${esc(syn.requiresPlacement)}</span>
+              <div class="integration-desc">${esc(syn.effectDescription)}</div>
+            </div>`;
+        }).join('');
+
+        crossIndustrySynergyHtml = `
+          <div class="card-section">
+            <div class="section-heading">Cross-Industry Synergy</div>
+            ${blocks}
+          </div>`;
+      }
+
+      // ── Flavour text ─────────────────────────────────────────────
+      const flavourHtml = card.flavourText
+        ? `<div class="flavour-text">"${esc(card.flavourText)}"</div>`
+        : '';
+
+      // ── Assemble ─────────────────────────────────────────────────
+      return `
+        <div class="card">
+          ${headerHtml}
+          ${statsHtml}
+          ${valueUpdateHtml}
+          ${loanRepaymentHtml}
+          ${verticalIntegrationHtml}
+          ${crossIndustrySynergyHtml}
+          ${flavourHtml}
+        </div>`;
+    }
+
+    // ── renderPersonalEventCard ────────────────────────────────────
+
+    const PLAY_TIMING_COLORS = {
+      IMMEDIATE: '#9a2a2a',
+      HOLD:      '#c9860a',
+      PASSIVE:   '#4a7c9e',
+    };
+
+    /**
+     * Render a single PERSONAL_EVENT card object into an HTML string.
+     * @param {object} card  — card data conforming to card_schema.json
+     * @returns {string}     — HTML string for the card element
+     */
+    function renderPersonalEventCard(card) {
+      const timingColor = PLAY_TIMING_COLORS[card.playTiming] ?? '#888780';
+
+      // ── Header ──────────────────────────────────────────────────
+      const headerHtml = `
+        <div class="card-section card-header">
+          <div class="card-header-badges">
+            <span class="badge" style="background:#555451">PERSONAL EVENT</span>
+            <span class="badge" style="background:${timingColor}">${esc(card.playTiming ?? '')}</span>
+          </div>
+          <div class="card-title">${esc(card.eventName)}</div>
+        </div>`;
+
+      // ── Effect section ───────────────────────────────────────────
+      const fx = card.immediateEffect ?? {};
+      const magHtml = fx.magnitude != null ? magnitudeHtml(fx.magnitude) : '';
+      const scopeHtml = fx.targetScope
+        ? `<div class="effect-scope">Target: ${esc(fx.targetScope)}</div>`
+        : '';
+
+      const effectHtml = `
+        <div class="card-section">
+          <div class="section-heading">Effect</div>
+          <div class="effect-block">
+            <div class="effect-badges">
+              <span class="badge" style="background:#555451">${esc(fx.effectType ?? '')}</span>
+              ${magHtml}
+            </div>
+            <div class="effect-desc">${esc(fx.description ?? '')}</div>
+            ${scopeHtml}
+          </div>
+        </div>`;
+
+      // ── Death Roll Effect section ────────────────────────────────
+      let deathRollHtml = '';
+      if (card.deathRollEffect) {
+        const drf = card.deathRollEffect;
+        deathRollHtml = `
+          <div class="card-section death-roll-section">
+            <div class="section-heading death-roll-heading">☠ Death Prevention</div>
+            <div class="effect-block">
+              <div class="effect-badges">
+                <span class="badge" style="background:#5a3a7a">${esc(drf.effectType ?? '')}</span>
+              </div>
+              <div class="effect-desc">${esc(drf.description ?? '')}</div>
+            </div>
+          </div>`;
+      }
+
+      // ── Sale value ───────────────────────────────────────────────
+      let saleValueHtml = '';
+      if (card.playTiming !== 'IMMEDIATE' && card.saleValue != null) {
+        saleValueHtml = `
+          <div class="card-section">
+            <div class="sale-value">Sale value: $${esc(card.saleValue)}</div>
+          </div>`;
+      }
+
+      // ── Flavour text ─────────────────────────────────────────────
+      const flavourHtml = card.flavourText
+        ? `<div class="flavour-text">"${esc(card.flavourText)}"</div>`
+        : '';
+
+      // ── Assemble ─────────────────────────────────────────────────
+      return `
+        <div class="card">
+          ${headerHtml}
+          ${effectHtml}
+          ${deathRollHtml}
+          ${saleValueHtml}
+          ${flavourHtml}
+        </div>`;
+    }
+
+    // ── renderCeoCard ──────────────────────────────────────────────
+
+    /**
+     * Render a single CEO card object into an HTML string.
+     * @param {object} card  — card data conforming to card_schema.json
+     * @returns {string}     — HTML string for the card element
+     */
+    function renderCeoCard(card) {
+      // ── Header ──────────────────────────────────────────────────
+      const headerHtml = `
+        <div class="card-section card-header">
+          <div class="card-header-badges">
+            <span class="badge" style="background:#555451">CEO</span>
+          </div>
+          <div class="card-title">${esc(card.ceoName)}</div>
+          <div class="ceo-archetype">${esc(card.archetype ?? '')}</div>
+        </div>`;
+
+      // ── Stats ────────────────────────────────────────────────────
+      const statsHtml = `
+        <div class="card-section">
+          <div class="stats-grid">
+            <div class="stat-item"><strong>Annual Income</strong> $${esc(card.annualIncome)}</div>
+            <div class="stat-item"><strong>Starting Stress</strong> ${stressPips(card.startingStress ?? 0)}</div>
+            <div class="stat-item"><strong>Death Roll</strong> ${esc(card.deathRollThreshold)}</div>
+          </div>
+        </div>`;
+
+      // ── T3 Access ─────────────────────────────────────────────────
+      const t3Html = `
+        <div class="card-section">
+          <div class="section-heading">T3 Access</div>
+          <div class="integration-desc">${esc(card.t3AccessRule ?? '')}</div>
+        </div>`;
+
+      // ── Abilities ─────────────────────────────────────────────────
+      const abilities = card.abilities ?? [];
+      const abilityBlocks = abilities.map(ab => {
+        const stressNote = ab.stressEffect !== 0
+          ? `<div class="ability-stress">Stress effect: ${ab.stressEffect > 0 ? '+' : ''}${ab.stressEffect}</div>`
+          : '';
+        return `
+          <div class="effect-block">
+            <div class="effect-badges">
+              <span class="badge" style="background:#555451">${esc(ab.abilityType ?? '')}</span>
+              <span class="badge" style="background:#888780">${esc(ab.frequency ?? '')}</span>
+            </div>
+            <div class="effect-desc">${esc(ab.description ?? '')}</div>
+            ${stressNote}
+          </div>`;
+      }).join('');
+
+      const abilitiesHtml = abilities.length > 0 ? `
+        <div class="card-section">
+          <div class="section-heading">Abilities</div>
+          ${abilityBlocks}
+        </div>` : '';
+
+      // ── Labor Phase Rule ──────────────────────────────────────────
+      const lpr = card.laborPhaseRule ?? {};
+      const broll = lpr.bonusIncomeRoll;
+      let laborHtml = '';
+      if (broll) {
+        const saleNote = lpr.heldCardSaleValue != null
+          ? `<div class="ability-stress">Held card sale value: $${esc(lpr.heldCardSaleValue)}</div>`
+          : '';
+        laborHtml = `
+          <div class="card-section">
+            <div class="section-heading">Labor Phase Rule</div>
+            <div class="integration-desc">Roll d6 — on ${esc(formatRange(broll.triggerRange ?? []))}: +$${esc(broll.bonusAmount ?? 0)} bonus income.</div>
+            ${saleNote}
+          </div>`;
+      }
+
+      // ── Starter Asset (nested) ────────────────────────────────────
+      let starterHtml = '';
+      if (card.starterAsset) {
+        starterHtml = `
+          <div class="card-section">
+            <div class="section-heading">Starter Asset</div>
+            <div class="nested-asset">
+              ${renderAssetCard(card.starterAsset)}
+            </div>
+          </div>`;
+      }
+
+      // ── Selection / Replacement ───────────────────────────────────
+      const selRepHtml = `
+        <div class="card-section">
+          <div class="integration-desc"><strong>Selection:</strong> ${esc(card.selectionRule ?? '')}</div>
+          <div class="integration-desc" style="margin-top:4px"><strong>Replacement:</strong> ${esc(card.replacementRule ?? '')}</div>
+        </div>`;
+
+      // ── Flavour text ─────────────────────────────────────────────
+      const flavourHtml = card.flavourText
+        ? `<div class="flavour-text">"${esc(card.flavourText)}"</div>`
+        : '';
+
+      // ── Assemble ─────────────────────────────────────────────────
+      return `
+        <div class="card">
+          ${headerHtml}
+          ${statsHtml}
+          ${t3Html}
+          ${abilitiesHtml}
+          ${laborHtml}
+          ${starterHtml}
+          ${selRepHtml}
+          ${flavourHtml}
+        </div>`;
+    }
+
+    // ── Card renderer dispatcher ───────────────────────────────────
+
+    function renderCard(card) {
+      switch (card.cardType) {
+        case 'ASSET':          return renderAssetCard(card);
+        case 'CEO':            return renderCeoCard(card);
+        case 'GLOBAL_EVENT':   return renderGlobalEventCard(card);
+        case 'PERSONAL_EVENT': return renderPersonalEventCard(card);
+        default:
+          console.warn(`Unknown cardType: ${card.cardType}`);
+          return '';
+      }
+    }
+
+    // ── Sort helpers ───────────────────────────────────────────────
+
+    const INDUSTRY_ORDER = [
+      'TECHNOLOGY', 'ENERGY', 'REAL_ESTATE', 'FINANCE',
+      'MANUFACTURING', 'MEDIA_ENTERTAINMENT',
+      // HYBRID and anything unrecognised sorts last
     ];
 
-    function getPrimaryName(card) {
-      switch (card.cardType) {
-        case 'ASSET':          return card.companyName;
-        case 'CEO':            return card.ceoName;
-        case 'GLOBAL_EVENT':
-        case 'PERSONAL_EVENT': return card.eventName;
-        default:               return undefined;
+    const PLACEMENT_ORDER = ['UPSTREAM', 'MIDSTREAM', 'DOWNSTREAM'];
+
+    function sortAssets(cards) {
+      return [...cards].sort((a, b) => {
+        const iA = INDUSTRY_ORDER.indexOf(a.industry);
+        const iB = INDUSTRY_ORDER.indexOf(b.industry);
+        // -1 (not found) → treat as HYBRID, goes after the explicit list
+        const indA = iA === -1 ? INDUSTRY_ORDER.length : iA;
+        const indB = iB === -1 ? INDUSTRY_ORDER.length : iB;
+        if (indA !== indB) return indA - indB;
+
+        const tierA = a.tier ?? 0;
+        const tierB = b.tier ?? 0;
+        if (tierA !== tierB) return tierA - tierB;
+
+        const pA = PLACEMENT_ORDER.indexOf(a.placement);
+        const pB = PLACEMENT_ORDER.indexOf(b.placement);
+        const plA = pA === -1 ? PLACEMENT_ORDER.length : pA;
+        const plB = pB === -1 ? PLACEMENT_ORDER.length : pB;
+        return plA - plB;
+      });
+    }
+
+    function sortCeos(cards) {
+      return [...cards].sort((a, b) => (a.annualIncome ?? 0) - (b.annualIncome ?? 0));
+    }
+
+    // ── Asset filter state ─────────────────────────────────────────
+
+    const CANONICAL_INDUSTRIES = [
+      'TECHNOLOGY', 'ENERGY', 'REAL_ESTATE', 'FINANCE',
+      'MANUFACTURING', 'MEDIA_ENTERTAINMENT',
+    ];
+
+    const assetFilter = { industry: 'ALL', tier: 'ALL', placement: 'ALL' };
+
+    function isHybridCard(card) {
+      return !CANONICAL_INDUSTRIES.includes(card.industry) ||
+        (card.baseValueUpdateRule?.industryMechanic ?? '').toLowerCase().includes('hybrid');
+    }
+
+    function matchesAssetFilter(card) {
+      const { industry, tier, placement } = assetFilter;
+
+      if (industry !== 'ALL') {
+        if (industry === 'HYBRID') {
+          if (!isHybridCard(card)) return false;
+        } else {
+          if (card.industry !== industry) return false;
+        }
+      }
+
+      if (tier !== 'ALL' && String(card.tier) !== tier) return false;
+
+      if (placement !== 'ALL' && card.placement !== placement) return false;
+
+      return true;
+    }
+
+    function resetAssetFilters() {
+      assetFilter.industry = 'ALL';
+      assetFilter.tier     = 'ALL';
+      assetFilter.placement = 'ALL';
+      document.querySelectorAll('#asset-filters .filter-btn').forEach(btn => {
+        btn.classList.toggle('active', btn.dataset.value === 'ALL');
+      });
+    }
+
+    // ── Global Event filter state ──────────────────────────────────
+
+    const globalEventFilter = { eventCategory: 'ALL' };
+
+    function matchesGlobalEventFilter(card) {
+      const { eventCategory } = globalEventFilter;
+      if (eventCategory !== 'ALL' && card.eventCategory !== eventCategory) return false;
+      return true;
+    }
+
+    function resetGlobalEventFilters() {
+      globalEventFilter.eventCategory = 'ALL';
+      document.querySelectorAll('#global-event-filters .filter-btn').forEach(btn => {
+        btn.classList.toggle('active', btn.dataset.value === 'ALL');
+      });
+    }
+
+    // ── Personal Event filter state ────────────────────────────────
+
+    const personalEventFilter = { playTiming: 'ALL' };
+
+    function matchesPersonalEventFilter(card) {
+      const { playTiming } = personalEventFilter;
+      if (playTiming !== 'ALL' && card.playTiming !== playTiming) return false;
+      return true;
+    }
+
+    function resetPersonalEventFilters() {
+      personalEventFilter.playTiming = 'ALL';
+      document.querySelectorAll('#personal-event-filters .filter-btn').forEach(btn => {
+        btn.classList.toggle('active', btn.dataset.value === 'ALL');
+      });
+    }
+
+    // ── Search state ───────────────────────────────────────────────
+
+    let searchQuery = '';
+
+    function cardMatchesSearch(card, query) {
+      if (!query) return true;
+      const q = query.toLowerCase();
+
+      // Primary name fields
+      if ([card.companyName, card.ceoName, card.eventName].some(f => f && String(f).toLowerCase().includes(q))) return true;
+
+      // Industry
+      if (card.industry && card.industry.toLowerCase().includes(q)) return true;
+
+      // Flavour text
+      if (card.flavourText && card.flavourText.toLowerCase().includes(q)) return true;
+
+      // effects[].description
+      if (Array.isArray(card.effects) && card.effects.some(fx => fx.description && fx.description.toLowerCase().includes(q))) return true;
+
+      // abilities[].description
+      if (Array.isArray(card.abilities) && card.abilities.some(ab => ab.description && ab.description.toLowerCase().includes(q))) return true;
+
+      // immediateEffect.description
+      if (card.immediateEffect?.description && card.immediateEffect.description.toLowerCase().includes(q)) return true;
+
+      // deathRollEffect.description
+      if (card.deathRollEffect?.description && card.deathRollEffect.description.toLowerCase().includes(q)) return true;
+
+      // baseValueUpdateRule.industryMechanic
+      if (card.baseValueUpdateRule?.industryMechanic && card.baseValueUpdateRule.industryMechanic.toLowerCase().includes(q)) return true;
+
+      // verticalIntegrationRules[].effectDescription
+      if (Array.isArray(card.verticalIntegrationRules) && card.verticalIntegrationRules.some(r => r.effectDescription && r.effectDescription.toLowerCase().includes(q))) return true;
+
+      // crossIndustrySynergies[].effectDescription
+      if (Array.isArray(card.crossIndustrySynergies) && card.crossIndustrySynergies.some(s => s.effectDescription && s.effectDescription.toLowerCase().includes(q))) return true;
+
+      return false;
+    }
+
+    // ── Tab state + rendering ─────────────────────────────────────
+
+    let activeTab = 'ASSETS';
+
+    function getTabCards(allCards) {
+      switch (activeTab) {
+        case 'ASSETS':
+          return sortAssets(allCards.filter(c => c.cardType === 'ASSET' && matchesAssetFilter(c) && cardMatchesSearch(c, searchQuery)));
+        case 'CEOs':
+          return sortCeos(allCards.filter(c => c.cardType === 'CEO' && cardMatchesSearch(c, searchQuery)));
+        case 'GLOBAL EVENTS':
+          return allCards.filter(c => c.cardType === 'GLOBAL_EVENT' && matchesGlobalEventFilter(c) && cardMatchesSearch(c, searchQuery));
+        case 'PERSONAL EVENTS':
+          return allCards.filter(c => c.cardType === 'PERSONAL_EVENT' && matchesPersonalEventFilter(c) && cardMatchesSearch(c, searchQuery));
+        default:
+          return [];
       }
     }
 
-    function getIndustrySlug(industry) {
-      if (!industry) return null;
-      return industry.toLowerCase().replace(/_/g, '-');
+    // ── Card count display ─────────────────────────────────────
+
+    function getActiveFilterSummary() {
+      const parts = [];
+      switch (activeTab) {
+        case 'ASSETS':
+          if (assetFilter.industry !== 'ALL') parts.push(assetFilter.industry === 'REAL_ESTATE' ? 'REAL ESTATE' : assetFilter.industry);
+          if (assetFilter.tier !== 'ALL')     parts.push(`TIER ${assetFilter.tier}`);
+          if (assetFilter.placement !== 'ALL') parts.push(assetFilter.placement);
+          break;
+        case 'GLOBAL EVENTS':
+          if (globalEventFilter.eventCategory !== 'ALL') parts.push(globalEventFilter.eventCategory);
+          break;
+        case 'PERSONAL EVENTS':
+          if (personalEventFilter.playTiming !== 'ALL') parts.push(personalEventFilter.playTiming);
+          break;
+      }
+      return parts;
     }
 
-    function buildCard(card, i) {
-      const name = getPrimaryName(card);
+    // ── Clear filters (resets active-tab filters + search) ─────────
 
-      if (!name) {
-        console.warn(`Card at index ${i} is missing its primary name field.`, card);
+    function clearActiveTabFilters() {
+      switch (activeTab) {
+        case 'ASSETS':          resetAssetFilters();          break;
+        case 'GLOBAL EVENTS':   resetGlobalEventFilters();    break;
+        case 'PERSONAL EVENTS': resetPersonalEventFilters();  break;
       }
-
-      const li = document.createElement('li');
-
-      const cardEl = document.createElement('div');
-      cardEl.className = 'card';
-
-      // ── Header: type badge + optional industry badge ──
-      const header = document.createElement('div');
-      header.className = 'card__header';
-
-      const typeRow = document.createElement('div');
-      typeRow.className = 'card__type-row';
-
-      const typeBadge = document.createElement('span');
-      typeBadge.className = 'badge';
-      typeBadge.textContent = card.cardType ?? 'UNKNOWN';
-      typeRow.appendChild(typeBadge);
-
-      if (card.industry) {
-        const industryBadge = document.createElement('span');
-        const slug = getIndustrySlug(card.industry);
-        industryBadge.className = `badge badge--${slug}`;
-        industryBadge.textContent = card.industry;
-        typeRow.appendChild(industryBadge);
-      }
-
-      header.appendChild(typeRow);
-      cardEl.appendChild(header);
-
-      // ── Body: card name ──
-      const body = document.createElement('div');
-      body.className = 'card__body';
-
-      const nameEl = document.createElement('div');
-      nameEl.className = 'card__name';
-      nameEl.textContent = name ?? '(unnamed)';
-      body.appendChild(nameEl);
-
-      cardEl.appendChild(body);
-
-      // ── Flavour text ──
-      if (card.flavourText) {
-        const flavour = document.createElement('div');
-        flavour.className = 'card__flavour';
-        flavour.textContent = card.flavourText;
-        cardEl.appendChild(flavour);
-      }
-
-      li.appendChild(cardEl);
-      return li;
+      searchQuery = '';
+      document.getElementById('search-input').value = '';
     }
+
+    function renderCount(cards) {
+      const el    = document.getElementById('card-count');
+      const count = cards.length;
+
+      if (count === 0) {
+        el.innerHTML = '';
+        return;
+      }
+
+      const summary = getActiveFilterSummary();
+      if (summary.length > 0) {
+        el.innerHTML = `<span class="count-text">Showing ${count} card${count === 1 ? '' : 's'} · ${summary.join(' · ')}</span>`;
+      } else {
+        el.innerHTML = `<span class="count-text">Showing ${count} card${count === 1 ? '' : 's'}</span>`;
+      }
+    }
+
+    function renderGrid(allCards) {
+      const cards = getTabCards(allCards);
+      const grid  = document.getElementById('card-grid');
+
+      // Per-card validation — skip malformed cards rather than letting them crash
+      const validCards = cards.filter(card => {
+        if (!validateCard(card)) {
+          console.warn('[CardViewer] Skipping malformed card:', card);
+          return false;
+        }
+        return true;
+      });
+
+      renderCount(validCards);
+
+      if (validCards.length === 0) {
+        grid.innerHTML = `
+          <div class="empty-state">
+            <p>No cards match these filters.</p>
+            <button class="clear-filters-link">Clear filters</button>
+          </div>`;
+        grid.querySelector('.clear-filters-link').addEventListener('click', () => {
+          clearActiveTabFilters();
+          renderGrid(allCards);
+        });
+        return;
+      }
+
+      grid.innerHTML = validCards.map(card => {
+        try {
+          return renderCard(card);
+        } catch (e) {
+          console.warn('[CardViewer] Skipping malformed card:', card);
+          return '';
+        }
+      }).join('');
+    }
+
+    // ── Data loading ───────────────────────────────────────────────
+
+    const CARD_FILES = [
+      'technology-cards.json',
+      'energy-cards.json',
+      'real-estate-cards.json',
+      'finance-cards.json',
+      'manufacturing-cards.json',
+      'media-cards.json',
+      'hybrid-cards.json',
+      'ceo-cards.json',
+      'global-event-cards.json',
+      'personal-event-cards.json',
+    ];
 
     const datasets = await Promise.all(
-      CARD_FILES.map(({ file }) => fetch(`/cards/${file}`).then(r => r.json()))
+      CARD_FILES.map(file =>
+        fetch(`/cards/${file}`)
+          .then(r => r.json())
+          .then(data => {
+            if (!Array.isArray(data)) {
+              console.warn(`[CardViewer] Missing or invalid data: ${file}`);
+              return [];
+            }
+            return data;
+          })
+          .catch(() => {
+            console.warn(`[CardViewer] Missing or invalid data: ${file}`);
+            const banner = document.createElement('div');
+            banner.style.cssText = 'position:fixed;top:0;left:0;right:0;background:#9a2a2a;color:#fff;font-size:12px;padding:6px 12px;z-index:9999;';
+            banner.textContent = `Failed to load ${file} — some cards may be missing`;
+            document.body.prepend(banner);
+            setTimeout(() => banner.remove(), 6000);
+            return [];
+          })
+      )
     );
 
     const allCards = datasets.flat();
-    const ul = document.getElementById('card-list');
 
-    allCards.forEach((card, i) => {
-      ul.appendChild(buildCard(card, i));
+    // ── Tab navigation ─────────────────────────────────────────────
+
+    document.getElementById('tab-nav').addEventListener('click', e => {
+      const btn = e.target.closest('.tab-btn');
+      if (!btn) return;
+      activeTab = btn.dataset.tab;
+      document.querySelectorAll('.tab-btn').forEach(b =>
+        b.classList.toggle('active', b === btn)
+      );
+      resetAssetFilters();
+      resetGlobalEventFilters();
+      resetPersonalEventFilters();
+      document.getElementById('asset-filters').hidden = activeTab !== 'ASSETS';
+      document.getElementById('global-event-filters').hidden = activeTab !== 'GLOBAL EVENTS';
+      document.getElementById('personal-event-filters').hidden = activeTab !== 'PERSONAL EVENTS';
+      renderGrid(allCards);
     });
+
+    // ── Asset filter interactions ──────────────────────────────────
+
+    document.getElementById('asset-filters').addEventListener('click', e => {
+      const btn = e.target.closest('.filter-btn');
+      if (!btn) return;
+      const dim   = btn.dataset.filter;
+      const value = btn.dataset.value;
+      assetFilter[dim] = value;
+      btn.closest('.filter-row').querySelectorAll('.filter-btn').forEach(b => {
+        b.classList.toggle('active', b === btn);
+      });
+      renderGrid(allCards);
+    });
+
+    // ── Global Event filter interactions ───────────────────────────
+
+    document.getElementById('global-event-filters').addEventListener('click', e => {
+      const btn = e.target.closest('.filter-btn');
+      if (!btn) return;
+      globalEventFilter.eventCategory = btn.dataset.value;
+      btn.closest('.filter-row').querySelectorAll('.filter-btn').forEach(b => {
+        b.classList.toggle('active', b === btn);
+      });
+      renderGrid(allCards);
+    });
+
+    // ── Personal Event filter interactions ─────────────────────────
+
+    document.getElementById('personal-event-filters').addEventListener('click', e => {
+      const btn = e.target.closest('.filter-btn');
+      if (!btn) return;
+      personalEventFilter.playTiming = btn.dataset.value;
+      btn.closest('.filter-row').querySelectorAll('.filter-btn').forEach(b => {
+        b.classList.toggle('active', b === btn);
+      });
+      renderGrid(allCards);
+    });
+
+    // ── Search input ───────────────────────────────────────────────
+
+    let searchDebounceTimer = null;
+    document.getElementById('search-input').addEventListener('input', e => {
+      clearTimeout(searchDebounceTimer);
+      searchDebounceTimer = setTimeout(() => {
+        searchQuery = e.target.value.trim();
+        renderGrid(allCards);
+      }, 150);
+    });
+
+    // Initial render
+    renderGrid(allCards);
   </script>
 </body>
 </html>

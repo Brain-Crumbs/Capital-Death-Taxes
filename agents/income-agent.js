@@ -112,6 +112,48 @@ export class IncomeAgent extends BaseAgent {
     return 'PLAY';
   }
 
+  // ── chooseSwapSale ─────────────────────────────────────────────────────────
+
+  chooseSwapSale(myPlayer, state) {
+    const round  = state.round ?? 0;
+    const assets = myPlayer.assets ?? [];
+
+    if (assets.length < 3) return null;
+
+    // Identify the weakest asset by income
+    const worstAsset = assets.slice().sort(
+      (a, b) => (a.income ?? 0) - (b.income ?? 0),
+    )[0];
+
+    // Look for a visible card that beats it on income
+    const upgradeCard = (state.marketCards ?? []).find(
+      c => c && c.cardType === 'ASSET' && (c.income ?? 0) > (worstAsset.income ?? 0),
+    );
+    if (!upgradeCard) return null;
+
+    // No swap needed if we can already afford it
+    if ((myPlayer.cash ?? 0) >= upgradeCard.baseValue) return null;
+
+    const saleValue = worstAsset.currentValue ?? worstAsset.baseValue;
+
+    // Confirm the swap makes it affordable
+    if ((myPlayer.cash ?? 0) + saleValue < upgradeCard.baseValue) {
+      this.logDecision(
+        'PASS',
+        `Income: swap of ${worstAsset.companyName} not enough for ${upgradeCard.companyName}`,
+        round,
+      );
+      return null;
+    }
+
+    this.logDecision(
+      'SWAP_SELL',
+      `Income: sells ${worstAsset.companyName} (income=${worstAsset.income ?? 0}) to upgrade to ${upgradeCard.companyName} (income=${upgradeCard.income ?? 0})`,
+      round,
+    );
+    return worstAsset.companyName;
+  }
+
   // ── chooseSellAsset ────────────────────────────────────────────────────────
 
   chooseSellAsset(myPlayer, state) {

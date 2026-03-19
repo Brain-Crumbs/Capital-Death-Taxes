@@ -84,7 +84,7 @@ export function checkDeathRoll(player, dice) {
   }
 
   const result   = dice.d6();
-  const survived = result >= 3;
+  const survived = result >= 2;
 
   if (!survived) {
     player.alive = false;

@@ -136,6 +136,61 @@ export class TechStackAgent extends BaseAgent {
     return 'PLAY';
   }
 
+  // ── chooseSwapSale ─────────────────────────────────────────────────────────
+
+  chooseSwapSale(myPlayer, state) {
+    const round  = state.round ?? 0;
+    const assets = myPlayer.assets ?? [];
+
+    if (assets.length < 3) return null;
+
+    // Determine the next integration slot we need
+    const nextNeeded = this._nextNeededPlacement(myPlayer);
+    if (!nextNeeded) return null; // Full stack already owned
+
+    // Find a tech card in the market that fills that slot
+    const targetCard = (state.marketCards ?? []).find(
+      c => c && c.cardType === 'ASSET' && c.industry === 'TECHNOLOGY' && c.placement === nextNeeded,
+    );
+    if (!targetCard) return null;
+
+    // No swap needed if we can already afford it
+    if ((myPlayer.cash ?? 0) >= targetCard.baseValue) return null;
+
+    // Pick the least-important asset to sell:
+    // prefer the lowest-priority placement we already own (DOWNSTREAM > MIDSTREAM > UPSTREAM),
+    // never the slot we're trying to fill.
+    const reversePriority = [...PLACEMENTS_IN_ORDER].reverse();
+    let toSell = null;
+    for (const placement of reversePriority) {
+      if (placement === nextNeeded) continue;
+      const a = assets.find(a => a.industry === 'TECHNOLOGY' && a.placement === placement);
+      if (a) { toSell = a; break; }
+    }
+    // Fallback: any non-tech asset (shouldn't arise for a pure TechStack game)
+    if (!toSell) toSell = assets.find(a => a.industry !== 'TECHNOLOGY') ?? null;
+    if (!toSell) return null;
+
+    const saleValue = toSell.currentValue ?? toSell.baseValue;
+
+    // Confirm the swap makes the target affordable
+    if ((myPlayer.cash ?? 0) + saleValue < targetCard.baseValue) {
+      this.logDecision(
+        'PASS',
+        `TechStack: swap of ${toSell.companyName} not enough for ${nextNeeded} slot ${targetCard.companyName}`,
+        round,
+      );
+      return null;
+    }
+
+    this.logDecision(
+      'SWAP_SELL',
+      `TechStack: sells ${toSell.companyName} (${toSell.placement ?? toSell.industry}) to fund needed ${nextNeeded} slot ${targetCard.companyName}`,
+      round,
+    );
+    return toSell.companyName;
+  }
+
   // ── chooseSellAsset ────────────────────────────────────────────────────────
 
   chooseSellAsset(myPlayer, state) {

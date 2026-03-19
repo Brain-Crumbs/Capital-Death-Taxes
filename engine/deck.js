@@ -6,8 +6,8 @@ const __dirname = dirname(fileURLToPath(import.meta.url));
 const DATA_DIR = join(__dirname, '../data/cards');
 
 const PERSONAL_EVENT_CATEGORY_RATIOS = {
-  STRESS_RELIEF: 8,
-  DEATH_PREVENTION: 4,
+  STRESS_RELIEF: 16,
+  DEATH_PREVENTION: 8,
   CASH_WINDFALL: 6,
   CASH_DRAIN: 4,
   TAX_EVENT: 5,

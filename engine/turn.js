@@ -213,6 +213,63 @@ function runYearStart(state, agentMap, dice) {
 }
 
 /**
+ * PRE-AUCTION SWAP PHASE: agents with a full portfolio (3 assets) may sell
+ * one asset before bidding to free a slot and raise cash for a new purchase.
+ *
+ * Proceeds (asset.currentValue) are credited to cash immediately and tracked
+ * in player.swapProceeds.  Any portion not spent on a new asset during the
+ * following auction is taxed as ordinary income at settlement.
+ *
+ * The sold asset is returned to the market draw pile at a random position so
+ * it can resurface in a future round (with appreciation reset to baseValue).
+ */
+function runSwapPhase(state, agentMap) {
+  for (const player of rotatedLivingPlayers(state)) {
+    const agent = agentMap[player.id];
+    if (!agent?.chooseSwapSale) continue;
+
+    // Swap only makes sense when the portfolio is full (can't bid otherwise)
+    if ((player.assets ?? []).length < 3) continue;
+
+    const assetId = agent.chooseSwapSale(player, state);
+    if (!assetId) continue;
+
+    const idx = (player.assets ?? []).findIndex(a => a.companyName === assetId);
+    if (idx === -1) continue;
+
+    const asset     = player.assets[idx];
+    const saleValue = asset.currentValue ?? asset.baseValue;
+
+    // Remove from portfolio
+    player.assets.splice(idx, 1);
+
+    // Restore stress contributed by this asset
+    removeAssetStress(player, asset);
+
+    // Credit proceeds
+    player.cash         = (player.cash ?? 0) + saleValue;
+    player.swapProceeds = (player.swapProceeds ?? 0) + saleValue;
+
+    // Return asset to market deck at a random position (appreciation reset)
+    const returnCard = { ...asset };
+    delete returnCard.currentValue;
+    const deck     = state.discardPiles.marketDeck ?? [];
+    const insertAt = Math.floor(Math.random() * (deck.length + 1));
+    deck.splice(insertAt, 0, returnCard);
+    state.discardPiles.marketDeck = deck;
+
+    appendLog(state, [{
+      type:      'ASSET_SWAP_SOLD',
+      playerId:  player.id,
+      assetId:   asset.companyName,
+      saleValue,
+      newCash:   player.cash,
+      newStress: player.stress,
+    }]);
+  }
+}
+
+/**
  * AUCTION PHASE: optional CEO auction at round 1, then market card auctions
  * for each visible slot, in rotating player turn order.
  */
@@ -293,7 +350,11 @@ function runAuctionPhase(state, agentMap, dice) {
       agentBids[player.id]  = playerBids[card.companyName] ?? 0;
     }
 
-    const { logEvent } = auctionAsset(card, livePlayers, agentBids, state);
+    const { winner, winningBid, logEvent } = auctionAsset(card, livePlayers, agentBids, state);
+    // Track swap proceeds spent so settlement can tax only the unspent excess
+    if (winner && (winner.swapProceeds ?? 0) > 0) {
+      winner.swapSpent = (winner.swapSpent ?? 0) + winningBid;
+    }
     appendLog(state, [logEvent]);
   }
 }
@@ -448,6 +509,12 @@ function runSettlementPhase(state, agentMap, dice) {
     const loansDrawnThisYear = player.loansDrawnThisYear ?? 0;
     const isTaxAttorney      = player.ceo?.ceoName === 'The Tax Attorney';
 
+    // Any swap proceeds not spent on a new asset are taxed as ordinary income
+    const swapExcess = Math.max(
+      0,
+      (player.swapProceeds ?? 0) - (player.swapSpent ?? 0),
+    );
+
     let grossIncome, loanOffset, netTaxable, taxDue;
 
     if (isTaxAttorney) {
@@ -455,7 +522,7 @@ function runSettlementPhase(state, agentMap, dice) {
       const assetIncome   = (player.assets ?? []).reduce((s, a) => s + (a.income ?? 0), 0);
       const starterIncome = player.starterAsset?.income ?? 0;
       const ceoIncome     = player.ceo?.annualIncome ?? 0;
-      grossIncome         = assetIncome + starterIncome + ceoIncome;
+      grossIncome         = assetIncome + starterIncome + ceoIncome + swapExcess;
       loanOffset        = Math.min(
         Math.max(0, grossIncome - 2),
         Math.max(0, loansDrawnThisYear),
@@ -464,7 +531,7 @@ function runSettlementPhase(state, agentMap, dice) {
       taxDue            = Math.floor(netTaxable * 0.5);
     } else {
       ({ grossIncome, loanOffset, netTaxable, taxDue } =
-        computeTaxableIncome(player, loansDrawnThisYear));
+        computeTaxableIncome(player, loansDrawnThisYear, swapExcess));
     }
 
     if (taxDue > 0) {
@@ -676,6 +743,7 @@ export function runYear(state, agents, dice) {
 
   // ── Phases ────────────────────────────────────────────────────────────────
   runYearStart(state, agentMap, dice);
+  runSwapPhase(state, agentMap);
   runAuctionPhase(state, agentMap, dice);
   runActionPhase(state, agentMap, dice);
   runSettlementPhase(state, agentMap, dice);
@@ -684,6 +752,8 @@ export function runYear(state, agents, dice) {
   for (const player of state.players) {
     if (player.alive) resetCEOYearlyAbilities(player);
     player.loansDrawnThisYear = 0;
+    player.swapProceeds       = 0;
+    player.swapSpent          = 0;
   }
 
   appendLog(state, [{ type: 'YEAR_END', round: state.round }]);
