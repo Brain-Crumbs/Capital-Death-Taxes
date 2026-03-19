@@ -6,6 +6,8 @@ CONSOLIDATED_RULE_SET.md - source of truth for rules
 SCHEMA_REFERENCE.md - source of truth for json schemas
 Features - folder containing all feature documentation
 
+All planning documentation created by Claude should be in a folder .claude/agent-docs
+
 ## What this game is
 
 Borrow & Die is a 2–5 player strategy board game about wealth accumulation through asset leverage. Players buy companies, borrow against them, manage a stress-based mortality clock, and score by final portfolio value at game end. The core thesis: **income is bad; leverage offsets income; paper wealth is the goal.**
