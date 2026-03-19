@@ -1,8 +1,10 @@
 # Borrow & Die — Project Description
 
 ## Key Information References
+.claude - folder where all files below are located
 CONSOLIDATED_RULE_SET.md - source of truth for rules
 SCHEMA_REFERENCE.md - source of truth for json schemas
+Features - folder containing all feature documentation
 
 ## What this game is
 
