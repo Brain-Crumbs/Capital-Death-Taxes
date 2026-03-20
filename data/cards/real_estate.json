@@ -1,0 +1,535 @@
+[
+  {
+    "cardType": "ASSET",
+    "companyName": "Retail REIT",
+    "industry": "REAL_ESTATE",
+    "placement": "DOWNSTREAM",
+    "tier": 1,
+    "baseValue": 8,
+    "stress": 1,
+    "income": 2,
+    "baseLoanCapacity": 6,
+    "loanCapacityIncreasePer10AssetValue": 6,
+    "baseValueUpdateRule": {
+      "outcomes": [
+        {
+          "range": [
+            1,
+            1
+          ],
+          "delta": -2
+        },
+        {
+          "range": [
+            2,
+            3
+          ],
+          "delta": -1
+        },
+        {
+          "range": [
+            4,
+            5
+          ],
+          "delta": 1
+        },
+        {
+          "range": [
+            6,
+            6
+          ],
+          "delta": 2
+        }
+      ],
+      "industryMechanic": "Neutral GMI."
+    },
+    "verticalIntegrationRules": [
+      {
+        "requiresIndustry": "REAL_ESTATE",
+        "requiresPlacement": "UPSTREAM",
+        "effectType": "SPECIAL",
+        "effectDescription": "+1 income this year."
+      },
+      {
+        "requiresIndustry": "REAL_ESTATE",
+        "requiresPlacement": "MIDSTREAM",
+        "effectType": "SPECIAL",
+        "effectDescription": "Treat loan repayment roll as one higher on this asset."
+      }
+    ],
+    "crossIndustrySynergies": [
+      {
+        "requiresIndustry": "MEDIA_ENTERTAINMENT",
+        "requiresPlacement": "MIDSTREAM",
+        "effectType": "LOAN_CAPACITY_BONUS",
+        "effectMagnitude": 1,
+        "effectDescription": "+1 loan cap; +1 additional if current value exceeds 14."
+      }
+    ],
+    "flavourText": "Anchor tenants are the new aristocracy."
+  },
+  {
+    "cardType": "ASSET",
+    "companyName": "Property Mgmt Co",
+    "industry": "REAL_ESTATE",
+    "placement": "MIDSTREAM",
+    "tier": 1,
+    "baseValue": 7,
+    "stress": 1,
+    "income": 2,
+    "baseLoanCapacity": 6,
+    "loanCapacityIncreasePer10AssetValue": 6,
+    "baseValueUpdateRule": {
+      "outcomes": [
+        {
+          "range": [
+            1,
+            1
+          ],
+          "delta": -1
+        },
+        {
+          "range": [
+            2,
+            3
+          ],
+          "delta": 0
+        },
+        {
+          "range": [
+            4,
+            5
+          ],
+          "delta": 2
+        },
+        {
+          "range": [
+            6,
+            6
+          ],
+          "delta": 3
+        }
+      ],
+      "industryMechanic": "Neutral GMI."
+    },
+    "verticalIntegrationRules": [
+      {
+        "requiresIndustry": "REAL_ESTATE",
+        "requiresPlacement": "UPSTREAM",
+        "effectType": "STRESS_REDUCTION",
+        "effectMagnitude": 1,
+        "stressReduction": 1,
+        "effectDescription": "\u22121 stress once per year when this asset's value roll is 4+. Complements Trustee's free loan restructure \u2014 operational stability = personal calm."
+      },
+      {
+        "requiresIndustry": "REAL_ESTATE",
+        "requiresPlacement": "DOWNSTREAM",
+        "effectType": "LOAN_CAPACITY_BONUS",
+        "effectMagnitude": 1,
+        "effectDescription": "+1 loan cap after 2 consecutive years without a negative value roll on this asset."
+      }
+    ],
+    "crossIndustrySynergies": [],
+    "flavourText": "Someone has to collect. Might as well profit from it."
+  },
+  {
+    "cardType": "ASSET",
+    "companyName": "Terraced Portfolio",
+    "industry": "REAL_ESTATE",
+    "placement": "UPSTREAM",
+    "tier": 1,
+    "baseValue": 6,
+    "stress": 0,
+    "income": 1,
+    "baseLoanCapacity": 6,
+    "loanCapacityIncreasePer10AssetValue": 6,
+    "baseValueUpdateRule": {
+      "outcomes": [
+        {
+          "range": [
+            1,
+            1
+          ],
+          "delta": -1
+        },
+        {
+          "range": [
+            2,
+            3
+          ],
+          "delta": 0
+        },
+        {
+          "range": [
+            4,
+            5
+          ],
+          "delta": 2
+        },
+        {
+          "range": [
+            6,
+            6
+          ],
+          "delta": 3
+        }
+      ],
+      "industryMechanic": "Neutral GMI. Income from this asset is tax-exempt in any year GMI \u2265 0. Aligns with Trustee's first-$1 RE exemption \u2014 stacks for double shelter."
+    },
+    "verticalIntegrationRules": [
+      {
+        "requiresIndustry": "REAL_ESTATE",
+        "requiresPlacement": "MIDSTREAM",
+        "effectType": "SPECIAL",
+        "effectDescription": "Income from this asset is tax-exempt in any year GMI \u2265 0. Aligns with Trustee's first-$1 RE exemption \u2014 stacks for double shelter."
+      }
+    ],
+    "crossIndustrySynergies": [
+      {
+        "requiresIndustry": "FINANCE",
+        "requiresPlacement": "MIDSTREAM",
+        "effectType": "LOAN_CAPACITY_BONUS",
+        "effectMagnitude": 1,
+        "effectDescription": "+1 loan cap on this asset; +1 additional if current value exceeds 12."
+      }
+    ],
+    "flavourText": "The rent arrives whether you do or not."
+  },
+  {
+    "cardType": "ASSET",
+    "companyName": "Urban Regeneration Fund",
+    "industry": "REAL_ESTATE",
+    "placement": "DOWNSTREAM",
+    "tier": 2,
+    "baseValue": 18,
+    "stress": 2,
+    "income": 2,
+    "baseLoanCapacity": 7,
+    "loanCapacityIncreasePer10AssetValue": 6,
+    "baseValueUpdateRule": {
+      "outcomes": [
+        {
+          "range": [
+            1,
+            1
+          ],
+          "delta": -2
+        },
+        {
+          "range": [
+            2,
+            3
+          ],
+          "delta": 0
+        },
+        {
+          "range": [
+            4,
+            5
+          ],
+          "delta": 2
+        },
+        {
+          "range": [
+            6,
+            6
+          ],
+          "delta": 4
+        }
+      ],
+      "industryMechanic": "Neutral GMI."
+    },
+    "verticalIntegrationRules": [
+      {
+        "requiresIndustry": "REAL_ESTATE",
+        "requiresPlacement": "MIDSTREAM",
+        "effectType": "INCOME_OFFSET",
+        "effectMagnitude": 2,
+        "effectDescription": "+2 loan interest payments on this asset count as income offsets this year."
+      },
+      {
+        "requiresIndustry": "REAL_ESTATE",
+        "requiresPlacement": "UPSTREAM",
+        "effectType": "LOAN_CAPACITY_BONUS",
+        "effectMagnitude": 1,
+        "effectDescription": "+1 loan cap; +1 additional if value exceeds 24."
+      }
+    ],
+    "crossIndustrySynergies": [],
+    "flavourText": "Gentrification is just arbitrage with better marketing."
+  },
+  {
+    "cardType": "ASSET",
+    "companyName": "Mixed-Use Development",
+    "industry": "REAL_ESTATE",
+    "placement": "MIDSTREAM",
+    "tier": 2,
+    "baseValue": 16,
+    "stress": 2,
+    "income": 2,
+    "baseLoanCapacity": 6,
+    "loanCapacityIncreasePer10AssetValue": 6,
+    "baseValueUpdateRule": {
+      "outcomes": [
+        {
+          "range": [
+            1,
+            1
+          ],
+          "delta": -2
+        },
+        {
+          "range": [
+            2,
+            3
+          ],
+          "delta": 0
+        },
+        {
+          "range": [
+            4,
+            5
+          ],
+          "delta": 2
+        },
+        {
+          "range": [
+            6,
+            6
+          ],
+          "delta": 4
+        }
+      ],
+      "industryMechanic": "Neutral GMI."
+    },
+    "verticalIntegrationRules": [
+      {
+        "requiresIndustry": "REAL_ESTATE",
+        "requiresPlacement": "UPSTREAM",
+        "effectType": "GMI_RESISTANCE",
+        "effectDescription": "Halve negative GMI delta on this asset."
+      },
+      {
+        "requiresIndustry": "REAL_ESTATE",
+        "requiresPlacement": "DOWNSTREAM",
+        "effectType": "SPECIAL",
+        "effectDescription": "+1 to this asset's loanCapacityIncreasePer10AssetValue."
+      }
+    ],
+    "crossIndustrySynergies": [
+      {
+        "requiresIndustry": "TECHNOLOGY",
+        "requiresPlacement": "MIDSTREAM",
+        "effectType": "LOAN_CAPACITY_BONUS",
+        "effectMagnitude": 1,
+        "effectDescription": "+1 loan cap; +1 additional if current value exceeds 22."
+      }
+    ],
+    "flavourText": "Retail on the ground floor, ambition on every other."
+  },
+  {
+    "cardType": "ASSET",
+    "companyName": "Industrial Estate Corp",
+    "industry": "REAL_ESTATE",
+    "placement": "UPSTREAM",
+    "tier": 2,
+    "baseValue": 14,
+    "stress": 1,
+    "income": 2,
+    "baseLoanCapacity": 6,
+    "loanCapacityIncreasePer10AssetValue": 6,
+    "baseValueUpdateRule": {
+      "outcomes": [
+        {
+          "range": [
+            1,
+            1
+          ],
+          "delta": -2
+        },
+        {
+          "range": [
+            2,
+            3
+          ],
+          "delta": 0
+        },
+        {
+          "range": [
+            4,
+            5
+          ],
+          "delta": 2
+        },
+        {
+          "range": [
+            6,
+            6
+          ],
+          "delta": 4
+        }
+      ],
+      "industryMechanic": "Neutral GMI."
+    },
+    "verticalIntegrationRules": [
+      {
+        "requiresIndustry": "REAL_ESTATE",
+        "requiresPlacement": "MIDSTREAM",
+        "effectType": "CRASH_FLOOR",
+        "effectMagnitude": 10,
+        "effectDescription": "Value of this asset cannot fall below 10 from a single GMI event."
+      }
+    ],
+    "crossIndustrySynergies": [
+      {
+        "requiresIndustry": "MANUFACTURING",
+        "requiresPlacement": "UPSTREAM",
+        "effectType": "LOAN_CAPACITY_BONUS",
+        "effectMagnitude": 1,
+        "effectDescription": "+1 loan cap for each MFG asset you own (max +3)."
+      }
+    ],
+    "flavourText": "Industrial land never goes out of fashion \u2014 it just gets rezoned."
+  },
+  {
+    "cardType": "ASSET",
+    "companyName": "Luxury Residential Portfolio",
+    "industry": "REAL_ESTATE",
+    "placement": "DOWNSTREAM",
+    "tier": 3,
+    "baseValue": 30,
+    "stress": 3,
+    "income": 2,
+    "baseLoanCapacity": 7,
+    "loanCapacityIncreasePer10AssetValue": 6,
+    "baseValueUpdateRule": {
+      "outcomes": [
+        {
+          "range": [
+            1,
+            1
+          ],
+          "delta": -4
+        },
+        {
+          "range": [
+            2,
+            3
+          ],
+          "delta": 1
+        },
+        {
+          "range": [
+            4,
+            5
+          ],
+          "delta": 4
+        },
+        {
+          "range": [
+            6,
+            6
+          ],
+          "delta": 6
+        }
+      ],
+      "industryMechanic": "Neutral GMI."
+    },
+    "verticalIntegrationRules": [
+      {
+        "requiresIndustry": "REAL_ESTATE",
+        "requiresPlacement": "MIDSTREAM",
+        "effectType": "SPECIAL",
+        "effectDescription": "Remove 1 loan token for free once per year (no roll needed). Complements Trustee's annual free restructure \u2014 two free removals per year."
+      },
+      {
+        "requiresIndustry": "REAL_ESTATE",
+        "requiresPlacement": "UPSTREAM",
+        "effectType": "STRESS_REDUCTION",
+        "effectMagnitude": 1,
+        "stressReduction": 1,
+        "effectDescription": "\u22121 stress when this asset's value exceeds 32."
+      }
+    ],
+    "crossIndustrySynergies": [
+      {
+        "requiresIndustry": "MEDIA_ENTERTAINMENT",
+        "requiresPlacement": "DOWNSTREAM",
+        "effectType": "LOAN_CAPACITY_BONUS",
+        "effectMagnitude": 1,
+        "effectDescription": "+1 loan cap; +1 additional if value exceeds 36."
+      }
+    ],
+    "flavourText": "The view from the penthouse is mostly other penthouses."
+  },
+  {
+    "cardType": "ASSET",
+    "companyName": "Sovereign Property Trust",
+    "industry": "REAL_ESTATE",
+    "placement": "MIDSTREAM",
+    "tier": 3,
+    "baseValue": 28,
+    "stress": 2,
+    "income": 2,
+    "baseLoanCapacity": 7,
+    "loanCapacityIncreasePer10AssetValue": 6,
+    "baseValueUpdateRule": {
+      "outcomes": [
+        {
+          "range": [
+            1,
+            1
+          ],
+          "delta": -4
+        },
+        {
+          "range": [
+            2,
+            3
+          ],
+          "delta": 1
+        },
+        {
+          "range": [
+            4,
+            5
+          ],
+          "delta": 4
+        },
+        {
+          "range": [
+            6,
+            6
+          ],
+          "delta": 6
+        }
+      ],
+      "industryMechanic": "Neutral GMI."
+    },
+    "verticalIntegrationRules": [
+      {
+        "requiresIndustry": "REAL_ESTATE",
+        "requiresPlacement": "UPSTREAM",
+        "effectType": "CRASH_FLOOR",
+        "effectMagnitude": 20,
+        "effectDescription": "Value cannot fall below 20 from any single event."
+      },
+      {
+        "requiresIndustry": "REAL_ESTATE",
+        "requiresPlacement": "DOWNSTREAM",
+        "effectType": "INCOME_OFFSET",
+        "effectDescription": "All income from RE assets counts as tax-exempt this year."
+      }
+    ],
+    "crossIndustrySynergies": [
+      {
+        "requiresIndustry": "FINANCE",
+        "requiresPlacement": "UPSTREAM",
+        "effectType": "LOAN_CAPACITY_BONUS",
+        "effectMagnitude": 1,
+        "effectDescription": "+1 loan cap; +2 additional if value exceeds 34."
+      }
+    ],
+    "flavourText": "Sovereignty is a title. Property is a fact."
+  }
+]

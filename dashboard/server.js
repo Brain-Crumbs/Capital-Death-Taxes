@@ -51,10 +51,25 @@ const server = http.createServer((req, res) => {
     return;
   }
 
-  // /cards/<file> → serve individual card JSON file
+  // /cards/<file>.json → serve card data file directly
   if (urlPath.startsWith('/cards/')) {
-    const filename = path.basename(urlPath); // prevents path traversal
-    serveFile(res, path.join(CARDS_ROOT, filename));
+    const cardPath = urlPath.slice('/cards/'.length);
+
+    // Security: reject path traversal attempts
+    if (!cardPath || cardPath.includes('..') || cardPath.includes('\0')) {
+      send(res, 403, 'text/plain', 'Forbidden');
+      return;
+    }
+
+    const fullPath = path.resolve(CARDS_ROOT, cardPath);
+
+    // Ensure the resolved path stays inside CARDS_ROOT
+    if (!fullPath.startsWith(CARDS_ROOT + path.sep) && fullPath !== CARDS_ROOT) {
+      send(res, 403, 'text/plain', 'Forbidden');
+      return;
+    }
+
+    serveFile(res, fullPath);
     return;
   }
 

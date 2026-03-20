@@ -1,0 +1,402 @@
+[
+  {
+    "cardType": "ASSET",
+    "companyName": "Family Trust",
+    "industry": "REAL_ESTATE",
+    "placement": "MIDSTREAM",
+    "tier": 0,
+    "baseValue": 2,
+    "stress": 0,
+    "income": 1,
+    "baseLoanCapacity": 1,
+    "loanCapacityIncreasePer10AssetValue": 6,
+    "isPermanentStarter": true,
+    "baseValueUpdateRule": {
+      "outcomes": [
+        { "range": [1, 1], "delta": 0 },
+        { "range": [2, 3], "delta": 0 },
+        { "range": [4, 5], "delta": 1 },
+        { "range": [6, 6], "delta": 1 }
+      ],
+      "industryMechanic": "The Trustee's starter asset. Unlike other tier-0 starters, this card occupies a full asset slot from game start and is never discarded. It represents inherited, stable wealth that compounds indefinitely. Income counts as $1 higher for tax offset purposes (family office status)."
+    },
+    "verticalIntegrationRules": [],
+    "crossIndustrySynergies": [],
+    "flavourText": "Some money is old enough to be honest."
+  },
+
+  {
+    "cardType": "ASSET",
+    "companyName": "Acquisition Fund",
+    "industry": "REAL_ESTATE",
+    "placement": "DOWNSTREAM",
+    "tier": 0,
+    "baseValue": 3,
+    "stress": 0,
+    "income": 1,
+    "baseLoanCapacity": 2,
+    "loanCapacityIncreasePer10AssetValue": 5,
+    "baseValueUpdateRule": {
+      "outcomes": [
+        { "range": [1, 1], "delta": -1 },
+        { "range": [2, 3], "delta": 0 },
+        { "range": [4, 5], "delta": 1 },
+        { "range": [6, 6], "delta": 2 }
+      ],
+      "industryMechanic": "The Chairman's starter asset. Represents an active acquisition vehicle. On discard: transfer ability 'Draw a personal event card when acquiring Tier 2+ assets' to the first market asset purchased."
+    },
+    "verticalIntegrationRules": [],
+    "crossIndustrySynergies": [],
+    "flavourText": "Every fund is a story about someone else's mistakes."
+  },
+  {
+    "cardType": "ASSET",
+    "companyName": "Series A Funding",
+    "industry": "TECHNOLOGY",
+    "placement": "UPSTREAM",
+    "tier": 0,
+    "baseValue": 1,
+    "stress": 0,
+    "income": 0,
+    "baseLoanCapacity": 0,
+    "loanCapacityIncreasePer10AssetValue": 1,
+    "baseValueUpdateRule": {
+      "outcomes": [
+        { "range": [1, 2], "delta": -2 },
+        { "range": [3, 3], "delta": 0 },
+        { "range": [4, 5], "delta": 2 },
+        { "range": [6, 6], "delta": 4 }
+      ],
+      "industryMechanic": "The Founder's starter asset. Extreme volatility, no income, minimal loan capacity. Represents pre-revenue equity. On discard: transfer ability 'When vertical integration stack completes, all three assets gain +2 permanent loan capacity' to the first market asset purchased."
+    },
+    "verticalIntegrationRules": [],
+    "crossIndustrySynergies": [],
+    "flavourText": "The promise: infinite returns. The reality: $0 of it."
+  },
+
+  {
+    "cardType": "ASSET",
+    "companyName": "Assembly Line",
+    "industry": "MANUFACTURING",
+    "placement": "MIDSTREAM",
+    "tier": 0,
+    "baseValue": 4,
+    "stress": 0,
+    "income": 1,
+    "baseLoanCapacity": 2,
+    "loanCapacityIncreasePer10AssetValue": 5,
+    "baseValueUpdateRule": {
+      "outcomes": [
+        { "range": [1, 1], "delta": -1 },
+        { "range": [2, 3], "delta": 0 },
+        { "range": [4, 5], "delta": 1 },
+        { "range": [6, 6], "delta": 1 }
+      ],
+      "industryMechanic": "The Foreman's starter asset. Stable operational efficiency. On discard: transfer ability 'MANUFACTURING assets gain +1 loan capacity' to the first market asset purchased."
+    },
+    "verticalIntegrationRules": [],
+    "crossIndustrySynergies": [],
+    "flavourText": "The machines run. The margins breathe."
+  },
+
+  {
+    "cardType": "ASSET",
+    "companyName": "Safety Audit",
+    "industry": "MANUFACTURING",
+    "placement": "DOWNSTREAM",
+    "tier": 0,
+    "baseValue": 3,
+    "stress": 0,
+    "income": 0,
+    "baseLoanCapacity": 1,
+    "loanCapacityIncreasePer10AssetValue": 4,
+    "baseValueUpdateRule": {
+      "outcomes": [
+        { "range": [1, 1], "delta": 0 },
+        { "range": [2, 3], "delta": 0 },
+        { "range": [4, 5], "delta": 0 },
+        { "range": [6, 6], "delta": 1 }
+      ],
+      "industryMechanic": "The Compliance Officer's starter asset. Ultra-stable, regulatory moat. On discard: transfer ability 'Reduce all incoming stress by 1 per incident' to the first market asset purchased."
+    },
+    "verticalIntegrationRules": [],
+    "crossIndustrySynergies": [],
+    "flavourText": "Safety doesn't generate returns. It generates survival."
+  },
+
+  {
+    "cardType": "ASSET",
+    "companyName": "Patent Portfolio",
+    "industry": "MANUFACTURING",
+    "placement": "UPSTREAM",
+    "tier": 0,
+    "baseValue": 2,
+    "stress": 0,
+    "income": 0,
+    "baseLoanCapacity": 0,
+    "loanCapacityIncreasePer10AssetValue": 3,
+    "baseValueUpdateRule": {
+      "outcomes": [
+        { "range": [1, 2], "delta": -1 },
+        { "range": [3, 3], "delta": 0 },
+        { "range": [4, 5], "delta": 1 },
+        { "range": [6, 6], "delta": 2 }
+      ],
+      "industryMechanic": "The Engineer's starter asset. Intellectual property with asymmetric upside. On discard: transfer ability 'All vertical integration stress reductions doubled, simultaneous cross-synergy stacking allowed' to the first market asset purchased."
+    },
+    "verticalIntegrationRules": [],
+    "crossIndustrySynergies": [],
+    "flavourText": "A patent is a toll booth built in someone's mind."
+  },
+
+  {
+    "cardType": "ASSET",
+    "companyName": "Derivatives Portfolio",
+    "industry": "FINANCE",
+    "placement": "UPSTREAM",
+    "tier": 0,
+    "baseValue": 2,
+    "stress": 0,
+    "income": 0,
+    "baseLoanCapacity": 1,
+    "loanCapacityIncreasePer10AssetValue": 3,
+    "baseValueUpdateRule": {
+      "outcomes": [
+        { "range": [1, 2], "delta": -3 },
+        { "range": [3, 3], "delta": -1 },
+        { "range": [4, 5], "delta": 1 },
+        { "range": [6, 6], "delta": 3 }
+      ],
+      "industryMechanic": "The Quant's starter asset. Extreme volatility, inverted payoff structure. On discard: transfer ability 'On negative GMI years, invert value update outcomes (1=6, 2=5, etc)' to the first market asset purchased."
+    },
+    "verticalIntegrationRules": [],
+    "crossIndustrySynergies": [],
+    "flavourText": "Betting against the house. The house is you."
+  },
+
+  {
+    "cardType": "ASSET",
+    "companyName": "Hedging Fund",
+    "industry": "FINANCE",
+    "placement": "MIDSTREAM",
+    "tier": 0,
+    "baseValue": 3,
+    "stress": 0,
+    "income": 0,
+    "baseLoanCapacity": 1,
+    "loanCapacityIncreasePer10AssetValue": 4,
+    "baseValueUpdateRule": {
+      "outcomes": [
+        { "range": [1, 1], "delta": -1 },
+        { "range": [2, 3], "delta": 0 },
+        { "range": [4, 5], "delta": 1 },
+        { "range": [6, 6], "delta": 2 }
+      ],
+      "industryMechanic": "The Trader (Finance)'s starter asset. Active position management, moderate volatility. On discard: transfer ability 'Reroll one asset value die per year, keep either result' to the first market asset purchased."
+    },
+    "verticalIntegrationRules": [],
+    "crossIndustrySynergies": [],
+    "flavourText": "Perfect hedges don't exist. But they're fun to try."
+  },
+
+  {
+    "cardType": "ASSET",
+    "companyName": "Escrow Account",
+    "industry": "FINANCE",
+    "placement": "DOWNSTREAM",
+    "tier": 0,
+    "baseValue": 2,
+    "stress": 0,
+    "income": 0,
+    "baseLoanCapacity": 1,
+    "loanCapacityIncreasePer10AssetValue": 3,
+    "baseValueUpdateRule": {
+      "outcomes": [
+        { "range": [1, 2], "delta": 0 },
+        { "range": [3, 4], "delta": 0 },
+        { "range": [5, 5], "delta": 1 },
+        { "range": [6, 6], "delta": 1 }
+      ],
+      "industryMechanic": "The Tax Attorney's starter asset. Barely moves, heavily regulated. On discard: transfer ability 'Reclassify up to $2 of income as advisory fees (non-taxable) once per year' to the first market asset purchased."
+    },
+    "verticalIntegrationRules": [],
+    "crossIndustrySynergies": [],
+    "flavourText": "The money sits here. The law sits with it."
+  },
+  {
+    "cardType": "ASSET",
+    "companyName": "Press Kit",
+    "industry": "MEDIA_ENTERTAINMENT",
+    "placement": "MIDSTREAM",
+    "tier": 0,
+    "baseValue": 2,
+    "stress": 0,
+    "income": 0,
+    "baseLoanCapacity": 0,
+    "loanCapacityIncreasePer10AssetValue": 2,
+    "baseValueUpdateRule": {
+      "outcomes": [
+        { "range": [1, 1], "delta": -2 },
+        { "range": [2, 2], "delta": -1 },
+        { "range": [3, 5], "delta": 1 },
+        { "range": [6, 6], "delta": 3 }
+      ],
+      "industryMechanic": "The Publicist's starter asset. Narrative-driven, buzz-sensitive. On discard: transfer ability 'All held personal event cards sale values increase by $1 (narrative licensing)' to the first market asset purchased."
+    },
+    "verticalIntegrationRules": [],
+    "crossIndustrySynergies": [],
+    "flavourText": "The story is the only product that doesn't spoil."
+  },
+  {
+    "cardType": "ASSET",
+    "companyName": "Exploration License",
+    "industry": "ENERGY",
+    "placement": "UPSTREAM",
+    "tier": 0,
+    "baseValue": 1,
+    "stress": 0,
+    "income": 0,
+    "baseLoanCapacity": 0,
+    "loanCapacityIncreasePer10AssetValue": 2,
+    "baseValueUpdateRule": {
+      "outcomes": [
+        { "range": [1, 1], "delta": -2 },
+        { "range": [2, 2], "delta": -1 },
+        { "range": [3, 4], "delta": 1 },
+        { "range": [5, 6], "delta": 2 }
+      ],
+      "industryMechanic": "The Geologist's starter asset. Resource mapping, volatility tied to commodity prices. On discard: transfer ability 'Peek at top global event card before draw, reposition in deck; ENERGY assets gain GMI amplification +1 tier' to the first market asset purchased."
+    },
+    "verticalIntegrationRules": [],
+    "crossIndustrySynergies": [],
+    "flavourText": "The best wells are the ones not found yet."
+  },
+  {
+    "cardType": "ASSET",
+    "companyName": "Commodity Fund",
+    "industry": "ENERGY",
+    "placement": "DOWNSTREAM",
+    "tier": 0,
+    "baseValue": 3,
+    "stress": 0,
+    "income": 1,
+    "baseLoanCapacity": 1,
+    "loanCapacityIncreasePer10AssetValue": 4,
+    "baseValueUpdateRule": {
+      "outcomes": [
+        { "range": [1, 2], "delta": -1 },
+        { "range": [3, 3], "delta": 0 },
+        { "range": [4, 5], "delta": 1 },
+        { "range": [6, 6], "delta": 2 }
+      ],
+      "industryMechanic": "The Trader (Energy)'s starter asset. Income-generating commodity exposure. On discard: transfer ability 'Roll d6 once per year on 4-6 earn $1 per ENERGY asset; repositioning free loan transfers' to the first market asset purchased."
+    },
+    "verticalIntegrationRules": [],
+    "crossIndustrySynergies": [],
+    "flavourText": "Boring is undervalued. Boring compounds."
+  },
+
+  {
+    "cardType": "ASSET",
+    "companyName": "Military-Grade Portfolio",
+    "industry": "DEFENCE",
+    "placement": "UPSTREAM",
+    "tier": 0,
+    "baseValue": 3,
+    "stress": 0,
+    "income": 1,
+    "baseLoanCapacity": 1,
+    "classifiedBonusCapacity": 2,
+    "loanCapacityIncreasePer10AssetValue": 4,
+    "baseValueUpdateRule": {
+      "outcomes": [
+        { "range": [1, 1], "delta": -1 },
+        { "range": [2, 3], "delta": 0 },
+        { "range": [4, 5], "delta": 1 },
+        { "range": [6, 6], "delta": 1 }
+      ],
+      "industryMechanic": "The General's starter asset. Classified collateral structure — solo unlock at 1 Defence placement (not standard 2). On discard: transfer ability 'Defence classified collateral requirement reduced from 2 to 1; crisis stress immunity' to the first market asset purchased."
+    },
+    "verticalIntegrationRules": [],
+    "crossIndustrySynergies": [],
+    "flavourText": "The contracts are classified. The profits are public."
+  },
+
+  {
+    "cardType": "ASSET",
+    "companyName": "Mixed Portfolio",
+    "industry": "REAL_ESTATE",
+    "hybridIndustry": "TECHNOLOGY",
+    "placement": "MIDSTREAM",
+    "tier": 0,
+    "baseValue": 2,
+    "stress": 0,
+    "income": 0,
+    "baseLoanCapacity": 1,
+    "loanCapacityIncreasePer10AssetValue": 4,
+    "baseValueUpdateRule": {
+      "outcomes": [
+        { "range": [1, 1], "delta": -1 },
+        { "range": [2, 3], "delta": 0 },
+        { "range": [4, 5], "delta": 1 },
+        { "range": [6, 6], "delta": 1 }
+      ],
+      "industryMechanic": "The Landowner (Ranger)'s starter asset. Hybrid dual-industry (REAL_ESTATE + TECHNOLOGY). Diverse but balanced. On discard: transfer ability 'TERRAIN BONUS: when you own 3+ industries, all assets gain +1 loan capacity (dynamic)' to the first market asset purchased."
+    },
+    "verticalIntegrationRules": [],
+    "crossIndustrySynergies": [],
+    "flavourText": "The best eggs are in different baskets."
+  },
+
+  {
+    "cardType": "ASSET",
+    "companyName": "Wellness Fund",
+    "industry": "REAL_ESTATE",
+    "hybridIndustry": "MANUFACTURING",
+    "placement": "DOWNSTREAM",
+    "tier": 0,
+    "baseValue": 3,
+    "stress": 0,
+    "income": 1,
+    "baseLoanCapacity": 1,
+    "loanCapacityIncreasePer10AssetValue": 5,
+    "baseValueUpdateRule": {
+      "outcomes": [
+        { "range": [1, 1], "delta": 0 },
+        { "range": [2, 3], "delta": 0 },
+        { "range": [4, 5], "delta": 1 },
+        { "range": [6, 6], "delta": 1 }
+      ],
+      "industryMechanic": "The Actuary (Monk)'s starter asset. Hybrid healthcare/wellness (REAL_ESTATE + MANUFACTURING for hybrid integration). Ultra-stable income. On discard: transfer ability 'STRESS-LINKED LOAN CAPACITY: Earn +1 loan capacity per 2 stress BELOW 4 on healthcare assets; if survive to final round +$5 to score' to the first market asset purchased."
+    },
+    "verticalIntegrationRules": [],
+    "crossIndustrySynergies": [],
+    "flavourText": "Living forever is expensive. Dying is free."
+  },
+
+  {
+    "cardType": "ASSET",
+    "companyName": "Research Grant",
+    "industry": "MANUFACTURING",
+    "hybridIndustry": "TECHNOLOGY",
+    "placement": "UPSTREAM",
+    "tier": 0,
+    "baseValue": 1,
+    "stress": 0,
+    "income": 0,
+    "baseLoanCapacity": 0,
+    "loanCapacityIncreasePer10AssetValue": 2,
+    "baseValueUpdateRule": {
+      "outcomes": [
+        { "range": [1, 2], "delta": -2 },
+        { "range": [3, 4], "delta": 0 },
+        { "range": [5, 5], "delta": 2 },
+        { "range": [6, 6], "delta": 3 }
+      ],
+      "industryMechanic": "The Researcher (Alchemist)'s starter asset. Hybrid pharma R&D (MANUFACTURING + TECHNOLOGY). Pre-revenue biotech volatility. TRIAL DIE mechanic available. On discard: transfer ability 'TRIAL DIE: one-time roll per game; 4-6=success (asset gains +3 to positive deltas, loan capacity upgraded, GMI-sensitive); 1-3=failure (baseLoanCapacity -2, GMI-resistant post-failure)' to the first market asset purchased."
+    },
+    "verticalIntegrationRules": [],
+    "crossIndustrySynergies": [],
+    "flavourText": "The best experiments fail. The best results contradict the hypothesis."
+  }
+]

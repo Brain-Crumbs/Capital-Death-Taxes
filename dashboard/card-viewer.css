@@ -15,6 +15,7 @@
   --color-industry-FINANCE:            #5a5a8a;
   --color-industry-MANUFACTURING:      #7a6a5a;
   --color-industry-MEDIA_ENTERTAINMENT:#8a5a7a;
+  --color-industry-DEFENCE:            #4a5a6a;
   --color-industry-HYBRID:             #5a7a7a;
 
   --color-tier-1: #aaaaaa;
@@ -292,6 +293,33 @@ body {
 
 .stress-pips { letter-spacing: 0.05em; }
 .stress-pips.at-max { color: var(--color-gmi-negative); }
+
+/* ── Mechanic indicator badges ──────────────────────────────── */
+.mechanic-indicators {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+  padding: 6px 16px 8px;
+  border-bottom: 0.5px solid var(--color-card-border);
+}
+
+.mechanic-badge {
+  display: inline-block;
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #fff;
+  padding: 2px 8px;
+  border-radius: 99px;
+  line-height: 1.5;
+}
+
+.mechanic-badge.buzz         { background: var(--color-industry-MEDIA_ENTERTAINMENT); }
+.mechanic-badge.counter-cyclical { background: var(--color-industry-DEFENCE); }
+.mechanic-badge.gmi-immune   { background: var(--color-industry-TECHNOLOGY); }
+.mechanic-badge.gmi-amp      { background: var(--color-industry-ENERGY); }
+.mechanic-badge.classified   { background: #3a4a5a; }
 
 /* ── Section headings ───────────────────────────────────────── */
 .section-heading {

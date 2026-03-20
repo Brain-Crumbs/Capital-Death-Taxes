@@ -1,0 +1,463 @@
+[
+  {
+    "cardType": "ASSET",
+    "companyName": "Broadcast Network",
+    "industry": "MEDIA_ENTERTAINMENT",
+    "placement": "DOWNSTREAM",
+    "tier": 1,
+    "baseValue": 8,
+    "stress": 1,
+    "income": 1,
+    "baseLoanCapacity": 4,
+    "loanCapacityIncreasePer10AssetValue": 4,
+    "isBuzzDie": true,
+    "baseValueUpdateRule": {
+      "outcomes": [
+        {
+          "range": [
+            1,
+            2
+          ],
+          "delta": -1
+        },
+        {
+          "range": [
+            3,
+            4
+          ],
+          "delta": 1
+        },
+        {
+          "range": [
+            5,
+            6
+          ],
+          "delta": 3
+        }
+      ],
+      "industryMechanic": "Buzz die overrides GMI. INSPIRATION active."
+    },
+    "verticalIntegrationRules": [
+      {
+        "requiresIndustry": "MEDIA_ENTERTAINMENT",
+        "requiresPlacement": "MIDSTREAM",
+        "effectType": "SPECIAL",
+        "effectDescription": "Once per year: force good buzz on one other player's MEDIA asset (declared before buzz die). Publicist CEO's Inspiration already does this \u2014 non-Publicist owners get one-time party support here."
+      },
+      {
+        "requiresIndustry": "MEDIA_ENTERTAINMENT",
+        "requiresPlacement": "UPSTREAM",
+        "effectType": "SPECIAL",
+        "effectDescription": "Sell any held personal event card for +$1 this year."
+      }
+    ],
+    "crossIndustrySynergies": [],
+    "flavourText": "Prime time is the last monopoly worth owning."
+  },
+  {
+    "cardType": "ASSET",
+    "companyName": "Talent Agency",
+    "industry": "MEDIA_ENTERTAINMENT",
+    "placement": "MIDSTREAM",
+    "tier": 1,
+    "baseValue": 6,
+    "stress": 1,
+    "income": 1,
+    "baseLoanCapacity": 4,
+    "loanCapacityIncreasePer10AssetValue": 4,
+    "isBuzzDie": true,
+    "baseValueUpdateRule": {
+      "outcomes": [
+        {
+          "range": [
+            1,
+            2
+          ],
+          "delta": -1
+        },
+        {
+          "range": [
+            3,
+            4
+          ],
+          "delta": 1
+        },
+        {
+          "range": [
+            5,
+            6
+          ],
+          "delta": 3
+        }
+      ],
+      "industryMechanic": "Buzz die overrides GMI. CARD-SALE PREMIUM active."
+    },
+    "verticalIntegrationRules": [
+      {
+        "requiresIndustry": "MEDIA_ENTERTAINMENT",
+        "requiresPlacement": "UPSTREAM",
+        "effectType": "SPECIAL",
+        "effectDescription": "Held personal event cards sell for +$1 this year. Publicist CEO's passive already grants this \u2014 combined, cards sell at base +$2 for Publicist."
+      },
+      {
+        "requiresIndustry": "MEDIA_ENTERTAINMENT",
+        "requiresPlacement": "DOWNSTREAM",
+        "effectType": "SPECIAL",
+        "effectDescription": "This asset is immune to Scandal effects this year."
+      }
+    ],
+    "crossIndustrySynergies": [
+      {
+        "requiresIndustry": "REAL_ESTATE",
+        "requiresPlacement": "DOWNSTREAM",
+        "effectType": "LOAN_CAPACITY_BONUS",
+        "effectMagnitude": 1,
+        "effectDescription": "+1 loan cap after 2 consecutive years without a negative value roll."
+      }
+    ],
+    "flavourText": "Talent is cheap. Representation is priceless."
+  },
+  {
+    "cardType": "ASSET",
+    "companyName": "Independent Studio",
+    "industry": "MEDIA_ENTERTAINMENT",
+    "placement": "UPSTREAM",
+    "tier": 1,
+    "baseValue": 5,
+    "stress": 1,
+    "income": 0,
+    "baseLoanCapacity": 4,
+    "loanCapacityIncreasePer10AssetValue": 4,
+    "isBuzzDie": true,
+    "baseValueUpdateRule": {
+      "outcomes": [
+        {
+          "range": [
+            1,
+            2
+          ],
+          "delta": -1
+        },
+        {
+          "range": [
+            3,
+            4
+          ],
+          "delta": 1
+        },
+        {
+          "range": [
+            5,
+            6
+          ],
+          "delta": 3
+        }
+      ],
+      "industryMechanic": "Buzz die overrides GMI. Value determined by buzz die result, not standard GMI."
+    },
+    "verticalIntegrationRules": [
+      {
+        "requiresIndustry": "MEDIA_ENTERTAINMENT",
+        "requiresPlacement": "MIDSTREAM",
+        "effectType": "SPECIAL",
+        "effectDescription": "When this asset rolls a good buzz result (3\u20136) this year, carry +1 to the buzz die on your next roll on any owned MEDIA asset this year (i.e. the threshold for good buzz on the next roll drops to 2\u20136). Does not stack across years. Buzz builds on buzz \u2014 but it's momentum, not control."
+      }
+    ],
+    "crossIndustrySynergies": [],
+    "flavourText": "Every blockbuster started as someone's side project."
+  },
+  {
+    "cardType": "ASSET",
+    "companyName": "Theme Park & IP Empire",
+    "industry": "MEDIA_ENTERTAINMENT",
+    "placement": "DOWNSTREAM",
+    "tier": 2,
+    "baseValue": 17,
+    "stress": 2,
+    "income": 2,
+    "baseLoanCapacity": 4,
+    "loanCapacityIncreasePer10AssetValue": 4,
+    "isBuzzDie": true,
+    "baseValueUpdateRule": {
+      "outcomes": [
+        {
+          "range": [
+            1,
+            2
+          ],
+          "delta": -2
+        },
+        {
+          "range": [
+            3,
+            4
+          ],
+          "delta": 2
+        },
+        {
+          "range": [
+            5,
+            6
+          ],
+          "delta": 6
+        }
+      ],
+      "industryMechanic": "Buzz die overrides GMI. CARD-SALE PREMIUM \u00d72 active."
+    },
+    "verticalIntegrationRules": [
+      {
+        "requiresIndustry": "MEDIA_ENTERTAINMENT",
+        "requiresPlacement": "MIDSTREAM",
+        "effectType": "SPECIAL",
+        "effectDescription": "Sell any held personal event card for +$2 this year. Publicist CEO: cards now sell at base +$3 total."
+      },
+      {
+        "requiresIndustry": "MEDIA_ENTERTAINMENT",
+        "requiresPlacement": "UPSTREAM",
+        "effectType": "SPECIAL",
+        "effectDescription": "Force good buzz on one of your own assets once per year."
+      }
+    ],
+    "crossIndustrySynergies": [
+      {
+        "requiresIndustry": "REAL_ESTATE",
+        "requiresPlacement": "MIDSTREAM",
+        "effectType": "LOAN_CAPACITY_BONUS",
+        "effectMagnitude": 1,
+        "effectDescription": "+1 loan cap; +1 additional if value exceeds 22."
+      }
+    ],
+    "flavourText": "Intellectual property is the only property that appreciates through nostalgia."
+  },
+  {
+    "cardType": "ASSET",
+    "companyName": "Sports Rights Portfolio",
+    "industry": "MEDIA_ENTERTAINMENT",
+    "placement": "MIDSTREAM",
+    "tier": 2,
+    "baseValue": 15,
+    "stress": 2,
+    "income": 2,
+    "baseLoanCapacity": 4,
+    "loanCapacityIncreasePer10AssetValue": 4,
+    "isBuzzDie": true,
+    "baseValueUpdateRule": {
+      "outcomes": [
+        {
+          "range": [
+            1,
+            2
+          ],
+          "delta": -2
+        },
+        {
+          "range": [
+            3,
+            4
+          ],
+          "delta": 2
+        },
+        {
+          "range": [
+            5,
+            6
+          ],
+          "delta": 6
+        }
+      ],
+      "industryMechanic": "Buzz die overrides GMI. SCANDAL IMMUNITY and INSPIRATION active."
+    },
+    "verticalIntegrationRules": [
+      {
+        "requiresIndustry": "MEDIA_ENTERTAINMENT",
+        "requiresPlacement": "UPSTREAM",
+        "effectType": "SPECIAL",
+        "effectDescription": "Scandal effects on any of your MEDIA assets are negated this year."
+      },
+      {
+        "requiresIndustry": "MEDIA_ENTERTAINMENT",
+        "requiresPlacement": "DOWNSTREAM",
+        "effectType": "SPECIAL",
+        "effectDescription": "Force good buzz on any one asset (yours or an ally's) once per year."
+      }
+    ],
+    "crossIndustrySynergies": [],
+    "flavourText": "Sports rights are the new real estate \u2014 scarce, overpriced, and eternal."
+  },
+  {
+    "cardType": "ASSET",
+    "companyName": "Streaming Platform Ltd",
+    "industry": "MEDIA_ENTERTAINMENT",
+    "placement": "UPSTREAM",
+    "tier": 2,
+    "baseValue": 12,
+    "stress": 1,
+    "income": 0,
+    "baseLoanCapacity": 4,
+    "loanCapacityIncreasePer10AssetValue": 4,
+    "isBuzzDie": true,
+    "baseValueUpdateRule": {
+      "outcomes": [
+        {
+          "range": [
+            1,
+            2
+          ],
+          "delta": -2
+        },
+        {
+          "range": [
+            3,
+            4
+          ],
+          "delta": 2
+        },
+        {
+          "range": [
+            5,
+            6
+          ],
+          "delta": 6
+        }
+      ],
+      "industryMechanic": "Buzz die overrides GMI. BUZZ-LOCK capability at T2 UPSTREAM, gated behind vertical integration."
+    },
+    "verticalIntegrationRules": [
+      {
+        "requiresIndustry": "MEDIA_ENTERTAINMENT",
+        "requiresPlacement": "MIDSTREAM",
+        "effectType": "SPECIAL",
+        "effectDescription": "On good buzz (3\u20136), roll the value die three times, take the highest. Publicist CEO: may instead declare good buzz on this asset without rolling the buzz die at all (Inspiration applied automatically once per year)."
+      }
+    ],
+    "crossIndustrySynergies": [
+      {
+        "requiresIndustry": "TECHNOLOGY",
+        "requiresPlacement": "MIDSTREAM",
+        "effectType": "LOAN_CAPACITY_BONUS",
+        "effectMagnitude": 1,
+        "effectDescription": "+1 loan cap; +1 additional if value exceeds 18."
+      }
+    ],
+    "flavourText": "Content is king. Distribution is god."
+  },
+  {
+    "cardType": "ASSET",
+    "companyName": "Entertainment Sovereign Fund",
+    "industry": "MEDIA_ENTERTAINMENT",
+    "placement": "DOWNSTREAM",
+    "tier": 3,
+    "baseValue": 26,
+    "stress": 3,
+    "income": 2,
+    "baseLoanCapacity": 4,
+    "loanCapacityIncreasePer10AssetValue": 4,
+    "isBuzzDie": true,
+    "baseValueUpdateRule": {
+      "outcomes": [
+        {
+          "range": [
+            1,
+            2
+          ],
+          "delta": -3
+        },
+        {
+          "range": [
+            3,
+            4
+          ],
+          "delta": 3
+        },
+        {
+          "range": [
+            5,
+            6
+          ],
+          "delta": 6
+        }
+      ],
+      "industryMechanic": "Buzz die overrides GMI. SCANDAL FLIP and full INSPIRATION active."
+    },
+    "verticalIntegrationRules": [
+      {
+        "requiresIndustry": "MEDIA_ENTERTAINMENT",
+        "requiresPlacement": "MIDSTREAM",
+        "effectType": "SPECIAL",
+        "effectDescription": "If a Scandal targets this asset, convert bad buzz to good buzz. \u22121 stress. Publicist CEO: Scandal becomes promotion \u2014 no separate declaration needed."
+      },
+      {
+        "requiresIndustry": "MEDIA_ENTERTAINMENT",
+        "requiresPlacement": "UPSTREAM",
+        "effectType": "SPECIAL",
+        "effectDescription": "Force good buzz on all your MEDIA assets this year."
+      }
+    ],
+    "crossIndustrySynergies": [
+      {
+        "requiresIndustry": "FINANCE",
+        "requiresPlacement": "DOWNSTREAM",
+        "effectType": "LOAN_CAPACITY_BONUS",
+        "effectMagnitude": 1,
+        "effectDescription": "+1 loan cap; +2 additional if value exceeds 32."
+      }
+    ],
+    "flavourText": "Entertainment is the opiate. Sovereignty is the prescription."
+  },
+  {
+    "cardType": "ASSET",
+    "companyName": "Global Media Conglomerate",
+    "industry": "MEDIA_ENTERTAINMENT",
+    "placement": "MIDSTREAM",
+    "tier": 3,
+    "baseValue": 22,
+    "stress": 2,
+    "income": 2,
+    "baseLoanCapacity": 4,
+    "loanCapacityIncreasePer10AssetValue": 4,
+    "isBuzzDie": true,
+    "baseValueUpdateRule": {
+      "outcomes": [
+        {
+          "range": [
+            1,
+            2
+          ],
+          "delta": -3
+        },
+        {
+          "range": [
+            3,
+            4
+          ],
+          "delta": 3
+        },
+        {
+          "range": [
+            5,
+            6
+          ],
+          "delta": 6
+        }
+      ],
+      "industryMechanic": "Buzz die overrides GMI. NARRATIVE PREMIUM active."
+    },
+    "verticalIntegrationRules": [
+      {
+        "requiresIndustry": "MEDIA_ENTERTAINMENT",
+        "requiresPlacement": "UPSTREAM",
+        "effectType": "SPECIAL",
+        "effectDescription": "Sell any held personal event card for +$2 this year (applies to all held cards). Publicist CEO: stacks with passive for full +$3 per card."
+      },
+      {
+        "requiresIndustry": "MEDIA_ENTERTAINMENT",
+        "requiresPlacement": "DOWNSTREAM",
+        "effectType": "CRASH_FLOOR",
+        "effectMagnitude": 14,
+        "effectDescription": "Value cannot fall below 14 from any single event."
+      }
+    ],
+    "crossIndustrySynergies": [],
+    "flavourText": "When you own the narrative, you own everything else by implication."
+  }
+]

@@ -36,6 +36,7 @@
       <button class="filter-btn" data-filter="industry" data-value="FINANCE">FINANCE</button>
       <button class="filter-btn" data-filter="industry" data-value="MANUFACTURING">MANUFACTURING</button>
       <button class="filter-btn" data-filter="industry" data-value="MEDIA_ENTERTAINMENT">MEDIA</button>
+      <button class="filter-btn" data-filter="industry" data-value="DEFENCE">DEFENCE</button>
       <button class="filter-btn" data-filter="industry" data-value="HYBRID">HYBRID</button>
     </div>
     <div class="filter-row">
@@ -56,12 +57,18 @@
     <div class="filter-row">
       <button class="filter-btn active" data-filter="eventCategory" data-value="ALL">ALL</button>
       <button class="filter-btn" data-filter="eventCategory" data-value="BOOM">BOOM</button>
-      <button class="filter-btn" data-filter="eventCategory" data-value="BUST">BUST</button>
-      <button class="filter-btn" data-filter="eventCategory" data-value="DEPRESSION">DEPRESSION</button>
-      <button class="filter-btn" data-filter="eventCategory" data-value="SUPPLY_SHOCK">SUPPLY_SHOCK</button>
-      <button class="filter-btn" data-filter="eventCategory" data-value="REGULATORY">REGULATORY</button>
+      <button class="filter-btn" data-filter="eventCategory" data-value="BULL_RUN">BULL RUN</button>
       <button class="filter-btn" data-filter="eventCategory" data-value="NEUTRAL">NEUTRAL</button>
-      <button class="filter-btn" data-filter="eventCategory" data-value="MARKET_DISRUPTION">MARKET_DISRUPTION</button>
+      <button class="filter-btn" data-filter="eventCategory" data-value="FLAT">FLAT</button>
+      <button class="filter-btn" data-filter="eventCategory" data-value="CORRECTION">CORRECTION</button>
+      <button class="filter-btn" data-filter="eventCategory" data-value="RECESSION">RECESSION</button>
+      <button class="filter-btn" data-filter="eventCategory" data-value="DEPRESSION">DEPRESSION</button>
+      <button class="filter-btn" data-filter="eventCategory" data-value="BUBBLE">BUBBLE</button>
+      <button class="filter-btn" data-filter="eventCategory" data-value="STRESS_EVENT">STRESS EVENT</button>
+      <button class="filter-btn" data-filter="eventCategory" data-value="SUPPLY_SHOCK">SUPPLY SHOCK</button>
+      <button class="filter-btn" data-filter="eventCategory" data-value="REGULATORY">REGULATORY</button>
+      <button class="filter-btn" data-filter="eventCategory" data-value="MARKET_DISRUPTION">MARKET DISRUPTION</button>
+      <button class="filter-btn" data-filter="eventCategory" data-value="WILDCARD">WILDCARD</button>
     </div>
   </div>
 
@@ -89,6 +96,7 @@
       FINANCE:             'var(--color-industry-FINANCE)',
       MANUFACTURING:       'var(--color-industry-MANUFACTURING)',
       MEDIA_ENTERTAINMENT: 'var(--color-industry-MEDIA_ENTERTAINMENT)',
+      DEFENCE:             'var(--color-industry-DEFENCE)',
       HYBRID:              'var(--color-industry-HYBRID)',
     };
 
@@ -153,12 +161,18 @@
 
     const EVENT_CATEGORY_COLORS = {
       BOOM:              '#2a7a2a',
-      BUST:              '#c9860a',
+      BULL_RUN:          '#3a8a3a',
+      NEUTRAL:           '#888780',
+      FLAT:              '#aaaaaa',
+      CORRECTION:        '#c9860a',
+      RECESSION:         '#a05a1a',
       DEPRESSION:        '#9a2a2a',
+      BUBBLE:            '#7a4a9a',
+      STRESS_EVENT:      '#8a2a4a',
       SUPPLY_SHOCK:      '#b5651d',
       REGULATORY:        '#5a5a8a',
-      NEUTRAL:           '#888780',
       MARKET_DISRUPTION: '#7a6a5a',
+      WILDCARD:          '#4a7a9a',
     };
 
     function eventCategoryColor(category) {
@@ -198,14 +212,14 @@
         </div>`;
 
       // ── Persistent strip ─────────────────────────────────────────
-      const isPersistent = card.persistent === true || card.eventCategory === 'DEPRESSION';
+      const isPersistent = card.persistent === true || card.eventCategory === 'DEPRESSION' || card.eventCategory === 'BUBBLE';
       const persistentHtml = isPersistent
         ? `<div class="persistent-strip">PERSISTENT — stays face-up</div>`
         : '';
 
       // ── GMI section ──────────────────────────────────────────────
       const dieNote = card.gmiDieRoll != null
-        ? `<div class="gmi-die-note">Modifier: roll d6 — 1–2: −1, 3–4: 0, 5–6: +1</div>`
+        ? `<div class="gmi-die-note">Modifier: roll ${esc(card.gmiDieRoll)}${card.gmiDieMapping ? ` — ${esc(card.gmiDieMapping)}` : ''}</div>`
         : '';
 
       const dur = card.duration ?? {};
@@ -284,10 +298,14 @@
       const ltvPct      = LTV_MAP[ltvKey] != null ? `~${LTV_MAP[ltvKey]}%` : '—';
 
       // ── Header ──────────────────────────────────────────────────
+      const hybridBadge = card.hybridIndustry
+        ? `<span class="badge" style="background:${industryColor(card.hybridIndustry)}">${esc(industryLabel(card.hybridIndustry))}</span>`
+        : '';
       const headerHtml = `
         <div class="card-section card-header">
           <div class="card-header-badges">
             <span class="badge" style="background:${industryBg}">${esc(industryLabel(card.industry))}</span>
+            ${hybridBadge}
             <span class="badge" style="background:${tierBg}">${esc(tierLabel)}</span>
           </div>
           <div class="card-title">${esc(card.companyName)}</div>
@@ -295,6 +313,9 @@
         </div>`;
 
       // ── Stats ────────────────────────────────────────────────────
+      const classifiedHtml = card.classifiedBonusCapacity != null
+        ? `<div class="stat-item"><strong>Classified Cap</strong> +${esc(card.classifiedBonusCapacity)} 🔒</div>`
+        : '';
       const statsHtml = `
         <div class="card-section">
           <div class="stats-grid">
@@ -303,8 +324,20 @@
             <div class="stat-item"><strong>Income</strong> $${esc(card.income)}/yr</div>
             <div class="stat-item"><strong>Loan Cap</strong> ${esc(card.baseLoanCapacity)}</div>
             <div class="stat-item"><strong>LTV</strong> ${esc(ltvPct)}</div>
+            ${classifiedHtml}
           </div>
         </div>`;
+
+      // ── Mechanic Indicators ────────────────────────────────────
+      const indicatorBadges = [];
+      if (card.isBuzzDie) indicatorBadges.push('<span class="mechanic-badge buzz">BUZZ DIE</span>');
+      if (card.isCounterCyclical) indicatorBadges.push('<span class="mechanic-badge counter-cyclical">COUNTER-CYCLICAL</span>');
+      if (card.isGmiImmune) indicatorBadges.push('<span class="mechanic-badge gmi-immune">GMI IMMUNE</span>');
+      if (card.gmiAmplifier) indicatorBadges.push(`<span class="mechanic-badge gmi-amp">GMI \u00d7${card.gmiAmplifier}</span>`);
+      if (card.classifiedBonusCapacity != null) indicatorBadges.push('<span class="mechanic-badge classified">CLASSIFIED</span>');
+      const indicatorsHtml = indicatorBadges.length > 0
+        ? `<div class="mechanic-indicators">${indicatorBadges.join('')}</div>`
+        : '';
 
       // ── Value Update Roll ────────────────────────────────────────
       const vur = card.baseValueUpdateRule ?? {};
@@ -326,27 +359,6 @@
             <tbody>${vurOutcomes}</tbody>
           </table>
           ${mechanic}
-        </div>`;
-
-      // ── Loan Repayment Roll ──────────────────────────────────────
-      const lrr = card.loanRepaymentRule ?? {};
-      const lrrOutcomes = (lrr.outcomes ?? []).map(o => {
-        const rowCls = o.relief ? ' class="relief-row"' : '';
-        return `
-        <tr${rowCls}>
-          <td>${esc(formatRange(o.range))}</td>
-          <td>${o.trigger  ? '✓' : '✗'}</td>
-          <td>${o.relief   ? '✓' : '✗'}</td>
-        </tr>`;
-      }).join('');
-
-      const loanRepaymentHtml = `
-        <div class="card-section">
-          <div class="section-heading">Loan Repayment Roll</div>
-          <table class="outcome-table">
-            <thead><tr><th>Roll</th><th>Trigger</th><th>Relief</th></tr></thead>
-            <tbody>${lrrOutcomes}</tbody>
-          </table>
         </div>`;
 
       // ── Vertical Integration ─────────────────────────────────────
@@ -399,8 +411,8 @@
         <div class="card">
           ${headerHtml}
           ${statsHtml}
+          ${indicatorsHtml}
           ${valueUpdateHtml}
-          ${loanRepaymentHtml}
           ${verticalIntegrationHtml}
           ${crossIndustrySynergyHtml}
           ${flavourHtml}
@@ -432,6 +444,14 @@
           </div>
           <div class="card-title">${esc(card.eventName)}</div>
         </div>`;
+
+      // ── Passive Rule section ─────────────────────────────────────
+      const passiveRuleHtml = card.playTiming === 'PASSIVE' && card.passiveRule
+        ? `<div class="card-section">
+            <div class="section-heading">Passive Rule</div>
+            <div class="effect-desc">${esc(card.passiveRule)}</div>
+          </div>`
+        : '';
 
       // ── Effect section ───────────────────────────────────────────
       const fx = card.immediateEffect ?? {};
@@ -487,6 +507,7 @@
       return `
         <div class="card">
           ${headerHtml}
+          ${passiveRuleHtml}
           ${effectHtml}
           ${deathRollHtml}
           ${saleValueHtml}
@@ -624,7 +645,7 @@
 
     const INDUSTRY_ORDER = [
       'TECHNOLOGY', 'ENERGY', 'REAL_ESTATE', 'FINANCE',
-      'MANUFACTURING', 'MEDIA_ENTERTAINMENT',
+      'MANUFACTURING', 'MEDIA_ENTERTAINMENT', 'DEFENCE',
       // HYBRID and anything unrecognised sorts last
     ];
 
@@ -659,7 +680,7 @@
 
     const CANONICAL_INDUSTRIES = [
       'TECHNOLOGY', 'ENERGY', 'REAL_ESTATE', 'FINANCE',
-      'MANUFACTURING', 'MEDIA_ENTERTAINMENT',
+      'MANUFACTURING', 'MEDIA_ENTERTAINMENT', 'DEFENCE',
     ];
 
     const assetFilter = { industry: 'ALL', tier: 'ALL', placement: 'ALL' };
@@ -879,40 +900,43 @@
 
     // ── Data loading ───────────────────────────────────────────────
 
+    // All card files — each industry is now a consolidated JSON array file
     const CARD_FILES = [
-      'technology-cards.json',
-      'energy-cards.json',
-      'real-estate-cards.json',
-      'finance-cards.json',
-      'manufacturing-cards.json',
-      'media-cards.json',
-      'hybrid-cards.json',
+      'technology.json',
+      'energy.json',
+      'real_estate.json',
+      'finance.json',
+      'manufacturing.json',
+      'media_entertainment.json',
+      'defence.json',
+      'healthcare.json',
+      'starter-asset-cards.json',
       'ceo-cards.json',
       'global-event-cards.json',
       'personal-event-cards.json',
     ];
 
+    async function loadCards(urlPath) {
+      try {
+        const r    = await fetch(urlPath);
+        const data = await r.json();
+        if (Array.isArray(data))              return data;
+        if (data && typeof data === 'object') return [data];
+        console.warn(`[CardViewer] Unexpected data shape: ${urlPath}`);
+        return [];
+      } catch {
+        console.warn(`[CardViewer] Failed to load: ${urlPath}`);
+        const banner = document.createElement('div');
+        banner.style.cssText = 'position:fixed;top:0;left:0;right:0;background:#9a2a2a;color:#fff;font-size:12px;padding:6px 12px;z-index:9999;';
+        banner.textContent = `Failed to load ${urlPath} — some cards may be missing`;
+        document.body.prepend(banner);
+        setTimeout(() => banner.remove(), 6000);
+        return [];
+      }
+    }
+
     const datasets = await Promise.all(
-      CARD_FILES.map(file =>
-        fetch(`/cards/${file}`)
-          .then(r => r.json())
-          .then(data => {
-            if (!Array.isArray(data)) {
-              console.warn(`[CardViewer] Missing or invalid data: ${file}`);
-              return [];
-            }
-            return data;
-          })
-          .catch(() => {
-            console.warn(`[CardViewer] Missing or invalid data: ${file}`);
-            const banner = document.createElement('div');
-            banner.style.cssText = 'position:fixed;top:0;left:0;right:0;background:#9a2a2a;color:#fff;font-size:12px;padding:6px 12px;z-index:9999;';
-            banner.textContent = `Failed to load ${file} — some cards may be missing`;
-            document.body.prepend(banner);
-            setTimeout(() => banner.remove(), 6000);
-            return [];
-          })
-      )
+      CARD_FILES.map(file => loadCards(`/cards/${file}`))
     );
 
     const allCards = datasets.flat();

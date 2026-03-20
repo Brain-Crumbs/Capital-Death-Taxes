@@ -1,0 +1,1339 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Borrow & Die — Corrected Asset Cards</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@300;400;500&display=swap');
+
+  :root {
+    --bg: #0f0f0f;
+    --surface: #161616;
+    --border: #2a2a2a;
+    --border-bright: #3a3a3a;
+    --text: #e8e2d9;
+    --muted: #7a7268;
+    --accent: #c8a96e;
+    --accent-dim: #7a6540;
+    --red: #c85c4a;
+    --green: #5a9e6f;
+    --blue: #4a7fc8;
+    --purple: #8a5ac8;
+    --orange: #c87a3a;
+    --teal: #4ac8b0;
+    --gold: #d4a843;
+
+    /* industry colors */
+    --re: #5a9e6f;
+    --tech: #4a7fc8;
+    --mfg: #c87a3a;
+    --fin: #8a5ac8;
+    --energy: #c8a93a;
+    --media: #c85c8a;
+    --defence: #6a8ac8;
+    --healthcare: #4ac8b0;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'IBM Plex Sans', sans-serif;
+    font-size: 13px;
+    line-height: 1.5;
+    padding: 32px 24px;
+  }
+
+  header {
+    border-bottom: 1px solid var(--accent-dim);
+    padding-bottom: 20px;
+    margin-bottom: 32px;
+  }
+
+  header h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: 28px;
+    font-weight: 900;
+    color: var(--accent);
+    letter-spacing: -0.5px;
+  }
+
+  header p {
+    color: var(--muted);
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 11px;
+    margin-top: 6px;
+    letter-spacing: 0.5px;
+  }
+
+  .legend {
+    display: flex;
+    gap: 20px;
+    flex-wrap: wrap;
+    margin-bottom: 28px;
+    padding: 12px 16px;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+  }
+
+  .legend-item {
+    display: flex;
+    align-items: center;
+    gap: 7px;
+    font-size: 11px;
+    color: var(--muted);
+    font-family: 'IBM Plex Mono', monospace;
+  }
+
+  .legend-dot {
+    width: 8px; height: 8px; border-radius: 50%;
+    flex-shrink: 0;
+  }
+
+  .change-badge {
+    display: inline-block;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 9px;
+    font-weight: 500;
+    padding: 1px 5px;
+    border-radius: 2px;
+    letter-spacing: 0.3px;
+    vertical-align: middle;
+    margin-left: 3px;
+  }
+
+  .badge-fixed { background: #1a2e1a; color: var(--green); border: 1px solid #2a4a2a; }
+  .badge-ceo   { background: #1a1a2e; color: var(--blue);  border: 1px solid #2a2a4a; }
+  .badge-scope { background: #2e1a1a; color: var(--red);   border: 1px solid #4a2a2a; }
+  .badge-moved { background: #2e221a; color: var(--orange);border: 1px solid #4a3a2a; }
+  .badge-note  { background: #221a2e; color: var(--purple);border: 1px solid #3a2a4a; }
+
+  .sector-block {
+    margin-bottom: 40px;
+  }
+
+  .sector-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 12px;
+    padding-bottom: 8px;
+    border-bottom: 2px solid var(--border-bright);
+  }
+
+  .sector-pip {
+    width: 10px; height: 10px; border-radius: 50%;
+    flex-shrink: 0;
+  }
+
+  .sector-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 16px;
+    font-weight: 700;
+    letter-spacing: 0.3px;
+  }
+
+  .sector-meta {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 10px;
+    color: var(--muted);
+    margin-left: auto;
+  }
+
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 12px;
+  }
+
+  thead tr {
+    background: var(--surface);
+    border-bottom: 1px solid var(--border-bright);
+  }
+
+  thead th {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 10px;
+    font-weight: 500;
+    color: var(--muted);
+    text-transform: uppercase;
+    letter-spacing: 0.8px;
+    padding: 8px 10px;
+    text-align: left;
+    white-space: nowrap;
+  }
+
+  tbody tr {
+    border-bottom: 1px solid var(--border);
+    transition: background 0.1s;
+  }
+
+  tbody tr:hover { background: rgba(200,169,110,0.03); }
+
+  td {
+    padding: 9px 10px;
+    vertical-align: top;
+    color: var(--text);
+  }
+
+  td.name {
+    font-family: 'IBM Plex Sans', sans-serif;
+    font-weight: 500;
+    white-space: nowrap;
+    min-width: 170px;
+  }
+
+  td.tier {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 11px;
+    color: var(--muted);
+    text-align: center;
+    white-space: nowrap;
+  }
+
+  td.stats {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 10px;
+    color: var(--muted);
+    white-space: nowrap;
+  }
+
+  td.effect {
+    font-size: 11.5px;
+    line-height: 1.55;
+    min-width: 220px;
+    max-width: 340px;
+  }
+
+  td.ceo-fit {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 10px;
+    color: var(--accent-dim);
+    white-space: nowrap;
+    min-width: 100px;
+  }
+
+  .effect-label {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 10px;
+    font-weight: 500;
+    color: var(--accent);
+    display: block;
+    margin-bottom: 3px;
+  }
+
+  .effect-sub {
+    color: var(--muted);
+    font-size: 10.5px;
+    font-style: italic;
+    display: block;
+    margin-top: 2px;
+  }
+
+  .sep-row td {
+    padding: 4px 10px;
+    background: rgba(42,42,42,0.4);
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 10px;
+    color: var(--muted);
+    font-style: italic;
+    letter-spacing: 0.3px;
+    border-bottom: 1px solid var(--border-bright);
+  }
+
+  .ceo-note {
+    margin-top: 28px;
+    padding: 14px 18px;
+    background: var(--surface);
+    border: 1px solid var(--accent-dim);
+    border-radius: 4px;
+  }
+
+  .ceo-note h3 {
+    font-family: 'Playfair Display', serif;
+    font-size: 14px;
+    color: var(--accent);
+    margin-bottom: 10px;
+  }
+
+  .ceo-note p {
+    color: var(--muted);
+    font-size: 11.5px;
+    line-height: 1.6;
+    margin-bottom: 6px;
+  }
+
+  .ceo-note strong { color: var(--text); }
+
+  .placement-tag {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 9px;
+    padding: 1px 5px;
+    border-radius: 2px;
+    display: inline-block;
+    margin-bottom: 3px;
+  }
+
+  .up   { background: rgba(90,158,111,0.15); color: var(--re); }
+  .mid  { background: rgba(74,127,200,0.15); color: var(--blue); }
+  .dn   { background: rgba(200,120,58,0.15); color: var(--orange); }
+</style>
+</head>
+<body>
+
+<header>
+  <h1>Borrow &amp; Die — Corrected Asset Cards</h1>
+  <p>CONSOLIDATED REFERENCE · ALL CORRECTIONS APPLIED · v3</p>
+</header>
+
+<div class="legend">
+  <div class="legend-item"><div class="legend-dot" style="background:var(--green)"></div> <span class="change-badge badge-fixed">FIXED</span> Effect reworked to synergize with CEO rather than duplicate</div>
+  <div class="legend-item"><div class="legend-dot" style="background:var(--blue)"></div> <span class="change-badge badge-ceo">CEO-REF</span> Effect now references CEO mechanic rather than re-defining it</div>
+  <div class="legend-item"><div class="legend-dot" style="background:var(--red)"></div> <span class="change-badge badge-scope">SCOPED</span> Effect narrowed in scope (party-wide → owner only, etc.)</div>
+  <div class="legend-item"><div class="legend-dot" style="background:var(--orange)"></div> <span class="change-badge badge-moved">MOVED</span> Mechanic relocated to higher tier</div>
+  <div class="legend-item"><div class="legend-dot" style="background:var(--purple)"></div> <span class="change-badge badge-note">NOTE</span> Clarifying text added</div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════ REAL ESTATE -->
+<div class="sector-block">
+  <div class="sector-header">
+    <div class="sector-pip" style="background:var(--re)"></div>
+    <div class="sector-title" style="color:var(--re)">Real Estate</div>
+    <div class="sector-meta">Neutral GMI · High LTV · Income trap · Knight class</div>
+  </div>
+  <table>
+    <thead>
+      <tr>
+        <th>Card</th><th>T</th><th>BV / Str / Inc / LTV</th><th>Placement</th><th>Vertical Integration Effects</th><th>Cross-Industry Synergy</th><th>CEO Fit</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td class="name">Terraced Portfolio</td>
+        <td class="tier">1</td>
+        <td class="stats">6 / 0 / 1 / 6</td>
+        <td class="tier"><span class="placement-tag up">UP</span></td>
+        <td class="effect">
+          <span class="effect-label">PASSIVE → MID</span>
+          Income from this asset is tax-exempt in any year GMI ≥ 0. Aligns with Trustee's first-$1 RE exemption — stacks for double shelter.
+          <span class="effect-label" style="margin-top:6px">GROWTH → FIN MID</span>
+          +1 loan cap on this asset; +1 additional if current value exceeds 12.
+        </td>
+        <td class="effect"><em style="color:var(--muted)">none</em></td>
+        <td class="ceo-fit">Trustee<br>Chairman</td>
+      </tr>
+      <tr>
+        <td class="name">Property Mgmt Co</td>
+        <td class="tier">1</td>
+        <td class="stats">7 / 1 / 2 / 6</td>
+        <td class="tier"><span class="placement-tag mid">MID</span></td>
+        <td class="effect">
+          <span class="effect-label">PASSIVE → UP</span>
+          −1 stress once per year when this asset's value roll is 4+. Complements Trustee's free loan restructure — operational stability = personal calm.
+          <span class="effect-label" style="margin-top:6px">STABILITY → DN</span>
+          +1 loan cap after 2 consecutive years without a negative value roll on this asset.
+        </td>
+        <td class="effect"><em style="color:var(--muted)">none</em></td>
+        <td class="ceo-fit">Trustee</td>
+      </tr>
+      <tr>
+        <td class="name">Retail REIT</td>
+        <td class="tier">1</td>
+        <td class="stats">8 / 1 / 2 / 6</td>
+        <td class="tier"><span class="placement-tag dn">DN</span></td>
+        <td class="effect">
+          <span class="effect-label">PASSIVE → UP</span>
+          +1 income this year.
+          <span class="effect-label" style="margin-top:6px">REPAY RELIEF → MID</span>
+          Treat loan repayment roll as one higher on this asset.
+        </td>
+        <td class="effect">
+          <span class="effect-label">GROWTH — MEDIA MID</span>
+          +1 loan cap; +1 additional if current value exceeds 14.
+        </td>
+        <td class="ceo-fit">Chairman<br>Landowner</td>
+      </tr>
+      <tr>
+        <td class="name">Industrial Estate Corp</td>
+        <td class="tier">2</td>
+        <td class="stats">14 / 1 / 2 / 6</td>
+        <td class="tier"><span class="placement-tag up">UP</span></td>
+        <td class="effect">
+          <span class="effect-label">CRASH FLOOR → MID</span>
+          Value of this asset cannot fall below 10 from a single GMI event.
+        </td>
+        <td class="effect">
+          <span class="effect-label">BREADTH — MFG UP</span>
+          +1 loan cap for each MFG asset you own (max +3).
+        </td>
+        <td class="ceo-fit">Trustee<br>Foreman</td>
+      </tr>
+      <tr>
+        <td class="name">Mixed-Use Development</td>
+        <td class="tier">2</td>
+        <td class="stats">16 / 2 / 2 / 6</td>
+        <td class="tier"><span class="placement-tag mid">MID</span></td>
+        <td class="effect">
+          <span class="effect-label">GMI RESIST → UP</span>
+          Halve negative GMI delta on this asset.
+          <span class="effect-label" style="margin-top:6px">COMPOUND → DN</span>
+          +1 to this asset's loanCapacityIncreasePer10AssetValue.
+        </td>
+        <td class="effect">
+          <span class="effect-label">GROWTH — TECH MID</span>
+          +1 loan cap; +1 additional if current value exceeds 22.
+        </td>
+        <td class="ceo-fit">Chairman</td>
+      </tr>
+      <tr>
+        <td class="name">Urban Regeneration Fund</td>
+        <td class="tier">2</td>
+        <td class="stats">18 / 2 / 2 / 7</td>
+        <td class="tier"><span class="placement-tag dn">DN</span></td>
+        <td class="effect">
+          <span class="effect-label">INCOME OFFSET → MID</span>
+          +2 loan interest payments on this asset count as income offsets this year.
+          <span class="effect-label" style="margin-top:6px">GROWTH → UP</span>
+          +1 loan cap; +1 additional if value exceeds 24.
+        </td>
+        <td class="effect"><em style="color:var(--muted)">none</em></td>
+        <td class="ceo-fit">Trustee<br>Landowner</td>
+      </tr>
+      <tr>
+        <td class="name">Sovereign Property Trust</td>
+        <td class="tier">3</td>
+        <td class="stats">28 / 2 / 2 / 7</td>
+        <td class="tier"><span class="placement-tag mid">MID</span></td>
+        <td class="effect">
+          <span class="effect-label">CRASH FLOOR → UP</span>
+          Value cannot fall below 20 from any single event.
+          <span class="effect-label" style="margin-top:6px">INCOME OFFSET → DN</span>
+          All income from RE assets counts as tax-exempt this year.
+        </td>
+        <td class="effect">
+          <span class="effect-label">GROWTH — FIN UP</span>
+          +1 loan cap; +2 additional if value exceeds 34.
+        </td>
+        <td class="ceo-fit">Trustee</td>
+      </tr>
+      <tr>
+        <td class="name">Luxury Residential Portfolio</td>
+        <td class="tier">3</td>
+        <td class="stats">30 / 3 / 2 / 7</td>
+        <td class="tier"><span class="placement-tag dn">DN</span></td>
+        <td class="effect">
+          <span class="effect-label">REPAY RELIEF → MID</span>
+          Remove 1 loan token for free once per year (no roll needed). Complements Trustee's annual free restructure — two free removals per year.
+          <span class="effect-label" style="margin-top:6px">STRESS −1 → UP</span>
+          −1 stress when this asset's value exceeds 32.
+        </td>
+        <td class="effect">
+          <span class="effect-label">GROWTH — MEDIA DN</span>
+          +1 loan cap; +1 additional if value exceeds 36.
+        </td>
+        <td class="ceo-fit">Chairman<br>Trustee</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════ TECHNOLOGY -->
+<div class="sector-block">
+  <div class="sector-header">
+    <div class="sector-pip" style="background:var(--tech)"></div>
+    <div class="sector-title" style="color:var(--tech)">Technology</div>
+    <div class="sector-meta">GMI-immune pre-integration · zero income · explosive ceiling · Wizard class</div>
+  </div>
+  <table>
+    <thead>
+      <tr><th>Card</th><th>T</th><th>BV / Str / Inc / LTV</th><th>Placement</th><th>Vertical Integration Effects</th><th>Cross-Industry Synergy</th><th>CEO Fit</th></tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td class="name">GridRoot Systems</td>
+        <td class="tier">1</td>
+        <td class="stats">5 / 1 / 0 / 3</td>
+        <td class="tier"><span class="placement-tag up">UP</span></td>
+        <td class="effect">
+          <span class="effect-label">COMPOUND → MID <span class="change-badge badge-ceo">CEO-REF</span></span>
+          +1 to this asset's loanCapacityIncreasePer10AssetValue once vertical integration is active (loan suppression lifted per industry rules).
+          <span class="effect-sub">Financing depth unlocks with proven integration, not before.</span>
+        </td>
+        <td class="effect"><em style="color:var(--muted)">none</em></td>
+        <td class="ceo-fit">Founder</td>
+      </tr>
+      <tr>
+        <td class="name">Platform API Co</td>
+        <td class="tier">1</td>
+        <td class="stats">6 / 1 / 0 / 3</td>
+        <td class="tier"><span class="placement-tag mid">MID</span></td>
+        <td class="effect">
+          <span class="effect-label">VALUE BOOST → UP <span class="change-badge badge-ceo">CEO-REF</span></span>
+          Once integration is active on the UPSTREAM asset you own, treat that asset's value roll as one higher.
+          <span class="effect-sub">Founder: MID alone suffices to activate UPSTREAM integration per CEO ability.</span>
+          <span class="effect-label" style="margin-top:6px">GROWTH → DN</span>
+          +1 loan cap on this asset if full vertical stack is held.
+        </td>
+        <td class="effect">
+          <span class="effect-label">GROWTH — MEDIA MID</span>
+          +1 loan cap; +1 additional if value exceeds 12.
+        </td>
+        <td class="ceo-fit">Founder</td>
+      </tr>
+      <tr>
+        <td class="name">SaaS Distribution Engine</td>
+        <td class="tier">1</td>
+        <td class="stats">7 / 1 / 0 / 3</td>
+        <td class="tier"><span class="placement-tag dn">DN</span></td>
+        <td class="effect">
+          <span class="effect-label">PASSIVE → MID <span class="change-badge badge-ceo">CEO-REF</span></span>
+          When the full TECH stack is held, loan suppression lifts per industry rules. Founder: draw 2 personal event cards, keep 1 (per CEO once-per-game ability).
+          <span class="effect-sub">Non-Founder: suppression lifts; no card draw.</span>
+        </td>
+        <td class="effect"><em style="color:var(--muted)">none</em></td>
+        <td class="ceo-fit">Founder</td>
+      </tr>
+      <tr>
+        <td class="name">Cloud Infrastructure Ltd</td>
+        <td class="tier">2</td>
+        <td class="stats">12 / 1 / 0 / 3</td>
+        <td class="tier"><span class="placement-tag up">UP</span></td>
+        <td class="effect">
+          <span class="effect-label">GROWTH → MID <span class="change-badge badge-ceo">CEO-REF</span></span>
+          +1 loan cap; +2 additional if this asset's current value exceeds 18 and integration is active.
+        </td>
+        <td class="effect">
+          <span class="effect-label">BREADTH — ENERGY UP</span>
+          +1 loan cap for each ENERGY asset you own (max +2).
+        </td>
+        <td class="ceo-fit">Founder</td>
+      </tr>
+      <tr>
+        <td class="name">AI Platform Systems</td>
+        <td class="tier">2</td>
+        <td class="stats">14 / 2 / 0 / 3</td>
+        <td class="tier"><span class="placement-tag mid">MID</span></td>
+        <td class="effect">
+          <span class="effect-label">CRASH FLOOR → UP</span>
+          Value cannot fall below 8 from any single roll.
+          <span class="effect-label" style="margin-top:6px">VALUE BOOST → DN</span>
+          Treat all positive value roll deltas as +1 higher when full stack is owned.
+        </td>
+        <td class="effect"><em style="color:var(--muted)">none</em></td>
+        <td class="ceo-fit">Founder</td>
+      </tr>
+      <tr>
+        <td class="name">Enterprise Software Group</td>
+        <td class="tier">2</td>
+        <td class="stats">16 / 2 / 0 / 3</td>
+        <td class="tier"><span class="placement-tag dn">DN</span></td>
+        <td class="effect">
+          <span class="effect-label">PASSIVE → MID</span>
+          Stack complete: once per year, draw 1 personal event card, keep or sell. Founder's once-per-game stack bonus activates here.
+        </td>
+        <td class="effect">
+          <span class="effect-label">GROWTH — MFG DN</span>
+          +1 loan cap; +1 additional if value exceeds 22.
+        </td>
+        <td class="ceo-fit">Founder<br>Researcher</td>
+      </tr>
+      <tr>
+        <td class="name">Hyperscale AI Corp</td>
+        <td class="tier">3</td>
+        <td class="stats">22 / 2 / 0 / 2</td>
+        <td class="tier"><span class="placement-tag up">UP</span></td>
+        <td class="effect">
+          <span class="effect-label">GROWTH → MID <span class="change-badge badge-ceo">CEO-REF</span></span>
+          +1 loan cap; +3 additional if value exceeds 30 and integration is active.
+        </td>
+        <td class="effect"><em style="color:var(--muted)">none</em></td>
+        <td class="ceo-fit">Founder</td>
+      </tr>
+      <tr>
+        <td class="name">Digital Monopoly Holdings</td>
+        <td class="tier">3</td>
+        <td class="stats">26 / 3 / 0 / 2</td>
+        <td class="tier"><span class="placement-tag dn">DN</span></td>
+        <td class="effect">
+          <span class="effect-label">COMPOUND → MID <span class="change-badge badge-ceo">CEO-REF</span></span>
+          Stack complete: +1 to loanCapacityIncreasePer10AssetValue on all owned TECH assets (applies once integration is active per industry rules).
+        </td>
+        <td class="effect">
+          <span class="effect-label">GROWTH — FIN UP</span>
+          +1 loan cap; +2 additional if value exceeds 32.
+        </td>
+        <td class="ceo-fit">Founder</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════ MANUFACTURING -->
+<div class="sector-block">
+  <div class="sector-header">
+    <div class="sector-pip" style="background:var(--mfg)"></div>
+    <div class="sector-title" style="color:var(--mfg)">Manufacturing</div>
+    <div class="sector-meta">GMI halved · depreciable · income offset eligible · Paladin / Artificer class</div>
+  </div>
+  <table>
+    <thead>
+      <tr><th>Card</th><th>T</th><th>BV / Str / Inc / LTV</th><th>Placement</th><th>Vertical Integration Effects</th><th>Cross-Industry Synergy</th><th>CEO Fit</th></tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td class="name">Component Foundry</td>
+        <td class="tier">1</td>
+        <td class="stats">6 / 0 / 1 / 5</td>
+        <td class="tier"><span class="placement-tag up">UP</span></td>
+        <td class="effect">
+          <span class="effect-label">INCOME OFFSET → MID</span>
+          +1 loan interest payment counts as an income offset this year.
+        </td>
+        <td class="effect">
+          <span class="effect-label">BREADTH — ENERGY MID</span>
+          +1 loan cap for each ENERGY asset you own (max +2).
+        </td>
+        <td class="ceo-fit">Foreman<br>Engineer</td>
+      </tr>
+      <tr>
+        <td class="name">Mid-Tier Fabrication</td>
+        <td class="tier">1</td>
+        <td class="stats">7 / 1 / 1 / 5</td>
+        <td class="tier"><span class="placement-tag mid">MID</span></td>
+        <td class="effect">
+          <span class="effect-label">GMI RESIST → UP</span>
+          Negative GMI delta on this asset reduced by 1 (minimum 0).
+          <span class="effect-label" style="margin-top:6px">INCOME OFFSET → DN</span>
+          +1 additional loan interest payment counts as income offset.
+        </td>
+        <td class="effect"><em style="color:var(--muted)">none</em></td>
+        <td class="ceo-fit">Foreman<br>Compliance</td>
+      </tr>
+      <tr>
+        <td class="name">Distribution & Logistics Co</td>
+        <td class="tier">1</td>
+        <td class="stats">8 / 1 / 1 / 5</td>
+        <td class="tier"><span class="placement-tag dn">DN</span></td>
+        <td class="effect">
+          <span class="effect-label">REPAY RELIEF → MID</span>
+          Treat loan repayment roll as one higher on this asset.
+          <span class="effect-label" style="margin-top:6px">GROWTH → UP</span>
+          +1 loan cap; +1 additional if value exceeds 14.
+        </td>
+        <td class="effect">
+          <span class="effect-label">GROWTH — RE UP</span>
+          +1 loan cap; +1 additional if value exceeds 14.
+        </td>
+        <td class="ceo-fit">Foreman<br>Landowner</td>
+      </tr>
+      <tr>
+        <td class="name">Precision Engineering Ltd</td>
+        <td class="tier">2</td>
+        <td class="stats">13 / 1 / 1 / 5</td>
+        <td class="tier"><span class="placement-tag up">UP</span></td>
+        <td class="effect">
+          <span class="effect-label">COMPOUND → MID</span>
+          +1 to this asset's loanCapacityIncreasePer10AssetValue. Engineer CEO: integration bonuses doubled — this becomes +2.
+        </td>
+        <td class="effect"><em style="color:var(--muted)">none</em></td>
+        <td class="ceo-fit">Engineer<br>Foreman</td>
+      </tr>
+      <tr>
+        <td class="name">Heavy Industry Group</td>
+        <td class="tier">2</td>
+        <td class="stats">15 / 2 / 1 / 5</td>
+        <td class="tier"><span class="placement-tag mid">MID</span></td>
+        <td class="effect">
+          <span class="effect-label">STRESS −1 → UP</span>
+          −1 stress once per year when this asset rolls 4+ on its value update. Engineer CEO doubles this stress reduction.
+          <span class="effect-label" style="margin-top:6px">CRASH FLOOR → DN</span>
+          Value cannot fall below 9 from any single event.
+        </td>
+        <td class="effect">
+          <span class="effect-label">GROWTH — ENERGY UP</span>
+          +1 loan cap; +1 additional if value exceeds 20.
+        </td>
+        <td class="ceo-fit">Engineer<br>Foreman</td>
+      </tr>
+      <tr>
+        <td class="name">Consumer Goods Manufacturer</td>
+        <td class="tier">2</td>
+        <td class="stats">17 / 2 / 1 / 5</td>
+        <td class="tier"><span class="placement-tag dn">DN</span></td>
+        <td class="effect">
+          <span class="effect-label">INCOME OFFSET → MID</span>
+          +2 loan interest payments count as income offsets this year.
+          <span class="effect-label" style="margin-top:6px">REPAY RELIEF → UP</span>
+          Treat repayment roll as one higher on this asset.
+        </td>
+        <td class="effect">
+          <span class="effect-label">BREADTH — MEDIA DN</span>
+          +1 loan cap for each MEDIA asset you own (max +2).
+        </td>
+        <td class="ceo-fit">Foreman<br>Compliance</td>
+      </tr>
+      <tr>
+        <td class="name">Pharma Research Hub<br><em style="color:var(--muted);font-size:10px">MFG + TECH hybrid</em></td>
+        <td class="tier">2</td>
+        <td class="stats">12 / 2 / 0 / 4</td>
+        <td class="tier"><span class="placement-tag up">UP</span></td>
+        <td class="effect">
+          <span class="effect-label">PASSIVE (TRIAL) → TECH MID <span class="change-badge badge-note">NOTE</span></span>
+          Researcher CEO only: Trial die available. Success: +3 to all positive deltas, +1 loanCapacityIncreasePer10AssetValue, GMI-sensitive (standard MFG halving applies). Failure: baseLoanCapacity −2, GMI-resistant.
+          <span class="effect-sub">Non-Researcher players: trial die is unavailable. This asset operates permanently at pre-trial values with GMI-immune status. No trial can be triggered.</span>
+        </td>
+        <td class="effect">
+          <span class="effect-label">GROWTH — TECH DN</span>
+          +1 loan cap; +1 additional if value exceeds 18 (post-trial success for Researcher; at any time for others).
+        </td>
+        <td class="ceo-fit">Researcher</td>
+      </tr>
+      <tr>
+        <td class="name">Biotech Manufacturing Corp<br><em style="color:var(--muted);font-size:10px">MFG + TECH hybrid</em></td>
+        <td class="tier">3</td>
+        <td class="stats">22 / 3 / 0 / 4</td>
+        <td class="tier"><span class="placement-tag mid">MID</span></td>
+        <td class="effect">
+          <span class="effect-label">GROWTH → UP (trial success) <span class="change-badge badge-note">NOTE</span></span>
+          Researcher CEO: +1 loan cap; +2 additional if post-trial value exceeds 28.
+          <span class="effect-sub">Non-Researcher: +1 loan cap if value exceeds 28 (static threshold; no trial).</span>
+          <span class="effect-label" style="margin-top:6px">COMPOUND → DN</span>
+          +1 to loanCapacityIncreasePer10AssetValue after trial resolves (Researcher). Non-Researcher: activates at year 4 of ownership instead.
+        </td>
+        <td class="effect"><em style="color:var(--muted)">none</em></td>
+        <td class="ceo-fit">Researcher</td>
+      </tr>
+      <tr>
+        <td class="name">Industrial Conglomerate</td>
+        <td class="tier">3</td>
+        <td class="stats">25 / 3 / 2 / 5</td>
+        <td class="tier"><span class="placement-tag dn">DN</span></td>
+        <td class="effect">
+          <span class="effect-label">PASSIVE → MID</span>
+          The Foreman's Blessing may target this asset's owner as well as other players — declared before the repayment roll.
+          <span class="effect-label" style="margin-top:6px">CRASH FLOOR → UP</span>
+          Value cannot fall below 18 from any single event.
+        </td>
+        <td class="effect"><em style="color:var(--muted)">none</em></td>
+        <td class="ceo-fit">Foreman<br>Engineer</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════ FINANCE -->
+<div class="sector-block">
+  <div class="sector-header">
+    <div class="sector-pip" style="background:var(--fin)"></div>
+    <div class="sector-title" style="color:var(--fin)">Finance</div>
+    <div class="sector-meta">Double-hit 1–3 in neg GMI · asymmetric · Warlock / Rogue class</div>
+  </div>
+  <table>
+    <thead>
+      <tr><th>Card</th><th>T</th><th>BV / Str / Inc / LTV</th><th>Placement</th><th>Vertical Integration Effects</th><th>Cross-Industry Synergy</th><th>CEO Fit</th></tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td class="name">Credit Arbitrage Fund</td>
+        <td class="tier">1</td>
+        <td class="stats">5 / 1 / 0 / 4</td>
+        <td class="tier"><span class="placement-tag up">UP</span></td>
+        <td class="effect">
+          <span class="effect-label">INVERTED POSITION → MID <span class="change-badge badge-ceo">CEO-REF</span></span>
+          The Quant's inversion mechanic is eligible on this asset in any negative GMI year. Non-Quant: +1 loan cap if GMI this year is negative (defensive spread positioning).
+          <span class="effect-sub">This asset qualifies for the Quant's Pact Dividend roll each year it's held.</span>
+        </td>
+        <td class="effect"><em style="color:var(--muted)">none</em></td>
+        <td class="ceo-fit">Quant<br>The Trader</td>
+      </tr>
+      <tr>
+        <td class="name">Market-Making Desk</td>
+        <td class="tier">1</td>
+        <td class="stats">6 / 1 / 1 / 4</td>
+        <td class="tier"><span class="placement-tag mid">MID</span></td>
+        <td class="effect">
+          <span class="effect-label">SPREAD CAPTURE → UP <span class="change-badge badge-fixed">FIXED</span></span>
+          On a neg GMI double-hit year, this asset's income is treated as +1 higher before tax calculation. (The double-hit value loss still applies to asset value — only income is boosted.)
+          <span class="effect-label" style="margin-top:6px">STABILITY → DN</span>
+          +1 loan cap after 2 consecutive years without a negative value roll.
+        </td>
+        <td class="effect">
+          <span class="effect-label">GROWTH — TECH MID</span>
+          +1 loan cap; +1 additional if value exceeds 12.
+        </td>
+        <td class="ceo-fit">Quant<br>Tax Attorney</td>
+      </tr>
+      <tr>
+        <td class="name">Consumer Lending Co</td>
+        <td class="tier">1</td>
+        <td class="stats">7 / 1 / 1 / 5</td>
+        <td class="tier"><span class="placement-tag dn">DN</span></td>
+        <td class="effect">
+          <span class="effect-label">INTEREST SHELTER → MID <span class="change-badge badge-fixed">FIXED</span></span>
+          Once per year: one loan interest payment on this asset generates an additional income offset beyond its normal allowance. Synergizes with Tax Attorney's reclassification — shelter stacks are deeper when both are active.
+          <span class="effect-label" style="margin-top:6px">DISTRESSED PREVIEW → UP <span class="change-badge badge-fixed">FIXED</span></span>
+          Once per year: look at the top card of the market discard pile. You may pay $1 to acquire it immediately at its current value, or leave it. Tax Attorney's Distressed Acquisition targets the full discard pile — this previews one card only.
+        </td>
+        <td class="effect">
+          <span class="effect-label">GROWTH — RE DN</span>
+          +1 loan cap; +1 additional if value exceeds 14.
+        </td>
+        <td class="ceo-fit">Tax Attorney<br>The Trader</td>
+      </tr>
+      <tr>
+        <td class="name">Structured Products House</td>
+        <td class="tier">2</td>
+        <td class="stats">13 / 2 / 0 / 4</td>
+        <td class="tier"><span class="placement-tag up">UP</span></td>
+        <td class="effect">
+          <span class="effect-label">INVERTED POSITION ×2 → MID <span class="change-badge badge-ceo">CEO-REF</span></span>
+          The Quant's inversion mechanic on this asset also generates +1 cash in any year where the double-hit fires, before resolution. Non-Quant: +2 loan cap if GMI this year is negative.
+        </td>
+        <td class="effect"><em style="color:var(--muted)">none</em></td>
+        <td class="ceo-fit">Quant</td>
+      </tr>
+      <tr>
+        <td class="name">Private Equity Platform</td>
+        <td class="tier">2</td>
+        <td class="stats">15 / 2 / 1 / 5</td>
+        <td class="tier"><span class="placement-tag mid">MID</span></td>
+        <td class="effect">
+          <span class="effect-label">DEAL FLOW → UP <span class="change-badge badge-fixed">FIXED</span></span>
+          Once per year: during the auction phase, you may inspect one face-down market card before bidding (if any are face-down per variant rules). If all cards are face-up, gain +1 to your first bid this year instead. Synergizes with Tax Attorney's MARKET PREVIEW — stacked intelligence gives bidding advantage.
+          <span class="effect-label" style="margin-top:6px">STABILITY → DN</span>
+          +1 loan cap after 2 consecutive years without a negative value roll.
+        </td>
+        <td class="effect">
+          <span class="effect-label">BREADTH — MFG MID</span>
+          +1 loan cap for each MFG asset you own (max +2).
+        </td>
+        <td class="ceo-fit">Tax Attorney<br>Quant</td>
+      </tr>
+      <tr>
+        <td class="name">Distressed Asset Fund</td>
+        <td class="tier">2</td>
+        <td class="stats">16 / 2 / 1 / 5</td>
+        <td class="tier"><span class="placement-tag dn">DN</span></td>
+        <td class="effect">
+          <span class="effect-label">FORCED SALE ALERT → MID <span class="change-badge badge-fixed">FIXED</span></span>
+          Once per year: if any player triggers a forced sale this year, you may match the forced-sale price and acquire the asset before it returns to the market. Tax Attorney's Distressed Acquisition already acquires from the discard pile at half base value — this intercepts forced sales in real time, a different route to the same prey.
+          <span class="effect-label" style="margin-top:6px">REPAY RELIEF → UP</span>
+          Treat repayment roll as one higher on this asset.
+        </td>
+        <td class="effect"><em style="color:var(--muted)">none</em></td>
+        <td class="ceo-fit">Tax Attorney<br>The Trader</td>
+      </tr>
+      <tr>
+        <td class="name">Sovereign Wealth Fund</td>
+        <td class="tier">3</td>
+        <td class="stats">24 / 2 / 0 / 5</td>
+        <td class="tier"><span class="placement-tag up">UP</span></td>
+        <td class="effect">
+          <span class="effect-label">INVERTED POSITION PEAK → MID <span class="change-badge badge-ceo">CEO-REF</span></span>
+          Quant's inversion mechanic on this asset operates without the second value loss being applied — the double-hit fires but the second delta is negated. Non-Quant: in any neg GMI year, this asset's value update roll is treated as one higher.
+        </td>
+        <td class="effect">
+          <span class="effect-label">GROWTH — DEFENCE UP</span>
+          +1 loan cap; +2 additional if value exceeds 30.
+        </td>
+        <td class="ceo-fit">Quant</td>
+      </tr>
+      <tr>
+        <td class="name">Global Investment Bank</td>
+        <td class="tier">3</td>
+        <td class="stats">28 / 3 / 2 / 5</td>
+        <td class="tier"><span class="placement-tag dn">DN</span></td>
+        <td class="effect">
+          <span class="effect-label">MARKET INTELLIGENCE → MID <span class="change-badge badge-fixed">FIXED</span></span>
+          Once per year during settlement: look at the top 3 personal event cards. Return them in any order. You draw none — this is pure deck positioning. Tax Attorney's MARKET PREVIEW already lets them choose from top 2 to draw; this extends the window and lets you set up for other players' draws too.
+          <span class="effect-label" style="margin-top:6px">INCOME RECLASSIFY → UP <span class="change-badge badge-fixed">FIXED</span></span>
+          Once per year: up to $2 of income this year may be counted as deferred rather than current — pay tax on it next year instead. Synergizes with Tax Attorney's reclassification (which removes income from tax entirely) — deferral is a weaker, non-CEO version of the same tool.
+        </td>
+        <td class="effect"><em style="color:var(--muted)">none</em></td>
+        <td class="ceo-fit">Tax Attorney<br>The Trader</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════ ENERGY -->
+<div class="sector-block">
+  <div class="sector-header">
+    <div class="sector-pip" style="background:var(--energy)"></div>
+    <div class="sector-title" style="color:var(--energy)">Energy</div>
+    <div class="sector-meta">GMI ×2 (×3 at T3) · amplified boom/bust · Druid class · Geologist CEO adds +1 to each multiplier</div>
+  </div>
+  <table>
+    <thead>
+      <tr><th>Card</th><th>T</th><th>BV / Str / Inc / LTV</th><th>Placement</th><th>Vertical Integration Effects</th><th>Cross-Industry Synergy</th><th>CEO Fit</th></tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td class="name">Wildcat Drilling Rights</td>
+        <td class="tier">1</td>
+        <td class="stats">5 / 1 / 0 / 4</td>
+        <td class="tier"><span class="placement-tag up">UP</span></td>
+        <td class="effect">
+          <span class="effect-label">FORESIGHT → MID <span class="change-badge badge-ceo">CEO-REF</span></span>
+          Geologist CEO: this asset's ownership enables FORESIGHT ability use (once per year per CEO card). Non-Geologist: once per year, after the global event card is drawn but before value rolls, you may draw and immediately discard 1 personal event card to look at the next global event card without revealing it. Information at cost.
+        </td>
+        <td class="effect"><em style="color:var(--muted)">none</em></td>
+        <td class="ceo-fit">Geologist<br>The Energy Trader</td>
+      </tr>
+      <tr>
+        <td class="name">Pipeline Network Co</td>
+        <td class="tier">1</td>
+        <td class="stats">7 / 1 / 1 / 5</td>
+        <td class="tier"><span class="placement-tag mid">MID</span></td>
+        <td class="effect">
+          <span class="effect-label">FORESIGHT ACTIVE → UP <span class="change-badge badge-ceo">CEO-REF</span></span>
+          Geologist CEO: FORESIGHT has no once-per-year limit while this asset is held. Non-Geologist: the cost-to-peek ability from UPSTREAM fires at no card discard cost this year.
+          <span class="effect-label" style="margin-top:6px">PASSIVE → DN</span>
+          +1 income per year while both MID and DN are held.
+        </td>
+        <td class="effect">
+          <span class="effect-label">BREADTH — MFG UP</span>
+          +1 loan cap for each MFG asset you own (max +2).
+        </td>
+        <td class="ceo-fit">Geologist<br>The Energy Trader</td>
+      </tr>
+      <tr>
+        <td class="name">Utility & Distribution Grid</td>
+        <td class="tier">1</td>
+        <td class="stats">8 / 1 / 2 / 6</td>
+        <td class="tier"><span class="placement-tag dn">DN</span></td>
+        <td class="effect">
+          <span class="effect-label">GMI PROTECT → MID <span class="change-badge badge-scope">SCOPED</span></span>
+          Choose 1 other player: their ENERGY assets treat negative GMI as halved this year. Druid party support — Geologist gives this to one ally in a downturn.
+          <span class="effect-label" style="margin-top:6px">REPAY RELIEF → UP</span>
+          Treat repayment roll as one higher.
+        </td>
+        <td class="effect">
+          <span class="effect-label">STABILITY — RE MID</span>
+          +1 loan cap after 2 consecutive years without a negative value roll.
+        </td>
+        <td class="ceo-fit">The Energy Trader<br>Geologist</td>
+      </tr>
+      <tr>
+        <td class="name">Refinery & Processing Ltd</td>
+        <td class="tier">2</td>
+        <td class="stats">13 / 1 / 1 / 5</td>
+        <td class="tier"><span class="placement-tag up">UP</span></td>
+        <td class="effect">
+          <span class="effect-label">GMI PROTECT ×2 → MID <span class="change-badge badge-scope">SCOPED</span></span>
+          Choose up to 2 other players: their ENERGY assets halve negative GMI this year. Druid party-wide protection at T2 — note this targets other players only, not yourself.
+        </td>
+        <td class="effect"><em style="color:var(--muted)">none</em></td>
+        <td class="ceo-fit">Geologist</td>
+      </tr>
+      <tr>
+        <td class="name">National Grid Holdings</td>
+        <td class="tier">2</td>
+        <td class="stats">16 / 2 / 2 / 6</td>
+        <td class="tier"><span class="placement-tag mid">MID</span></td>
+        <td class="effect">
+          <span class="effect-label">FORESIGHT T2 → UP <span class="change-badge badge-ceo">CEO-REF</span></span>
+          Geologist CEO: FORESIGHT allows swapping the top 2 event cards' positions in addition to the look/move choice. Non-Geologist: once per year, swap the top 2 global event cards without looking at either (blind swap).
+          <span class="effect-label" style="margin-top:6px">CRASH FLOOR → DN</span>
+          Value cannot fall below 10 from any single event.
+        </td>
+        <td class="effect">
+          <span class="effect-label">GROWTH — DEFENCE MID</span>
+          +1 loan cap; +1 additional if value exceeds 22.
+        </td>
+        <td class="ceo-fit">Geologist<br>The Energy Trader</td>
+      </tr>
+      <tr>
+        <td class="name">Offshore Energy Platform</td>
+        <td class="tier">2</td>
+        <td class="stats">18 / 2 / 2 / 6</td>
+        <td class="tier"><span class="placement-tag dn">DN</span></td>
+        <td class="effect">
+          <span class="effect-label">GMI PROTECT OWNER → MID <span class="change-badge badge-scope">SCOPED</span></span>
+          Your own ENERGY assets halve negative GMI this year. (Party-wide protection belongs on global events, not individual asset bonuses.)
+          <span class="effect-label" style="margin-top:6px">GROWTH → UP</span>
+          +1 loan cap; +1 additional if value exceeds 24.
+        </td>
+        <td class="effect"><em style="color:var(--muted)">none</em></td>
+        <td class="ceo-fit">The Energy Trader</td>
+      </tr>
+      <tr>
+        <td class="name">Petrochemical Giant</td>
+        <td class="tier">3</td>
+        <td class="stats">22 / 2 / 1 / 5</td>
+        <td class="tier"><span class="placement-tag up">UP</span></td>
+        <td class="effect">
+          <span class="effect-label">FORESIGHT T3 → MID <span class="change-badge badge-ceo">CEO-REF</span></span>
+          Geologist CEO: FORESIGHT allows peeking 2 cards ahead and swapping the top 2. Non-Geologist: once per year, look at the top global event card and choose to keep or move it (as standard, but no swap).
+          <span class="effect-sub">GMI ×3 baseline for all players. Geologist CEO raises to ×4 per updated CEO ability.</span>
+        </td>
+        <td class="effect">
+          <span class="effect-label">BREADTH — MFG MID</span>
+          +1 loan cap for each MFG asset you own (max +3).
+        </td>
+        <td class="ceo-fit">Geologist</td>
+      </tr>
+      <tr>
+        <td class="name">Renewable Energy Sovereign</td>
+        <td class="tier">3</td>
+        <td class="stats">28 / 3 / 2 / 6</td>
+        <td class="tier"><span class="placement-tag dn">DN</span></td>
+        <td class="effect">
+          <span class="effect-label">GMI PROTECT OWNER → MID <span class="change-badge badge-scope">SCOPED</span></span>
+          Your own ENERGY assets are immune to negative GMI this year. (Previously party-wide — scoped to owner only.)
+          <span class="effect-label" style="margin-top:6px">STRESS −1 → UP</span>
+          −1 stress in any year GMI is positive.
+          <span class="effect-sub">GMI ×3 baseline. Geologist CEO raises to ×4.</span>
+        </td>
+        <td class="effect"><em style="color:var(--muted)">none</em></td>
+        <td class="ceo-fit">Geologist<br>The Energy Trader</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════ MEDIA -->
+<div class="sector-block">
+  <div class="sector-header">
+    <div class="sector-pip" style="background:var(--media)"></div>
+    <div class="sector-title" style="color:var(--media)">Media / Entertainment</div>
+    <div class="sector-meta">Buzz die overrides GMI · narrative-driven · Bard class</div>
+  </div>
+  <table>
+    <thead>
+      <tr><th>Card</th><th>T</th><th>BV / Str / Inc / LTV</th><th>Placement</th><th>Vertical Integration Effects</th><th>Cross-Industry Synergy</th><th>CEO Fit</th></tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td class="name">Independent Studio</td>
+        <td class="tier">1</td>
+        <td class="stats">5 / 1 / 0 / 4</td>
+        <td class="tier"><span class="placement-tag up">UP</span></td>
+        <td class="effect">
+          <span class="effect-label">BUZZ MOMENTUM → MID <span class="change-badge badge-moved">MOVED / REWORKED</span></span>
+          When this asset rolls a good buzz result (3–6) this year, carry +1 to the buzz die on your next roll on any owned MEDIA asset this year (i.e. the threshold for good buzz on the next roll drops to 2–6). Does not stack across years. Buzz builds on buzz — but it's momentum, not control.
+          <span class="effect-sub">Buzz-lock (skip roll entirely) removed from T1 entirely. Now conditional momentum only.</span>
+        </td>
+        <td class="effect"><em style="color:var(--muted)">none</em></td>
+        <td class="ceo-fit">Publicist</td>
+      </tr>
+      <tr>
+        <td class="name">Talent Agency</td>
+        <td class="tier">1</td>
+        <td class="stats">6 / 1 / 1 / 4</td>
+        <td class="tier"><span class="placement-tag mid">MID</span></td>
+        <td class="effect">
+          <span class="effect-label">CARD PREMIUM → UP</span>
+          Held personal event cards sell for +$1 this year. Publicist CEO's passive already grants this — combined, cards sell at base +$2 for Publicist.
+          <span class="effect-label" style="margin-top:6px">SCANDAL IMMUNE → DN</span>
+          This asset is immune to Scandal effects this year.
+        </td>
+        <td class="effect">
+          <span class="effect-label">STABILITY — RE DN</span>
+          +1 loan cap after 2 consecutive years without a negative value roll.
+        </td>
+        <td class="ceo-fit">Publicist</td>
+      </tr>
+      <tr>
+        <td class="name">Broadcast Network</td>
+        <td class="tier">1</td>
+        <td class="stats">8 / 1 / 1 / 4</td>
+        <td class="tier"><span class="placement-tag dn">DN</span></td>
+        <td class="effect">
+          <span class="effect-label">INSPIRE → MID</span>
+          Once per year: force good buzz on one other player's MEDIA asset (declared before buzz die). Publicist CEO's Inspiration already does this — non-Publicist owners get one-time party support here.
+          <span class="effect-label" style="margin-top:6px">CARD PREMIUM → UP</span>
+          Sell any held personal event card for +$1 this year.
+        </td>
+        <td class="effect"><em style="color:var(--muted)">none</em></td>
+        <td class="ceo-fit">Publicist</td>
+      </tr>
+      <tr>
+        <td class="name">Streaming Platform Ltd</td>
+        <td class="tier">2</td>
+        <td class="stats">12 / 1 / 0 / 4</td>
+        <td class="tier"><span class="placement-tag up">UP</span></td>
+        <td class="effect">
+          <span class="effect-label">BUZZ LOCK → MID <span class="change-badge badge-moved">MOVED FROM T1</span></span>
+          On good buzz (3–6), roll the value die three times, take the highest. Publicist CEO: may instead declare good buzz on this asset without rolling the buzz die at all (Inspiration applied automatically once per year).
+          <span class="effect-sub">Buzz-lock capability now at T2 UPSTREAM, gated behind vertical integration.</span>
+        </td>
+        <td class="effect">
+          <span class="effect-label">GROWTH — TECH MID</span>
+          +1 loan cap; +1 additional if value exceeds 18.
+        </td>
+        <td class="ceo-fit">Publicist<br>Founder</td>
+      </tr>
+      <tr>
+        <td class="name">Sports Rights Portfolio</td>
+        <td class="tier">2</td>
+        <td class="stats">15 / 2 / 2 / 4</td>
+        <td class="tier"><span class="placement-tag mid">MID</span></td>
+        <td class="effect">
+          <span class="effect-label">SCANDAL RESIST → UP</span>
+          Scandal effects on any of your MEDIA assets are negated this year.
+          <span class="effect-label" style="margin-top:6px">INSPIRE → DN</span>
+          Force good buzz on any one asset (yours or an ally's) once per year.
+        </td>
+        <td class="effect"><em style="color:var(--muted)">none</em></td>
+        <td class="ceo-fit">Publicist</td>
+      </tr>
+      <tr>
+        <td class="name">Theme Park & IP Empire</td>
+        <td class="tier">2</td>
+        <td class="stats">17 / 2 / 2 / 4</td>
+        <td class="tier"><span class="placement-tag dn">DN</span></td>
+        <td class="effect">
+          <span class="effect-label">CARD PREMIUM ×2 → MID</span>
+          Sell any held personal event card for +$2 this year. Publicist CEO: cards now sell at base +$3 total.
+          <span class="effect-label" style="margin-top:6px">INSPIRE → UP</span>
+          Force good buzz on one of your own assets once per year.
+        </td>
+        <td class="effect">
+          <span class="effect-label">GROWTH — RE MID</span>
+          +1 loan cap; +1 additional if value exceeds 22.
+        </td>
+        <td class="ceo-fit">Publicist</td>
+      </tr>
+      <tr>
+        <td class="name">Global Media Conglomerate</td>
+        <td class="tier">3</td>
+        <td class="stats">22 / 2 / 2 / 4</td>
+        <td class="tier"><span class="placement-tag mid">MID</span></td>
+        <td class="effect">
+          <span class="effect-label">NARRATIVE PREMIUM → UP</span>
+          Sell any held personal event card for +$2 this year (applies to all held cards). Publicist CEO: stacks with passive for full +$3 per card.
+          <span class="effect-label" style="margin-top:6px">CRASH FLOOR → DN</span>
+          Value cannot fall below 14 from any single event.
+        </td>
+        <td class="effect"><em style="color:var(--muted)">none</em></td>
+        <td class="ceo-fit">Publicist</td>
+      </tr>
+      <tr>
+        <td class="name">Entertainment Sovereign Fund</td>
+        <td class="tier">3</td>
+        <td class="stats">26 / 3 / 2 / 4</td>
+        <td class="tier"><span class="placement-tag dn">DN</span></td>
+        <td class="effect">
+          <span class="effect-label">SCANDAL FLIP → MID</span>
+          If a Scandal targets this asset, convert bad buzz to good buzz. −1 stress. Publicist CEO: Scandal becomes promotion — no separate declaration needed.
+          <span class="effect-label" style="margin-top:6px">INSPIRE FULL → UP</span>
+          Force good buzz on all your MEDIA assets this year.
+        </td>
+        <td class="effect">
+          <span class="effect-label">GROWTH — FIN DN</span>
+          +1 loan cap; +2 additional if value exceeds 32.
+        </td>
+        <td class="ceo-fit">Publicist</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════ DEFENCE -->
+<div class="sector-block">
+  <div class="sector-header">
+    <div class="sector-pip" style="background:var(--defence)"></div>
+    <div class="sector-title" style="color:var(--defence)">Defence</div>
+    <div class="sector-meta">Counter-cyclical · classified collateral unlocked per system rules · Commander class</div>
+  </div>
+  <table>
+    <thead>
+      <tr><th>Card</th><th>T</th><th>BV / Str / Inc / LTV</th><th>Placement</th><th>Vertical Integration Effects</th><th>Cross-Industry Synergy</th><th>CEO Fit</th></tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td class="name">Defence Contractor Ltd</td>
+        <td class="tier">1</td>
+        <td class="stats">6 / 0 / 1 / 5</td>
+        <td class="tier"><span class="placement-tag up">UP</span></td>
+        <td class="effect">
+          <span class="effect-label">CRISIS CASH → MID <span class="change-badge badge-fixed">FIXED</span></span>
+          In any year with negative GMI: +$1 cash. Complements General's Crisis Mobilisation — two separate $1 triggers from CEO + card.
+          <span class="effect-sub">Classified bonus capacity unlocks per system rules (own 2 DEF placements; General: 1). Not re-stated here.</span>
+        </td>
+        <td class="effect"><em style="color:var(--muted)">none</em></td>
+        <td class="ceo-fit">General</td>
+      </tr>
+      <tr>
+        <td class="name">Intelligence Systems Corp</td>
+        <td class="tier">1</td>
+        <td class="stats">7 / 1 / 1 / 5</td>
+        <td class="tier"><span class="placement-tag mid">MID</span></td>
+        <td class="effect">
+          <span class="effect-label">CRISIS CASH → UP</span>
+          +$1 cash in any year with negative GMI. General CEO stacks — CEO + card = $2 per neg year with just one DEF asset at T1 mid.
+          <span class="effect-label" style="margin-top:6px">GROWTH → DN</span>
+          +1 loan cap; +1 additional if value exceeds 14.
+        </td>
+        <td class="effect">
+          <span class="effect-label">GROWTH — TECH MID</span>
+          +1 loan cap; +1 additional if value exceeds 14.
+        </td>
+        <td class="ceo-fit">General</td>
+      </tr>
+      <tr>
+        <td class="name">Logistics & Supply Command</td>
+        <td class="tier">1</td>
+        <td class="stats">8 / 1 / 1 / 5</td>
+        <td class="tier"><span class="placement-tag dn">DN</span></td>
+        <td class="effect">
+          <span class="effect-label">CRISIS CASH → MID</span>
+          +$1 cash in any negative GMI year.
+          <span class="effect-label" style="margin-top:6px">REPAY BUFFER → UP <span class="change-badge badge-fixed">FIXED</span></span>
+          In any year following a negative GMI year (the prior-year rule applies): treat loan repayment roll as one higher on this asset, consistent with Defence prior-year loan terms.
+        </td>
+        <td class="effect">
+          <span class="effect-label">BREADTH — MFG DN</span>
+          +1 loan cap for each MFG asset you own (max +2).
+        </td>
+        <td class="ceo-fit">General<br>Compliance</td>
+      </tr>
+      <tr>
+        <td class="name">Aerospace Systems Ltd</td>
+        <td class="tier">2</td>
+        <td class="stats">14 / 1 / 1 / 5</td>
+        <td class="tier"><span class="placement-tag up">UP</span></td>
+        <td class="effect">
+          <span class="effect-label">GROWTH → MID</span>
+          +1 loan cap; +2 additional if value exceeds 20.
+        </td>
+        <td class="effect"><em style="color:var(--muted)">none</em></td>
+        <td class="ceo-fit">General</td>
+      </tr>
+      <tr>
+        <td class="name">Cyber Command Operations</td>
+        <td class="tier">2</td>
+        <td class="stats">16 / 2 / 1 / 5</td>
+        <td class="tier"><span class="placement-tag mid">MID</span></td>
+        <td class="effect">
+          <span class="effect-label">CRISIS IMMUNITY → UP</span>
+          Global event stress effects do not apply to you this year. General CEO: this mirrors and reinforces their Crisis Immunity passive — when both are active, any stress-applying global event is doubly negated (no stack needed; one immunity is sufficient).
+          <span class="effect-label" style="margin-top:6px">GROWTH → DN</span>
+          +1 loan cap; +2 additional if value exceeds 22.
+        </td>
+        <td class="effect">
+          <span class="effect-label">GROWTH — TECH UP</span>
+          +1 loan cap; +1 additional if value exceeds 22.
+        </td>
+        <td class="ceo-fit">General</td>
+      </tr>
+      <tr>
+        <td class="name">Strategic Reserve Corp</td>
+        <td class="tier">2</td>
+        <td class="stats">18 / 2 / 2 / 5</td>
+        <td class="tier"><span class="placement-tag dn">DN</span></td>
+        <td class="effect">
+          <span class="effect-label">GROWTH → MID</span>
+          +1 loan cap; +1 additional if value exceeds 24.
+          <span class="effect-label" style="margin-top:6px">CRISIS CASH → UP</span>
+          +$1 cash per negative GMI year. Stacks with General's Crisis Mobilisation.
+        </td>
+        <td class="effect"><em style="color:var(--muted)">none</em></td>
+        <td class="ceo-fit">General<br>Landowner</td>
+      </tr>
+      <tr>
+        <td class="name">National Defence Complex</td>
+        <td class="tier">3</td>
+        <td class="stats">24 / 2 / 1 / 5</td>
+        <td class="tier"><span class="placement-tag up">UP</span></td>
+        <td class="effect">
+          <span class="effect-label">CLASSIFIED SCALE → MID <span class="change-badge badge-fixed">FIXED</span></span>
+          +1 loan cap for each DEF asset you own (max +4). Scaling collateral breadth — classified portfolio deepens the credit line proportionally.
+          <span class="effect-label" style="margin-top:6px">CRISIS CASH ×2 → DN</span>
+          +$2 cash in any negative GMI year.
+        </td>
+        <td class="effect">
+          <span class="effect-label">GROWTH — FIN UP</span>
+          +1 loan cap; +2 additional if value exceeds 30.
+        </td>
+        <td class="ceo-fit">General</td>
+      </tr>
+      <tr>
+        <td class="name">Allied Forces Command</td>
+        <td class="tier">3</td>
+        <td class="stats">28 / 3 / 2 / 6</td>
+        <td class="tier"><span class="placement-tag dn">DN</span></td>
+        <td class="effect">
+          <span class="effect-label">CRISIS CASH ×3 → MID</span>
+          +$3 cash in any negative GMI year.
+          <span class="effect-label" style="margin-top:6px">STRESS −1 → UP</span>
+          −1 stress in any year GMI is negative.
+        </td>
+        <td class="effect"><em style="color:var(--muted)">none</em></td>
+        <td class="ceo-fit">General</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════ HEALTHCARE -->
+<div class="sector-block">
+  <div class="sector-header">
+    <div class="sector-pip" style="background:var(--teal)"></div>
+    <div class="sector-title" style="color:var(--teal)">Healthcare</div>
+    <div class="sector-meta">RE + MFG hybrid · stress-linked capacity · Monk class (Actuary)</div>
+  </div>
+  <table>
+    <thead>
+      <tr><th>Card</th><th>T</th><th>BV / Str / Inc / LTV</th><th>Placement</th><th>Vertical Integration Effects</th><th>Cross-Industry Synergy</th><th>CEO Fit</th></tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td class="name">Community Health Clinic<br><em style="color:var(--muted);font-size:10px">RE + MFG hybrid</em></td>
+        <td class="tier">1</td>
+        <td class="stats">6 / 0 / 1 / 5</td>
+        <td class="tier"><span class="placement-tag dn">DN</span></td>
+        <td class="effect">
+          <span class="effect-label">STRESS-LINKED → MFG MID <span class="change-badge badge-fixed">FIXED</span></span>
+          If your current stress is ≤ 2: +1 loan cap on this asset. If stress is 0: +2 loan cap instead. Recalculate each settlement.
+          <span class="effect-sub">Actuary CEO's formula determines the full dynamic range. This card grants a flat conditional bonus at fixed thresholds only — the CEO calculates, the card responds.</span>
+        </td>
+        <td class="effect"><em style="color:var(--muted)">none</em></td>
+        <td class="ceo-fit">Actuary</td>
+      </tr>
+      <tr>
+        <td class="name">Hospital Network Holdings<br><em style="color:var(--muted);font-size:10px">RE + MFG hybrid</em></td>
+        <td class="tier">2</td>
+        <td class="stats">14 / 1 / 2 / 5</td>
+        <td class="tier"><span class="placement-tag mid">MID</span></td>
+        <td class="effect">
+          <span class="effect-label">STRESS −1 PRE-DEATH → UP <span class="change-badge badge-ceo">CEO-REF</span></span>
+          −1 stress before your death roll once per year. Actuary CEO: this may cancel the roll entirely (per CEO triggered ability). Non-Actuary: reduces stress before roll but cannot prevent the roll if threshold is still met after reduction.
+          <span class="effect-label" style="margin-top:6px">STRESS-LINKED → MFG DN <span class="change-badge badge-fixed">FIXED</span></span>
+          If your current stress is ≤ 2: +1 loan cap on this asset. If stress is 0: +2 loan cap; +1 additional if value exceeds 18.
+        </td>
+        <td class="effect"><em style="color:var(--muted)">none</em></td>
+        <td class="ceo-fit">Actuary</td>
+      </tr>
+      <tr>
+        <td class="name">Healthcare REIT Sovereign<br><em style="color:var(--muted);font-size:10px">RE + MFG hybrid</em></td>
+        <td class="tier">3</td>
+        <td class="stats">22 / 2 / 2 / 5</td>
+        <td class="tier"><span class="placement-tag up">UP</span></td>
+        <td class="effect">
+          <span class="effect-label">STRESS-LINKED ×2 → MFG MID <span class="change-badge badge-fixed">FIXED</span></span>
+          If your current stress is ≤ 2: +2 loan cap on this asset (double the standard threshold bonus). If stress is 0: +4 loan cap. Actuary CEO's $5 longevity bonus stacks with maximum credit at stress 0 — peak Monk synergy.
+          <span class="effect-label" style="margin-top:6px">LONGEVITY → MFG DN</span>
+          If you are alive at the final round, this asset's value counts as +3 for scoring.
+        </td>
+        <td class="effect"><em style="color:var(--muted)">none</em></td>
+        <td class="ceo-fit">Actuary</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<!-- CEO Update Note -->
+<div class="ceo-note">
+  <h3>CEO Card Update Required — The Geologist</h3>
+  <p><strong>Current text (passive ability):</strong> "Tier 1 and Tier 2 ENERGY assets you own apply the GMI delta ×3 instead of ×2. Tier 3 ENERGY assets apply ×4 instead of ×3."</p>
+  <p><strong>Problem:</strong> T3 Energy cards now have GMI ×3 as their printed baseline. The Geologist's hard-coded absolute values conflict with the card's own stated multiplier.</p>
+  <p><strong>Proposed replacement text:</strong> "All ENERGY assets you own apply their GMI delta one additional time beyond their printed multiplier. A standard T1/T2 asset (×2) becomes ×3 under your ownership. A T3 asset (×3) becomes ×4. This applies to both positive and negative GMI deltas. Any other player holding an ENERGY asset you don't own uses the asset's printed multiplier as normal." This framing is relative to the card, not absolute — future T4 cards or variant rules won't break it.</p>
+</div>
+
+</body>
+</html>
