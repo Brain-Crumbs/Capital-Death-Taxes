@@ -9,11 +9,12 @@
   "income": 2,
   "baseLoanCapacity": 6,
   "loanCapacityIncreasePer10AssetValue": 6,
+  "gmiAmplifier": 2,
   "baseValueUpdateRule": {
     "outcomes": [
-      { "range": [1, 1], "delta": -4 },
-      { "range": [2, 3], "delta": -2 },
-      { "range": [4, 5], "delta": 2 },
+      { "range": [1, 1], "delta": -2 },
+      { "range": [2, 3], "delta": 1 },
+      { "range": [4, 5], "delta": 4 },
       { "range": [6, 6], "delta": 4 }
     ],
     "industryMechanic": "GMI amplified ×2. Geologist CEO: FORESIGHT allows swapping the top 2 event cards' positions in addition to the look/move choice. Non-Geologist: once per year, swap the top 2 global event cards without looking at either (blind swap)."

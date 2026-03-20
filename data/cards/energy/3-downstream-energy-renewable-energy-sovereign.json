@@ -9,12 +9,13 @@
   "income": 2,
   "baseLoanCapacity": 6,
   "loanCapacityIncreasePer10AssetValue": 6,
+  "gmiAmplifier": 3,
   "baseValueUpdateRule": {
     "outcomes": [
-      { "range": [1, 1], "delta": -5 },
-      { "range": [2, 3], "delta": -2 },
-      { "range": [4, 5], "delta": 3 },
-      { "range": [6, 6], "delta": 5 }
+      { "range": [1, 1], "delta": -4 },
+      { "range": [2, 3], "delta": 2 },
+      { "range": [4, 5], "delta": 5 },
+      { "range": [6, 6], "delta": 8 }
     ],
     "industryMechanic": "GMI amplified ×3 at T3. Geologist CEO raises to ×4. Your own ENERGY assets are immune to negative GMI this year. (Previously party-wide — scoped to owner only.)"
   },

@@ -12,10 +12,10 @@
   "loanCapacityIncreasePer10AssetValue": 4,
   "baseValueUpdateRule": {
     "outcomes": [
-      { "range": [1, 1], "delta": -3 },
-      { "range": [2, 3], "delta": -1 },
+      { "range": [1, 1], "delta": -2 },
+      { "range": [2, 3], "delta": 0 },
       { "range": [4, 5], "delta": 2 },
-      { "range": [6, 6], "delta": 3 }
+      { "range": [6, 6], "delta": 4 }
     ],
     "industryMechanic": "MFG + TECH hybrid. Researcher CEO only: Trial die available. Success: +3 to all positive deltas, +1 loanCapacityIncreasePer10AssetValue, GMI-sensitive (standard MFG halving applies). Failure: baseLoanCapacity −2, GMI-resistant. Non-Researcher players: trial die is unavailable. This asset operates permanently at pre-trial values with GMI-immune status. No trial can be triggered."
   },

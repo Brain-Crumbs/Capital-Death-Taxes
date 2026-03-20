@@ -9,12 +9,13 @@
   "income": 0,
   "baseLoanCapacity": 3,
   "loanCapacityIncreasePer10AssetValue": 3,
+  "isGmiImmune": true,
   "baseValueUpdateRule": {
     "outcomes": [
       { "range": [1, 1], "delta": -2 },
-      { "range": [2, 3], "delta": 0 },
-      { "range": [4, 5], "delta": 2 },
-      { "range": [6, 6], "delta": 3 }
+      { "range": [2, 3], "delta": -1 },
+      { "range": [4, 5], "delta": 1 },
+      { "range": [6, 6], "delta": 2 }
     ],
     "industryMechanic": "GMI-immune pre-integration. Loans suppressed until vertical integration is active (loan suppression lifted per industry rules)."
   },

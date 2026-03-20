@@ -9,12 +9,13 @@
   "income": 2,
   "baseLoanCapacity": 5,
   "loanCapacityIncreasePer10AssetValue": 5,
+  "isCounterCyclical": true,
   "baseValueUpdateRule": {
     "outcomes": [
-      { "range": [1, 1], "delta": 3 },
-      { "range": [2, 3], "delta": 1 },
-      { "range": [4, 5], "delta": -1 },
-      { "range": [6, 6], "delta": -3 }
+      { "range": [1, 1], "delta": 4 },
+      { "range": [2, 3], "delta": 2 },
+      { "range": [4, 5], "delta": 0 },
+      { "range": [6, 6], "delta": -2 }
     ],
     "industryMechanic": "Counter-cyclical — negative GMI produces positive delta. Classified bonus capacity unlocks per system rules."
   },
