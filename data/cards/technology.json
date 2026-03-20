@@ -16,19 +16,23 @@
       "outcomes": [
         {
           "range": [1, 1],
-          "delta": -3
+          "delta": -3,
+          "rollFlavourText": "Churn exceeded new ARR; the dashboard is just a grief counsellor now."
         },
         {
           "range": [2, 3],
-          "delta": 0
+          "delta": 0,
+          "rollFlavourText": "Flat MRR, flat morale — the product is technically alive."
         },
         {
           "range": [4, 5],
-          "delta": 3
+          "delta": 3,
+          "rollFlavourText": "Net revenue retention ticked up; someone's expanding their seat count."
         },
         {
           "range": [6, 6],
-          "delta": 6
+          "delta": 6,
+          "rollFlavourText": "Enterprise deal closed; the logo alone is worth three slide decks."
         }
       ],
       "industryMechanic": "GMI-immune pre-integration. When the full TECH stack is held, loan suppression lifts per industry rules. Founder CEO: draw 2 personal event cards, keep 1 (per CEO once-per-game ability). Non-Founder: suppression lifts; no card draw."
@@ -42,6 +46,7 @@
       }
     ],
     "crossIndustrySynergies": [],
+    "cardDescription": "Generates no income. GMI-immune and loan-suppressed until vertical integration is active. Tier 1 BOOM_BUST profile — value swings on roll, not on market conditions.",
     "flavourText": "Recurring revenue is the closest thing to immortality."
   },
   {
@@ -61,19 +66,23 @@
       "outcomes": [
         {
           "range": [1, 1],
-          "delta": -3
+          "delta": -3,
+          "rollFlavourText": "A major integration partner deprecated the endpoint; half the ecosystem just went dark."
         },
         {
           "range": [2, 3],
-          "delta": 0
+          "delta": 0,
+          "rollFlavourText": "API traffic is stable; the roadmap, less so."
         },
         {
           "range": [4, 5],
-          "delta": 3
+          "delta": 3,
+          "rollFlavourText": "Third-party developer adoption is accelerating; the platform is becoming infrastructure."
         },
         {
           "range": [6, 6],
-          "delta": 6
+          "delta": 6,
+          "rollFlavourText": "The platform hit critical mass — competitors are now building on top of you."
         }
       ],
       "industryMechanic": "GMI-immune pre-integration. Loans suppressed until vertical integration is active. Founder CEO: MID alone suffices to activate UPSTREAM integration per CEO ability."
@@ -102,6 +111,7 @@
         "effectDescription": "+1 loan cap; +1 additional if value exceeds 12."
       }
     ],
+    "cardDescription": "Generates no income. GMI-immune and loan-suppressed until vertical integration is active. Unlocks a value roll bonus on UPSTREAM and a loan capacity bonus when the full TECH stack is held.",
     "flavourText": "Every platform is a tollbooth with better UX."
   },
   {
@@ -121,19 +131,23 @@
       "outcomes": [
         {
           "range": [1, 1],
-          "delta": -3
+          "delta": -3,
+          "rollFlavourText": "Infrastructure costs exceeded runway projections; the burn rate is now the product."
         },
         {
           "range": [2, 3],
-          "delta": 0
+          "delta": 0,
+          "rollFlavourText": "Uptime is fine; valuation is not — the market wants growth, not reliability."
         },
         {
           "range": [4, 5],
-          "delta": 3
+          "delta": 3,
+          "rollFlavourText": "A new enterprise contract locked in multi-year commitments; the grid is proving its worth."
         },
         {
           "range": [6, 6],
-          "delta": 6
+          "delta": 6,
+          "rollFlavourText": "Capacity constraints created a waitlist; scarcity repriced the entire offering overnight."
         }
       ],
       "industryMechanic": "GMI-immune pre-integration. Loans suppressed until vertical integration is active (loan suppression lifted per industry rules)."
@@ -147,6 +161,7 @@
       }
     ],
     "crossIndustrySynergies": [],
+    "cardDescription": "Generates no income. GMI-immune and loan-suppressed until vertical integration is active. Integration permanently increases loanCapacityIncreasePer10AssetValue by 1 on this asset.",
     "flavourText": "The foundation nobody sees until it breaks."
   },
   {
@@ -166,19 +181,23 @@
       "outcomes": [
         {
           "range": [1, 1],
-          "delta": -5
+          "delta": -5,
+          "rollFlavourText": "A high-profile customer churned publicly; the case study is now a cautionary tale."
         },
         {
           "range": [2, 3],
-          "delta": 1
+          "delta": 1,
+          "rollFlavourText": "Renewals held, but net new pipeline is a polite fiction."
         },
         {
           "range": [4, 5],
-          "delta": 5
+          "delta": 5,
+          "rollFlavourText": "Multi-year contracts signed; enterprise sales is slow but it compounds."
         },
         {
           "range": [6, 6],
-          "delta": 9
+          "delta": 9,
+          "rollFlavourText": "The platform became the category; analysts are calling it a systems-of-record play."
         }
       ],
       "industryMechanic": "GMI-immune pre-integration. Loans suppressed until vertical integration is active. Stack complete: once per year, draw 1 personal event card, keep or sell. Founder's once-per-game stack bonus activates here."
@@ -200,6 +219,7 @@
         "effectDescription": "+1 loan cap; +1 additional if value exceeds 22."
       }
     ],
+    "cardDescription": "Generates no income. GMI-immune and loan-suppressed until vertical integration is active. Full TECH stack unlocks a once-per-year personal event card draw.",
     "flavourText": "Enterprise software: where innovation goes to get a salary."
   },
   {
@@ -219,19 +239,23 @@
       "outcomes": [
         {
           "range": [1, 1],
-          "delta": -5
+          "delta": -5,
+          "rollFlavourText": "The model hallucinated in a live demo; the funding round is now a different kind of event."
         },
         {
           "range": [2, 3],
-          "delta": 1
+          "delta": 1,
+          "rollFlavourText": "Benchmark scores improved; the market is waiting for something that isn't benchmarks."
         },
         {
           "range": [4, 5],
-          "delta": 5
+          "delta": 5,
+          "rollFlavourText": "Enterprise pilots converted; the AI is doing something useful, apparently."
         },
         {
           "range": [6, 6],
-          "delta": 9
+          "delta": 9,
+          "rollFlavourText": "A foundation model breakthrough repriced every AI asset in the sector simultaneously."
         }
       ],
       "industryMechanic": "GMI-immune pre-integration. Loans suppressed until vertical integration is active."
@@ -252,6 +276,7 @@
       }
     ],
     "crossIndustrySynergies": [],
+    "cardDescription": "Generates no income. GMI-immune and loan-suppressed until vertical integration is active. Integration provides a value floor from UPSTREAM and a positive-delta bonus when the full TECH stack is owned.",
     "flavourText": "Intelligence scales. Wisdom doesn't."
   },
   {
@@ -271,19 +296,23 @@
       "outcomes": [
         {
           "range": [1, 1],
-          "delta": -5
+          "delta": -5,
+          "rollFlavourText": "A multi-region outage triggered SLA penalties and a very uncomfortable earnings call."
         },
         {
           "range": [2, 3],
-          "delta": 1
+          "delta": 1,
+          "rollFlavourText": "Usage metrics are flat; the hyperscalers are competing on price again."
         },
         {
           "range": [4, 5],
-          "delta": 5
+          "delta": 5,
+          "rollFlavourText": "Cloud migration contracts accelerated; the backlog is the healthiest thing on the balance sheet."
         },
         {
           "range": [6, 6],
-          "delta": 9
+          "delta": 9,
+          "rollFlavourText": "Capacity demand outpaced supply; the waitlist itself became a valuation event."
         }
       ],
       "industryMechanic": "GMI-immune pre-integration. Loans suppressed until vertical integration is active."
@@ -306,6 +335,7 @@
         "effectDescription": "+1 loan cap for each ENERGY asset you own (max +2)."
       }
     ],
+    "cardDescription": "Generates no income. GMI-immune and loan-suppressed until vertical integration is active. Integration unlocks a scaling loan capacity bonus that grows further when asset value exceeds 18.",
     "flavourText": "The cloud is just someone else's data centre \u2014 and someone else's debt."
   },
   {
@@ -325,19 +355,23 @@
       "outcomes": [
         {
           "range": [1, 1],
-          "delta": -7
+          "delta": -7,
+          "rollFlavourText": "Antitrust action filed in three jurisdictions; the moat is now a liability."
         },
         {
           "range": [2, 3],
-          "delta": 1
+          "delta": 1,
+          "rollFlavourText": "Market share held, growth didn't; analysts are calling it a mature platform — which is not a compliment."
         },
         {
           "range": [4, 5],
-          "delta": 7
+          "delta": 7,
+          "rollFlavourText": "Adjacent market expansion landed; the monopoly is growing a second monopoly."
         },
         {
           "range": [6, 6],
-          "delta": 12
+          "delta": 12,
+          "rollFlavourText": "Regulatory capture confirmed, competitors exited, valuation hit escape velocity."
         }
       ],
       "industryMechanic": "GMI-immune pre-integration. Loans suppressed until vertical integration is active. Stack complete: +1 to loanCapacityIncreasePer10AssetValue on all owned TECH assets (applies once integration is active per industry rules). Growth-to-leverage conversion: on a roll of 6, you may instead gain +2 permanent loanCapacityIncreasePer10AssetValue on this asset rather than applying the value delta. Activates only while integration is active."
@@ -359,6 +393,7 @@
         "effectDescription": "+1 loan cap; +2 additional if value exceeds 32."
       }
     ],
+    "cardDescription": "Generates no income. GMI-immune and loan-suppressed until vertical integration is active. Full TECH stack boosts loanCapacityIncreasePer10AssetValue across all TECH assets; a max roll may be converted to permanent leverage depth instead of value growth.",
     "flavourText": "Monopoly is just network effects with better lawyers."
   },
   {
@@ -378,19 +413,23 @@
       "outcomes": [
         {
           "range": [1, 1],
-          "delta": -7
+          "delta": -7,
+          "rollFlavourText": "Training costs exceeded projected compute budgets by a factor nobody said out loud in the board meeting."
         },
         {
           "range": [2, 3],
-          "delta": 1
+          "delta": 1,
+          "rollFlavourText": "The model is improving; the economics are not — scaling laws have not resolved the unit cost problem."
         },
         {
           "range": [4, 5],
-          "delta": 7
+          "delta": 7,
+          "rollFlavourText": "A major inference deal closed; the compute is finally paying for itself."
         },
         {
           "range": [6, 6],
-          "delta": 12
+          "delta": 12,
+          "rollFlavourText": "The model crossed a capability threshold that made every prior valuation look like a rounding error."
         }
       ],
       "industryMechanic": "GMI-immune pre-integration. Loans suppressed until vertical integration is active."
@@ -405,6 +444,7 @@
       }
     ],
     "crossIndustrySynergies": [],
+    "cardDescription": "Generates no income. GMI-immune and loan-suppressed until vertical integration is active. Integration unlocks a large conditional loan capacity bonus that scales with asset value.",
     "flavourText": "At this scale, the model trains itself \u2014 and so does the debt."
   }
 ]

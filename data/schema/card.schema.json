@@ -58,6 +58,10 @@
         "delta": {
           "type": "integer",
           "description": "Change to Asset Value when this range is rolled. Negative = value loss. Zero = no change."
+        },
+        "rollFlavourText": {
+          "type": "string",
+          "description": "Optional. Short thematic line displayed in the card viewer when this outcome is rolled. Should reflect the narrative meaning of this result for the specific asset. 1 sentence max."
         }
       }
     },
@@ -198,7 +202,8 @@
         "baseValueUpdateRule",
         "verticalIntegrationRules",
         "crossIndustrySynergies",
-        "flavourText"
+        "flavourText",
+        "cardDescription"
       ],
       "additionalProperties": false,
       "properties": {
@@ -305,6 +310,10 @@
         "flavourText": {
           "type": "string",
           "description": "Short thematic quote printed at the bottom of the card."
+        },
+        "cardDescription": {
+          "type": "string",
+          "description": "Succinct 1–2 sentence mechanical summary displayed on the card face. Covers the card's primary value proposition, income role, and any standout mechanic. Readable without consulting the full rulebook."
         }
       }
     },
@@ -482,6 +491,10 @@
         "flavourText": {
           "type": "string",
           "description": "Short character quote printed at the bottom of the CEO card."
+        },
+        "cardDescription": {
+          "type": "string",
+          "description": "Succinct 1–2 sentence card-facing summary of this CEO's mechanical identity and primary advantage. Readable without consulting the full rulebook."
         }
       }
     },
@@ -647,6 +660,10 @@
         "flavourText": {
           "type": "string",
           "description": "Thematic quote or headline. Tone: deadpan, economically literate."
+        },
+        "cardDescription": {
+          "type": "string",
+          "description": "Succinct 1–2 sentence card-facing summary of this event's mechanical effect. States the GMI outcome and primary player impact without full rules text."
         }
       }
     },
@@ -769,6 +786,10 @@
         "flavourText": {
           "type": "string",
           "description": "Short thematic quote. Darkly funny for death-adjacent cards."
+        },
+        "cardDescription": {
+          "type": "string",
+          "description": "Succinct 1–2 sentence card-facing summary of this event's effect and when to play it. Readable without consulting the full rulebook."
         }
       }
     }

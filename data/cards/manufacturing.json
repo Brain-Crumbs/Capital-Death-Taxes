@@ -12,34 +12,10 @@
     "loanCapacityIncreasePer10AssetValue": 5,
     "baseValueUpdateRule": {
       "outcomes": [
-        {
-          "range": [
-            1,
-            1
-          ],
-          "delta": -1
-        },
-        {
-          "range": [
-            2,
-            3
-          ],
-          "delta": 0
-        },
-        {
-          "range": [
-            4,
-            5
-          ],
-          "delta": 2
-        },
-        {
-          "range": [
-            6,
-            6
-          ],
-          "delta": 3
-        }
+        {"range": [1, 1], "delta": -1, "rollFlavourText": "A key shipping contract was cancelled; routes are running at a loss."},
+        {"range": [2, 3], "delta": 0, "rollFlavourText": "Throughput is steady. Nothing gained, nothing lost."},
+        {"range": [4, 5], "delta": 2, "rollFlavourText": "New regional contracts signed; delivery volume is up."},
+        {"range": [6, 6], "delta": 3, "rollFlavourText": "Order book is full and the fleet is running at capacity."}
       ],
       "industryMechanic": "GMI halved. Depreciable \u2014 income offset eligible."
     },
@@ -67,6 +43,7 @@
         "effectDescription": "+1 loan cap; +1 additional if value exceeds 14."
       }
     ],
+    "cardDescription": "Tier 1 downstream logistics asset. Generates $1 income per year, eligible for depreciation-based income offset. GMI impact is halved.",
     "flavourText": "The last mile is where the margin lives."
   },
   {
@@ -82,34 +59,10 @@
     "loanCapacityIncreasePer10AssetValue": 5,
     "baseValueUpdateRule": {
       "outcomes": [
-        {
-          "range": [
-            1,
-            1
-          ],
-          "delta": -1
-        },
-        {
-          "range": [
-            2,
-            3
-          ],
-          "delta": 0
-        },
-        {
-          "range": [
-            4,
-            5
-          ],
-          "delta": 2
-        },
-        {
-          "range": [
-            6,
-            6
-          ],
-          "delta": 3
-        }
+        {"range": [1, 1], "delta": -1, "rollFlavourText": "A production run was scrapped; cost overruns absorbed the quarter."},
+        {"range": [2, 3], "delta": 0, "rollFlavourText": "The floor is running on schedule. No surprises."},
+        {"range": [4, 5], "delta": 2, "rollFlavourText": "Efficiency gains on the line; output per shift is up."},
+        {"range": [6, 6], "delta": 3, "rollFlavourText": "A major fabrication contract fills the order book to the year's end."}
       ],
       "industryMechanic": "GMI halved. Depreciable \u2014 income offset eligible."
     },
@@ -129,6 +82,7 @@
       }
     ],
     "crossIndustrySynergies": [],
+    "cardDescription": "Tier 1 midstream fabrication asset. Generates $1 income per year, eligible for depreciation-based income offset. GMI impact is halved.",
     "flavourText": "Precision is cheap. Tolerance is expensive."
   },
   {
@@ -144,34 +98,10 @@
     "loanCapacityIncreasePer10AssetValue": 5,
     "baseValueUpdateRule": {
       "outcomes": [
-        {
-          "range": [
-            1,
-            1
-          ],
-          "delta": -1
-        },
-        {
-          "range": [
-            2,
-            3
-          ],
-          "delta": 0
-        },
-        {
-          "range": [
-            4,
-            5
-          ],
-          "delta": 2
-        },
-        {
-          "range": [
-            6,
-            6
-          ],
-          "delta": 3
-        }
+        {"range": [1, 1], "delta": -1, "rollFlavourText": "Raw material costs spiked; the foundry ran at a loss this cycle."},
+        {"range": [2, 3], "delta": 0, "rollFlavourText": "Components shipped on time and on spec. Another unremarkable quarter."},
+        {"range": [4, 5], "delta": 2, "rollFlavourText": "A downstream buyer expanded their order; casting volume increased."},
+        {"range": [6, 6], "delta": 3, "rollFlavourText": "The foundry is running three shifts; every mould is spoken for."}
       ],
       "industryMechanic": "GMI halved. Depreciable \u2014 income offset eligible."
     },
@@ -193,6 +123,7 @@
         "effectDescription": "+1 loan cap for each ENERGY asset you own (max +2)."
       }
     ],
+    "cardDescription": "Tier 1 upstream foundry asset. Zero stress at acquisition. Generates $1 income per year, eligible for depreciation-based income offset. GMI impact is halved.",
     "flavourText": "Every empire starts at the foundry floor."
   },
   {
@@ -208,34 +139,10 @@
     "loanCapacityIncreasePer10AssetValue": 5,
     "baseValueUpdateRule": {
       "outcomes": [
-        {
-          "range": [
-            1,
-            1
-          ],
-          "delta": -2
-        },
-        {
-          "range": [
-            2,
-            3
-          ],
-          "delta": 0
-        },
-        {
-          "range": [
-            4,
-            5
-          ],
-          "delta": 2
-        },
-        {
-          "range": [
-            6,
-            6
-          ],
-          "delta": 4
-        }
+        {"range": [1, 1], "delta": -2, "rollFlavourText": "A product recall and order cancellations have stalled the production line."},
+        {"range": [2, 3], "delta": 0, "rollFlavourText": "Consumer demand held flat. The line kept moving."},
+        {"range": [4, 5], "delta": 2, "rollFlavourText": "Seasonal demand lifted; the warehouse cleared faster than projected."},
+        {"range": [6, 6], "delta": 4, "rollFlavourText": "A retail chain placed a record order; distribution is running at full stretch."}
       ],
       "industryMechanic": "GMI halved. Depreciable \u2014 income offset eligible."
     },
@@ -263,6 +170,7 @@
         "effectDescription": "+1 loan cap for each MEDIA asset you own (max +2)."
       }
     ],
+    "cardDescription": "Tier 2 downstream consumer goods asset. Generates $1 income per year, eligible for depreciation-based income offset. GMI impact is halved.",
     "flavourText": "Consumers consume. Manufacturers endure."
   },
   {
@@ -278,34 +186,10 @@
     "loanCapacityIncreasePer10AssetValue": 5,
     "baseValueUpdateRule": {
       "outcomes": [
-        {
-          "range": [
-            1,
-            1
-          ],
-          "delta": -2
-        },
-        {
-          "range": [
-            2,
-            3
-          ],
-          "delta": 0
-        },
-        {
-          "range": [
-            4,
-            5
-          ],
-          "delta": 2
-        },
-        {
-          "range": [
-            6,
-            6
-          ],
-          "delta": 4
-        }
+        {"range": [1, 1], "delta": -2, "rollFlavourText": "A plant shutdown and overrun costs hit the balance sheet hard."},
+        {"range": [2, 3], "delta": 0, "rollFlavourText": "Heavy equipment kept rolling. Output matched forecast exactly."},
+        {"range": [4, 5], "delta": 2, "rollFlavourText": "An infrastructure contract came through; the yards are back to full shift."},
+        {"range": [6, 6], "delta": 4, "rollFlavourText": "Maximum throughput. Every crane, lathe, and press is spoken for."}
       ],
       "industryMechanic": "GMI halved. Depreciable \u2014 income offset eligible. Engineer CEO doubles stress reduction from integration."
     },
@@ -335,6 +219,7 @@
         "effectDescription": "+1 loan cap; +1 additional if value exceeds 20."
       }
     ],
+    "cardDescription": "Tier 2 midstream heavy industry asset. Generates $1 income per year with stress reduction on strong rolls when integrated. GMI impact is halved; Engineer CEO doubles integration stress benefit.",
     "flavourText": "Steel doesn't care about your feelings."
   },
   {
@@ -351,34 +236,10 @@
     "loanCapacityIncreasePer10AssetValue": 4,
     "baseValueUpdateRule": {
       "outcomes": [
-        {
-          "range": [
-            1,
-            1
-          ],
-          "delta": -2
-        },
-        {
-          "range": [
-            2,
-            3
-          ],
-          "delta": 0
-        },
-        {
-          "range": [
-            4,
-            5
-          ],
-          "delta": 2
-        },
-        {
-          "range": [
-            6,
-            6
-          ],
-          "delta": 4
-        }
+        {"range": [1, 1], "delta": -2, "rollFlavourText": "A trial failure pulled the pipeline. Funding dried up accordingly."},
+        {"range": [2, 3], "delta": 0, "rollFlavourText": "Research continues. No results to report. No results expected."},
+        {"range": [4, 5], "delta": 2, "rollFlavourText": "Promising compound data attracted a licensing inquiry from a major distributor."},
+        {"range": [6, 6], "delta": 4, "rollFlavourText": "A breakthrough result cleared regulatory review; the molecule has a market."}
       ],
       "industryMechanic": "MFG + TECH hybrid. Researcher CEO only: Trial die available. Success: +3 to all positive deltas, +1 loanCapacityIncreasePer10AssetValue, GMI-sensitive (standard MFG halving applies). Failure: baseLoanCapacity \u22122, GMI-resistant. Non-Researcher players: trial die is unavailable. This asset operates permanently at pre-trial values with GMI-immune status. No trial can be triggered."
     },
@@ -399,6 +260,7 @@
         "effectDescription": "+1 loan cap; +1 additional if value exceeds 18 (post-trial success for Researcher; at any time for others)."
       }
     ],
+    "cardDescription": "Tier 2 upstream MFG+TECH hybrid. Generates no income. Researcher CEO may trigger the Trial die to unlock amplified deltas and increased loan scaling; non-Researcher players operate this asset at fixed pre-trial values with GMI immunity.",
     "flavourText": "The molecule doesn't care about your timeline."
   },
   {
@@ -414,34 +276,10 @@
     "loanCapacityIncreasePer10AssetValue": 5,
     "baseValueUpdateRule": {
       "outcomes": [
-        {
-          "range": [
-            1,
-            1
-          ],
-          "delta": -2
-        },
-        {
-          "range": [
-            2,
-            3
-          ],
-          "delta": 0
-        },
-        {
-          "range": [
-            4,
-            5
-          ],
-          "delta": 2
-        },
-        {
-          "range": [
-            6,
-            6
-          ],
-          "delta": 4
-        }
+        {"range": [1, 1], "delta": -2, "rollFlavourText": "Tolerance failures on a critical component batch triggered a costly rework cycle."},
+        {"range": [2, 3], "delta": 0, "rollFlavourText": "Specs met. Tolerances held. The machines did what they were built to do."},
+        {"range": [4, 5], "delta": 2, "rollFlavourText": "A defence-adjacent contract came through; precision parts are shipping on schedule."},
+        {"range": [6, 6], "delta": 4, "rollFlavourText": "A multi-year supply agreement signed; the engineering floor is booked solid."}
       ],
       "industryMechanic": "GMI halved. Depreciable \u2014 income offset eligible. Engineer CEO: integration bonuses doubled."
     },
@@ -454,6 +292,7 @@
       }
     ],
     "crossIndustrySynergies": [],
+    "cardDescription": "Tier 2 upstream precision manufacturing asset. Generates $1 income per year, eligible for depreciation-based income offset. GMI impact is halved; Engineer CEO doubles integration loan scaling bonuses.",
     "flavourText": "Measured in microns. Valued in millions."
   },
   {
@@ -469,34 +308,10 @@
     "loanCapacityIncreasePer10AssetValue": 5,
     "baseValueUpdateRule": {
       "outcomes": [
-        {
-          "range": [
-            1,
-            1
-          ],
-          "delta": -4
-        },
-        {
-          "range": [
-            2,
-            3
-          ],
-          "delta": 1
-        },
-        {
-          "range": [
-            4,
-            5
-          ],
-          "delta": 4
-        },
-        {
-          "range": [
-            6,
-            6
-          ],
-          "delta": 6
-        }
+        {"range": [1, 1], "delta": -4, "rollFlavourText": "Multiple divisions posted losses; a restructuring announcement cratered confidence."},
+        {"range": [2, 3], "delta": 1, "rollFlavourText": "Consolidated output was marginally up. The conglomerate held its position."},
+        {"range": [4, 5], "delta": 4, "rollFlavourText": "Several divisions hit targets; the portfolio is carrying its weight."},
+        {"range": [6, 6], "delta": 6, "rollFlavourText": "Record group output. Every division is at or above capacity for the year."}
       ],
       "industryMechanic": "GMI halved. Depreciable \u2014 income offset eligible. The Foreman's Blessing may target this asset's owner as well as other players."
     },
@@ -516,6 +331,7 @@
       }
     ],
     "crossIndustrySynergies": [],
+    "cardDescription": "Tier 3 downstream conglomerate asset. Generates $2 income per year, eligible for depreciation-based income offset. GMI impact is halved; Foreman CEO may direct The Blessing to self when fully integrated.",
     "flavourText": "Conglomerates don't innovate. They absorb."
   },
   {
@@ -532,34 +348,10 @@
     "loanCapacityIncreasePer10AssetValue": 4,
     "baseValueUpdateRule": {
       "outcomes": [
-        {
-          "range": [
-            1,
-            1
-          ],
-          "delta": -4
-        },
-        {
-          "range": [
-            2,
-            3
-          ],
-          "delta": 1
-        },
-        {
-          "range": [
-            4,
-            5
-          ],
-          "delta": 4
-        },
-        {
-          "range": [
-            6,
-            6
-          ],
-          "delta": 6
-        }
+        {"range": [1, 1], "delta": -4, "rollFlavourText": "A failed synthesis run and a contaminated batch halted production for the quarter."},
+        {"range": [2, 3], "delta": 1, "rollFlavourText": "Bioreactors held steady. The process is consistent, if not spectacular."},
+        {"range": [4, 5], "delta": 4, "rollFlavourText": "Scale-up from lab to production succeeded; batch yields are ahead of projection."},
+        {"range": [6, 6], "delta": 6, "rollFlavourText": "Full commercial scale achieved. The manufacturing line is running without a single rejected batch."}
       ],
       "industryMechanic": "MFG + TECH hybrid. Researcher CEO: +1 loan cap; +2 additional if post-trial value exceeds 28. Non-Researcher: +1 loan cap if value exceeds 28 (static threshold; no trial). +1 to loanCapacityIncreasePer10AssetValue after trial resolves (Researcher). Non-Researcher: activates at year 4 of ownership instead."
     },
@@ -579,6 +371,7 @@
       }
     ],
     "crossIndustrySynergies": [],
+    "cardDescription": "Tier 3 midstream MFG+TECH hybrid. Generates no income. Researcher CEO unlocks enhanced loan capacity scaling post-trial; non-Researcher players access equivalent bonuses through value thresholds and years of ownership.",
     "flavourText": "Biology is the new manufacturing line."
   }
 ]

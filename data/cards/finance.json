@@ -15,19 +15,23 @@
       "outcomes": [
         {
           "range": [1, 1],
-          "delta": -1
+          "delta": -1,
+          "rollFlavourText": "Delinquency rates tick up; the book looks worse than it did last quarter."
         },
         {
           "range": [2, 3],
-          "delta": 0
+          "delta": 0,
+          "rollFlavourText": "Spreads hold. The portfolio treads water."
         },
         {
           "range": [4, 5],
-          "delta": 2
+          "delta": 2,
+          "rollFlavourText": "Origination volumes up; fee income covers the carry cost."
         },
         {
           "range": [6, 6],
-          "delta": 3
+          "delta": 3,
+          "rollFlavourText": "Record consumer credit demand — the book re-prices at a premium."
         }
       ],
       "industryMechanic": "Double-hit on 1\u20133 in negative GMI years."
@@ -55,6 +59,7 @@
         "effectDescription": "+1 loan cap; +1 additional if value exceeds 14."
       }
     ],
+    "cardDescription": "Generates $1 income per year with standard Finance volatility. Carries double-hit exposure on rolls 1\u20133 in negative GMI years, amplifying value loss when credit conditions deteriorate.",
     "flavourText": "Other people's debt is the purest form of income."
   },
   {
@@ -73,19 +78,23 @@
       "outcomes": [
         {
           "range": [1, 1],
-          "delta": -1
+          "delta": -1,
+          "rollFlavourText": "Bid-ask spreads blow out; the desk is offside on inventory."
         },
         {
           "range": [2, 3],
-          "delta": 0
+          "delta": 0,
+          "rollFlavourText": "Flow is thin and two-sided. The desk clears flat."
         },
         {
           "range": [4, 5],
-          "delta": 2
+          "delta": 2,
+          "rollFlavourText": "Volumes pick up; the desk captures spread on both legs."
         },
         {
           "range": [6, 6],
-          "delta": 3
+          "delta": 3,
+          "rollFlavourText": "Exceptional flow year — the desk printed on every major line."
         }
       ],
       "industryMechanic": "Double-hit on 1\u20133 in negative GMI years."
@@ -114,6 +123,7 @@
         "effectDescription": "+1 loan cap; +1 additional if value exceeds 12."
       }
     ],
+    "cardDescription": "Generates $1 income per year with standard Finance volatility. Subject to double-hit on rolls 1\u20133 in negative GMI years. Vertical integration with upstream Finance converts double-hit years into an income boost rather than a pure loss.",
     "flavourText": "We don't take sides. We take both."
   },
   {
@@ -132,19 +142,23 @@
       "outcomes": [
         {
           "range": [1, 1],
-          "delta": -1
+          "delta": -1,
+          "rollFlavourText": "The arb closes against the position; the spread compressed in the wrong direction."
         },
         {
           "range": [2, 3],
-          "delta": 0
+          "delta": 0,
+          "rollFlavourText": "The trade sits in carry. No convergence, no loss."
         },
         {
           "range": [4, 5],
-          "delta": 2
+          "delta": 2,
+          "rollFlavourText": "Spreads converge as expected; the position unwinds at a gain."
         },
         {
           "range": [6, 6],
-          "delta": 3
+          "delta": 3,
+          "rollFlavourText": "Credit dislocation resolves cleanly — the fund captures the full arb premium."
         }
       ],
       "industryMechanic": "Double-hit on 1\u20133 in negative GMI years. The Quant's inversion mechanic is eligible on this asset in any negative GMI year. This asset qualifies for the Quant's Pact Dividend roll each year it's held."
@@ -158,6 +172,7 @@
       }
     ],
     "crossIndustrySynergies": [],
+    "cardDescription": "Zero income; pure capital appreciation play. Subject to double-hit on rolls 1\u20133 in negative GMI years. Eligible for the Quant's inversion mechanic and Pact Dividend roll, making it a high-value Warlock asset.",
     "flavourText": "The spread is the product. Everything else is theatre."
   },
   {
@@ -176,19 +191,23 @@
       "outcomes": [
         {
           "range": [1, 1],
-          "delta": -2
+          "delta": -2,
+          "rollFlavourText": "The distressed book marks down further; no buyers at any price."
         },
         {
           "range": [2, 3],
-          "delta": 1
+          "delta": 1,
+          "rollFlavourText": "Workouts proceed slowly. Recovery trickles in."
         },
         {
           "range": [4, 5],
-          "delta": 4
+          "delta": 4,
+          "rollFlavourText": "Several positions resolve ahead of schedule — restructuring fees book."
         },
         {
           "range": [6, 6],
-          "delta": 6
+          "delta": 6,
+          "rollFlavourText": "A wave of forced sellers floods the market; the fund acquires at historic discounts."
         }
       ],
       "industryMechanic": "Double-hit on 1\u20133 in negative GMI years."
@@ -208,6 +227,7 @@
       }
     ],
     "crossIndustrySynergies": [],
+    "cardDescription": "Generates $1 income with Tier 2 Finance volatility and high upside. Carries double-hit exposure on rolls 1\u20133 in negative GMI years; particularly dangerous in downturns as the distressed book itself can deteriorate rapidly.",
     "flavourText": "One man's margin call is another man's discount."
   },
   {
@@ -226,19 +246,23 @@
       "outcomes": [
         {
           "range": [1, 1],
-          "delta": -2
+          "delta": -2,
+          "rollFlavourText": "Portfolio companies miss EBITDA; lenders start asking questions."
         },
         {
           "range": [2, 3],
-          "delta": 1
+          "delta": 1,
+          "rollFlavourText": "Fund marks up modestly. No exits, but the carry clock ticks."
         },
         {
           "range": [4, 5],
-          "delta": 4
+          "delta": 4,
+          "rollFlavourText": "A secondary sale closes above NAV; deal flow accelerates."
         },
         {
           "range": [6, 6],
-          "delta": 6
+          "delta": 6,
+          "rollFlavourText": "Banner vintage — multiple exits at peak multiples, management fees fully realised."
         }
       ],
       "industryMechanic": "Double-hit on 1\u20133 in negative GMI years."
@@ -267,6 +291,7 @@
         "effectDescription": "+1 loan cap for each MFG asset you own (max +2)."
       }
     ],
+    "cardDescription": "Generates $1 income with strong Tier 2 upside on high rolls. Subject to double-hit on rolls 1\u20133 in negative GMI years. Vertical integration with upstream Finance grants auction-phase market access — a deal-flow advantage.",
     "flavourText": "Leverage other people's companies, then leverage the leverage."
   },
   {
@@ -285,19 +310,23 @@
       "outcomes": [
         {
           "range": [1, 1],
-          "delta": -2
+          "delta": -2,
+          "rollFlavourText": "Correlation assumptions break down; the structured book re-marks at a loss."
         },
         {
           "range": [2, 3],
-          "delta": 1
+          "delta": 1,
+          "rollFlavourText": "Tranches hold. Spread income covers servicing costs."
         },
         {
           "range": [4, 5],
-          "delta": 4
+          "delta": 4,
+          "rollFlavourText": "New issuance demand drives structuring fee income above forecast."
         },
         {
           "range": [6, 6],
-          "delta": 6
+          "delta": 6,
+          "rollFlavourText": "Record CDO issuance year — every tranche oversubscribed, fees compounding on fees."
         }
       ],
       "industryMechanic": "Double-hit on 1\u20133 in negative GMI years."
@@ -311,6 +340,7 @@
       }
     ],
     "crossIndustrySynergies": [],
+    "cardDescription": "Zero income; appreciation-only Tier 2 Finance asset. Subject to double-hit on rolls 1\u20133 in negative GMI years. Non-Quant players gain +2 loan capacity in negative GMI years via midstream integration — a defensive loan buffer in downturns.",
     "flavourText": "Structure is what you call complexity when you're selling it."
   },
   {
@@ -329,19 +359,23 @@
       "outcomes": [
         {
           "range": [1, 1],
-          "delta": -4
+          "delta": -4,
+          "rollFlavourText": "A margin call cascade triggers counterparty exposure across the book — regulators are watching."
         },
         {
           "range": [2, 3],
-          "delta": 1
+          "delta": 1,
+          "rollFlavourText": "Advisory revenue holds but trading desks underperform. A flat year by the bank's standards."
         },
         {
           "range": [4, 5],
-          "delta": 5
+          "delta": 5,
+          "rollFlavourText": "Deal flow strong; M&A fees and underwriting commissions both beat consensus."
         },
         {
           "range": [6, 6],
-          "delta": 8
+          "delta": 8,
+          "rollFlavourText": "Record year across all divisions — the bonus pool is the largest in the firm's history."
         }
       ],
       "industryMechanic": "Double-hit on 1\u20133 in negative GMI years."
@@ -361,6 +395,7 @@
       }
     ],
     "crossIndustrySynergies": [],
+    "cardDescription": "Generates $2 income per year with Tier 3 Finance volatility and maximum upside of +8. Carries a steep -4 delta on a roll of 1, subject to double-hit in negative GMI years — the largest single-turn loss exposure in the Finance industry.",
     "flavourText": "Too big to fail. Too connected to jail."
   },
   {
@@ -379,19 +414,23 @@
       "outcomes": [
         {
           "range": [1, 1],
-          "delta": -4
+          "delta": -4,
+          "rollFlavourText": "Sovereign mandates pull capital; the fund's reserve position deteriorates sharply."
         },
         {
           "range": [2, 3],
-          "delta": 1
+          "delta": 1,
+          "rollFlavourText": "Allocations hold steady. The fund posts marginal gains against its benchmark."
         },
         {
           "range": [4, 5],
-          "delta": 5
+          "delta": 5,
+          "rollFlavourText": "Cross-border capital flows favour the fund's position — carry income and NAV both appreciate."
         },
         {
           "range": [6, 6],
-          "delta": 8
+          "delta": 8,
+          "rollFlavourText": "A geopolitical reallocation drives massive inflows — the fund re-rates at a generational premium."
         }
       ],
       "industryMechanic": "Double-hit on 1\u20133 in negative GMI years. Quant's inversion mechanic on this asset operates without the second value loss being applied \u2014 the double-hit fires but the second delta is negated. Non-Quant: in any neg GMI year, this asset's value update roll is treated as one higher."
@@ -413,6 +452,7 @@
         "effectDescription": "+1 loan cap; +2 additional if value exceeds 30."
       }
     ],
+    "cardDescription": "Zero income; pure capital growth with Tier 3 upside of +8. Subject to double-hit on rolls 1\u20133 in negative GMI years, but the Quant's inversion mechanic negates the second delta on this asset — making it uniquely resilient in Warlock hands.",
     "flavourText": "Nations borrow. Sovereigns invest."
   }
 ]
