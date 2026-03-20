@@ -78,6 +78,11 @@
           "maxItems": 6,
           "description": "All outcome bands. Must collectively and exclusively cover 1–6 with no gaps or overlaps."
         },
+        "volatilityProfile": {
+          "type": "string",
+          "enum": ["STABLE", "STANDARD", "VOLATILE", "BOOM_BUST"],
+          "description": "Optional. Declares the standard volatility profile for this asset's value update dice. Profiles define the spread and expected value (EV) of the outcomes. STABLE: narrow spread, modest EV — T1 EV≈+0.5, T2 EV≈+1.0, T3 EV≈+2.0. Used by RE, Manufacturing, Defence. STANDARD: medium spread, moderate EV — T1 EV≈+1.0, T2 EV≈+2.0, T3 EV≈+2.5. Used by Finance, Energy. VOLATILE: same EV as STANDARD but wider spread — deeper crashes and higher peaks. Used by Media/Entertainment. BOOM_BUST: widest spread, highest EV — catastrophic lows and extreme highs, reflecting tech boom/bust cycles. T1 EV≈+1.5, T2 EV≈+2.67, T3 EV≈+3.5. Used by Technology exclusively. Reference dice tables: STABLE T1={1:−1,2-3:0,4-5:+1,6:+2}, STANDARD T1={1:−1,2-3:0,4-5:+2,6:+3}, VOLATILE T1={1:−2,2-3:0,4-5:+2,6:+5}, BOOM_BUST T1={1:−3,2-3:0,4-5:+3,6:+6}. Scale up proportionally for T2/T3."
+        },
         "industryMechanic": {
           "type": "string",
           "description": "Optional free-text field. Encodes: (1) the industry GMI mechanic for this card (e.g. GMI halved, buzz die, counter-cyclical); (2) card-level special rules that cannot be expressed in other fields (FORESIGHT, SCANDAL, INSPIRATION, TERRAIN BONUS, TRIAL DIE, STRESS-LINKED LOAN CAPACITY, GMI PROTECTION, CLASSIFIED COLLATERAL, PERMANENT UPGRADE, THE BLESSING, TAX RECLASSIFICATION, DISTRESSED ACQUISITION, MARKET PREVIEW, PACT DIVIDEND, CARD-SALE PREMIUM, CRISIS STRESS REDUCTION, SCANDAL IMMUNITY, INTEREST_PAYMENT_MODIFIER); (3) passive reassignment rules for tier-0 starter assets on discard."
