@@ -142,9 +142,9 @@
         "description": "Immediately refresh the entire market \u2014 discard all current cards and replace them. The bull market brings new opportunities."
       },
       {
-        "effectType": "REPAYMENT_MODIFIER",
+        "effectType": "INTEREST_PAYMENT_MODIFIER ",
         "magnitude": -1,
-        "description": "All loan repayment rolls this year: trigger threshold one lower (e.g. triggers on 1\u20132 now triggers only on 1). Lender confidence is high."
+        "description": "RENAME DESCRIPTION"
       }
     ],
     "flavourText": "Everyone is a genius in a bull market."
@@ -256,9 +256,9 @@
     },
     "effects": [
       {
-        "effectType": "REPAYMENT_MODIFIER",
+        "effectType": "INTEREST_PAYMENT_MODIFIER ",
         "magnitude": -1,
-        "description": "All loan repayment rolls this year: trigger threshold one lower. Lenders are lenient. Credit conditions are accommodating."
+        "description": "RENAME DESCRIPTION"
       }
     ],
     "flavourText": "Nobody is calling in favours this year."
@@ -478,9 +478,9 @@
     },
     "effects": [
       {
-        "effectType": "REPAYMENT_MODIFIER",
+        "effectType": "INTEREST_PAYMENT_MODIFIER ",
         "magnitude": 1,
-        "description": "All loan repayment rolls this year: trigger threshold one higher. Regulatory ambiguity increases lender caution."
+        "description": "RENAME DESCRIPTION"
       }
     ],
     "flavourText": "No one knows what the rules are. Everyone is lending anyway."
@@ -518,9 +518,9 @@
     },
     "effects": [
       {
-        "effectType": "REPAYMENT_MODIFIER",
+        "effectType": "INTEREST_PAYMENT_MODIFIER ",
         "magnitude": 1,
-        "description": "All loan repayment rolls this year: trigger threshold one higher. Rising rates increase debt service pressure across all portfolios."
+        "description": "RENAME DESCRIPTION"
       }
     ],
     "flavourText": "The central bank met. Nobody was happy about it."
@@ -687,9 +687,9 @@
         "description": "All players check for collateral violations on all assets BEFORE value updates occur. Resolve all violations before proceeding."
       },
       {
-        "effectType": "REPAYMENT_MODIFIER",
+        "effectType": "INTEREST_PAYMENT_MODIFIER ",
         "magnitude": 1,
-        "description": "All loan repayment rolls this year: trigger threshold one higher. Lenders are pulling back."
+        "description": "RENAME DESCRIPTION"
       }
     ],
     "flavourText": "The soft landing was cancelled."
@@ -867,9 +867,9 @@
         "description": "FACE-UP PERSISTENT: all value update rolls treat their result as 2 lower (minimum 1) every year this card remains active."
       },
       {
-        "effectType": "REPAYMENT_MODIFIER",
+        "effectType": "INTEREST_PAYMENT_MODIFIER ",
         "magnitude": 2,
-        "description": "All loan repayment rolls: trigger threshold two higher. Lenders are calling everything."
+        "description": "RENAME DESCRIPTION"
       }
     ],
     "flavourText": "The system didn't fail. The system did exactly what it was designed to do."

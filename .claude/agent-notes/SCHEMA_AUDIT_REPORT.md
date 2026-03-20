@@ -196,7 +196,7 @@ Determine if duplicates are intentional (higher draw frequency) or a data error.
 | DICE_MODIFIER | **No** |
 | LOAN_PRESSURE | **No** |
 | TAX_MODIFIER | **No** |
-| REPAYMENT_MODIFIER | **No** |
+| INTEREST_PAYMENT_MODIFIER  | **No** |
 | COLLATERAL_TRIGGER | **No** |
 | INDUSTRY_SPECIFIC | Partial (bubble effects) |
 
