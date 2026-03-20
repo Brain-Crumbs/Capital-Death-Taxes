@@ -1,0 +1,46 @@
+{
+  "cardType": "ASSET",
+  "companyName": "National Grid Holdings",
+  "industry": "ENERGY",
+  "placement": "MIDSTREAM",
+  "tier": 2,
+  "baseValue": 16,
+  "stress": 2,
+  "income": 2,
+  "baseLoanCapacity": 6,
+  "loanCapacityIncreasePer10AssetValue": 6,
+  "baseValueUpdateRule": {
+    "outcomes": [
+      { "range": [1, 1], "delta": -4 },
+      { "range": [2, 3], "delta": -2 },
+      { "range": [4, 5], "delta": 2 },
+      { "range": [6, 6], "delta": 4 }
+    ],
+    "industryMechanic": "GMI amplified ×2. Geologist CEO: FORESIGHT allows swapping the top 2 event cards' positions in addition to the look/move choice. Non-Geologist: once per year, swap the top 2 global event cards without looking at either (blind swap)."
+  },
+  "verticalIntegrationRules": [
+    {
+      "requiresIndustry": "ENERGY",
+      "requiresPlacement": "UPSTREAM",
+      "effectType": "SPECIAL",
+      "effectDescription": "Geologist CEO: FORESIGHT allows swapping the top 2 event cards' positions in addition to the look/move choice. Non-Geologist: once per year, swap the top 2 global event cards without looking at either (blind swap)."
+    },
+    {
+      "requiresIndustry": "ENERGY",
+      "requiresPlacement": "DOWNSTREAM",
+      "effectType": "CRASH_FLOOR",
+      "effectMagnitude": 10,
+      "effectDescription": "Value cannot fall below 10 from any single event."
+    }
+  ],
+  "crossIndustrySynergies": [
+    {
+      "requiresIndustry": "DEFENCE",
+      "requiresPlacement": "MIDSTREAM",
+      "effectType": "LOAN_CAPACITY_BONUS",
+      "effectMagnitude": 1,
+      "effectDescription": "+1 loan cap; +1 additional if value exceeds 22."
+    }
+  ],
+  "flavourText": "The grid is the economy. Everything else is commentary."
+}

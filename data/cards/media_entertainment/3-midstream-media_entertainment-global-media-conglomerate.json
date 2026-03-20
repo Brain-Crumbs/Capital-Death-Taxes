@@ -1,0 +1,37 @@
+{
+  "cardType": "ASSET",
+  "companyName": "Global Media Conglomerate",
+  "industry": "MEDIA_ENTERTAINMENT",
+  "placement": "MIDSTREAM",
+  "tier": 3,
+  "baseValue": 22,
+  "stress": 2,
+  "income": 2,
+  "baseLoanCapacity": 4,
+  "loanCapacityIncreasePer10AssetValue": 4,
+  "baseValueUpdateRule": {
+    "outcomes": [
+      { "range": [1, 2], "delta": -4 },
+      { "range": [3, 4], "delta": 2 },
+      { "range": [5, 6], "delta": 4 }
+    ],
+    "industryMechanic": "Buzz die overrides GMI. NARRATIVE PREMIUM active."
+  },
+  "verticalIntegrationRules": [
+    {
+      "requiresIndustry": "MEDIA_ENTERTAINMENT",
+      "requiresPlacement": "UPSTREAM",
+      "effectType": "SPECIAL",
+      "effectDescription": "Sell any held personal event card for +$2 this year (applies to all held cards). Publicist CEO: stacks with passive for full +$3 per card."
+    },
+    {
+      "requiresIndustry": "MEDIA_ENTERTAINMENT",
+      "requiresPlacement": "DOWNSTREAM",
+      "effectType": "CRASH_FLOOR",
+      "effectMagnitude": 14,
+      "effectDescription": "Value cannot fall below 14 from any single event."
+    }
+  ],
+  "crossIndustrySynergies": [],
+  "flavourText": "When you own the narrative, you own everything else by implication."
+}

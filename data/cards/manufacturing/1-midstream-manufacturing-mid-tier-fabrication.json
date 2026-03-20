@@ -1,0 +1,38 @@
+{
+  "cardType": "ASSET",
+  "companyName": "Mid-Tier Fabrication",
+  "industry": "MANUFACTURING",
+  "placement": "MIDSTREAM",
+  "tier": 1,
+  "baseValue": 7,
+  "stress": 1,
+  "income": 1,
+  "baseLoanCapacity": 5,
+  "loanCapacityIncreasePer10AssetValue": 5,
+  "baseValueUpdateRule": {
+    "outcomes": [
+      { "range": [1, 1], "delta": -2 },
+      { "range": [2, 3], "delta": -1 },
+      { "range": [4, 5], "delta": 1 },
+      { "range": [6, 6], "delta": 2 }
+    ],
+    "industryMechanic": "GMI halved. Depreciable — income offset eligible."
+  },
+  "verticalIntegrationRules": [
+    {
+      "requiresIndustry": "MANUFACTURING",
+      "requiresPlacement": "UPSTREAM",
+      "effectType": "GMI_RESISTANCE",
+      "effectDescription": "Negative GMI delta on this asset reduced by 1 (minimum 0)."
+    },
+    {
+      "requiresIndustry": "MANUFACTURING",
+      "requiresPlacement": "DOWNSTREAM",
+      "effectType": "INCOME_OFFSET",
+      "effectMagnitude": 1,
+      "effectDescription": "+1 additional loan interest payment counts as income offset."
+    }
+  ],
+  "crossIndustrySynergies": [],
+  "flavourText": "Precision is cheap. Tolerance is expensive."
+}

@@ -1,0 +1,46 @@
+{
+  "cardType": "ASSET",
+  "companyName": "Private Equity Platform",
+  "industry": "FINANCE",
+  "placement": "MIDSTREAM",
+  "tier": 2,
+  "baseValue": 15,
+  "stress": 2,
+  "income": 1,
+  "baseLoanCapacity": 5,
+  "loanCapacityIncreasePer10AssetValue": 5,
+  "baseValueUpdateRule": {
+    "outcomes": [
+      { "range": [1, 1], "delta": -3 },
+      { "range": [2, 3], "delta": -1 },
+      { "range": [4, 5], "delta": 1 },
+      { "range": [6, 6], "delta": 3 }
+    ],
+    "industryMechanic": "Double-hit on 1–3 in negative GMI years."
+  },
+  "verticalIntegrationRules": [
+    {
+      "requiresIndustry": "FINANCE",
+      "requiresPlacement": "UPSTREAM",
+      "effectType": "SPECIAL",
+      "effectDescription": "Once per year: during the auction phase, you may inspect one face-down market card before bidding (if any are face-down per variant rules). If all cards are face-up, gain +1 to your first bid this year instead. Synergizes with Tax Attorney's MARKET PREVIEW — stacked intelligence gives bidding advantage."
+    },
+    {
+      "requiresIndustry": "FINANCE",
+      "requiresPlacement": "DOWNSTREAM",
+      "effectType": "LOAN_CAPACITY_BONUS",
+      "effectMagnitude": 1,
+      "effectDescription": "+1 loan cap after 2 consecutive years without a negative value roll."
+    }
+  ],
+  "crossIndustrySynergies": [
+    {
+      "requiresIndustry": "MANUFACTURING",
+      "requiresPlacement": "MIDSTREAM",
+      "effectType": "LOAN_CAPACITY_BONUS",
+      "effectMagnitude": 1,
+      "effectDescription": "+1 loan cap for each MFG asset you own (max +2)."
+    }
+  ],
+  "flavourText": "Leverage other people's companies, then leverage the leverage."
+}

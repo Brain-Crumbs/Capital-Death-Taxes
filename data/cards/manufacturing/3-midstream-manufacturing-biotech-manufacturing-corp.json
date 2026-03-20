@@ -1,0 +1,39 @@
+{
+  "cardType": "ASSET",
+  "companyName": "Biotech Manufacturing Corp",
+  "industry": "MANUFACTURING",
+  "hybridIndustry": "TECHNOLOGY",
+  "placement": "MIDSTREAM",
+  "tier": 3,
+  "baseValue": 22,
+  "stress": 3,
+  "income": 0,
+  "baseLoanCapacity": 4,
+  "loanCapacityIncreasePer10AssetValue": 4,
+  "baseValueUpdateRule": {
+    "outcomes": [
+      { "range": [1, 1], "delta": -4 },
+      { "range": [2, 3], "delta": -1 },
+      { "range": [4, 5], "delta": 2 },
+      { "range": [6, 6], "delta": 4 }
+    ],
+    "industryMechanic": "MFG + TECH hybrid. Researcher CEO: +1 loan cap; +2 additional if post-trial value exceeds 28. Non-Researcher: +1 loan cap if value exceeds 28 (static threshold; no trial). +1 to loanCapacityIncreasePer10AssetValue after trial resolves (Researcher). Non-Researcher: activates at year 4 of ownership instead."
+  },
+  "verticalIntegrationRules": [
+    {
+      "requiresIndustry": "MANUFACTURING",
+      "requiresPlacement": "UPSTREAM",
+      "effectType": "LOAN_CAPACITY_BONUS",
+      "effectMagnitude": 1,
+      "effectDescription": "Researcher CEO: +1 loan cap; +2 additional if post-trial value exceeds 28. Non-Researcher: +1 loan cap if value exceeds 28 (static threshold; no trial)."
+    },
+    {
+      "requiresIndustry": "MANUFACTURING",
+      "requiresPlacement": "DOWNSTREAM",
+      "effectType": "SPECIAL",
+      "effectDescription": "+1 to loanCapacityIncreasePer10AssetValue after trial resolves (Researcher). Non-Researcher: activates at year 4 of ownership instead."
+    }
+  ],
+  "crossIndustrySynergies": [],
+  "flavourText": "Biology is the new manufacturing line."
+}

@@ -1,0 +1,40 @@
+{
+  "cardType": "ASSET",
+  "companyName": "Cloud Infrastructure Ltd",
+  "industry": "TECHNOLOGY",
+  "placement": "UPSTREAM",
+  "tier": 2,
+  "baseValue": 12,
+  "stress": 1,
+  "income": 0,
+  "baseLoanCapacity": 3,
+  "loanCapacityIncreasePer10AssetValue": 3,
+  "baseValueUpdateRule": {
+    "outcomes": [
+      { "range": [1, 1], "delta": -3 },
+      { "range": [2, 3], "delta": 0 },
+      { "range": [4, 5], "delta": 2 },
+      { "range": [6, 6], "delta": 4 }
+    ],
+    "industryMechanic": "GMI-immune pre-integration. Loans suppressed until vertical integration is active."
+  },
+  "verticalIntegrationRules": [
+    {
+      "requiresIndustry": "TECHNOLOGY",
+      "requiresPlacement": "MIDSTREAM",
+      "effectType": "LOAN_CAPACITY_BONUS",
+      "effectMagnitude": 1,
+      "effectDescription": "+1 loan cap; +2 additional if this asset's current value exceeds 18 and integration is active."
+    }
+  ],
+  "crossIndustrySynergies": [
+    {
+      "requiresIndustry": "ENERGY",
+      "requiresPlacement": "UPSTREAM",
+      "effectType": "LOAN_CAPACITY_BONUS",
+      "effectMagnitude": 1,
+      "effectDescription": "+1 loan cap for each ENERGY asset you own (max +2)."
+    }
+  ],
+  "flavourText": "The cloud is just someone else's data centre — and someone else's debt."
+}

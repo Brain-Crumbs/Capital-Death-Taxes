@@ -1,0 +1,45 @@
+{
+  "cardType": "ASSET",
+  "companyName": "Logistics & Supply Command",
+  "industry": "DEFENCE",
+  "placement": "DOWNSTREAM",
+  "tier": 1,
+  "baseValue": 8,
+  "stress": 1,
+  "income": 1,
+  "baseLoanCapacity": 5,
+  "loanCapacityIncreasePer10AssetValue": 5,
+  "baseValueUpdateRule": {
+    "outcomes": [
+      { "range": [1, 1], "delta": 2 },
+      { "range": [2, 3], "delta": 1 },
+      { "range": [4, 5], "delta": -1 },
+      { "range": [6, 6], "delta": -2 }
+    ],
+    "industryMechanic": "Counter-cyclical — negative GMI produces positive delta. Classified bonus capacity unlocks per system rules."
+  },
+  "verticalIntegrationRules": [
+    {
+      "requiresIndustry": "DEFENCE",
+      "requiresPlacement": "MIDSTREAM",
+      "effectType": "SPECIAL",
+      "effectDescription": "+$1 cash in any negative GMI year."
+    },
+    {
+      "requiresIndustry": "DEFENCE",
+      "requiresPlacement": "UPSTREAM",
+      "effectType": "SPECIAL",
+      "effectDescription": "In any year following a negative GMI year (the prior-year rule applies): treat loan repayment roll as one higher on this asset, consistent with Defence prior-year loan terms."
+    }
+  ],
+  "crossIndustrySynergies": [
+    {
+      "requiresIndustry": "MANUFACTURING",
+      "requiresPlacement": "DOWNSTREAM",
+      "effectType": "LOAN_CAPACITY_BONUS",
+      "effectMagnitude": 1,
+      "effectDescription": "+1 loan cap for each MFG asset you own (max +2)."
+    }
+  ],
+  "flavourText": "Armies march on logistics. Empires run on supply chains."
+}

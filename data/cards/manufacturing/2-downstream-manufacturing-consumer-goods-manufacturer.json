@@ -1,0 +1,46 @@
+{
+  "cardType": "ASSET",
+  "companyName": "Consumer Goods Manufacturer",
+  "industry": "MANUFACTURING",
+  "placement": "DOWNSTREAM",
+  "tier": 2,
+  "baseValue": 17,
+  "stress": 2,
+  "income": 1,
+  "baseLoanCapacity": 5,
+  "loanCapacityIncreasePer10AssetValue": 5,
+  "baseValueUpdateRule": {
+    "outcomes": [
+      { "range": [1, 1], "delta": -3 },
+      { "range": [2, 3], "delta": -1 },
+      { "range": [4, 5], "delta": 1 },
+      { "range": [6, 6], "delta": 3 }
+    ],
+    "industryMechanic": "GMI halved. Depreciable — income offset eligible."
+  },
+  "verticalIntegrationRules": [
+    {
+      "requiresIndustry": "MANUFACTURING",
+      "requiresPlacement": "MIDSTREAM",
+      "effectType": "INCOME_OFFSET",
+      "effectMagnitude": 2,
+      "effectDescription": "+2 loan interest payments count as income offsets this year."
+    },
+    {
+      "requiresIndustry": "MANUFACTURING",
+      "requiresPlacement": "UPSTREAM",
+      "effectType": "SPECIAL",
+      "effectDescription": "Treat repayment roll as one higher on this asset."
+    }
+  ],
+  "crossIndustrySynergies": [
+    {
+      "requiresIndustry": "MEDIA_ENTERTAINMENT",
+      "requiresPlacement": "DOWNSTREAM",
+      "effectType": "LOAN_CAPACITY_BONUS",
+      "effectMagnitude": 1,
+      "effectDescription": "+1 loan cap for each MEDIA asset you own (max +2)."
+    }
+  ],
+  "flavourText": "Consumers consume. Manufacturers endure."
+}

@@ -1,0 +1,39 @@
+{
+  "cardType": "ASSET",
+  "companyName": "Digital Monopoly Holdings",
+  "industry": "TECHNOLOGY",
+  "placement": "DOWNSTREAM",
+  "tier": 3,
+  "baseValue": 26,
+  "stress": 3,
+  "income": 0,
+  "baseLoanCapacity": 2,
+  "loanCapacityIncreasePer10AssetValue": 2,
+  "baseValueUpdateRule": {
+    "outcomes": [
+      { "range": [1, 1], "delta": -4 },
+      { "range": [2, 3], "delta": 0 },
+      { "range": [4, 5], "delta": 3 },
+      { "range": [6, 6], "delta": 5 }
+    ],
+    "industryMechanic": "GMI-immune pre-integration. Loans suppressed until vertical integration is active. Stack complete: +1 to loanCapacityIncreasePer10AssetValue on all owned TECH assets (applies once integration is active per industry rules)."
+  },
+  "verticalIntegrationRules": [
+    {
+      "requiresIndustry": "TECHNOLOGY",
+      "requiresPlacement": "MIDSTREAM",
+      "effectType": "SPECIAL",
+      "effectDescription": "Stack complete: +1 to loanCapacityIncreasePer10AssetValue on all owned TECH assets (applies once integration is active per industry rules)."
+    }
+  ],
+  "crossIndustrySynergies": [
+    {
+      "requiresIndustry": "FINANCE",
+      "requiresPlacement": "UPSTREAM",
+      "effectType": "LOAN_CAPACITY_BONUS",
+      "effectMagnitude": 1,
+      "effectDescription": "+1 loan cap; +2 additional if value exceeds 32."
+    }
+  ],
+  "flavourText": "Monopoly is just network effects with better lawyers."
+}

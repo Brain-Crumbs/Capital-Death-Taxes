@@ -1,0 +1,31 @@
+{
+  "cardType": "ASSET",
+  "companyName": "Defence Contractor Ltd",
+  "industry": "DEFENCE",
+  "placement": "UPSTREAM",
+  "tier": 1,
+  "baseValue": 6,
+  "stress": 0,
+  "income": 1,
+  "baseLoanCapacity": 5,
+  "loanCapacityIncreasePer10AssetValue": 5,
+  "baseValueUpdateRule": {
+    "outcomes": [
+      { "range": [1, 1], "delta": 2 },
+      { "range": [2, 3], "delta": 1 },
+      { "range": [4, 5], "delta": -1 },
+      { "range": [6, 6], "delta": -2 }
+    ],
+    "industryMechanic": "Counter-cyclical — negative GMI produces positive delta. Classified bonus capacity unlocks per system rules (own 2 DEF placements; General: 1). Not re-stated here."
+  },
+  "verticalIntegrationRules": [
+    {
+      "requiresIndustry": "DEFENCE",
+      "requiresPlacement": "MIDSTREAM",
+      "effectType": "SPECIAL",
+      "effectDescription": "In any year with negative GMI: +$1 cash. Complements General's Crisis Mobilisation — two separate $1 triggers from CEO + card."
+    }
+  ],
+  "crossIndustrySynergies": [],
+  "flavourText": "Peace is bad for business. Stability is worse."
+}

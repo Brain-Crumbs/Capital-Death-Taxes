@@ -1,0 +1,38 @@
+{
+  "cardType": "ASSET",
+  "companyName": "Streaming Platform Ltd",
+  "industry": "MEDIA_ENTERTAINMENT",
+  "placement": "UPSTREAM",
+  "tier": 2,
+  "baseValue": 12,
+  "stress": 1,
+  "income": 0,
+  "baseLoanCapacity": 4,
+  "loanCapacityIncreasePer10AssetValue": 4,
+  "baseValueUpdateRule": {
+    "outcomes": [
+      { "range": [1, 2], "delta": -3 },
+      { "range": [3, 4], "delta": 1 },
+      { "range": [5, 6], "delta": 3 }
+    ],
+    "industryMechanic": "Buzz die overrides GMI. BUZZ-LOCK capability at T2 UPSTREAM, gated behind vertical integration."
+  },
+  "verticalIntegrationRules": [
+    {
+      "requiresIndustry": "MEDIA_ENTERTAINMENT",
+      "requiresPlacement": "MIDSTREAM",
+      "effectType": "SPECIAL",
+      "effectDescription": "On good buzz (3–6), roll the value die three times, take the highest. Publicist CEO: may instead declare good buzz on this asset without rolling the buzz die at all (Inspiration applied automatically once per year)."
+    }
+  ],
+  "crossIndustrySynergies": [
+    {
+      "requiresIndustry": "TECHNOLOGY",
+      "requiresPlacement": "MIDSTREAM",
+      "effectType": "LOAN_CAPACITY_BONUS",
+      "effectMagnitude": 1,
+      "effectDescription": "+1 loan cap; +1 additional if value exceeds 18."
+    }
+  ],
+  "flavourText": "Content is king. Distribution is god."
+}

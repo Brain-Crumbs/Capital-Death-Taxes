@@ -1,0 +1,44 @@
+{
+  "cardType": "ASSET",
+  "companyName": "Theme Park & IP Empire",
+  "industry": "MEDIA_ENTERTAINMENT",
+  "placement": "DOWNSTREAM",
+  "tier": 2,
+  "baseValue": 17,
+  "stress": 2,
+  "income": 2,
+  "baseLoanCapacity": 4,
+  "loanCapacityIncreasePer10AssetValue": 4,
+  "baseValueUpdateRule": {
+    "outcomes": [
+      { "range": [1, 2], "delta": -3 },
+      { "range": [3, 4], "delta": 1 },
+      { "range": [5, 6], "delta": 3 }
+    ],
+    "industryMechanic": "Buzz die overrides GMI. CARD-SALE PREMIUM ×2 active."
+  },
+  "verticalIntegrationRules": [
+    {
+      "requiresIndustry": "MEDIA_ENTERTAINMENT",
+      "requiresPlacement": "MIDSTREAM",
+      "effectType": "SPECIAL",
+      "effectDescription": "Sell any held personal event card for +$2 this year. Publicist CEO: cards now sell at base +$3 total."
+    },
+    {
+      "requiresIndustry": "MEDIA_ENTERTAINMENT",
+      "requiresPlacement": "UPSTREAM",
+      "effectType": "SPECIAL",
+      "effectDescription": "Force good buzz on one of your own assets once per year."
+    }
+  ],
+  "crossIndustrySynergies": [
+    {
+      "requiresIndustry": "REAL_ESTATE",
+      "requiresPlacement": "MIDSTREAM",
+      "effectType": "LOAN_CAPACITY_BONUS",
+      "effectMagnitude": 1,
+      "effectDescription": "+1 loan cap; +1 additional if value exceeds 22."
+    }
+  ],
+  "flavourText": "Intellectual property is the only property that appreciates through nostalgia."
+}
