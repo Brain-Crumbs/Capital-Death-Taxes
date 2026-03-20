@@ -1,0 +1,31 @@
+{
+  "cardType": "ASSET",
+  "companyName": "GridRoot Systems",
+  "industry": "TECHNOLOGY",
+  "placement": "UPSTREAM",
+  "tier": 1,
+  "baseValue": 5,
+  "stress": 1,
+  "income": 0,
+  "baseLoanCapacity": 3,
+  "loanCapacityIncreasePer10AssetValue": 3,
+  "baseValueUpdateRule": {
+    "outcomes": [
+      { "range": [1, 1], "delta": -2 },
+      { "range": [2, 3], "delta": 0 },
+      { "range": [4, 5], "delta": 2 },
+      { "range": [6, 6], "delta": 3 }
+    ],
+    "industryMechanic": "GMI-immune pre-integration. Loans suppressed until vertical integration is active (loan suppression lifted per industry rules)."
+  },
+  "verticalIntegrationRules": [
+    {
+      "requiresIndustry": "TECHNOLOGY",
+      "requiresPlacement": "MIDSTREAM",
+      "effectType": "SPECIAL",
+      "effectDescription": "+1 to this asset's loanCapacityIncreasePer10AssetValue once vertical integration is active (loan suppression lifted per industry rules). Financing depth unlocks with proven integration, not before."
+    }
+  ],
+  "crossIndustrySynergies": [],
+  "flavourText": "The foundation nobody sees until it breaks."
+}

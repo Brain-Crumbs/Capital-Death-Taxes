@@ -1,0 +1,45 @@
+{
+  "cardType": "ASSET",
+  "companyName": "Pipeline Network Co",
+  "industry": "ENERGY",
+  "placement": "MIDSTREAM",
+  "tier": 1,
+  "baseValue": 7,
+  "stress": 1,
+  "income": 1,
+  "baseLoanCapacity": 5,
+  "loanCapacityIncreasePer10AssetValue": 6,
+  "baseValueUpdateRule": {
+    "outcomes": [
+      { "range": [1, 1], "delta": -3 },
+      { "range": [2, 3], "delta": -1 },
+      { "range": [4, 5], "delta": 2 },
+      { "range": [6, 6], "delta": 3 }
+    ],
+    "industryMechanic": "GMI amplified ×2. Geologist CEO: FORESIGHT has no once-per-year limit while this asset is held. Non-Geologist: the cost-to-peek ability from UPSTREAM fires at no card discard cost this year."
+  },
+  "verticalIntegrationRules": [
+    {
+      "requiresIndustry": "ENERGY",
+      "requiresPlacement": "UPSTREAM",
+      "effectType": "SPECIAL",
+      "effectDescription": "Geologist CEO: FORESIGHT has no once-per-year limit while this asset is held. Non-Geologist: the cost-to-peek ability from UPSTREAM fires at no card discard cost this year."
+    },
+    {
+      "requiresIndustry": "ENERGY",
+      "requiresPlacement": "DOWNSTREAM",
+      "effectType": "SPECIAL",
+      "effectDescription": "+1 income per year while both MID and DN are held."
+    }
+  ],
+  "crossIndustrySynergies": [
+    {
+      "requiresIndustry": "MANUFACTURING",
+      "requiresPlacement": "UPSTREAM",
+      "effectType": "LOAN_CAPACITY_BONUS",
+      "effectMagnitude": 1,
+      "effectDescription": "+1 loan cap for each MFG asset you own (max +2)."
+    }
+  ],
+  "flavourText": "The pipeline doesn't care what flows through it."
+}

@@ -1,0 +1,31 @@
+{
+  "cardType": "ASSET",
+  "companyName": "Structured Products House",
+  "industry": "FINANCE",
+  "placement": "UPSTREAM",
+  "tier": 2,
+  "baseValue": 13,
+  "stress": 2,
+  "income": 0,
+  "baseLoanCapacity": 4,
+  "loanCapacityIncreasePer10AssetValue": 5,
+  "baseValueUpdateRule": {
+    "outcomes": [
+      { "range": [1, 1], "delta": -3 },
+      { "range": [2, 3], "delta": -1 },
+      { "range": [4, 5], "delta": 1 },
+      { "range": [6, 6], "delta": 3 }
+    ],
+    "industryMechanic": "Double-hit on 1–3 in negative GMI years."
+  },
+  "verticalIntegrationRules": [
+    {
+      "requiresIndustry": "FINANCE",
+      "requiresPlacement": "MIDSTREAM",
+      "effectType": "SPECIAL",
+      "effectDescription": "The Quant's inversion mechanic on this asset also generates +1 cash in any year where the double-hit fires, before resolution. Non-Quant: +2 loan cap if GMI this year is negative."
+    }
+  ],
+  "crossIndustrySynergies": [],
+  "flavourText": "Structure is what you call complexity when you're selling it."
+}

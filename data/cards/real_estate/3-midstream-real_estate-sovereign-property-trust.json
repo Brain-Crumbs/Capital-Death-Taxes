@@ -1,0 +1,46 @@
+{
+  "cardType": "ASSET",
+  "companyName": "Sovereign Property Trust",
+  "industry": "REAL_ESTATE",
+  "placement": "MIDSTREAM",
+  "tier": 3,
+  "baseValue": 28,
+  "stress": 2,
+  "income": 2,
+  "baseLoanCapacity": 7,
+  "loanCapacityIncreasePer10AssetValue": 6,
+  "baseValueUpdateRule": {
+    "outcomes": [
+      { "range": [1, 1], "delta": -4 },
+      { "range": [2, 3], "delta": -2 },
+      { "range": [4, 5], "delta": 2 },
+      { "range": [6, 6], "delta": 4 }
+    ],
+    "industryMechanic": "Neutral GMI."
+  },
+  "verticalIntegrationRules": [
+    {
+      "requiresIndustry": "REAL_ESTATE",
+      "requiresPlacement": "UPSTREAM",
+      "effectType": "CRASH_FLOOR",
+      "effectMagnitude": 20,
+      "effectDescription": "Value cannot fall below 20 from any single event."
+    },
+    {
+      "requiresIndustry": "REAL_ESTATE",
+      "requiresPlacement": "DOWNSTREAM",
+      "effectType": "INCOME_OFFSET",
+      "effectDescription": "All income from RE assets counts as tax-exempt this year."
+    }
+  ],
+  "crossIndustrySynergies": [
+    {
+      "requiresIndustry": "FINANCE",
+      "requiresPlacement": "UPSTREAM",
+      "effectType": "LOAN_CAPACITY_BONUS",
+      "effectMagnitude": 1,
+      "effectDescription": "+1 loan cap; +2 additional if value exceeds 34."
+    }
+  ],
+  "flavourText": "Sovereignty is a title. Property is a fact."
+}

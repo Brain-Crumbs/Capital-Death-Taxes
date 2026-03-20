@@ -1,0 +1,38 @@
+{
+  "cardType": "ASSET",
+  "companyName": "Industrial Conglomerate",
+  "industry": "MANUFACTURING",
+  "placement": "DOWNSTREAM",
+  "tier": 3,
+  "baseValue": 25,
+  "stress": 3,
+  "income": 2,
+  "baseLoanCapacity": 5,
+  "loanCapacityIncreasePer10AssetValue": 5,
+  "baseValueUpdateRule": {
+    "outcomes": [
+      { "range": [1, 1], "delta": -4 },
+      { "range": [2, 3], "delta": -2 },
+      { "range": [4, 5], "delta": 2 },
+      { "range": [6, 6], "delta": 4 }
+    ],
+    "industryMechanic": "GMI halved. Depreciable — income offset eligible. The Foreman's Blessing may target this asset's owner as well as other players."
+  },
+  "verticalIntegrationRules": [
+    {
+      "requiresIndustry": "MANUFACTURING",
+      "requiresPlacement": "MIDSTREAM",
+      "effectType": "SPECIAL",
+      "effectDescription": "The Foreman's Blessing may target this asset's owner as well as other players — declared before the repayment roll."
+    },
+    {
+      "requiresIndustry": "MANUFACTURING",
+      "requiresPlacement": "UPSTREAM",
+      "effectType": "CRASH_FLOOR",
+      "effectMagnitude": 18,
+      "effectDescription": "Value cannot fall below 18 from any single event."
+    }
+  ],
+  "crossIndustrySynergies": [],
+  "flavourText": "Conglomerates don't innovate. They absorb."
+}

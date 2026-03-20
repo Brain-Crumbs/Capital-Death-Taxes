@@ -1,0 +1,31 @@
+{
+  "cardType": "ASSET",
+  "companyName": "Refinery & Processing Ltd",
+  "industry": "ENERGY",
+  "placement": "UPSTREAM",
+  "tier": 2,
+  "baseValue": 13,
+  "stress": 1,
+  "income": 1,
+  "baseLoanCapacity": 5,
+  "loanCapacityIncreasePer10AssetValue": 6,
+  "baseValueUpdateRule": {
+    "outcomes": [
+      { "range": [1, 1], "delta": -4 },
+      { "range": [2, 3], "delta": -2 },
+      { "range": [4, 5], "delta": 2 },
+      { "range": [6, 6], "delta": 4 }
+    ],
+    "industryMechanic": "GMI amplified ×2."
+  },
+  "verticalIntegrationRules": [
+    {
+      "requiresIndustry": "ENERGY",
+      "requiresPlacement": "MIDSTREAM",
+      "effectType": "SPECIAL",
+      "effectDescription": "Choose up to 2 other players: their ENERGY assets halve negative GMI this year. Druid party-wide protection at T2 — note this targets other players only, not yourself."
+    }
+  ],
+  "crossIndustrySynergies": [],
+  "flavourText": "Crude in, margin out. The rest is chemistry."
+}

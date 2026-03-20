@@ -1,0 +1,32 @@
+{
+  "cardType": "ASSET",
+  "companyName": "Hyperscale AI Corp",
+  "industry": "TECHNOLOGY",
+  "placement": "UPSTREAM",
+  "tier": 3,
+  "baseValue": 22,
+  "stress": 2,
+  "income": 0,
+  "baseLoanCapacity": 2,
+  "loanCapacityIncreasePer10AssetValue": 2,
+  "baseValueUpdateRule": {
+    "outcomes": [
+      { "range": [1, 1], "delta": -4 },
+      { "range": [2, 3], "delta": 0 },
+      { "range": [4, 5], "delta": 3 },
+      { "range": [6, 6], "delta": 5 }
+    ],
+    "industryMechanic": "GMI-immune pre-integration. Loans suppressed until vertical integration is active."
+  },
+  "verticalIntegrationRules": [
+    {
+      "requiresIndustry": "TECHNOLOGY",
+      "requiresPlacement": "MIDSTREAM",
+      "effectType": "LOAN_CAPACITY_BONUS",
+      "effectMagnitude": 1,
+      "effectDescription": "+1 loan cap; +3 additional if value exceeds 30 and integration is active."
+    }
+  ],
+  "crossIndustrySynergies": [],
+  "flavourText": "At this scale, the model trains itself — and so does the debt."
+}

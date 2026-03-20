@@ -1,0 +1,44 @@
+{
+  "cardType": "ASSET",
+  "companyName": "Talent Agency",
+  "industry": "MEDIA_ENTERTAINMENT",
+  "placement": "MIDSTREAM",
+  "tier": 1,
+  "baseValue": 6,
+  "stress": 1,
+  "income": 1,
+  "baseLoanCapacity": 4,
+  "loanCapacityIncreasePer10AssetValue": 4,
+  "baseValueUpdateRule": {
+    "outcomes": [
+      { "range": [1, 2], "delta": -2 },
+      { "range": [3, 4], "delta": 1 },
+      { "range": [5, 6], "delta": 2 }
+    ],
+    "industryMechanic": "Buzz die overrides GMI. CARD-SALE PREMIUM active."
+  },
+  "verticalIntegrationRules": [
+    {
+      "requiresIndustry": "MEDIA_ENTERTAINMENT",
+      "requiresPlacement": "UPSTREAM",
+      "effectType": "SPECIAL",
+      "effectDescription": "Held personal event cards sell for +$1 this year. Publicist CEO's passive already grants this — combined, cards sell at base +$2 for Publicist."
+    },
+    {
+      "requiresIndustry": "MEDIA_ENTERTAINMENT",
+      "requiresPlacement": "DOWNSTREAM",
+      "effectType": "SPECIAL",
+      "effectDescription": "This asset is immune to Scandal effects this year."
+    }
+  ],
+  "crossIndustrySynergies": [
+    {
+      "requiresIndustry": "REAL_ESTATE",
+      "requiresPlacement": "DOWNSTREAM",
+      "effectType": "LOAN_CAPACITY_BONUS",
+      "effectMagnitude": 1,
+      "effectDescription": "+1 loan cap after 2 consecutive years without a negative value roll."
+    }
+  ],
+  "flavourText": "Talent is cheap. Representation is priceless."
+}

@@ -1,0 +1,38 @@
+{
+  "cardType": "ASSET",
+  "companyName": "Strategic Reserve Corp",
+  "industry": "DEFENCE",
+  "placement": "DOWNSTREAM",
+  "tier": 2,
+  "baseValue": 18,
+  "stress": 2,
+  "income": 2,
+  "baseLoanCapacity": 5,
+  "loanCapacityIncreasePer10AssetValue": 5,
+  "baseValueUpdateRule": {
+    "outcomes": [
+      { "range": [1, 1], "delta": 3 },
+      { "range": [2, 3], "delta": 1 },
+      { "range": [4, 5], "delta": -1 },
+      { "range": [6, 6], "delta": -3 }
+    ],
+    "industryMechanic": "Counter-cyclical — negative GMI produces positive delta. Classified bonus capacity unlocks per system rules."
+  },
+  "verticalIntegrationRules": [
+    {
+      "requiresIndustry": "DEFENCE",
+      "requiresPlacement": "MIDSTREAM",
+      "effectType": "LOAN_CAPACITY_BONUS",
+      "effectMagnitude": 1,
+      "effectDescription": "+1 loan cap; +1 additional if value exceeds 24."
+    },
+    {
+      "requiresIndustry": "DEFENCE",
+      "requiresPlacement": "UPSTREAM",
+      "effectType": "SPECIAL",
+      "effectDescription": "+$1 cash per negative GMI year. Stacks with General's Crisis Mobilisation."
+    }
+  ],
+  "crossIndustrySynergies": [],
+  "flavourText": "Strategic reserves are the insurance policy nobody wants to cash."
+}

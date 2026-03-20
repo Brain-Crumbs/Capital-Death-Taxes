@@ -1,0 +1,39 @@
+{
+  "cardType": "ASSET",
+  "companyName": "Petrochemical Giant",
+  "industry": "ENERGY",
+  "placement": "UPSTREAM",
+  "tier": 3,
+  "baseValue": 22,
+  "stress": 2,
+  "income": 1,
+  "baseLoanCapacity": 5,
+  "loanCapacityIncreasePer10AssetValue": 6,
+  "baseValueUpdateRule": {
+    "outcomes": [
+      { "range": [1, 1], "delta": -5 },
+      { "range": [2, 3], "delta": -2 },
+      { "range": [4, 5], "delta": 3 },
+      { "range": [6, 6], "delta": 5 }
+    ],
+    "industryMechanic": "GMI amplified ×3 at T3. Geologist CEO raises to ×4 per updated CEO ability. Geologist CEO: FORESIGHT allows peeking 2 cards ahead and swapping the top 2. Non-Geologist: once per year, look at the top global event card and choose to keep or move it (as standard, but no swap)."
+  },
+  "verticalIntegrationRules": [
+    {
+      "requiresIndustry": "ENERGY",
+      "requiresPlacement": "MIDSTREAM",
+      "effectType": "SPECIAL",
+      "effectDescription": "Geologist CEO: FORESIGHT allows peeking 2 cards ahead and swapping the top 2. Non-Geologist: once per year, look at the top global event card and choose to keep or move it (as standard, but no swap). GMI ×3 baseline for all players. Geologist CEO raises to ×4 per updated CEO ability."
+    }
+  ],
+  "crossIndustrySynergies": [
+    {
+      "requiresIndustry": "MANUFACTURING",
+      "requiresPlacement": "MIDSTREAM",
+      "effectType": "LOAN_CAPACITY_BONUS",
+      "effectMagnitude": 1,
+      "effectDescription": "+1 loan cap for each MFG asset you own (max +3)."
+    }
+  ],
+  "flavourText": "Petrochemicals built the twentieth century. The twenty-first just pretends otherwise."
+}

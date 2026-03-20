@@ -1,0 +1,45 @@
+{
+  "cardType": "ASSET",
+  "companyName": "Mixed-Use Development",
+  "industry": "REAL_ESTATE",
+  "placement": "MIDSTREAM",
+  "tier": 2,
+  "baseValue": 16,
+  "stress": 2,
+  "income": 2,
+  "baseLoanCapacity": 6,
+  "loanCapacityIncreasePer10AssetValue": 6,
+  "baseValueUpdateRule": {
+    "outcomes": [
+      { "range": [1, 1], "delta": -3 },
+      { "range": [2, 3], "delta": -1 },
+      { "range": [4, 5], "delta": 1 },
+      { "range": [6, 6], "delta": 3 }
+    ],
+    "industryMechanic": "Neutral GMI."
+  },
+  "verticalIntegrationRules": [
+    {
+      "requiresIndustry": "REAL_ESTATE",
+      "requiresPlacement": "UPSTREAM",
+      "effectType": "GMI_RESISTANCE",
+      "effectDescription": "Halve negative GMI delta on this asset."
+    },
+    {
+      "requiresIndustry": "REAL_ESTATE",
+      "requiresPlacement": "DOWNSTREAM",
+      "effectType": "SPECIAL",
+      "effectDescription": "+1 to this asset's loanCapacityIncreasePer10AssetValue."
+    }
+  ],
+  "crossIndustrySynergies": [
+    {
+      "requiresIndustry": "TECHNOLOGY",
+      "requiresPlacement": "MIDSTREAM",
+      "effectType": "LOAN_CAPACITY_BONUS",
+      "effectMagnitude": 1,
+      "effectDescription": "+1 loan cap; +1 additional if current value exceeds 22."
+    }
+  ],
+  "flavourText": "Retail on the ground floor, ambition on every other."
+}

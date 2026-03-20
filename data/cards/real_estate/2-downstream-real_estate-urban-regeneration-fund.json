@@ -1,0 +1,39 @@
+{
+  "cardType": "ASSET",
+  "companyName": "Urban Regeneration Fund",
+  "industry": "REAL_ESTATE",
+  "placement": "DOWNSTREAM",
+  "tier": 2,
+  "baseValue": 18,
+  "stress": 2,
+  "income": 2,
+  "baseLoanCapacity": 7,
+  "loanCapacityIncreasePer10AssetValue": 6,
+  "baseValueUpdateRule": {
+    "outcomes": [
+      { "range": [1, 1], "delta": -3 },
+      { "range": [2, 3], "delta": -1 },
+      { "range": [4, 5], "delta": 1 },
+      { "range": [6, 6], "delta": 3 }
+    ],
+    "industryMechanic": "Neutral GMI."
+  },
+  "verticalIntegrationRules": [
+    {
+      "requiresIndustry": "REAL_ESTATE",
+      "requiresPlacement": "MIDSTREAM",
+      "effectType": "INCOME_OFFSET",
+      "effectMagnitude": 2,
+      "effectDescription": "+2 loan interest payments on this asset count as income offsets this year."
+    },
+    {
+      "requiresIndustry": "REAL_ESTATE",
+      "requiresPlacement": "UPSTREAM",
+      "effectType": "LOAN_CAPACITY_BONUS",
+      "effectMagnitude": 1,
+      "effectDescription": "+1 loan cap; +1 additional if value exceeds 24."
+    }
+  ],
+  "crossIndustrySynergies": [],
+  "flavourText": "Gentrification is just arbitrage with better marketing."
+}

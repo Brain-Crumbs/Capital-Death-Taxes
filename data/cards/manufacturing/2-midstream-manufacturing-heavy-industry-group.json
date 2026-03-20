@@ -1,0 +1,48 @@
+{
+  "cardType": "ASSET",
+  "companyName": "Heavy Industry Group",
+  "industry": "MANUFACTURING",
+  "placement": "MIDSTREAM",
+  "tier": 2,
+  "baseValue": 15,
+  "stress": 2,
+  "income": 1,
+  "baseLoanCapacity": 5,
+  "loanCapacityIncreasePer10AssetValue": 5,
+  "baseValueUpdateRule": {
+    "outcomes": [
+      { "range": [1, 1], "delta": -3 },
+      { "range": [2, 3], "delta": -1 },
+      { "range": [4, 5], "delta": 1 },
+      { "range": [6, 6], "delta": 3 }
+    ],
+    "industryMechanic": "GMI halved. Depreciable — income offset eligible. Engineer CEO doubles stress reduction from integration."
+  },
+  "verticalIntegrationRules": [
+    {
+      "requiresIndustry": "MANUFACTURING",
+      "requiresPlacement": "UPSTREAM",
+      "effectType": "STRESS_REDUCTION",
+      "effectMagnitude": 1,
+      "stressReduction": 1,
+      "effectDescription": "−1 stress once per year when this asset rolls 4+ on its value update. Engineer CEO doubles this stress reduction."
+    },
+    {
+      "requiresIndustry": "MANUFACTURING",
+      "requiresPlacement": "DOWNSTREAM",
+      "effectType": "CRASH_FLOOR",
+      "effectMagnitude": 9,
+      "effectDescription": "Value cannot fall below 9 from any single event."
+    }
+  ],
+  "crossIndustrySynergies": [
+    {
+      "requiresIndustry": "ENERGY",
+      "requiresPlacement": "UPSTREAM",
+      "effectType": "LOAN_CAPACITY_BONUS",
+      "effectMagnitude": 1,
+      "effectDescription": "+1 loan cap; +1 additional if value exceeds 20."
+    }
+  ],
+  "flavourText": "Steel doesn't care about your feelings."
+}

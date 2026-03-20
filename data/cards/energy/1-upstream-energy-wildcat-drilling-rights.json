@@ -1,0 +1,31 @@
+{
+  "cardType": "ASSET",
+  "companyName": "Wildcat Drilling Rights",
+  "industry": "ENERGY",
+  "placement": "UPSTREAM",
+  "tier": 1,
+  "baseValue": 5,
+  "stress": 1,
+  "income": 0,
+  "baseLoanCapacity": 4,
+  "loanCapacityIncreasePer10AssetValue": 6,
+  "baseValueUpdateRule": {
+    "outcomes": [
+      { "range": [1, 1], "delta": -3 },
+      { "range": [2, 3], "delta": -1 },
+      { "range": [4, 5], "delta": 2 },
+      { "range": [6, 6], "delta": 3 }
+    ],
+    "industryMechanic": "GMI amplified ×2. Geologist CEO: this asset's ownership enables FORESIGHT ability use (once per year per CEO card). Non-Geologist: once per year, after the global event card is drawn but before value rolls, you may draw and immediately discard 1 personal event card to look at the next global event card without revealing it. Information at cost."
+  },
+  "verticalIntegrationRules": [
+    {
+      "requiresIndustry": "ENERGY",
+      "requiresPlacement": "MIDSTREAM",
+      "effectType": "SPECIAL",
+      "effectDescription": "Geologist CEO: this asset's ownership enables FORESIGHT ability use (once per year per CEO card). Non-Geologist: once per year, after the global event card is drawn but before value rolls, you may draw and immediately discard 1 personal event card to look at the next global event card without revealing it. Information at cost."
+    }
+  ],
+  "crossIndustrySynergies": [],
+  "flavourText": "The drill doesn't know the difference between oil and optimism."
+}

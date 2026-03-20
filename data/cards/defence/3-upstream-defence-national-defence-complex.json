@@ -1,0 +1,46 @@
+{
+  "cardType": "ASSET",
+  "companyName": "National Defence Complex",
+  "industry": "DEFENCE",
+  "placement": "UPSTREAM",
+  "tier": 3,
+  "baseValue": 24,
+  "stress": 2,
+  "income": 1,
+  "baseLoanCapacity": 5,
+  "loanCapacityIncreasePer10AssetValue": 5,
+  "baseValueUpdateRule": {
+    "outcomes": [
+      { "range": [1, 1], "delta": 4 },
+      { "range": [2, 3], "delta": 2 },
+      { "range": [4, 5], "delta": -2 },
+      { "range": [6, 6], "delta": -4 }
+    ],
+    "industryMechanic": "Counter-cyclical — negative GMI produces positive delta. Classified bonus capacity unlocks per system rules."
+  },
+  "verticalIntegrationRules": [
+    {
+      "requiresIndustry": "DEFENCE",
+      "requiresPlacement": "MIDSTREAM",
+      "effectType": "LOAN_CAPACITY_BONUS",
+      "effectMagnitude": 1,
+      "effectDescription": "+1 loan cap for each DEF asset you own (max +4). Scaling collateral breadth — classified portfolio deepens the credit line proportionally."
+    },
+    {
+      "requiresIndustry": "DEFENCE",
+      "requiresPlacement": "DOWNSTREAM",
+      "effectType": "SPECIAL",
+      "effectDescription": "+$2 cash in any negative GMI year."
+    }
+  ],
+  "crossIndustrySynergies": [
+    {
+      "requiresIndustry": "FINANCE",
+      "requiresPlacement": "UPSTREAM",
+      "effectType": "LOAN_CAPACITY_BONUS",
+      "effectMagnitude": 1,
+      "effectDescription": "+1 loan cap; +2 additional if value exceeds 30."
+    }
+  ],
+  "flavourText": "National defence is the one budget line that never shrinks."
+}

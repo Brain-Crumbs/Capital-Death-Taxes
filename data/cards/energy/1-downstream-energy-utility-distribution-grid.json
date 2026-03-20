@@ -1,0 +1,45 @@
+{
+  "cardType": "ASSET",
+  "companyName": "Utility & Distribution Grid",
+  "industry": "ENERGY",
+  "placement": "DOWNSTREAM",
+  "tier": 1,
+  "baseValue": 8,
+  "stress": 1,
+  "income": 2,
+  "baseLoanCapacity": 6,
+  "loanCapacityIncreasePer10AssetValue": 6,
+  "baseValueUpdateRule": {
+    "outcomes": [
+      { "range": [1, 1], "delta": -3 },
+      { "range": [2, 3], "delta": -1 },
+      { "range": [4, 5], "delta": 1 },
+      { "range": [6, 6], "delta": 3 }
+    ],
+    "industryMechanic": "GMI amplified ×2. Choose 1 other player: their ENERGY assets treat negative GMI as halved this year. Druid party support — Geologist gives this to one ally in a downturn."
+  },
+  "verticalIntegrationRules": [
+    {
+      "requiresIndustry": "ENERGY",
+      "requiresPlacement": "MIDSTREAM",
+      "effectType": "SPECIAL",
+      "effectDescription": "Choose 1 other player: their ENERGY assets treat negative GMI as halved this year. Druid party support — Geologist gives this to one ally in a downturn."
+    },
+    {
+      "requiresIndustry": "ENERGY",
+      "requiresPlacement": "UPSTREAM",
+      "effectType": "SPECIAL",
+      "effectDescription": "Treat repayment roll as one higher."
+    }
+  ],
+  "crossIndustrySynergies": [
+    {
+      "requiresIndustry": "REAL_ESTATE",
+      "requiresPlacement": "MIDSTREAM",
+      "effectType": "LOAN_CAPACITY_BONUS",
+      "effectMagnitude": 1,
+      "effectDescription": "+1 loan cap after 2 consecutive years without a negative value roll."
+    }
+  ],
+  "flavourText": "Everyone needs power. Nobody thanks the grid."
+}
