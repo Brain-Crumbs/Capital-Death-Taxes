@@ -12,34 +12,10 @@
     "loanCapacityIncreasePer10AssetValue": 6,
     "baseValueUpdateRule": {
       "outcomes": [
-        {
-          "range": [
-            1,
-            1
-          ],
-          "delta": -2
-        },
-        {
-          "range": [
-            2,
-            3
-          ],
-          "delta": -1
-        },
-        {
-          "range": [
-            4,
-            5
-          ],
-          "delta": 1
-        },
-        {
-          "range": [
-            6,
-            6
-          ],
-          "delta": 2
-        }
+        {"range": [1,1], "delta": -2, "rollFlavourText": "Anchor tenant vacates. Foot traffic collapses and the rest of the centre follows."},
+        {"range": [2,3], "delta": -1, "rollFlavourText": "Occupancy slips a unit. The leasing pipeline isn't what it was."},
+        {"range": [4,5], "delta": 1, "rollFlavourText": "Rental renewals hold firm. Modest appreciation, no complaints."},
+        {"range": [6,6], "delta": 2, "rollFlavourText": "Wait-list for tenancy. Every square metre is spoken for at a premium."}
       ],
       "industryMechanic": "Neutral GMI."
     },
@@ -66,6 +42,7 @@
         "effectDescription": "+1 loan cap; +1 additional if current value exceeds 14."
       }
     ],
+    "cardDescription": "Tier 1 downstream RE. Generates $2 income and 6 base loan capacity. Value rolls are symmetric around neutral; integrates up the RE chain for income and loan repayment bonuses.",
     "flavourText": "Anchor tenants are the new aristocracy."
   },
   {
@@ -81,34 +58,10 @@
     "loanCapacityIncreasePer10AssetValue": 6,
     "baseValueUpdateRule": {
       "outcomes": [
-        {
-          "range": [
-            1,
-            1
-          ],
-          "delta": -1
-        },
-        {
-          "range": [
-            2,
-            3
-          ],
-          "delta": 0
-        },
-        {
-          "range": [
-            4,
-            5
-          ],
-          "delta": 2
-        },
-        {
-          "range": [
-            6,
-            6
-          ],
-          "delta": 3
-        }
+        {"range": [1,1], "delta": -1, "rollFlavourText": "Maintenance backlogs mount. Tenants notice, and so does the valuation."},
+        {"range": [2,3], "delta": 0, "rollFlavourText": "Costs absorbed, rents unchanged. The market is neither generous nor cruel."},
+        {"range": [4,5], "delta": 2, "rollFlavourText": "Strong renewal rate. Operational margins expand on the back of stable occupancy."},
+        {"range": [6,6], "delta": 3, "rollFlavourText": "Rent roll outperforms. Every unit let, every contract above guide."}
       ],
       "industryMechanic": "Neutral GMI."
     },
@@ -130,6 +83,7 @@
       }
     ],
     "crossIndustrySynergies": [],
+    "cardDescription": "Tier 1 midstream RE. $2 income, 6 base loan capacity, skewed upside on value rolls. Integrates for stress reduction on strong rolls and a conditional loan cap bonus after sustained positive performance.",
     "flavourText": "Someone has to collect. Might as well profit from it."
   },
   {
@@ -145,34 +99,10 @@
     "loanCapacityIncreasePer10AssetValue": 6,
     "baseValueUpdateRule": {
       "outcomes": [
-        {
-          "range": [
-            1,
-            1
-          ],
-          "delta": -1
-        },
-        {
-          "range": [
-            2,
-            3
-          ],
-          "delta": 0
-        },
-        {
-          "range": [
-            4,
-            5
-          ],
-          "delta": 2
-        },
-        {
-          "range": [
-            6,
-            6
-          ],
-          "delta": 3
-        }
+        {"range": [1,1], "delta": -1, "rollFlavourText": "A correction in the terrace market. Quiet, but the numbers move."},
+        {"range": [2,3], "delta": 0, "rollFlavourText": "Values hold. The portfolio does what it always does \u2014 nothing dramatic."},
+        {"range": [4,5], "delta": 2, "rollFlavourText": "Demand in the suburbs ticks up. Comparable sales are supportive."},
+        {"range": [6,6], "delta": 3, "rollFlavourText": "Bidding wars at every auction. The terraces are suddenly the only thing buyers want."}
       ],
       "industryMechanic": "Neutral GMI. Income from this asset is tax-exempt in any year GMI \u2265 0. Aligns with Trustee's first-$1 RE exemption \u2014 stacks for double shelter."
     },
@@ -193,6 +123,7 @@
         "effectDescription": "+1 loan cap on this asset; +1 additional if current value exceeds 12."
       }
     ],
+    "cardDescription": "Tier 1 upstream RE. Zero stress, $1 income, 6 base loan capacity. Income becomes tax-exempt in positive GMI years via midstream integration \u2014 the lightest entry point in the RE chain.",
     "flavourText": "The rent arrives whether you do or not."
   },
   {
@@ -208,34 +139,10 @@
     "loanCapacityIncreasePer10AssetValue": 6,
     "baseValueUpdateRule": {
       "outcomes": [
-        {
-          "range": [
-            1,
-            1
-          ],
-          "delta": -2
-        },
-        {
-          "range": [
-            2,
-            3
-          ],
-          "delta": 0
-        },
-        {
-          "range": [
-            4,
-            5
-          ],
-          "delta": 2
-        },
-        {
-          "range": [
-            6,
-            6
-          ],
-          "delta": 4
-        }
+        {"range": [1,1], "delta": -2, "rollFlavourText": "The regeneration narrative stalls. Buyers reprice for the delay."},
+        {"range": [2,3], "delta": 0, "rollFlavourText": "Development on schedule, value unmoved. The market is waiting for proof."},
+        {"range": [4,5], "delta": 2, "rollFlavourText": "Precinct demand builds. Early movers are already ahead."},
+        {"range": [6,6], "delta": 4, "rollFlavourText": "The suburb turns. Valuations re-rate overnight and the pipeline is fully absorbed."}
       ],
       "industryMechanic": "Neutral GMI."
     },
@@ -256,6 +163,7 @@
       }
     ],
     "crossIndustrySynergies": [],
+    "cardDescription": "Tier 2 downstream RE. $2 income, 7 base loan capacity, neutral floor on mid-rolls. Integrates midstream for income offset on loan payments and upstream for conditional loan cap expansion.",
     "flavourText": "Gentrification is just arbitrage with better marketing."
   },
   {
@@ -271,34 +179,10 @@
     "loanCapacityIncreasePer10AssetValue": 6,
     "baseValueUpdateRule": {
       "outcomes": [
-        {
-          "range": [
-            1,
-            1
-          ],
-          "delta": -2
-        },
-        {
-          "range": [
-            2,
-            3
-          ],
-          "delta": 0
-        },
-        {
-          "range": [
-            4,
-            5
-          ],
-          "delta": 2
-        },
-        {
-          "range": [
-            6,
-            6
-          ],
-          "delta": 4
-        }
+        {"range": [1,1], "delta": -2, "rollFlavourText": "Retail below drags the residential above. Mixed use, mixed results."},
+        {"range": [2,3], "delta": 0, "rollFlavourText": "Commercial and residential offset each other exactly. Flat is the outcome."},
+        {"range": [4,5], "delta": 2, "rollFlavourText": "Foot traffic supports valuations on both levels. The mixed-use thesis is working."},
+        {"range": [6,6], "delta": 4, "rollFlavourText": "Full occupancy across all uses. The development is oversubscribed and repriced accordingly."}
       ],
       "industryMechanic": "Neutral GMI."
     },
@@ -325,6 +209,7 @@
         "effectDescription": "+1 loan cap; +1 additional if current value exceeds 22."
       }
     ],
+    "cardDescription": "Tier 2 midstream RE. $2 income, 6 base loan capacity, balanced roll profile. Integrates upstream for GMI resistance and downstream to increase loan capacity scaling per $10 of asset value.",
     "flavourText": "Retail on the ground floor, ambition on every other."
   },
   {
@@ -340,34 +225,10 @@
     "loanCapacityIncreasePer10AssetValue": 6,
     "baseValueUpdateRule": {
       "outcomes": [
-        {
-          "range": [
-            1,
-            1
-          ],
-          "delta": -2
-        },
-        {
-          "range": [
-            2,
-            3
-          ],
-          "delta": 0
-        },
-        {
-          "range": [
-            4,
-            5
-          ],
-          "delta": 2
-        },
-        {
-          "range": [
-            6,
-            6
-          ],
-          "delta": 4
-        }
+        {"range": [1,1], "delta": -2, "rollFlavourText": "Logistics demand softens. Vacancy rates creep up across the estate."},
+        {"range": [2,3], "delta": 0, "rollFlavourText": "Leases roll over at flat rates. Industrial land holds but doesn't move."},
+        {"range": [4,5], "delta": 2, "rollFlavourText": "Supply-chain reshoring drives take-up. The sheds are full and the rents reflect it."},
+        {"range": [6,6], "delta": 4, "rollFlavourText": "Structural shortage of industrial stock. Every available unit let above asking."}
       ],
       "industryMechanic": "Neutral GMI."
     },
@@ -389,6 +250,7 @@
         "effectDescription": "+1 loan cap for each MFG asset you own (max +3)."
       }
     ],
+    "cardDescription": "Tier 2 upstream RE. Low stress, $2 income, 6 base loan capacity. Midstream RE integration sets a value floor of 10 against GMI events; synergises with Manufacturing holdings for scaling loan capacity.",
     "flavourText": "Industrial land never goes out of fashion \u2014 it just gets rezoned."
   },
   {
@@ -404,34 +266,10 @@
     "loanCapacityIncreasePer10AssetValue": 6,
     "baseValueUpdateRule": {
       "outcomes": [
-        {
-          "range": [
-            1,
-            1
-          ],
-          "delta": -4
-        },
-        {
-          "range": [
-            2,
-            3
-          ],
-          "delta": 1
-        },
-        {
-          "range": [
-            4,
-            5
-          ],
-          "delta": 4
-        },
-        {
-          "range": [
-            6,
-            6
-          ],
-          "delta": 6
-        }
+        {"range": [1,1], "delta": -4, "rollFlavourText": "The luxury market corrects sharply. Discretionary buyers disappear first."},
+        {"range": [2,3], "delta": 1, "rollFlavourText": "Modest appreciation on selective sales. The top end is resilient, if slow."},
+        {"range": [4,5], "delta": 4, "rollFlavourText": "Premium properties transact well above reserve. International demand is back."},
+        {"range": [6,6], "delta": 6, "rollFlavourText": "Record sale prices across the portfolio. Comparable evidence resets the entire suburb's ceiling."}
       ],
       "industryMechanic": "Neutral GMI."
     },
@@ -460,6 +298,7 @@
         "effectDescription": "+1 loan cap; +1 additional if value exceeds 36."
       }
     ],
+    "cardDescription": "Tier 3 downstream RE. High stress, $2 income, 7 base loan capacity with volatile high-ceiling rolls. Integrates midstream for a free annual loan token removal and upstream for stress relief at elevated valuations.",
     "flavourText": "The view from the penthouse is mostly other penthouses."
   },
   {
@@ -475,34 +314,10 @@
     "loanCapacityIncreasePer10AssetValue": 6,
     "baseValueUpdateRule": {
       "outcomes": [
-        {
-          "range": [
-            1,
-            1
-          ],
-          "delta": -4
-        },
-        {
-          "range": [
-            2,
-            3
-          ],
-          "delta": 1
-        },
-        {
-          "range": [
-            4,
-            5
-          ],
-          "delta": 4
-        },
-        {
-          "range": [
-            6,
-            6
-          ],
-          "delta": 6
-        }
+        {"range": [1,1], "delta": -4, "rollFlavourText": "Sovereign-grade assets aren't immune. The correction is orderly but significant."},
+        {"range": [2,3], "delta": 1, "rollFlavourText": "Capital preservation achieved. Marginal appreciation on institutional demand."},
+        {"range": [4,5], "delta": 4, "rollFlavourText": "Trophy asset demand strengthens. Long-term holders are rewarded."},
+        {"range": [6,6], "delta": 6, "rollFlavourText": "Off-market transaction at a generational premium. The trust's reputation alone drives the price."}
       ],
       "industryMechanic": "Neutral GMI."
     },
@@ -530,6 +345,7 @@
         "effectDescription": "+1 loan cap; +2 additional if value exceeds 34."
       }
     ],
+    "cardDescription": "Tier 3 midstream RE. $2 income, 7 base loan capacity, strong upside roll profile. Integrates upstream for a hard value floor of 20 and downstream to make all RE income tax-exempt for the year.",
     "flavourText": "Sovereignty is a title. Property is a fact."
   }
 ]

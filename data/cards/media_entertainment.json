@@ -14,25 +14,19 @@
     "baseValueUpdateRule": {
       "outcomes": [
         {
-          "range": [
-            1,
-            2
-          ],
-          "delta": -1
+          "range": [1, 2],
+          "delta": -1,
+          "rollFlavourText": "Ratings collapse mid-season — advertisers pull out before the finale airs."
         },
         {
-          "range": [
-            3,
-            4
-          ],
-          "delta": 1
+          "range": [3, 4],
+          "delta": 1,
+          "rollFlavourText": "Steady viewership holds the schedule together — not a breakout year, but the network survives."
         },
         {
-          "range": [
-            5,
-            6
-          ],
-          "delta": 3
+          "range": [5, 6],
+          "delta": 3,
+          "rollFlavourText": "A sleeper hit becomes the most-talked-about show of the year — every critic is writing about it."
         }
       ],
       "industryMechanic": "Buzz die overrides GMI. INSPIRATION active."
@@ -42,7 +36,7 @@
         "requiresIndustry": "MEDIA_ENTERTAINMENT",
         "requiresPlacement": "MIDSTREAM",
         "effectType": "SPECIAL",
-        "effectDescription": "Once per year: force good buzz on one other player's MEDIA asset (declared before buzz die). Publicist CEO's Inspiration already does this \u2014 non-Publicist owners get one-time party support here."
+        "effectDescription": "Once per year: force good buzz on one other player's MEDIA asset (declared before buzz die). Publicist CEO's Inspiration already does this — non-Publicist owners get one-time party support here."
       },
       {
         "requiresIndustry": "MEDIA_ENTERTAINMENT",
@@ -52,6 +46,7 @@
       }
     ],
     "crossIndustrySynergies": [],
+    "cardDescription": "Rolls the buzz die each year instead of GMI; delta ranges from -1 to +3. Vertical integration with MIDSTREAM unlocks the ability to force good buzz on another player's MEDIA asset once per year.",
     "flavourText": "Prime time is the last monopoly worth owning."
   },
   {
@@ -69,25 +64,19 @@
     "baseValueUpdateRule": {
       "outcomes": [
         {
-          "range": [
-            1,
-            2
-          ],
-          "delta": -1
+          "range": [1, 2],
+          "delta": -1,
+          "rollFlavourText": "A client meltdown goes public — the agency takes the blame and the fee."
         },
         {
-          "range": [
-            3,
-            4
-          ],
-          "delta": 1
+          "range": [3, 4],
+          "delta": 1,
+          "rollFlavourText": "Deals close quietly and commissions flow — nothing spectacular, but the roster holds."
         },
         {
-          "range": [
-            5,
-            6
-          ],
-          "delta": 3
+          "range": [5, 6],
+          "delta": 3,
+          "rollFlavourText": "A bidding war erupts over your top client — you represent both sides and take 10% either way."
         }
       ],
       "industryMechanic": "Buzz die overrides GMI. CARD-SALE PREMIUM active."
@@ -97,7 +86,7 @@
         "requiresIndustry": "MEDIA_ENTERTAINMENT",
         "requiresPlacement": "UPSTREAM",
         "effectType": "SPECIAL",
-        "effectDescription": "Held personal event cards sell for +$1 this year. Publicist CEO's passive already grants this \u2014 combined, cards sell at base +$2 for Publicist."
+        "effectDescription": "Held personal event cards sell for +$1 this year. Publicist CEO's passive already grants this — combined, cards sell at base +$2 for Publicist."
       },
       {
         "requiresIndustry": "MEDIA_ENTERTAINMENT",
@@ -115,6 +104,7 @@
         "effectDescription": "+1 loan cap after 2 consecutive years without a negative value roll."
       }
     ],
+    "cardDescription": "Rolls the buzz die each year instead of GMI; delta ranges from -1 to +3. Activates a card-sale premium; UPSTREAM integration adds +$1 to all held personal event card sales.",
     "flavourText": "Talent is cheap. Representation is priceless."
   },
   {
@@ -132,25 +122,19 @@
     "baseValueUpdateRule": {
       "outcomes": [
         {
-          "range": [
-            1,
-            2
-          ],
-          "delta": -1
+          "range": [1, 2],
+          "delta": -1,
+          "rollFlavourText": "The festival premiere gets walked out on — distribution offers evaporate overnight."
         },
         {
-          "range": [
-            3,
-            4
-          ],
-          "delta": 1
+          "range": [3, 4],
+          "delta": 1,
+          "rollFlavourText": "A modest critical reception lands the project a quiet streaming deal — nothing viral, but it's out there."
         },
         {
-          "range": [
-            5,
-            6
-          ],
-          "delta": 3
+          "range": [5, 6],
+          "delta": 3,
+          "rollFlavourText": "Sundance buzzes, a major studio calls — what started in a garage is suddenly in every conversation."
         }
       ],
       "industryMechanic": "Buzz die overrides GMI. Value determined by buzz die result, not standard GMI."
@@ -160,10 +144,11 @@
         "requiresIndustry": "MEDIA_ENTERTAINMENT",
         "requiresPlacement": "MIDSTREAM",
         "effectType": "SPECIAL",
-        "effectDescription": "When this asset rolls a good buzz result (3\u20136) this year, carry +1 to the buzz die on your next roll on any owned MEDIA asset this year (i.e. the threshold for good buzz on the next roll drops to 2\u20136). Does not stack across years. Buzz builds on buzz \u2014 but it's momentum, not control."
+        "effectDescription": "When this asset rolls a good buzz result (3–6) this year, carry +1 to the buzz die on your next roll on any owned MEDIA asset this year (i.e. the threshold for good buzz on the next roll drops to 2–6). Does not stack across years. Buzz builds on buzz — but it's momentum, not control."
       }
     ],
     "crossIndustrySynergies": [],
+    "cardDescription": "Rolls the buzz die each year instead of GMI; delta ranges from -1 to +3. Generates no income. MIDSTREAM integration converts a good buzz roll into a momentum bonus on the next MEDIA asset roll this year.",
     "flavourText": "Every blockbuster started as someone's side project."
   },
   {
@@ -181,28 +166,22 @@
     "baseValueUpdateRule": {
       "outcomes": [
         {
-          "range": [
-            1,
-            2
-          ],
-          "delta": -2
+          "range": [1, 2],
+          "delta": -2,
+          "rollFlavourText": "A ride malfunction and a PR disaster close the gates for a month — the merch shelves gather dust."
         },
         {
-          "range": [
-            3,
-            4
-          ],
-          "delta": 2
+          "range": [3, 4],
+          "delta": 2,
+          "rollFlavourText": "Season attendance meets projections and the IP licensing revenue is right on target."
         },
         {
-          "range": [
-            5,
-            6
-          ],
-          "delta": 6
+          "range": [5, 6],
+          "delta": 6,
+          "rollFlavourText": "A new franchise reboot sends merchandise sales through the roof — queues wrap the park for three months straight."
         }
       ],
-      "industryMechanic": "Buzz die overrides GMI. CARD-SALE PREMIUM \u00d72 active."
+      "industryMechanic": "Buzz die overrides GMI. CARD-SALE PREMIUM ×2 active."
     },
     "verticalIntegrationRules": [
       {
@@ -227,6 +206,7 @@
         "effectDescription": "+1 loan cap; +1 additional if value exceeds 22."
       }
     ],
+    "cardDescription": "Rolls the buzz die each year instead of GMI; delta ranges from -2 to +6. Carries a card-sale premium ×2; MIDSTREAM integration adds +$2 to personal event card sales and UPSTREAM integration allows forcing good buzz on one of your own assets.",
     "flavourText": "Intellectual property is the only property that appreciates through nostalgia."
   },
   {
@@ -244,25 +224,19 @@
     "baseValueUpdateRule": {
       "outcomes": [
         {
-          "range": [
-            1,
-            2
-          ],
-          "delta": -2
+          "range": [1, 2],
+          "delta": -2,
+          "rollFlavourText": "A match-fixing scandal breaks — broadcasters scramble to distance themselves and viewership tanks."
         },
         {
-          "range": [
-            3,
-            4
-          ],
-          "delta": 2
+          "range": [3, 4],
+          "delta": 2,
+          "rollFlavourText": "The season delivers solid ratings — no championship upset, but the contracts renew without a fight."
         },
         {
-          "range": [
-            5,
-            6
-          ],
-          "delta": 6
+          "range": [5, 6],
+          "delta": 6,
+          "rollFlavourText": "A dynasty team's historic final year sends viewing figures to all-time highs — every advertiser wants a spot."
         }
       ],
       "industryMechanic": "Buzz die overrides GMI. SCANDAL IMMUNITY and INSPIRATION active."
@@ -282,7 +256,8 @@
       }
     ],
     "crossIndustrySynergies": [],
-    "flavourText": "Sports rights are the new real estate \u2014 scarce, overpriced, and eternal."
+    "cardDescription": "Rolls the buzz die each year instead of GMI; delta ranges from -2 to +6. Comes with scandal immunity and inspiration; full vertical integration extends scandal negation to all your MEDIA assets and grants a forced good buzz once per year.",
+    "flavourText": "Sports rights are the new real estate — scarce, overpriced, and eternal."
   },
   {
     "cardType": "ASSET",
@@ -299,25 +274,19 @@
     "baseValueUpdateRule": {
       "outcomes": [
         {
-          "range": [
-            1,
-            2
-          ],
-          "delta": -2
+          "range": [1, 2],
+          "delta": -2,
+          "rollFlavourText": "Subscriber churn spikes after a string of cancelled originals — the algorithm is not saving you this quarter."
         },
         {
-          "range": [
-            3,
-            4
-          ],
-          "delta": 2
+          "range": [3, 4],
+          "delta": 2,
+          "rollFlavourText": "A steady content pipeline keeps the subscriber count stable — no viral hits, but no mass cancellations either."
         },
         {
-          "range": [
-            5,
-            6
-          ],
-          "delta": 6
+          "range": [5, 6],
+          "delta": 6,
+          "rollFlavourText": "A limited series becomes a global phenomenon — subscription numbers break every internal record set to date."
         }
       ],
       "industryMechanic": "Buzz die overrides GMI. BUZZ-LOCK capability at T2 UPSTREAM, gated behind vertical integration."
@@ -327,7 +296,7 @@
         "requiresIndustry": "MEDIA_ENTERTAINMENT",
         "requiresPlacement": "MIDSTREAM",
         "effectType": "SPECIAL",
-        "effectDescription": "On good buzz (3\u20136), roll the value die three times, take the highest. Publicist CEO: may instead declare good buzz on this asset without rolling the buzz die at all (Inspiration applied automatically once per year)."
+        "effectDescription": "On good buzz (3–6), roll the value die three times, take the highest. Publicist CEO: may instead declare good buzz on this asset without rolling the buzz die at all (Inspiration applied automatically once per year)."
       }
     ],
     "crossIndustrySynergies": [
@@ -339,6 +308,7 @@
         "effectDescription": "+1 loan cap; +1 additional if value exceeds 18."
       }
     ],
+    "cardDescription": "Rolls the buzz die each year instead of GMI; delta ranges from -2 to +6. Generates no income. MIDSTREAM integration unlocks buzz-lock: on a good buzz result, roll the value die three times and take the highest.",
     "flavourText": "Content is king. Distribution is god."
   },
   {
@@ -356,25 +326,19 @@
     "baseValueUpdateRule": {
       "outcomes": [
         {
-          "range": [
-            1,
-            2
-          ],
-          "delta": -3
+          "range": [1, 2],
+          "delta": -3,
+          "rollFlavourText": "A portfolio-wide scandal breaks simultaneously across three franchises — the board convenes in crisis and the press circles like vultures."
         },
         {
-          "range": [
-            3,
-            4
-          ],
-          "delta": 3
+          "range": [3, 4],
+          "delta": 3,
+          "rollFlavourText": "The fund's diversified slate delivers consistent returns — no single hit, but no single disaster either."
         },
         {
-          "range": [
-            5,
-            6
-          ],
-          "delta": 6
+          "range": [5, 6],
+          "delta": 6,
+          "rollFlavourText": "Awards season sweeps the fund's slate — every trophy is a headline and every headline is a valuation event."
         }
       ],
       "industryMechanic": "Buzz die overrides GMI. SCANDAL FLIP and full INSPIRATION active."
@@ -384,7 +348,7 @@
         "requiresIndustry": "MEDIA_ENTERTAINMENT",
         "requiresPlacement": "MIDSTREAM",
         "effectType": "SPECIAL",
-        "effectDescription": "If a Scandal targets this asset, convert bad buzz to good buzz. \u22121 stress. Publicist CEO: Scandal becomes promotion \u2014 no separate declaration needed."
+        "effectDescription": "If a Scandal targets this asset, convert bad buzz to good buzz. −1 stress. Publicist CEO: Scandal becomes promotion — no separate declaration needed."
       },
       {
         "requiresIndustry": "MEDIA_ENTERTAINMENT",
@@ -402,6 +366,7 @@
         "effectDescription": "+1 loan cap; +2 additional if value exceeds 32."
       }
     ],
+    "cardDescription": "Rolls the buzz die each year instead of GMI; delta ranges from -3 to +6. Scandal flip converts bad buzz to good buzz and reduces stress by 1; full vertical integration forces good buzz on all your MEDIA assets simultaneously.",
     "flavourText": "Entertainment is the opiate. Sovereignty is the prescription."
   },
   {
@@ -419,25 +384,19 @@
     "baseValueUpdateRule": {
       "outcomes": [
         {
-          "range": [
-            1,
-            2
-          ],
-          "delta": -3
+          "range": [1, 2],
+          "delta": -3,
+          "rollFlavourText": "Regulatory investigations, a botched merger, and a talent exodus land on the same front page — the conglomerate is suddenly a cautionary tale."
         },
         {
-          "range": [
-            3,
-            4
-          ],
-          "delta": 3
+          "range": [3, 4],
+          "delta": 3,
+          "rollFlavourText": "The conglomerate's diversified holdings absorb the year without drama — revenue streams hold and the narrative stays controlled."
         },
         {
-          "range": [
-            5,
-            6
-          ],
-          "delta": 6
+          "range": [5, 6],
+          "delta": 6,
+          "rollFlavourText": "A cross-platform cultural moment — film, music, sport, news — ignites simultaneously; the conglomerate doesn't just cover the story, it is the story."
         }
       ],
       "industryMechanic": "Buzz die overrides GMI. NARRATIVE PREMIUM active."
@@ -458,6 +417,7 @@
       }
     ],
     "crossIndustrySynergies": [],
+    "cardDescription": "Rolls the buzz die each year instead of GMI; delta ranges from -3 to +6. Narrative premium active; UPSTREAM integration sells all held personal event cards at +$2 and DOWNSTREAM integration sets a crash floor of 14.",
     "flavourText": "When you own the narrative, you own everything else by implication."
   }
 ]

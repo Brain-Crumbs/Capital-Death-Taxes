@@ -14,32 +14,24 @@
     "baseValueUpdateRule": {
       "outcomes": [
         {
-          "range": [
-            1,
-            1
-          ],
-          "delta": -1
+          "range": [1, 1],
+          "delta": -1,
+          "rollFlavourText": "Block funding cut. Two treatment rooms closed pending review."
         },
         {
-          "range": [
-            2,
-            3
-          ],
-          "delta": 0
+          "range": [2, 3],
+          "delta": 0,
+          "rollFlavourText": "Occupancy holds. Patient throughput within expected parameters."
         },
         {
-          "range": [
-            4,
-            5
-          ],
-          "delta": 2
+          "range": [4, 5],
+          "delta": 2,
+          "rollFlavourText": "Referral volume up. Waiting room at capacity, which is operationally fine."
         },
         {
-          "range": [
-            6,
-            6
-          ],
-          "delta": 3
+          "range": [6, 6],
+          "delta": 3,
+          "rollFlavourText": "Preventive care grant approved. Clinic logs its highest admission week on record."
         }
       ],
       "industryMechanic": "RE + MFG hybrid. Monk class (Actuary). STRESS-LINKED LOAN CAPACITY active. Stress determines loan capacity dynamically."
@@ -50,10 +42,11 @@
         "requiresPlacement": "MIDSTREAM",
         "effectType": "LOAN_CAPACITY_BONUS",
         "effectMagnitude": 1,
-        "effectDescription": "If your current stress is \u2264 2: +1 loan cap on this asset. If stress is 0: +2 loan cap instead. Recalculate each settlement. Actuary CEO's formula determines the full dynamic range. This card grants a flat conditional bonus at fixed thresholds only \u2014 the CEO calculates, the card responds."
+        "effectDescription": "If your current stress is ≤ 2: +1 loan cap on this asset. If stress is 0: +2 loan cap instead. Recalculate each settlement. Actuary CEO's formula determines the full dynamic range. This card grants a flat conditional bonus at fixed thresholds only — the CEO calculates, the card responds."
       }
     ],
     "crossIndustrySynergies": [],
+    "cardDescription": "RE+MFG hybrid asset. Generates modest income from clinic operations across real estate and throughput capacity. Loan capacity scales dynamically with your current stress — the lower your stress, the greater your borrowing ceiling.",
     "flavourText": "Health is the one asset that depreciates whether you invest or not."
   },
   {
@@ -71,32 +64,24 @@
     "baseValueUpdateRule": {
       "outcomes": [
         {
-          "range": [
-            1,
-            1
-          ],
-          "delta": -2
+          "range": [1, 1],
+          "delta": -2,
+          "rollFlavourText": "Regulatory audit triggers mandatory ward closures. Admissions suspended pending compliance sign-off."
         },
         {
-          "range": [
-            2,
-            3
-          ],
-          "delta": 0
+          "range": [2, 3],
+          "delta": 0,
+          "rollFlavourText": "Network throughput stable. No material change in bed occupancy or discharge rates."
         },
         {
-          "range": [
-            4,
-            5
-          ],
-          "delta": 2
+          "range": [4, 5],
+          "delta": 2,
+          "rollFlavourText": "Elective procedure backlog clears. Surgical suites running at planned utilisation."
         },
         {
-          "range": [
-            6,
-            6
-          ],
-          "delta": 4
+          "range": [6, 6],
+          "delta": 4,
+          "rollFlavourText": "New specialist wing opens on schedule. Regional referral network routes to this facility by default."
         }
       ],
       "industryMechanic": "RE + MFG hybrid. Monk class (Actuary). STRESS-LINKED LOAN CAPACITY active. Stress determines loan capacity dynamically."
@@ -106,17 +91,18 @@
         "requiresIndustry": "REAL_ESTATE",
         "requiresPlacement": "UPSTREAM",
         "effectType": "SPECIAL",
-        "effectDescription": "\u22121 stress before your death roll once per year. Actuary CEO: this may cancel the roll entirely (per CEO triggered ability). Non-Actuary: reduces stress before roll but cannot prevent the roll if threshold is still met after reduction."
+        "effectDescription": "−1 stress before your death roll once per year. Actuary CEO: this may cancel the roll entirely (per CEO triggered ability). Non-Actuary: reduces stress before roll but cannot prevent the roll if threshold is still met after reduction."
       },
       {
         "requiresIndustry": "MANUFACTURING",
         "requiresPlacement": "DOWNSTREAM",
         "effectType": "LOAN_CAPACITY_BONUS",
         "effectMagnitude": 1,
-        "effectDescription": "If your current stress is \u2264 2: +1 loan cap on this asset. If stress is 0: +2 loan cap; +1 additional if value exceeds 18."
+        "effectDescription": "If your current stress is ≤ 2: +1 loan cap on this asset. If stress is 0: +2 loan cap; +1 additional if value exceeds 18."
       }
     ],
     "crossIndustrySynergies": [],
+    "cardDescription": "RE+MFG hybrid asset. Mid-tier hospital network generating income from real estate holdings and operational throughput. Loan capacity is stress-linked — maintaining low stress unlocks higher borrowing thresholds and may enable pre-roll stress reduction via vertical integration.",
     "flavourText": "Hospitals are the only business where repeat customers are a failure."
   },
   {
@@ -134,35 +120,27 @@
     "baseValueUpdateRule": {
       "outcomes": [
         {
-          "range": [
-            1,
-            1
-          ],
-          "delta": -4
+          "range": [1, 1],
+          "delta": -4,
+          "rollFlavourText": "Federal reimbursement rates cut. Three portfolio facilities fall below minimum occupancy threshold."
         },
         {
-          "range": [
-            2,
-            3
-          ],
-          "delta": 1
+          "range": [2, 3],
+          "delta": 1,
+          "rollFlavourText": "Portfolio occupancy holds within acceptable variance. Lease renewals proceeding at standard terms."
         },
         {
-          "range": [
-            4,
-            5
-          ],
-          "delta": 4
+          "range": [4, 5],
+          "delta": 4,
+          "rollFlavourText": "Aged care demand surge absorbs all available capacity. New admissions deferred to next quarter."
         },
         {
-          "range": [
-            6,
-            6
-          ],
-          "delta": 6
+          "range": [6, 6],
+          "delta": 6,
+          "rollFlavourText": "Infrastructure expansion approved across four sites. The REIT posts its highest portfolio valuation on record."
         }
       ],
-      "industryMechanic": "RE + MFG hybrid. Monk class (Actuary). STRESS-LINKED LOAN CAPACITY \u00d72 active. Peak Monk synergy at stress 0."
+      "industryMechanic": "RE + MFG hybrid. Monk class (Actuary). STRESS-LINKED LOAN CAPACITY ×2 active. Peak Monk synergy at stress 0."
     },
     "verticalIntegrationRules": [
       {
@@ -170,7 +148,7 @@
         "requiresPlacement": "MIDSTREAM",
         "effectType": "LOAN_CAPACITY_BONUS",
         "effectMagnitude": 2,
-        "effectDescription": "If your current stress is \u2264 2: +2 loan cap on this asset (double the standard threshold bonus). If stress is 0: +4 loan cap. Actuary CEO's $5 longevity bonus stacks with maximum credit at stress 0 \u2014 peak Monk synergy."
+        "effectDescription": "If your current stress is ≤ 2: +2 loan cap on this asset (double the standard threshold bonus). If stress is 0: +4 loan cap. Actuary CEO's $5 longevity bonus stacks with maximum credit at stress 0 — peak Monk synergy."
       },
       {
         "requiresIndustry": "MANUFACTURING",
@@ -180,6 +158,7 @@
       }
     ],
     "crossIndustrySynergies": [],
+    "cardDescription": "RE+MFG hybrid asset. Sovereign-tier healthcare REIT combining real estate holdings with large-scale operational capacity. Stress-linked loan capacity doubles at this tier — maximum borrowing ceiling is only achievable at stress 0, making survival the primary leverage condition.",
     "flavourText": "The longest-lived patients make the best landlords."
   }
 ]

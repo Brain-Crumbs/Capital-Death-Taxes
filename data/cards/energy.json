@@ -14,42 +14,34 @@
     "baseValueUpdateRule": {
       "outcomes": [
         {
-          "range": [
-            1,
-            1
-          ],
-          "delta": -1
+          "range": [1, 1],
+          "delta": -1,
+          "rollFlavourText": "Grid throughput collapses as demand craters — oversupply floods the distribution network."
         },
         {
-          "range": [
-            2,
-            3
-          ],
-          "delta": 0
+          "range": [2, 3],
+          "delta": 0,
+          "rollFlavourText": "Stable throughput, holding rate — the grid hums at breakeven."
         },
         {
-          "range": [
-            4,
-            5
-          ],
-          "delta": 2
+          "range": [4, 5],
+          "delta": 2,
+          "rollFlavourText": "Demand ticks up across the network; distribution margins widen."
         },
         {
-          "range": [
-            6,
-            6
-          ],
-          "delta": 3
+          "range": [6, 6],
+          "delta": 3,
+          "rollFlavourText": "Peak load season hits — the grid is at capacity and prices spike across every region."
         }
       ],
-      "industryMechanic": "GMI amplified \u00d72. Choose 1 other player: their ENERGY assets treat negative GMI as halved this year. Druid party support \u2014 Geologist gives this to one ally in a downturn."
+      "industryMechanic": "GMI amplified ×2. Choose 1 other player: their ENERGY assets treat negative GMI as halved this year. Druid party support — Geologist gives this to one ally in a downturn."
     },
     "verticalIntegrationRules": [
       {
         "requiresIndustry": "ENERGY",
         "requiresPlacement": "MIDSTREAM",
         "effectType": "SPECIAL",
-        "effectDescription": "Choose 1 other player: their ENERGY assets treat negative GMI as halved this year. Druid party support \u2014 Geologist gives this to one ally in a downturn."
+        "effectDescription": "Choose 1 other player: their ENERGY assets treat negative GMI as halved this year. Druid party support — Geologist gives this to one ally in a downturn."
       },
       {
         "requiresIndustry": "ENERGY",
@@ -67,6 +59,7 @@
         "effectDescription": "+1 loan cap after 2 consecutive years without a negative value roll."
       }
     ],
+    "cardDescription": "T1 Energy downstream. GMI amplified ×2 — bad macro years hit twice as hard. Steady income offset by amplified volatility; party support ability buffers one ally's ENERGY exposure in downturns.",
     "flavourText": "Everyone needs power. Nobody thanks the grid."
   },
   {
@@ -84,35 +77,27 @@
     "baseValueUpdateRule": {
       "outcomes": [
         {
-          "range": [
-            1,
-            1
-          ],
-          "delta": -1
+          "range": [1, 1],
+          "delta": -1,
+          "rollFlavourText": "Throughput volumes crater — glut conditions back up the pipeline with nowhere to go."
         },
         {
-          "range": [
-            2,
-            3
-          ],
-          "delta": 0
+          "range": [2, 3],
+          "delta": 0,
+          "rollFlavourText": "Volumes steady, tariffs unchanged — the pipeline moves product at breakeven margins."
         },
         {
-          "range": [
-            4,
-            5
-          ],
-          "delta": 2
+          "range": [4, 5],
+          "delta": 2,
+          "rollFlavourText": "Upstream supply contracts push higher tariff rates through the midstream network."
         },
         {
-          "range": [
-            6,
-            6
-          ],
-          "delta": 3
+          "range": [6, 6],
+          "delta": 3,
+          "rollFlavourText": "Supply crunch locks in premium transit rates — every barrel pays to move."
         }
       ],
-      "industryMechanic": "GMI amplified \u00d72. Geologist CEO: FORESIGHT has no once-per-year limit while this asset is held. Non-Geologist: the cost-to-peek ability from UPSTREAM fires at no card discard cost this year."
+      "industryMechanic": "GMI amplified ×2. Geologist CEO: FORESIGHT has no once-per-year limit while this asset is held. Non-Geologist: the cost-to-peek ability from UPSTREAM fires at no card discard cost this year."
     },
     "verticalIntegrationRules": [
       {
@@ -137,6 +122,7 @@
         "effectDescription": "+1 loan cap for each MFG asset you own (max +2)."
       }
     ],
+    "cardDescription": "T1 Energy midstream. GMI amplified ×2 — commodity downturns hit hard across the transit network. Unlocks Geologist FORESIGHT advantages and cheaper event-peeking for non-Geologist players.",
     "flavourText": "The pipeline doesn't care what flows through it."
   },
   {
@@ -154,35 +140,27 @@
     "baseValueUpdateRule": {
       "outcomes": [
         {
-          "range": [
-            1,
-            1
-          ],
-          "delta": -1
+          "range": [1, 1],
+          "delta": -1,
+          "rollFlavourText": "The well comes in dry — commodity prices collapse and the drilling rights are worth next to nothing."
         },
         {
-          "range": [
-            2,
-            3
-          ],
-          "delta": 0
+          "range": [2, 3],
+          "delta": 0,
+          "rollFlavourText": "Marginal flow rates hold — the field produces but spot prices keep the value flat."
         },
         {
-          "range": [
-            4,
-            5
-          ],
-          "delta": 2
+          "range": [4, 5],
+          "delta": 2,
+          "rollFlavourText": "A new strike confirms reserves — demand for the rights ticks up with the commodity price."
         },
         {
-          "range": [
-            6,
-            6
-          ],
-          "delta": 3
+          "range": [6, 6],
+          "delta": 3,
+          "rollFlavourText": "Wildcat pays off: record-grade reserves confirmed as prices surge — the drilling rights are suddenly very valuable."
         }
       ],
-      "industryMechanic": "GMI amplified \u00d72. Geologist CEO: this asset's ownership enables FORESIGHT ability use (once per year per CEO card). Non-Geologist: once per year, after the global event card is drawn but before value rolls, you may draw and immediately discard 1 personal event card to look at the next global event card without revealing it. Information at cost."
+      "industryMechanic": "GMI amplified ×2. Geologist CEO: this asset's ownership enables FORESIGHT ability use (once per year per CEO card). Non-Geologist: once per year, after the global event card is drawn but before value rolls, you may draw and immediately discard 1 personal event card to look at the next global event card without revealing it. Information at cost."
     },
     "verticalIntegrationRules": [
       {
@@ -193,6 +171,7 @@
       }
     ],
     "crossIndustrySynergies": [],
+    "cardDescription": "T1 Energy upstream. GMI amplified ×2 — commodity gluts devastate exploration-stage assets. No income; value is pure speculative upside and the FORESIGHT information advantage it unlocks.",
     "flavourText": "The drill doesn't know the difference between oil and optimism."
   },
   {
@@ -210,35 +189,27 @@
     "baseValueUpdateRule": {
       "outcomes": [
         {
-          "range": [
-            1,
-            1
-          ],
-          "delta": -2
+          "range": [1, 1],
+          "delta": -2,
+          "rollFlavourText": "Offshore output floods an already saturated market — spot prices collapse under the oversupply."
         },
         {
-          "range": [
-            2,
-            3
-          ],
-          "delta": 1
+          "range": [2, 3],
+          "delta": 1,
+          "rollFlavourText": "Production holds steady offshore; modest demand tick keeps margins slightly positive."
         },
         {
-          "range": [
-            4,
-            5
-          ],
-          "delta": 4
+          "range": [4, 5],
+          "delta": 4,
+          "rollFlavourText": "Demand surge hits the seaborne market — offshore barrels command a premium at current prices."
         },
         {
-          "range": [
-            6,
-            6
-          ],
-          "delta": 4
+          "range": [6, 6],
+          "delta": 4,
+          "rollFlavourText": "Supply crunch goes global — the platform is producing flat-out into a record price environment."
         }
       ],
-      "industryMechanic": "GMI amplified \u00d72. Your own ENERGY assets halve negative GMI this year. (Party-wide protection belongs on global events, not individual asset bonuses.)"
+      "industryMechanic": "GMI amplified ×2. Your own ENERGY assets halve negative GMI this year. (Party-wide protection belongs on global events, not individual asset bonuses.)"
     },
     "verticalIntegrationRules": [
       {
@@ -256,6 +227,7 @@
       }
     ],
     "crossIndustrySynergies": [],
+    "cardDescription": "T2 Energy downstream. GMI amplified ×2 — macro downturns hit at double force, but vertical integration halves negative GMI exposure across your own ENERGY portfolio. High-risk, high-ceiling asset.",
     "flavourText": "Sixty miles offshore, regulations are suggestions."
   },
   {
@@ -273,35 +245,27 @@
     "baseValueUpdateRule": {
       "outcomes": [
         {
-          "range": [
-            1,
-            1
-          ],
-          "delta": -2
+          "range": [1, 1],
+          "delta": -2,
+          "rollFlavourText": "Transmission demand collapses as industrial load falls — the grid carries air at a loss."
         },
         {
-          "range": [
-            2,
-            3
-          ],
-          "delta": 1
+          "range": [2, 3],
+          "delta": 1,
+          "rollFlavourText": "Baseline load holds — regulated tariffs keep throughput revenue marginally positive."
         },
         {
-          "range": [
-            4,
-            5
-          ],
-          "delta": 4
+          "range": [4, 5],
+          "delta": 4,
+          "rollFlavourText": "Industrial demand spikes across the network — transmission capacity tightens and tariffs lift."
         },
         {
-          "range": [
-            6,
-            6
-          ],
-          "delta": 4
+          "range": [6, 6],
+          "delta": 4,
+          "rollFlavourText": "National demand peaks at record levels — every megawatt of capacity is spoken for at boom-cycle prices."
         }
       ],
-      "industryMechanic": "GMI amplified \u00d72. Geologist CEO: FORESIGHT allows swapping the top 2 event cards' positions in addition to the look/move choice. Non-Geologist: once per year, swap the top 2 global event cards without looking at either (blind swap)."
+      "industryMechanic": "GMI amplified ×2. Geologist CEO: FORESIGHT allows swapping the top 2 event cards' positions in addition to the look/move choice. Non-Geologist: once per year, swap the top 2 global event cards without looking at either (blind swap)."
     },
     "verticalIntegrationRules": [
       {
@@ -327,6 +291,7 @@
         "effectDescription": "+1 loan cap; +1 additional if value exceeds 22."
       }
     ],
+    "cardDescription": "T2 Energy midstream. GMI amplified ×2 — systemic macro shocks hit the grid at double magnitude. Offers event-deck manipulation and a crash floor via vertical integration; strategic information control at scale.",
     "flavourText": "The grid is the economy. Everything else is commentary."
   },
   {
@@ -344,45 +309,38 @@
     "baseValueUpdateRule": {
       "outcomes": [
         {
-          "range": [
-            1,
-            1
-          ],
-          "delta": -2
+          "range": [1, 1],
+          "delta": -2,
+          "rollFlavourText": "Crude glut tanks feedstock margins — the refinery runs at a loss as crack spreads invert."
         },
         {
-          "range": [
-            2,
-            3
-          ],
-          "delta": 1
+          "range": [2, 3],
+          "delta": 1,
+          "rollFlavourText": "Refining margins hold thin — throughput volumes steady with a modest crack spread improvement."
         },
         {
-          "range": [
-            4,
-            5
-          ],
-          "delta": 4
+          "range": [4, 5],
+          "delta": 4,
+          "rollFlavourText": "Product demand surges downstream — refinery runs at full capacity with widening margins."
         },
         {
-          "range": [
-            6,
-            6
-          ],
-          "delta": 4
+          "range": [6, 6],
+          "delta": 4,
+          "rollFlavourText": "Supply crunch drives crack spreads to record highs — the refinery prints at every barrel processed."
         }
       ],
-      "industryMechanic": "GMI amplified \u00d72."
+      "industryMechanic": "GMI amplified ×2."
     },
     "verticalIntegrationRules": [
       {
         "requiresIndustry": "ENERGY",
         "requiresPlacement": "MIDSTREAM",
         "effectType": "SPECIAL",
-        "effectDescription": "Choose up to 2 other players: their ENERGY assets halve negative GMI this year. Druid party-wide protection at T2 \u2014 note this targets other players only, not yourself."
+        "effectDescription": "Choose up to 2 other players: their ENERGY assets halve negative GMI this year. Druid party-wide protection at T2 — note this targets other players only, not yourself."
       }
     ],
     "crossIndustrySynergies": [],
+    "cardDescription": "T2 Energy upstream. GMI amplified ×2 — commodity downturns compress crack spreads at twice the macro rate. Low stress for tier; vertical integration provides party-wide GMI protection for up to two other players.",
     "flavourText": "Crude in, margin out. The rest is chemistry."
   },
   {
@@ -400,42 +358,34 @@
     "baseValueUpdateRule": {
       "outcomes": [
         {
-          "range": [
-            1,
-            1
-          ],
-          "delta": -4
+          "range": [1, 1],
+          "delta": -4,
+          "rollFlavourText": "Renewable overcapacity floods the grid — power prices collapse as supply overwhelms demand across the network."
         },
         {
-          "range": [
-            2,
-            3
-          ],
-          "delta": 2
+          "range": [2, 3],
+          "delta": 2,
+          "rollFlavourText": "Generation output holds at rated capacity — grid offtake steady, prices flat but positive."
         },
         {
-          "range": [
-            4,
-            5
-          ],
-          "delta": 5
+          "range": [4, 5],
+          "delta": 5,
+          "rollFlavourText": "Demand surge stresses the grid — renewable capacity commands a premium as the energy transition accelerates."
         },
         {
-          "range": [
-            6,
-            6
-          ],
-          "delta": 8
+          "range": [6, 6],
+          "delta": 8,
+          "rollFlavourText": "Supply crunch triggers emergency procurement — the sovereign's clean capacity is priced at the top of the merit order across every market it serves."
         }
       ],
-      "industryMechanic": "GMI amplified \u00d73 at T3. Geologist CEO raises to \u00d74. Your own ENERGY assets are immune to negative GMI this year. (Previously party-wide \u2014 scoped to owner only.)"
+      "industryMechanic": "GMI amplified ×3 at T3. Geologist CEO raises to ×4. Your own ENERGY assets are immune to negative GMI this year. (Previously party-wide — scoped to owner only.)"
     },
     "verticalIntegrationRules": [
       {
         "requiresIndustry": "ENERGY",
         "requiresPlacement": "MIDSTREAM",
         "effectType": "GMI_RESISTANCE",
-        "effectDescription": "Your own ENERGY assets are immune to negative GMI this year. (Previously party-wide \u2014 scoped to owner only.)"
+        "effectDescription": "Your own ENERGY assets are immune to negative GMI this year. (Previously party-wide — scoped to owner only.)"
       },
       {
         "requiresIndustry": "ENERGY",
@@ -443,10 +393,11 @@
         "effectType": "STRESS_REDUCTION",
         "effectMagnitude": 1,
         "stressReduction": 1,
-        "effectDescription": "\u22121 stress in any year GMI is positive."
+        "effectDescription": "−1 stress in any year GMI is positive."
       }
     ],
     "crossIndustrySynergies": [],
+    "cardDescription": "T3 Energy downstream. GMI amplified ×3 (×4 with Geologist) — macro shocks are devastating at this scale. Full vertical integration grants immunity to negative GMI for your entire ENERGY portfolio and stress reduction in bull years.",
     "flavourText": "The sun doesn't send invoices. The sovereign does."
   },
   {
@@ -464,42 +415,34 @@
     "baseValueUpdateRule": {
       "outcomes": [
         {
-          "range": [
-            1,
-            1
-          ],
-          "delta": -4
+          "range": [1, 1],
+          "delta": -4,
+          "rollFlavourText": "Petrochemical feedstock demand collapses — an oversupplied crude market obliterates upstream margins at scale."
         },
         {
-          "range": [
-            2,
-            3
-          ],
-          "delta": 2
+          "range": [2, 3],
+          "delta": 2,
+          "rollFlavourText": "Feedstock volumes hold — petrochemical offtake steady as downstream processors run at base rates."
         },
         {
-          "range": [
-            4,
-            5
-          ],
-          "delta": 5
+          "range": [4, 5],
+          "delta": 5,
+          "rollFlavourText": "Industrial demand spike pulls hard on petrochemical supply — pricing power returns to the upstream."
         },
         {
-          "range": [
-            6,
-            6
-          ],
-          "delta": 8
+          "range": [6, 6],
+          "delta": 8,
+          "rollFlavourText": "Global supply crunch locks every molecule into a seller's market — the Giant is running flat-out at record commodity prices."
         }
       ],
-      "industryMechanic": "GMI amplified \u00d73 at T3. Geologist CEO raises to \u00d74 per updated CEO ability. Geologist CEO: FORESIGHT allows peeking 2 cards ahead and swapping the top 2. Non-Geologist: once per year, look at the top global event card and choose to keep or move it (as standard, but no swap)."
+      "industryMechanic": "GMI amplified ×3 at T3. Geologist CEO raises to ×4 per updated CEO ability. Geologist CEO: FORESIGHT allows peeking 2 cards ahead and swapping the top 2. Non-Geologist: once per year, look at the top global event card and choose to keep or move it (as standard, but no swap)."
     },
     "verticalIntegrationRules": [
       {
         "requiresIndustry": "ENERGY",
         "requiresPlacement": "MIDSTREAM",
         "effectType": "SPECIAL",
-        "effectDescription": "Geologist CEO: FORESIGHT allows peeking 2 cards ahead and swapping the top 2. Non-Geologist: once per year, look at the top global event card and choose to keep or move it (as standard, but no swap). GMI \u00d73 baseline for all players. Geologist CEO raises to \u00d74 per updated CEO ability."
+        "effectDescription": "Geologist CEO: FORESIGHT allows peeking 2 cards ahead and swapping the top 2. Non-Geologist: once per year, look at the top global event card and choose to keep or move it (as standard, but no swap). GMI ×3 baseline for all players. Geologist CEO raises to ×4 per updated CEO ability."
       }
     ],
     "crossIndustrySynergies": [
@@ -511,6 +454,7 @@
         "effectDescription": "+1 loan cap for each MFG asset you own (max +3)."
       }
     ],
+    "cardDescription": "T3 Energy upstream. GMI amplified ×3 (×4 with Geologist) — the highest commodity amplifier in the game means a bad macro year is catastrophic. Exceptional upside ceiling; Geologist FORESIGHT reaches two cards deep at this tier.",
     "flavourText": "Petrochemicals built the twentieth century. The twenty-first just pretends otherwise."
   }
 ]
