@@ -11,33 +11,22 @@
     "baseLoanCapacity": 5,
     "loanCapacityIncreasePer10AssetValue": 5,
     "baseValueUpdateRule": {
+      "volatilityProfile": "STANDARD",
       "outcomes": [
         {
-          "range": [
-            1,
-            1
-          ],
+          "range": [1, 1],
           "delta": -1
         },
         {
-          "range": [
-            2,
-            3
-          ],
+          "range": [2, 3],
           "delta": 0
         },
         {
-          "range": [
-            4,
-            5
-          ],
+          "range": [4, 5],
           "delta": 2
         },
         {
-          "range": [
-            6,
-            6
-          ],
+          "range": [6, 6],
           "delta": 3
         }
       ],
@@ -54,7 +43,7 @@
         "requiresIndustry": "FINANCE",
         "requiresPlacement": "UPSTREAM",
         "effectType": "SPECIAL",
-        "effectDescription": "Once per year: look at the top card of the market discard pile. You may pay $1 to acquire it immediately at its current value, or leave it. Tax Attorney's Distressed Acquisition targets the full discard pile \u2014 this previews one card only."
+        "effectDescription": "Once per year: look at the top 2 cards of the market discard pile. You may pay $1 to acquire one immediately at its current value, or leave both in place. Tax Attorney's Distressed Acquisition targets the full discard pile at half base value \u2014 this previews the top 2 only, at market rate."
       }
     ],
     "crossIndustrySynergies": [
@@ -80,33 +69,22 @@
     "baseLoanCapacity": 4,
     "loanCapacityIncreasePer10AssetValue": 5,
     "baseValueUpdateRule": {
+      "volatilityProfile": "STANDARD",
       "outcomes": [
         {
-          "range": [
-            1,
-            1
-          ],
+          "range": [1, 1],
           "delta": -1
         },
         {
-          "range": [
-            2,
-            3
-          ],
+          "range": [2, 3],
           "delta": 0
         },
         {
-          "range": [
-            4,
-            5
-          ],
+          "range": [4, 5],
           "delta": 2
         },
         {
-          "range": [
-            6,
-            6
-          ],
+          "range": [6, 6],
           "delta": 3
         }
       ],
@@ -117,7 +95,7 @@
         "requiresIndustry": "FINANCE",
         "requiresPlacement": "UPSTREAM",
         "effectType": "SPECIAL",
-        "effectDescription": "On a neg GMI double-hit year, this asset's income is treated as +1 higher before tax calculation. (The double-hit value loss still applies to asset value \u2014 only income is boosted.)"
+        "effectDescription": "On any negative GMI year: this asset's income is treated as +1 higher before tax calculation. On double-hit years (1\u20133 rolled in a negative GMI year): +2 income instead. The double-hit value loss still applies to asset value \u2014 only income is boosted."
       },
       {
         "requiresIndustry": "FINANCE",
@@ -150,33 +128,22 @@
     "baseLoanCapacity": 4,
     "loanCapacityIncreasePer10AssetValue": 5,
     "baseValueUpdateRule": {
+      "volatilityProfile": "STANDARD",
       "outcomes": [
         {
-          "range": [
-            1,
-            1
-          ],
+          "range": [1, 1],
           "delta": -1
         },
         {
-          "range": [
-            2,
-            3
-          ],
+          "range": [2, 3],
           "delta": 0
         },
         {
-          "range": [
-            4,
-            5
-          ],
+          "range": [4, 5],
           "delta": 2
         },
         {
-          "range": [
-            6,
-            6
-          ],
+          "range": [6, 6],
           "delta": 3
         }
       ],
@@ -205,34 +172,23 @@
     "baseLoanCapacity": 5,
     "loanCapacityIncreasePer10AssetValue": 5,
     "baseValueUpdateRule": {
+      "volatilityProfile": "STANDARD",
       "outcomes": [
         {
-          "range": [
-            1,
-            1
-          ],
+          "range": [1, 1],
           "delta": -2
         },
         {
-          "range": [
-            2,
-            3
-          ],
+          "range": [2, 3],
           "delta": 1
         },
         {
-          "range": [
-            4,
-            5
-          ],
+          "range": [4, 5],
           "delta": 4
         },
         {
-          "range": [
-            6,
-            6
-          ],
-          "delta": 4
+          "range": [6, 6],
+          "delta": 6
         }
       ],
       "industryMechanic": "Double-hit on 1\u20133 in negative GMI years."
@@ -266,34 +222,23 @@
     "baseLoanCapacity": 5,
     "loanCapacityIncreasePer10AssetValue": 5,
     "baseValueUpdateRule": {
+      "volatilityProfile": "STANDARD",
       "outcomes": [
         {
-          "range": [
-            1,
-            1
-          ],
+          "range": [1, 1],
           "delta": -2
         },
         {
-          "range": [
-            2,
-            3
-          ],
+          "range": [2, 3],
           "delta": 1
         },
         {
-          "range": [
-            4,
-            5
-          ],
+          "range": [4, 5],
           "delta": 4
         },
         {
-          "range": [
-            6,
-            6
-          ],
-          "delta": 4
+          "range": [6, 6],
+          "delta": 6
         }
       ],
       "industryMechanic": "Double-hit on 1\u20133 in negative GMI years."
@@ -303,7 +248,7 @@
         "requiresIndustry": "FINANCE",
         "requiresPlacement": "UPSTREAM",
         "effectType": "SPECIAL",
-        "effectDescription": "Once per year: during the auction phase, you may inspect one face-down market card before bidding (if any are face-down per variant rules). If all cards are face-up, gain +1 to your first bid this year instead. Synergizes with Tax Attorney's MARKET PREVIEW \u2014 stacked intelligence gives bidding advantage."
+        "effectDescription": "Once per year during the auction phase: draw the top card from the market deck and add it to the current auction. You may bid on it immediately alongside all other players. Synergizes with Tax Attorney's MARKET PREVIEW \u2014 stacked with this effect, you set what enters the market and know it in advance."
       },
       {
         "requiresIndustry": "FINANCE",
@@ -336,34 +281,23 @@
     "baseLoanCapacity": 4,
     "loanCapacityIncreasePer10AssetValue": 5,
     "baseValueUpdateRule": {
+      "volatilityProfile": "STANDARD",
       "outcomes": [
         {
-          "range": [
-            1,
-            1
-          ],
+          "range": [1, 1],
           "delta": -2
         },
         {
-          "range": [
-            2,
-            3
-          ],
+          "range": [2, 3],
           "delta": 1
         },
         {
-          "range": [
-            4,
-            5
-          ],
+          "range": [4, 5],
           "delta": 4
         },
         {
-          "range": [
-            6,
-            6
-          ],
-          "delta": 4
+          "range": [6, 6],
+          "delta": 6
         }
       ],
       "industryMechanic": "Double-hit on 1\u20133 in negative GMI years."
@@ -391,34 +325,23 @@
     "baseLoanCapacity": 5,
     "loanCapacityIncreasePer10AssetValue": 5,
     "baseValueUpdateRule": {
+      "volatilityProfile": "STANDARD",
       "outcomes": [
         {
-          "range": [
-            1,
-            1
-          ],
+          "range": [1, 1],
           "delta": -4
         },
         {
-          "range": [
-            2,
-            3
-          ],
+          "range": [2, 3],
           "delta": 1
         },
         {
-          "range": [
-            4,
-            5
-          ],
-          "delta": 4
+          "range": [4, 5],
+          "delta": 5
         },
         {
-          "range": [
-            6,
-            6
-          ],
-          "delta": 6
+          "range": [6, 6],
+          "delta": 8
         }
       ],
       "industryMechanic": "Double-hit on 1\u20133 in negative GMI years."
@@ -428,7 +351,7 @@
         "requiresIndustry": "FINANCE",
         "requiresPlacement": "MIDSTREAM",
         "effectType": "SPECIAL",
-        "effectDescription": "Once per year during settlement: look at the top 3 personal event cards. Return them in any order. You draw none \u2014 this is pure deck positioning. Tax Attorney's MARKET PREVIEW already lets them choose from top 2 to draw; this extends the window and lets you set up for other players' draws too."
+        "effectDescription": "Once per year during settlement: look at the top 3 personal event cards. Take 1 into your hand; return the other 2 in any order. This additional draw is separate from your normal annual draw. Tax Attorney's MARKET PREVIEW can extend this window to the top 5 cards."
       },
       {
         "requiresIndustry": "FINANCE",
@@ -452,34 +375,23 @@
     "baseLoanCapacity": 5,
     "loanCapacityIncreasePer10AssetValue": 5,
     "baseValueUpdateRule": {
+      "volatilityProfile": "STANDARD",
       "outcomes": [
         {
-          "range": [
-            1,
-            1
-          ],
+          "range": [1, 1],
           "delta": -4
         },
         {
-          "range": [
-            2,
-            3
-          ],
+          "range": [2, 3],
           "delta": 1
         },
         {
-          "range": [
-            4,
-            5
-          ],
-          "delta": 4
+          "range": [4, 5],
+          "delta": 5
         },
         {
-          "range": [
-            6,
-            6
-          ],
-          "delta": 6
+          "range": [6, 6],
+          "delta": 8
         }
       ],
       "industryMechanic": "Double-hit on 1\u20133 in negative GMI years. Quant's inversion mechanic on this asset operates without the second value loss being applied \u2014 the double-hit fires but the second delta is negated. Non-Quant: in any neg GMI year, this asset's value update roll is treated as one higher."
