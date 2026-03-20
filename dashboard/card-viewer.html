@@ -888,41 +888,50 @@
 
     // ── Data loading ───────────────────────────────────────────────
 
-    const CARD_FILES = [
-      'technology-cards.json',
-      'energy-cards.json',
-      'real-estate-cards.json',
-      'finance-cards.json',
-      'manufacturing-cards.json',
-      'media-cards.json',
-      'hybrid-cards.json',
+    // Asset cards: each industry is a subdirectory of data/cards/
+    // The server merges all .json files in the directory into an array.
+    const ASSET_INDUSTRY_DIRS = [
+      'technology',
+      'energy',
+      'real_estate',
+      'finance',
+      'manufacturing',
+      'media_entertainment',
+      'defence',
+      'healthcare',
+    ];
+
+    // Non-asset card files remain as flat JSON arrays
+    const FLAT_CARD_FILES = [
+      'starter-asset-cards.json',
       'ceo-cards.json',
       'global-event-cards.json',
       'personal-event-cards.json',
     ];
 
-    const datasets = await Promise.all(
-      CARD_FILES.map(file =>
-        fetch(`/cards/${file}`)
-          .then(r => r.json())
-          .then(data => {
-            if (!Array.isArray(data)) {
-              console.warn(`[CardViewer] Missing or invalid data: ${file}`);
-              return [];
-            }
-            return data;
-          })
-          .catch(() => {
-            console.warn(`[CardViewer] Missing or invalid data: ${file}`);
-            const banner = document.createElement('div');
-            banner.style.cssText = 'position:fixed;top:0;left:0;right:0;background:#9a2a2a;color:#fff;font-size:12px;padding:6px 12px;z-index:9999;';
-            banner.textContent = `Failed to load ${file} — some cards may be missing`;
-            document.body.prepend(banner);
-            setTimeout(() => banner.remove(), 6000);
-            return [];
-          })
-      )
-    );
+    async function loadCards(urlPath) {
+      try {
+        const r    = await fetch(urlPath);
+        const data = await r.json();
+        if (Array.isArray(data))              return data;
+        if (data && typeof data === 'object') return [data];
+        console.warn(`[CardViewer] Unexpected data shape: ${urlPath}`);
+        return [];
+      } catch {
+        console.warn(`[CardViewer] Failed to load: ${urlPath}`);
+        const banner = document.createElement('div');
+        banner.style.cssText = 'position:fixed;top:0;left:0;right:0;background:#9a2a2a;color:#fff;font-size:12px;padding:6px 12px;z-index:9999;';
+        banner.textContent = `Failed to load ${urlPath} — some cards may be missing`;
+        document.body.prepend(banner);
+        setTimeout(() => banner.remove(), 6000);
+        return [];
+      }
+    }
+
+    const datasets = await Promise.all([
+      ...ASSET_INDUSTRY_DIRS.map(dir  => loadCards(`/cards/${dir}`)),
+      ...FLAT_CARD_FILES.map(file => loadCards(`/cards/${file}`)),
+    ]);
 
     const allCards = datasets.flat();
 
