@@ -1,0 +1,756 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Borrow &amp; Die — CEO Card Template</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,400&family=IBM+Plex+Mono:wght@400;500&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --tech:    #3d6e8f;
+    --energy:  #b05a1a;
+    --re:      #4a6e4a;
+    --finance: #4a4a7a;
+    --mfg:     #6a5a4a;
+    --media:   #7a4a6a;
+    --defence: #3a5a6a;
+    --hybrid:  #4a6a6a;
+
+    --bg:      #f0ede6;
+    --surface: #faf8f4;
+    --card:    #ffffff;
+    --border:  #d8d4ca;
+    --border2: #c4bfb4;
+    --text:    #1a1916;
+    --muted:   #6b6860;
+    --faint:   #9c9a94;
+
+    --t1-bg:   #e8e6e0;
+    --t1-text: #5a5850;
+    --t2-bg:   #f5dfa0;
+    --t2-text: #7a5800;
+    --t3-bg:   #e8c0c0;
+    --t3-text: #8a2020;
+
+    --green:   #2a6a2a;
+    --red:     #8a2020;
+    --amber:   #8a5a00;
+
+    --card-w:  260px;
+    --card-r:  10px;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'Inter', sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    min-height: 100vh;
+    padding: 40px 32px;
+  }
+
+  h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: 28px;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    margin-bottom: 4px;
+  }
+
+  .subtitle {
+    font-size: 13px;
+    color: var(--muted);
+    margin-bottom: 40px;
+    font-family: 'IBM Plex Mono', monospace;
+  }
+
+  .section-label {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--faint);
+    margin-bottom: 20px;
+    padding-bottom: 8px;
+    border-bottom: 0.5px solid var(--border);
+  }
+
+  .card-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 24px;
+    margin-bottom: 56px;
+    align-items: flex-start;
+  }
+
+  /* ── BASE CARD ── */
+  .card {
+    width: var(--card-w);
+    background: var(--card);
+    border-radius: var(--card-r);
+    border: 0.75px solid var(--border);
+    box-shadow: 0 2px 8px rgba(0,0,0,0.06), 0 0 0 0.5px rgba(0,0,0,0.04);
+    overflow: hidden;
+    font-size: 11px;
+    line-height: 1.45;
+    flex-shrink: 0;
+  }
+
+  /* ── CEO HEADER ── */
+  .ceo-header {
+    padding: 10px 12px 9px;
+    border-bottom: 0.5px solid var(--border);
+    background: #faf8f2;
+  }
+
+  .ceo-badge {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 8px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--faint);
+    margin-bottom: 3px;
+  }
+
+  .ceo-name {
+    font-family: 'Playfair Display', serif;
+    font-size: 16px;
+    font-weight: 700;
+    letter-spacing: -0.01em;
+  }
+
+  .ceo-archetype {
+    font-size: 10px;
+    color: var(--muted);
+    margin-top: 2px;
+    font-style: italic;
+  }
+
+  /* ── CEO STAT ROW ── */
+  .ceo-stats {
+    display: flex;
+    align-items: center;
+    gap: 0;
+    padding: 6px 12px;
+    border-bottom: 0.5px solid var(--border);
+    background: #faf8f2;
+  }
+
+  .ceo-stat {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1px;
+  }
+
+  .ceo-stat + .ceo-stat { border-left: 0.5px solid var(--border); }
+
+  .ceo-stat-val {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 12px;
+    font-weight: 500;
+  }
+
+  .ceo-stat-key {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 7.5px;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--faint);
+  }
+
+  .income-val  { color: var(--green); }
+  .stress-val  { color: var(--red); }
+
+  /* ── STRESS PIPS ── */
+  .pips {
+    display: flex;
+    gap: 3px;
+    justify-content: center;
+  }
+
+  .pip {
+    width: 7px; height: 7px;
+    border-radius: 50%;
+  }
+
+  .pip.on0 { background: #b0a8a0; }
+  .pip.on1 { background: #c07820; }
+  .pip.on2 { background: #c04020; }
+  .pip.off { background: #e0dcd5; border: 0.5px solid #c8c4bc; }
+
+  /* ── SECTION ── */
+  .section {
+    padding: 8px 12px;
+    border-bottom: 0.5px solid var(--border);
+  }
+
+  .section-title {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 8px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--faint);
+    margin-bottom: 5px;
+  }
+
+  /* ── ABILITY BLOCKS ── */
+  .ability-block {
+    padding: 6px 0;
+    border-bottom: 0.5px solid #eeebe4;
+  }
+
+  .ability-block:last-child { border-bottom: none; }
+
+  .ability-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 2px;
+  }
+
+  .ability-name {
+    font-weight: 600;
+    font-size: 10px;
+    color: var(--text);
+    letter-spacing: 0.02em;
+  }
+
+  .ability-tags {
+    display: flex;
+    gap: 3px;
+  }
+
+  .ability-tag {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 7.5px;
+    padding: 1px 4px;
+    border-radius: 2px;
+    background: #eeebe4;
+    color: var(--muted);
+  }
+
+  .ability-tag.stress { background: rgba(138,32,32,0.1); color: var(--red); }
+  .ability-tag.passive { background: rgba(61,110,143,0.1); color: #2a5070; }
+  .ability-tag.active { background: rgba(42,106,42,0.1); color: #1a5a1a; }
+  .ability-tag.triggered { background: rgba(138,90,0,0.1); color: #7a5000; }
+  .ability-tag.risk { background: rgba(138,32,32,0.12); color: #8a2020; }
+
+  .ability-desc {
+    font-size: 10px;
+    color: var(--muted);
+    line-height: 1.45;
+  }
+
+  /* ── STARTER ASSET (inset) ── */
+  .starter-asset {
+    background: #f8f6f0;
+    border: 0.5px solid var(--border);
+    border-radius: 6px;
+    overflow: hidden;
+    margin-top: 2px;
+  }
+
+  .starter-asset-header {
+    padding: 6px 10px 5px;
+    border-bottom: 0.5px solid var(--border);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .starter-asset-industry {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 7.5px;
+    color: var(--faint);
+    margin-bottom: 1px;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+  }
+
+  .industry-dot {
+    display: inline-block;
+    width: 5px; height: 5px;
+    border-radius: 50%;
+    flex-shrink: 0;
+  }
+
+  .starter-asset-name {
+    font-family: 'Playfair Display', serif;
+    font-size: 12px;
+    font-weight: 700;
+  }
+
+  .starter-asset-stats {
+    display: flex;
+    border-bottom: 0.5px solid var(--border);
+  }
+
+  .starter-stat {
+    flex: 1;
+    padding: 4px 8px;
+    text-align: center;
+  }
+
+  .starter-stat + .starter-stat { border-left: 0.5px solid var(--border); }
+
+  .starter-stat-val {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 11px;
+    font-weight: 500;
+  }
+
+  .starter-stat-key {
+    font-size: 7.5px;
+    color: var(--faint);
+    font-family: 'IBM Plex Mono', monospace;
+    display: block;
+  }
+
+  .starter-discard-note {
+    font-size: 8.5px;
+    color: var(--faint);
+    font-style: italic;
+    padding: 4px 10px;
+    line-height: 1.4;
+  }
+
+  .tier-badge {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 9px;
+    font-weight: 500;
+    padding: 3px 7px;
+    border-radius: 4px;
+    flex-shrink: 0;
+    align-self: flex-start;
+  }
+
+  .t0 { background: #e8e6e0; color: #5a5850; font-size: 7.5px; padding: 2px 5px; }
+  .t1 { background: var(--t1-bg); color: var(--t1-text); }
+  .t2 { background: var(--t2-bg); color: var(--t2-text); }
+  .t3 { background: var(--t3-bg); color: var(--t3-text); }
+
+  /* ── SELECTION / REPLACEMENT ── */
+  .rule-row {
+    font-size: 10px;
+    color: var(--muted);
+    line-height: 1.45;
+  }
+
+  .rule-row + .rule-row { margin-top: 4px; }
+
+  .rule-label {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 8px;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--faint);
+    display: block;
+    margin-bottom: 1px;
+  }
+
+  /* ── FLAVOUR ── */
+  .flavour {
+    padding: 7px 12px 10px;
+    font-family: 'Playfair Display', serif;
+    font-style: italic;
+    font-size: 9.5px;
+    color: var(--faint);
+    line-height: 1.5;
+  }
+
+  /* ── TEMPLATE CARD ── */
+  .template-card {
+    border: 1.5px dashed var(--border2);
+    background: var(--surface);
+  }
+
+  .template-slot {
+    border-bottom: 0.5px dashed var(--border2);
+    padding: 8px 12px;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 9px;
+    color: var(--faint);
+    letter-spacing: 0.04em;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    min-height: 32px;
+  }
+
+  .slot-label {
+    font-size: 8px;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--border2);
+    min-width: 80px;
+    flex-shrink: 0;
+  }
+
+  .slot-type {
+    color: var(--faint);
+    font-size: 9px;
+  }
+
+  .template-stat-row {
+    display: flex;
+    padding: 7px 12px;
+    border-bottom: 0.5px dashed var(--border2);
+    gap: 4px;
+  }
+
+  .template-stat-cell {
+    flex: 1;
+    border: 0.5px dashed var(--border2);
+    border-radius: 3px;
+    height: 38px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 8px;
+    color: var(--border2);
+    text-align: center;
+    font-family: 'IBM Plex Mono', monospace;
+    letter-spacing: 0.04em;
+    flex-direction: column;
+    gap: 2px;
+  }
+
+  .template-starter-block {
+    border-bottom: 0.5px dashed var(--border2);
+    padding: 8px 12px;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+
+  .template-starter-inset {
+    border: 0.5px dashed var(--border2);
+    border-radius: 5px;
+    height: 60px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    gap: 3px;
+    background: rgba(255,255,255,0.4);
+  }
+
+  /* ── ANNOTATION ── */
+  .annotation {
+    display: flex;
+    align-items: flex-start;
+    gap: 8px;
+    background: #fffdf7;
+    border: 0.5px solid #e8e0c8;
+    border-radius: 6px;
+    padding: 10px 12px;
+    font-size: 11px;
+    color: var(--muted);
+    line-height: 1.5;
+    max-width: 300px;
+    align-self: flex-start;
+    margin-top: 4px;
+  }
+
+  .annotation-num {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 10px;
+    font-weight: 500;
+    color: var(--faint);
+    min-width: 16px;
+  }
+</style>
+</head>
+<body>
+
+<h1>Borrow &amp; Die</h1>
+<p class="subtitle">CEO Card Design — Example + Template</p>
+
+<!-- ═══════════════════════ SECTION 1: CEO EXAMPLE ═══════════════════════ -->
+<div class="section-label">1 — CEO Card · The Founder (Wizard Class · Technology)</div>
+
+<div class="card-row">
+
+  <div class="card">
+    <!-- Header -->
+    <div class="ceo-header">
+      <div class="ceo-badge">CEO · Wizard Class · Technology</div>
+      <div class="ceo-name">The Founder</div>
+      <div class="ceo-archetype">Aggressive growth · Zero income · Explosive ceiling</div>
+    </div>
+
+    <!-- Stats -->
+    <div class="ceo-stats">
+      <div class="ceo-stat">
+        <span class="ceo-stat-val income-val">$0</span>
+        <span class="ceo-stat-key">Income/yr</span>
+      </div>
+      <div class="ceo-stat">
+        <div class="pips" style="margin-bottom:2px">
+          <div class="pip on1"></div>
+          <div class="pip off"></div>
+          <div class="pip off"></div>
+        </div>
+        <span class="ceo-stat-val stress-val">1</span>
+        <span class="ceo-stat-key">Start Stress</span>
+      </div>
+      <div class="ceo-stat">
+        <span class="ceo-stat-val" style="color:#8a2020;">≥6</span>
+        <span class="ceo-stat-key">Death Roll</span>
+      </div>
+      <div class="ceo-stat">
+        <span class="ceo-stat-val" style="color:var(--t2-text);">Free</span>
+        <span class="ceo-stat-key">T3 Access</span>
+      </div>
+    </div>
+
+    <!-- T3 Access Rule -->
+    <div class="section">
+      <div class="section-title">T3 Access</div>
+      <div style="font-size:10px;color:var(--muted);line-height:1.45;">Unrestricted. The Founder may bid on Tier 3 assets from game start — no Tier 2 ownership required.</div>
+    </div>
+
+    <!-- Abilities -->
+    <div class="section">
+      <div class="section-title">Abilities</div>
+
+      <div class="ability-block">
+        <div class="ability-header">
+          <span class="ability-name">Full-Stack Dividend</span>
+          <div class="ability-tags">
+            <span class="ability-tag passive">PASSIVE</span>
+          </div>
+        </div>
+        <div class="ability-desc">When you own a complete TECH stack (UP+MID+DN), draw 1 additional personal event card per year.</div>
+      </div>
+
+      <div class="ability-block">
+        <div class="ability-header">
+          <span class="ability-name">Burn Rate</span>
+          <div class="ability-tags">
+            <span class="ability-tag active">ONCE/YR</span>
+            <span class="ability-tag stress">+1 stress</span>
+          </div>
+        </div>
+        <div class="ability-desc">Once per year: acquire any T1 TECH asset from the market without bidding — pay $0, gain it immediately. Gain +1 stress.</div>
+      </div>
+
+      <div class="ability-block">
+        <div class="ability-header">
+          <span class="ability-name">Zero Income Lock</span>
+          <div class="ability-tags">
+            <span class="ability-tag passive">PASSIVE</span>
+          </div>
+        </div>
+        <div class="ability-desc">TECH assets you own produce $0 income until you complete vertical integration. Loan suppression applies during this period.</div>
+      </div>
+    </div>
+
+    <!-- Labor Phase -->
+    <div class="section">
+      <div class="section-title">Labor Phase (no market assets owned)</div>
+      <div style="font-size:10px;color:var(--muted);line-height:1.45;">Roll d6 — on 5–6: +$1 bonus income. Represents angel-round fundraising. Held card sale value: $1.</div>
+    </div>
+
+    <!-- Starter Asset -->
+    <div class="section">
+      <div class="section-title">Starter Asset — discarded on first purchase</div>
+      <div class="starter-asset">
+        <div class="starter-asset-header">
+          <div>
+            <div class="starter-asset-industry">
+              <span class="industry-dot" style="background:var(--tech)"></span>
+              Technology · Upstream
+            </div>
+            <div class="starter-asset-name">Founder's Laptop</div>
+          </div>
+          <span class="tier-badge t0">T0</span>
+        </div>
+        <div class="starter-asset-stats">
+          <div class="starter-stat">
+            <span class="starter-stat-val">$2</span>
+            <span class="starter-stat-key">value</span>
+          </div>
+          <div class="starter-stat">
+            <span class="starter-stat-val" style="color:var(--green)">$0</span>
+            <span class="starter-stat-key">income</span>
+          </div>
+          <div class="starter-stat">
+            <span class="starter-stat-val" style="color:var(--tech)">2</span>
+            <span class="starter-stat-key">loans</span>
+          </div>
+        </div>
+        <div class="starter-discard-note">On discard: transfer loan capacity to first purchased asset.</div>
+      </div>
+    </div>
+
+    <!-- Selection / Replacement -->
+    <div class="section">
+      <div class="rule-row">
+        <span class="rule-label">Selection</span>
+        Auctioned at game start. Minimum bid $0.
+      </div>
+      <div class="rule-row">
+        <span class="rule-label">Replacement</span>
+        If eliminated, this CEO re-enters auction at minimum bid $0.
+      </div>
+    </div>
+
+    <!-- Flavour -->
+    <div class="flavour">"The product ships when I say it ships."</div>
+  </div>
+
+  <!-- Annotations -->
+  <div style="display:flex;flex-direction:column;gap:10px;align-self:flex-start;margin-top:0;">
+    <div class="annotation">
+      <span class="annotation-num">①</span>
+      <span>Header carries the class and industry line in monospace at 8px. CEO name uses Playfair 16px bold. Archetype is italic muted text — a one-line identity summary.</span>
+    </div>
+    <div class="annotation">
+      <span class="annotation-num">②</span>
+      <span>Four stat cells: Income/yr, Starting Stress (with pips), Death Roll threshold, T3 Access. Stats share the warm #faf8f2 background with the header to form a unified top block.</span>
+    </div>
+    <div class="annotation">
+      <span class="annotation-num">③</span>
+      <span>T3 Access section is only present when the CEO has a non-default rule. Most CEOs require owning a T2 first — only state the exception.</span>
+    </div>
+    <div class="annotation">
+      <span class="annotation-num">④</span>
+      <span>Ability tags encode type (PASSIVE / ONCE/YR / TRIGGERED / RISK) and stress cost. Stress cost is a critical decision point — it gets a red badge.</span>
+    </div>
+    <div class="annotation">
+      <span class="annotation-num">⑤</span>
+      <span>Labor Phase only shown when the CEO has a non-standard rule. Describes the d6 trigger range, bonus amount, and held card sale value override.</span>
+    </div>
+    <div class="annotation">
+      <span class="annotation-num">⑥</span>
+      <span>Starter asset renders as an inset mini-card — same layout language as market assets. Discard rule and transfer effect sit at the bottom of the inset.</span>
+    </div>
+  </div>
+
+</div>
+
+<!-- ═══════════════════════ SECTION 2: CEO TEMPLATE ═══════════════════════ -->
+<div class="section-label">2 — CEO Card Template · Blank</div>
+
+<div class="card-row">
+
+  <div>
+    <div style="font-family:'IBM Plex Mono',monospace;font-size:9px;color:var(--faint);margin-bottom:8px;letter-spacing:0.06em;">CEO CARD TEMPLATE</div>
+    <div class="card template-card">
+
+      <!-- Header slots -->
+      <div class="template-slot" style="background:#faf8f2;flex-direction:column;align-items:flex-start;gap:3px;padding:8px 12px;min-height:52px;">
+        <span class="slot-label">CEO NAME</span>
+        <span class="slot-type">Playfair · 16px bold · Class · Industry line above in monospace 8px</span>
+      </div>
+      <div class="template-slot" style="background:#faf8f2;">
+        <span class="slot-label">ARCHETYPE</span>
+        <span class="slot-type">identity line · Inter italic 10px · muted</span>
+      </div>
+
+      <!-- Stat row -->
+      <div class="template-stat-row">
+        <div class="template-stat-cell">
+          $—
+          <span style="font-size:7px;color:#d8d4ca;">INCOME/YR</span>
+        </div>
+        <div class="template-stat-cell">
+          ●○○
+          <span style="font-size:7px;color:#d8d4ca;">START STR</span>
+        </div>
+        <div class="template-stat-cell">
+          ≥n
+          <span style="font-size:7px;color:#d8d4ca;">DEATH ROLL</span>
+        </div>
+        <div class="template-stat-cell">
+          T3
+          <span style="font-size:7px;color:#d8d4ca;">ACCESS</span>
+        </div>
+      </div>
+
+      <!-- T3 Access rule — only if non-default -->
+      <div class="template-slot" style="background:#faf8f4;border-left:2px dashed rgba(138,90,0,0.3);">
+        <span class="slot-label" style="color:rgba(138,90,0,0.45);">T3 ACCESS?</span>
+        <span class="slot-type">omit if standard · include only when CEO has unrestricted or modified T3 rule</span>
+      </div>
+
+      <!-- Abilities -->
+      <div class="template-slot" style="flex-direction:column;align-items:flex-start;gap:3px;padding:8px 12px;min-height:44px;">
+        <span class="slot-label">ABILITY 1</span>
+        <span class="slot-type">name · PASSIVE / ONCE_PER_YEAR / TRIGGERED / RISK · stress tag if cost &gt; 0</span>
+      </div>
+      <div class="template-slot" style="flex-direction:column;align-items:flex-start;gap:3px;padding:8px 12px;min-height:44px;">
+        <span class="slot-label">ABILITY 2</span>
+        <span class="slot-type">name · type tag · description · stress tag</span>
+      </div>
+      <div class="template-slot" style="flex-direction:column;align-items:flex-start;gap:3px;padding:8px 12px;min-height:44px;">
+        <span class="slot-label">ABILITY 3</span>
+        <span class="slot-type">optional · max 3 abilities per card</span>
+      </div>
+
+      <!-- Labor Phase -->
+      <div class="template-slot">
+        <span class="slot-label">LABOR PHASE</span>
+        <span class="slot-type">d6 trigger range · bonus amount · held card sale value</span>
+      </div>
+
+      <!-- Starter Asset -->
+      <div class="template-starter-block">
+        <span class="slot-label">STARTER ASSET</span>
+        <div class="template-starter-inset">
+          <span style="font-family:'IBM Plex Mono',monospace;font-size:8px;color:var(--border2);">T0 MINI-CARD</span>
+          <span style="font-family:'IBM Plex Mono',monospace;font-size:7.5px;color:var(--border2);">value · income · loan cap · discard rule</span>
+        </div>
+      </div>
+
+      <!-- Selection / Replacement -->
+      <div class="template-slot" style="flex-direction:column;align-items:flex-start;gap:3px;padding:8px 12px;">
+        <span class="slot-label">SELECTION</span>
+        <span class="slot-type">auction rule · minimum bid</span>
+      </div>
+      <div class="template-slot">
+        <span class="slot-label">REPLACEMENT</span>
+        <span class="slot-type">re-entry rule on elimination</span>
+      </div>
+
+      <!-- Flavour -->
+      <div class="template-slot" style="border-bottom:none;">
+        <span class="slot-label">FLAVOUR</span>
+        <span class="slot-type">Playfair italic · voice of the CEO · 9.5px</span>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- Slot notes -->
+  <div style="display:flex;flex-direction:column;gap:10px;align-self:flex-start;margin-top:20px;">
+    <div class="annotation">
+      <span class="annotation-num">A</span>
+      <span><strong>Header block</strong> — warm #faf8f2 background spans name + stats. Class and industry sit above the name as a monospace label. Archetype is always italic.</span>
+    </div>
+    <div class="annotation">
+      <span class="annotation-num">B</span>
+      <span><strong>Stat cells</strong> — four fixed slots: Income (green), Stress pips + number (red), Death Roll threshold (red), T3 Access label (amber if special, grey if default).</span>
+    </div>
+    <div class="annotation">
+      <span class="annotation-num">C</span>
+      <span><strong>T3 Access section</strong> — dashed amber left-border marks it as conditional. Omit entirely when the CEO uses the default T2-first requirement.</span>
+    </div>
+    <div class="annotation">
+      <span class="annotation-num">D</span>
+      <span><strong>Ability tags</strong> — PASSIVE (blue), ONCE/YR or TRIGGERED (amber), RISK (red). Stress cost always gets a red badge when non-zero.</span>
+    </div>
+    <div class="annotation">
+      <span class="annotation-num">E</span>
+      <span><strong>Starter asset inset</strong> — renders as a T0 mini-card. Always shows value, income, loan capacity. Discard rule at bottom. Family Trust variant is permanent (no discard note).</span>
+    </div>
+  </div>
+
+</div>
+
+</body>
+</html>
