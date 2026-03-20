@@ -1,0 +1,584 @@
+[
+  {
+    "cardType": "ASSET",
+    "companyName": "Distribution & Logistics Co",
+    "industry": "MANUFACTURING",
+    "placement": "DOWNSTREAM",
+    "tier": 1,
+    "baseValue": 8,
+    "stress": 1,
+    "income": 1,
+    "baseLoanCapacity": 5,
+    "loanCapacityIncreasePer10AssetValue": 5,
+    "baseValueUpdateRule": {
+      "outcomes": [
+        {
+          "range": [
+            1,
+            1
+          ],
+          "delta": -1
+        },
+        {
+          "range": [
+            2,
+            3
+          ],
+          "delta": 0
+        },
+        {
+          "range": [
+            4,
+            5
+          ],
+          "delta": 2
+        },
+        {
+          "range": [
+            6,
+            6
+          ],
+          "delta": 3
+        }
+      ],
+      "industryMechanic": "GMI halved. Depreciable \u2014 income offset eligible."
+    },
+    "verticalIntegrationRules": [
+      {
+        "requiresIndustry": "MANUFACTURING",
+        "requiresPlacement": "MIDSTREAM",
+        "effectType": "SPECIAL",
+        "effectDescription": "Treat loan repayment roll as one higher on this asset."
+      },
+      {
+        "requiresIndustry": "MANUFACTURING",
+        "requiresPlacement": "UPSTREAM",
+        "effectType": "LOAN_CAPACITY_BONUS",
+        "effectMagnitude": 1,
+        "effectDescription": "+1 loan cap; +1 additional if value exceeds 14."
+      }
+    ],
+    "crossIndustrySynergies": [
+      {
+        "requiresIndustry": "REAL_ESTATE",
+        "requiresPlacement": "UPSTREAM",
+        "effectType": "LOAN_CAPACITY_BONUS",
+        "effectMagnitude": 1,
+        "effectDescription": "+1 loan cap; +1 additional if value exceeds 14."
+      }
+    ],
+    "flavourText": "The last mile is where the margin lives."
+  },
+  {
+    "cardType": "ASSET",
+    "companyName": "Mid-Tier Fabrication",
+    "industry": "MANUFACTURING",
+    "placement": "MIDSTREAM",
+    "tier": 1,
+    "baseValue": 7,
+    "stress": 1,
+    "income": 1,
+    "baseLoanCapacity": 5,
+    "loanCapacityIncreasePer10AssetValue": 5,
+    "baseValueUpdateRule": {
+      "outcomes": [
+        {
+          "range": [
+            1,
+            1
+          ],
+          "delta": -1
+        },
+        {
+          "range": [
+            2,
+            3
+          ],
+          "delta": 0
+        },
+        {
+          "range": [
+            4,
+            5
+          ],
+          "delta": 2
+        },
+        {
+          "range": [
+            6,
+            6
+          ],
+          "delta": 3
+        }
+      ],
+      "industryMechanic": "GMI halved. Depreciable \u2014 income offset eligible."
+    },
+    "verticalIntegrationRules": [
+      {
+        "requiresIndustry": "MANUFACTURING",
+        "requiresPlacement": "UPSTREAM",
+        "effectType": "GMI_RESISTANCE",
+        "effectDescription": "Negative GMI delta on this asset reduced by 1 (minimum 0)."
+      },
+      {
+        "requiresIndustry": "MANUFACTURING",
+        "requiresPlacement": "DOWNSTREAM",
+        "effectType": "INCOME_OFFSET",
+        "effectMagnitude": 1,
+        "effectDescription": "+1 additional loan interest payment counts as income offset."
+      }
+    ],
+    "crossIndustrySynergies": [],
+    "flavourText": "Precision is cheap. Tolerance is expensive."
+  },
+  {
+    "cardType": "ASSET",
+    "companyName": "Component Foundry",
+    "industry": "MANUFACTURING",
+    "placement": "UPSTREAM",
+    "tier": 1,
+    "baseValue": 6,
+    "stress": 0,
+    "income": 1,
+    "baseLoanCapacity": 5,
+    "loanCapacityIncreasePer10AssetValue": 5,
+    "baseValueUpdateRule": {
+      "outcomes": [
+        {
+          "range": [
+            1,
+            1
+          ],
+          "delta": -1
+        },
+        {
+          "range": [
+            2,
+            3
+          ],
+          "delta": 0
+        },
+        {
+          "range": [
+            4,
+            5
+          ],
+          "delta": 2
+        },
+        {
+          "range": [
+            6,
+            6
+          ],
+          "delta": 3
+        }
+      ],
+      "industryMechanic": "GMI halved. Depreciable \u2014 income offset eligible."
+    },
+    "verticalIntegrationRules": [
+      {
+        "requiresIndustry": "MANUFACTURING",
+        "requiresPlacement": "MIDSTREAM",
+        "effectType": "INCOME_OFFSET",
+        "effectMagnitude": 1,
+        "effectDescription": "+1 loan interest payment counts as an income offset this year."
+      }
+    ],
+    "crossIndustrySynergies": [
+      {
+        "requiresIndustry": "ENERGY",
+        "requiresPlacement": "MIDSTREAM",
+        "effectType": "LOAN_CAPACITY_BONUS",
+        "effectMagnitude": 1,
+        "effectDescription": "+1 loan cap for each ENERGY asset you own (max +2)."
+      }
+    ],
+    "flavourText": "Every empire starts at the foundry floor."
+  },
+  {
+    "cardType": "ASSET",
+    "companyName": "Consumer Goods Manufacturer",
+    "industry": "MANUFACTURING",
+    "placement": "DOWNSTREAM",
+    "tier": 2,
+    "baseValue": 17,
+    "stress": 2,
+    "income": 1,
+    "baseLoanCapacity": 5,
+    "loanCapacityIncreasePer10AssetValue": 5,
+    "baseValueUpdateRule": {
+      "outcomes": [
+        {
+          "range": [
+            1,
+            1
+          ],
+          "delta": -2
+        },
+        {
+          "range": [
+            2,
+            3
+          ],
+          "delta": 0
+        },
+        {
+          "range": [
+            4,
+            5
+          ],
+          "delta": 2
+        },
+        {
+          "range": [
+            6,
+            6
+          ],
+          "delta": 4
+        }
+      ],
+      "industryMechanic": "GMI halved. Depreciable \u2014 income offset eligible."
+    },
+    "verticalIntegrationRules": [
+      {
+        "requiresIndustry": "MANUFACTURING",
+        "requiresPlacement": "MIDSTREAM",
+        "effectType": "INCOME_OFFSET",
+        "effectMagnitude": 2,
+        "effectDescription": "+2 loan interest payments count as income offsets this year."
+      },
+      {
+        "requiresIndustry": "MANUFACTURING",
+        "requiresPlacement": "UPSTREAM",
+        "effectType": "SPECIAL",
+        "effectDescription": "Treat repayment roll as one higher on this asset."
+      }
+    ],
+    "crossIndustrySynergies": [
+      {
+        "requiresIndustry": "MEDIA_ENTERTAINMENT",
+        "requiresPlacement": "DOWNSTREAM",
+        "effectType": "LOAN_CAPACITY_BONUS",
+        "effectMagnitude": 1,
+        "effectDescription": "+1 loan cap for each MEDIA asset you own (max +2)."
+      }
+    ],
+    "flavourText": "Consumers consume. Manufacturers endure."
+  },
+  {
+    "cardType": "ASSET",
+    "companyName": "Heavy Industry Group",
+    "industry": "MANUFACTURING",
+    "placement": "MIDSTREAM",
+    "tier": 2,
+    "baseValue": 15,
+    "stress": 2,
+    "income": 1,
+    "baseLoanCapacity": 5,
+    "loanCapacityIncreasePer10AssetValue": 5,
+    "baseValueUpdateRule": {
+      "outcomes": [
+        {
+          "range": [
+            1,
+            1
+          ],
+          "delta": -2
+        },
+        {
+          "range": [
+            2,
+            3
+          ],
+          "delta": 0
+        },
+        {
+          "range": [
+            4,
+            5
+          ],
+          "delta": 2
+        },
+        {
+          "range": [
+            6,
+            6
+          ],
+          "delta": 4
+        }
+      ],
+      "industryMechanic": "GMI halved. Depreciable \u2014 income offset eligible. Engineer CEO doubles stress reduction from integration."
+    },
+    "verticalIntegrationRules": [
+      {
+        "requiresIndustry": "MANUFACTURING",
+        "requiresPlacement": "UPSTREAM",
+        "effectType": "STRESS_REDUCTION",
+        "effectMagnitude": 1,
+        "stressReduction": 1,
+        "effectDescription": "\u22121 stress once per year when this asset rolls 4+ on its value update. Engineer CEO doubles this stress reduction."
+      },
+      {
+        "requiresIndustry": "MANUFACTURING",
+        "requiresPlacement": "DOWNSTREAM",
+        "effectType": "CRASH_FLOOR",
+        "effectMagnitude": 9,
+        "effectDescription": "Value cannot fall below 9 from any single event."
+      }
+    ],
+    "crossIndustrySynergies": [
+      {
+        "requiresIndustry": "ENERGY",
+        "requiresPlacement": "UPSTREAM",
+        "effectType": "LOAN_CAPACITY_BONUS",
+        "effectMagnitude": 1,
+        "effectDescription": "+1 loan cap; +1 additional if value exceeds 20."
+      }
+    ],
+    "flavourText": "Steel doesn't care about your feelings."
+  },
+  {
+    "cardType": "ASSET",
+    "companyName": "Pharma Research Hub",
+    "industry": "MANUFACTURING",
+    "hybridIndustry": "TECHNOLOGY",
+    "placement": "UPSTREAM",
+    "tier": 2,
+    "baseValue": 12,
+    "stress": 2,
+    "income": 0,
+    "baseLoanCapacity": 4,
+    "loanCapacityIncreasePer10AssetValue": 4,
+    "baseValueUpdateRule": {
+      "outcomes": [
+        {
+          "range": [
+            1,
+            1
+          ],
+          "delta": -2
+        },
+        {
+          "range": [
+            2,
+            3
+          ],
+          "delta": 0
+        },
+        {
+          "range": [
+            4,
+            5
+          ],
+          "delta": 2
+        },
+        {
+          "range": [
+            6,
+            6
+          ],
+          "delta": 4
+        }
+      ],
+      "industryMechanic": "MFG + TECH hybrid. Researcher CEO only: Trial die available. Success: +3 to all positive deltas, +1 loanCapacityIncreasePer10AssetValue, GMI-sensitive (standard MFG halving applies). Failure: baseLoanCapacity \u22122, GMI-resistant. Non-Researcher players: trial die is unavailable. This asset operates permanently at pre-trial values with GMI-immune status. No trial can be triggered."
+    },
+    "verticalIntegrationRules": [
+      {
+        "requiresIndustry": "TECHNOLOGY",
+        "requiresPlacement": "MIDSTREAM",
+        "effectType": "SPECIAL",
+        "effectDescription": "Researcher CEO only: Trial die available. Success: +3 to all positive deltas, +1 loanCapacityIncreasePer10AssetValue, GMI-sensitive (standard MFG halving applies). Failure: baseLoanCapacity \u22122, GMI-resistant. Non-Researcher players: trial die is unavailable. This asset operates permanently at pre-trial values with GMI-immune status. No trial can be triggered."
+      }
+    ],
+    "crossIndustrySynergies": [
+      {
+        "requiresIndustry": "TECHNOLOGY",
+        "requiresPlacement": "DOWNSTREAM",
+        "effectType": "LOAN_CAPACITY_BONUS",
+        "effectMagnitude": 1,
+        "effectDescription": "+1 loan cap; +1 additional if value exceeds 18 (post-trial success for Researcher; at any time for others)."
+      }
+    ],
+    "flavourText": "The molecule doesn't care about your timeline."
+  },
+  {
+    "cardType": "ASSET",
+    "companyName": "Precision Engineering Ltd",
+    "industry": "MANUFACTURING",
+    "placement": "UPSTREAM",
+    "tier": 2,
+    "baseValue": 13,
+    "stress": 1,
+    "income": 1,
+    "baseLoanCapacity": 5,
+    "loanCapacityIncreasePer10AssetValue": 5,
+    "baseValueUpdateRule": {
+      "outcomes": [
+        {
+          "range": [
+            1,
+            1
+          ],
+          "delta": -2
+        },
+        {
+          "range": [
+            2,
+            3
+          ],
+          "delta": 0
+        },
+        {
+          "range": [
+            4,
+            5
+          ],
+          "delta": 2
+        },
+        {
+          "range": [
+            6,
+            6
+          ],
+          "delta": 4
+        }
+      ],
+      "industryMechanic": "GMI halved. Depreciable \u2014 income offset eligible. Engineer CEO: integration bonuses doubled."
+    },
+    "verticalIntegrationRules": [
+      {
+        "requiresIndustry": "MANUFACTURING",
+        "requiresPlacement": "MIDSTREAM",
+        "effectType": "SPECIAL",
+        "effectDescription": "+1 to this asset's loanCapacityIncreasePer10AssetValue. Engineer CEO: integration bonuses doubled \u2014 this becomes +2."
+      }
+    ],
+    "crossIndustrySynergies": [],
+    "flavourText": "Measured in microns. Valued in millions."
+  },
+  {
+    "cardType": "ASSET",
+    "companyName": "Industrial Conglomerate",
+    "industry": "MANUFACTURING",
+    "placement": "DOWNSTREAM",
+    "tier": 3,
+    "baseValue": 25,
+    "stress": 3,
+    "income": 2,
+    "baseLoanCapacity": 5,
+    "loanCapacityIncreasePer10AssetValue": 5,
+    "baseValueUpdateRule": {
+      "outcomes": [
+        {
+          "range": [
+            1,
+            1
+          ],
+          "delta": -4
+        },
+        {
+          "range": [
+            2,
+            3
+          ],
+          "delta": 1
+        },
+        {
+          "range": [
+            4,
+            5
+          ],
+          "delta": 4
+        },
+        {
+          "range": [
+            6,
+            6
+          ],
+          "delta": 6
+        }
+      ],
+      "industryMechanic": "GMI halved. Depreciable \u2014 income offset eligible. The Foreman's Blessing may target this asset's owner as well as other players."
+    },
+    "verticalIntegrationRules": [
+      {
+        "requiresIndustry": "MANUFACTURING",
+        "requiresPlacement": "MIDSTREAM",
+        "effectType": "SPECIAL",
+        "effectDescription": "The Foreman's Blessing may target this asset's owner as well as other players \u2014 declared before the repayment roll."
+      },
+      {
+        "requiresIndustry": "MANUFACTURING",
+        "requiresPlacement": "UPSTREAM",
+        "effectType": "CRASH_FLOOR",
+        "effectMagnitude": 18,
+        "effectDescription": "Value cannot fall below 18 from any single event."
+      }
+    ],
+    "crossIndustrySynergies": [],
+    "flavourText": "Conglomerates don't innovate. They absorb."
+  },
+  {
+    "cardType": "ASSET",
+    "companyName": "Biotech Manufacturing Corp",
+    "industry": "MANUFACTURING",
+    "hybridIndustry": "TECHNOLOGY",
+    "placement": "MIDSTREAM",
+    "tier": 3,
+    "baseValue": 22,
+    "stress": 3,
+    "income": 0,
+    "baseLoanCapacity": 4,
+    "loanCapacityIncreasePer10AssetValue": 4,
+    "baseValueUpdateRule": {
+      "outcomes": [
+        {
+          "range": [
+            1,
+            1
+          ],
+          "delta": -4
+        },
+        {
+          "range": [
+            2,
+            3
+          ],
+          "delta": 1
+        },
+        {
+          "range": [
+            4,
+            5
+          ],
+          "delta": 4
+        },
+        {
+          "range": [
+            6,
+            6
+          ],
+          "delta": 6
+        }
+      ],
+      "industryMechanic": "MFG + TECH hybrid. Researcher CEO: +1 loan cap; +2 additional if post-trial value exceeds 28. Non-Researcher: +1 loan cap if value exceeds 28 (static threshold; no trial). +1 to loanCapacityIncreasePer10AssetValue after trial resolves (Researcher). Non-Researcher: activates at year 4 of ownership instead."
+    },
+    "verticalIntegrationRules": [
+      {
+        "requiresIndustry": "MANUFACTURING",
+        "requiresPlacement": "UPSTREAM",
+        "effectType": "LOAN_CAPACITY_BONUS",
+        "effectMagnitude": 1,
+        "effectDescription": "Researcher CEO: +1 loan cap; +2 additional if post-trial value exceeds 28. Non-Researcher: +1 loan cap if value exceeds 28 (static threshold; no trial)."
+      },
+      {
+        "requiresIndustry": "MANUFACTURING",
+        "requiresPlacement": "DOWNSTREAM",
+        "effectType": "SPECIAL",
+        "effectDescription": "+1 to loanCapacityIncreasePer10AssetValue after trial resolves (Researcher). Non-Researcher: activates at year 4 of ownership instead."
+      }
+    ],
+    "crossIndustrySynergies": [],
+    "flavourText": "Biology is the new manufacturing line."
+  }
+]

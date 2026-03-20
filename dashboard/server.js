@@ -51,11 +51,7 @@ const server = http.createServer((req, res) => {
     return;
   }
 
-  // /cards/<path> → serve card data
-  // Supports:
-  //   /cards/<industry>         → merges all .json files in that subdirectory into an array
-  //   /cards/<file>.json        → serves a flat card file directly
-  //   /cards/<industry>/<file>  → serves a single card file directly
+  // /cards/<file>.json → serve card data file directly
   if (urlPath.startsWith('/cards/')) {
     const cardPath = urlPath.slice('/cards/'.length);
 
@@ -73,35 +69,7 @@ const server = http.createServer((req, res) => {
       return;
     }
 
-    fs.stat(fullPath, (statErr, stat) => {
-      if (statErr) { send(res, 404, 'text/plain', 'Not found'); return; }
-
-      if (stat.isDirectory()) {
-        // Read all .json files in the directory and merge into an array
-        fs.readdir(fullPath, (readErr, files) => {
-          if (readErr) { send(res, 500, 'text/plain', 'Server error'); return; }
-          const jsonFiles = files.filter(f => f.endsWith('.json')).sort();
-          if (jsonFiles.length === 0) {
-            send(res, 200, MIME['.json'], '[]');
-            return;
-          }
-          let pending = jsonFiles.length;
-          const cards = [];
-          jsonFiles.forEach(f => {
-            fs.readFile(path.join(fullPath, f), 'utf8', (readFileErr, data) => {
-              if (!readFileErr) {
-                try { cards.push(JSON.parse(data)); } catch (_) {}
-              }
-              if (--pending === 0) {
-                send(res, 200, MIME['.json'], JSON.stringify(cards));
-              }
-            });
-          });
-        });
-      } else {
-        serveFile(res, fullPath);
-      }
-    });
+    serveFile(res, fullPath);
     return;
   }
 

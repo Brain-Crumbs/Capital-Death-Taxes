@@ -1,0 +1,525 @@
+[
+  {
+    "cardType": "ASSET",
+    "companyName": "Logistics & Supply Command",
+    "industry": "DEFENCE",
+    "placement": "DOWNSTREAM",
+    "tier": 1,
+    "baseValue": 8,
+    "stress": 1,
+    "income": 1,
+    "baseLoanCapacity": 5,
+    "loanCapacityIncreasePer10AssetValue": 5,
+    "isCounterCyclical": true,
+    "baseValueUpdateRule": {
+      "outcomes": [
+        {
+          "range": [
+            1,
+            1
+          ],
+          "delta": 3
+        },
+        {
+          "range": [
+            2,
+            3
+          ],
+          "delta": 2
+        },
+        {
+          "range": [
+            4,
+            5
+          ],
+          "delta": 0
+        },
+        {
+          "range": [
+            6,
+            6
+          ],
+          "delta": -1
+        }
+      ],
+      "industryMechanic": "Counter-cyclical \u2014 negative GMI produces positive delta. Classified bonus capacity unlocks per system rules."
+    },
+    "verticalIntegrationRules": [
+      {
+        "requiresIndustry": "DEFENCE",
+        "requiresPlacement": "MIDSTREAM",
+        "effectType": "SPECIAL",
+        "effectDescription": "+$1 cash in any negative GMI year."
+      },
+      {
+        "requiresIndustry": "DEFENCE",
+        "requiresPlacement": "UPSTREAM",
+        "effectType": "SPECIAL",
+        "effectDescription": "In any year following a negative GMI year (the prior-year rule applies): treat loan repayment roll as one higher on this asset, consistent with Defence prior-year loan terms."
+      }
+    ],
+    "crossIndustrySynergies": [
+      {
+        "requiresIndustry": "MANUFACTURING",
+        "requiresPlacement": "DOWNSTREAM",
+        "effectType": "LOAN_CAPACITY_BONUS",
+        "effectMagnitude": 1,
+        "effectDescription": "+1 loan cap for each MFG asset you own (max +2)."
+      }
+    ],
+    "flavourText": "Armies march on logistics. Empires run on supply chains."
+  },
+  {
+    "cardType": "ASSET",
+    "companyName": "Intelligence Systems Corp",
+    "industry": "DEFENCE",
+    "placement": "MIDSTREAM",
+    "tier": 1,
+    "baseValue": 7,
+    "stress": 1,
+    "income": 1,
+    "baseLoanCapacity": 5,
+    "loanCapacityIncreasePer10AssetValue": 5,
+    "isCounterCyclical": true,
+    "baseValueUpdateRule": {
+      "outcomes": [
+        {
+          "range": [
+            1,
+            1
+          ],
+          "delta": 3
+        },
+        {
+          "range": [
+            2,
+            3
+          ],
+          "delta": 2
+        },
+        {
+          "range": [
+            4,
+            5
+          ],
+          "delta": 0
+        },
+        {
+          "range": [
+            6,
+            6
+          ],
+          "delta": -1
+        }
+      ],
+      "industryMechanic": "Counter-cyclical \u2014 negative GMI produces positive delta. Classified bonus capacity unlocks per system rules."
+    },
+    "verticalIntegrationRules": [
+      {
+        "requiresIndustry": "DEFENCE",
+        "requiresPlacement": "UPSTREAM",
+        "effectType": "SPECIAL",
+        "effectDescription": "+$1 cash in any year with negative GMI. General CEO stacks \u2014 CEO + card = $2 per neg year with just one DEF asset at T1 mid."
+      },
+      {
+        "requiresIndustry": "DEFENCE",
+        "requiresPlacement": "DOWNSTREAM",
+        "effectType": "LOAN_CAPACITY_BONUS",
+        "effectMagnitude": 1,
+        "effectDescription": "+1 loan cap; +1 additional if value exceeds 14."
+      }
+    ],
+    "crossIndustrySynergies": [
+      {
+        "requiresIndustry": "TECHNOLOGY",
+        "requiresPlacement": "MIDSTREAM",
+        "effectType": "LOAN_CAPACITY_BONUS",
+        "effectMagnitude": 1,
+        "effectDescription": "+1 loan cap; +1 additional if value exceeds 14."
+      }
+    ],
+    "flavourText": "Information is ammunition. Classified information is a monopoly."
+  },
+  {
+    "cardType": "ASSET",
+    "companyName": "Defence Contractor Ltd",
+    "industry": "DEFENCE",
+    "placement": "UPSTREAM",
+    "tier": 1,
+    "baseValue": 6,
+    "stress": 0,
+    "income": 1,
+    "baseLoanCapacity": 5,
+    "loanCapacityIncreasePer10AssetValue": 5,
+    "isCounterCyclical": true,
+    "baseValueUpdateRule": {
+      "outcomes": [
+        {
+          "range": [
+            1,
+            1
+          ],
+          "delta": 3
+        },
+        {
+          "range": [
+            2,
+            3
+          ],
+          "delta": 2
+        },
+        {
+          "range": [
+            4,
+            5
+          ],
+          "delta": 0
+        },
+        {
+          "range": [
+            6,
+            6
+          ],
+          "delta": -1
+        }
+      ],
+      "industryMechanic": "Counter-cyclical \u2014 negative GMI produces positive delta. Classified bonus capacity unlocks per system rules (own 2 DEF placements; General: 1). Not re-stated here."
+    },
+    "verticalIntegrationRules": [
+      {
+        "requiresIndustry": "DEFENCE",
+        "requiresPlacement": "MIDSTREAM",
+        "effectType": "SPECIAL",
+        "effectDescription": "In any year with negative GMI: +$1 cash. Complements General's Crisis Mobilisation \u2014 two separate $1 triggers from CEO + card."
+      }
+    ],
+    "crossIndustrySynergies": [],
+    "flavourText": "Peace is bad for business. Stability is worse."
+  },
+  {
+    "cardType": "ASSET",
+    "companyName": "Strategic Reserve Corp",
+    "industry": "DEFENCE",
+    "placement": "DOWNSTREAM",
+    "tier": 2,
+    "baseValue": 18,
+    "stress": 2,
+    "income": 2,
+    "baseLoanCapacity": 5,
+    "loanCapacityIncreasePer10AssetValue": 5,
+    "isCounterCyclical": true,
+    "baseValueUpdateRule": {
+      "outcomes": [
+        {
+          "range": [
+            1,
+            1
+          ],
+          "delta": 4
+        },
+        {
+          "range": [
+            2,
+            3
+          ],
+          "delta": 2
+        },
+        {
+          "range": [
+            4,
+            5
+          ],
+          "delta": 0
+        },
+        {
+          "range": [
+            6,
+            6
+          ],
+          "delta": -2
+        }
+      ],
+      "industryMechanic": "Counter-cyclical \u2014 negative GMI produces positive delta. Classified bonus capacity unlocks per system rules."
+    },
+    "verticalIntegrationRules": [
+      {
+        "requiresIndustry": "DEFENCE",
+        "requiresPlacement": "MIDSTREAM",
+        "effectType": "LOAN_CAPACITY_BONUS",
+        "effectMagnitude": 1,
+        "effectDescription": "+1 loan cap; +1 additional if value exceeds 24."
+      },
+      {
+        "requiresIndustry": "DEFENCE",
+        "requiresPlacement": "UPSTREAM",
+        "effectType": "SPECIAL",
+        "effectDescription": "+$1 cash per negative GMI year. Stacks with General's Crisis Mobilisation."
+      }
+    ],
+    "crossIndustrySynergies": [],
+    "flavourText": "Strategic reserves are the insurance policy nobody wants to cash."
+  },
+  {
+    "cardType": "ASSET",
+    "companyName": "Cyber Command Operations",
+    "industry": "DEFENCE",
+    "placement": "MIDSTREAM",
+    "tier": 2,
+    "baseValue": 16,
+    "stress": 2,
+    "income": 1,
+    "baseLoanCapacity": 5,
+    "loanCapacityIncreasePer10AssetValue": 5,
+    "isCounterCyclical": true,
+    "baseValueUpdateRule": {
+      "outcomes": [
+        {
+          "range": [
+            1,
+            1
+          ],
+          "delta": 4
+        },
+        {
+          "range": [
+            2,
+            3
+          ],
+          "delta": 2
+        },
+        {
+          "range": [
+            4,
+            5
+          ],
+          "delta": 0
+        },
+        {
+          "range": [
+            6,
+            6
+          ],
+          "delta": -2
+        }
+      ],
+      "industryMechanic": "Counter-cyclical \u2014 negative GMI produces positive delta. Classified bonus capacity unlocks per system rules. CRISIS STRESS REDUCTION active."
+    },
+    "verticalIntegrationRules": [
+      {
+        "requiresIndustry": "DEFENCE",
+        "requiresPlacement": "UPSTREAM",
+        "effectType": "SPECIAL",
+        "effectDescription": "Global event stress effects do not apply to you this year. General CEO: this mirrors and reinforces their Crisis Immunity passive \u2014 when both are active, any stress-applying global event is doubly negated (no stack needed; one immunity is sufficient)."
+      },
+      {
+        "requiresIndustry": "DEFENCE",
+        "requiresPlacement": "DOWNSTREAM",
+        "effectType": "LOAN_CAPACITY_BONUS",
+        "effectMagnitude": 1,
+        "effectDescription": "+1 loan cap; +2 additional if value exceeds 22."
+      }
+    ],
+    "crossIndustrySynergies": [
+      {
+        "requiresIndustry": "TECHNOLOGY",
+        "requiresPlacement": "UPSTREAM",
+        "effectType": "LOAN_CAPACITY_BONUS",
+        "effectMagnitude": 1,
+        "effectDescription": "+1 loan cap; +1 additional if value exceeds 22."
+      }
+    ],
+    "flavourText": "In cyberspace, defence is offence with better paperwork."
+  },
+  {
+    "cardType": "ASSET",
+    "companyName": "Aerospace Systems Ltd",
+    "industry": "DEFENCE",
+    "placement": "UPSTREAM",
+    "tier": 2,
+    "baseValue": 14,
+    "stress": 1,
+    "income": 1,
+    "baseLoanCapacity": 5,
+    "loanCapacityIncreasePer10AssetValue": 5,
+    "isCounterCyclical": true,
+    "baseValueUpdateRule": {
+      "outcomes": [
+        {
+          "range": [
+            1,
+            1
+          ],
+          "delta": 4
+        },
+        {
+          "range": [
+            2,
+            3
+          ],
+          "delta": 2
+        },
+        {
+          "range": [
+            4,
+            5
+          ],
+          "delta": 0
+        },
+        {
+          "range": [
+            6,
+            6
+          ],
+          "delta": -2
+        }
+      ],
+      "industryMechanic": "Counter-cyclical \u2014 negative GMI produces positive delta. Classified bonus capacity unlocks per system rules."
+    },
+    "verticalIntegrationRules": [
+      {
+        "requiresIndustry": "DEFENCE",
+        "requiresPlacement": "MIDSTREAM",
+        "effectType": "LOAN_CAPACITY_BONUS",
+        "effectMagnitude": 1,
+        "effectDescription": "+1 loan cap; +2 additional if value exceeds 20."
+      }
+    ],
+    "crossIndustrySynergies": [],
+    "flavourText": "The sky is the limit \u2014 until the contract says otherwise."
+  },
+  {
+    "cardType": "ASSET",
+    "companyName": "Allied Forces Command",
+    "industry": "DEFENCE",
+    "placement": "DOWNSTREAM",
+    "tier": 3,
+    "baseValue": 28,
+    "stress": 3,
+    "income": 2,
+    "baseLoanCapacity": 6,
+    "loanCapacityIncreasePer10AssetValue": 5,
+    "isCounterCyclical": true,
+    "baseValueUpdateRule": {
+      "outcomes": [
+        {
+          "range": [
+            1,
+            1
+          ],
+          "delta": 6
+        },
+        {
+          "range": [
+            2,
+            3
+          ],
+          "delta": 4
+        },
+        {
+          "range": [
+            4,
+            5
+          ],
+          "delta": 0
+        },
+        {
+          "range": [
+            6,
+            6
+          ],
+          "delta": -2
+        }
+      ],
+      "industryMechanic": "Counter-cyclical \u2014 negative GMI produces positive delta. Classified bonus capacity unlocks per system rules."
+    },
+    "verticalIntegrationRules": [
+      {
+        "requiresIndustry": "DEFENCE",
+        "requiresPlacement": "MIDSTREAM",
+        "effectType": "SPECIAL",
+        "effectDescription": "+$3 cash in any negative GMI year."
+      },
+      {
+        "requiresIndustry": "DEFENCE",
+        "requiresPlacement": "UPSTREAM",
+        "effectType": "STRESS_REDUCTION",
+        "effectMagnitude": 1,
+        "stressReduction": 1,
+        "effectDescription": "\u22121 stress in any year GMI is negative."
+      }
+    ],
+    "crossIndustrySynergies": [],
+    "flavourText": "Alliances are just debts with flags."
+  },
+  {
+    "cardType": "ASSET",
+    "companyName": "National Defence Complex",
+    "industry": "DEFENCE",
+    "placement": "UPSTREAM",
+    "tier": 3,
+    "baseValue": 24,
+    "stress": 2,
+    "income": 1,
+    "baseLoanCapacity": 5,
+    "loanCapacityIncreasePer10AssetValue": 5,
+    "isCounterCyclical": true,
+    "baseValueUpdateRule": {
+      "outcomes": [
+        {
+          "range": [
+            1,
+            1
+          ],
+          "delta": 6
+        },
+        {
+          "range": [
+            2,
+            3
+          ],
+          "delta": 4
+        },
+        {
+          "range": [
+            4,
+            5
+          ],
+          "delta": 0
+        },
+        {
+          "range": [
+            6,
+            6
+          ],
+          "delta": -2
+        }
+      ],
+      "industryMechanic": "Counter-cyclical \u2014 negative GMI produces positive delta. Classified bonus capacity unlocks per system rules."
+    },
+    "verticalIntegrationRules": [
+      {
+        "requiresIndustry": "DEFENCE",
+        "requiresPlacement": "MIDSTREAM",
+        "effectType": "LOAN_CAPACITY_BONUS",
+        "effectMagnitude": 1,
+        "effectDescription": "+1 loan cap for each DEF asset you own (max +4). Scaling collateral breadth \u2014 classified portfolio deepens the credit line proportionally."
+      },
+      {
+        "requiresIndustry": "DEFENCE",
+        "requiresPlacement": "DOWNSTREAM",
+        "effectType": "SPECIAL",
+        "effectDescription": "+$2 cash in any negative GMI year."
+      }
+    ],
+    "crossIndustrySynergies": [
+      {
+        "requiresIndustry": "FINANCE",
+        "requiresPlacement": "UPSTREAM",
+        "effectType": "LOAN_CAPACITY_BONUS",
+        "effectMagnitude": 1,
+        "effectDescription": "+1 loan cap; +2 additional if value exceeds 30."
+      }
+    ],
+    "flavourText": "National defence is the one budget line that never shrinks."
+  }
+]

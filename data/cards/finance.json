@@ -1,0 +1,506 @@
+[
+  {
+    "cardType": "ASSET",
+    "companyName": "Consumer Lending Co",
+    "industry": "FINANCE",
+    "placement": "DOWNSTREAM",
+    "tier": 1,
+    "baseValue": 7,
+    "stress": 1,
+    "income": 1,
+    "baseLoanCapacity": 5,
+    "loanCapacityIncreasePer10AssetValue": 5,
+    "baseValueUpdateRule": {
+      "outcomes": [
+        {
+          "range": [
+            1,
+            1
+          ],
+          "delta": -1
+        },
+        {
+          "range": [
+            2,
+            3
+          ],
+          "delta": 0
+        },
+        {
+          "range": [
+            4,
+            5
+          ],
+          "delta": 2
+        },
+        {
+          "range": [
+            6,
+            6
+          ],
+          "delta": 3
+        }
+      ],
+      "industryMechanic": "Double-hit on 1\u20133 in negative GMI years."
+    },
+    "verticalIntegrationRules": [
+      {
+        "requiresIndustry": "FINANCE",
+        "requiresPlacement": "MIDSTREAM",
+        "effectType": "SPECIAL",
+        "effectDescription": "Once per year: one loan interest payment on this asset generates an additional income offset beyond its normal allowance. Synergizes with Tax Attorney's reclassification \u2014 shelter stacks are deeper when both are active."
+      },
+      {
+        "requiresIndustry": "FINANCE",
+        "requiresPlacement": "UPSTREAM",
+        "effectType": "SPECIAL",
+        "effectDescription": "Once per year: look at the top card of the market discard pile. You may pay $1 to acquire it immediately at its current value, or leave it. Tax Attorney's Distressed Acquisition targets the full discard pile \u2014 this previews one card only."
+      }
+    ],
+    "crossIndustrySynergies": [
+      {
+        "requiresIndustry": "REAL_ESTATE",
+        "requiresPlacement": "DOWNSTREAM",
+        "effectType": "LOAN_CAPACITY_BONUS",
+        "effectMagnitude": 1,
+        "effectDescription": "+1 loan cap; +1 additional if value exceeds 14."
+      }
+    ],
+    "flavourText": "Other people's debt is the purest form of income."
+  },
+  {
+    "cardType": "ASSET",
+    "companyName": "Market-Making Desk",
+    "industry": "FINANCE",
+    "placement": "MIDSTREAM",
+    "tier": 1,
+    "baseValue": 6,
+    "stress": 1,
+    "income": 1,
+    "baseLoanCapacity": 4,
+    "loanCapacityIncreasePer10AssetValue": 5,
+    "baseValueUpdateRule": {
+      "outcomes": [
+        {
+          "range": [
+            1,
+            1
+          ],
+          "delta": -1
+        },
+        {
+          "range": [
+            2,
+            3
+          ],
+          "delta": 0
+        },
+        {
+          "range": [
+            4,
+            5
+          ],
+          "delta": 2
+        },
+        {
+          "range": [
+            6,
+            6
+          ],
+          "delta": 3
+        }
+      ],
+      "industryMechanic": "Double-hit on 1\u20133 in negative GMI years."
+    },
+    "verticalIntegrationRules": [
+      {
+        "requiresIndustry": "FINANCE",
+        "requiresPlacement": "UPSTREAM",
+        "effectType": "SPECIAL",
+        "effectDescription": "On a neg GMI double-hit year, this asset's income is treated as +1 higher before tax calculation. (The double-hit value loss still applies to asset value \u2014 only income is boosted.)"
+      },
+      {
+        "requiresIndustry": "FINANCE",
+        "requiresPlacement": "DOWNSTREAM",
+        "effectType": "LOAN_CAPACITY_BONUS",
+        "effectMagnitude": 1,
+        "effectDescription": "+1 loan cap after 2 consecutive years without a negative value roll."
+      }
+    ],
+    "crossIndustrySynergies": [
+      {
+        "requiresIndustry": "TECHNOLOGY",
+        "requiresPlacement": "MIDSTREAM",
+        "effectType": "LOAN_CAPACITY_BONUS",
+        "effectMagnitude": 1,
+        "effectDescription": "+1 loan cap; +1 additional if value exceeds 12."
+      }
+    ],
+    "flavourText": "We don't take sides. We take both."
+  },
+  {
+    "cardType": "ASSET",
+    "companyName": "Credit Arbitrage Fund",
+    "industry": "FINANCE",
+    "placement": "UPSTREAM",
+    "tier": 1,
+    "baseValue": 5,
+    "stress": 1,
+    "income": 0,
+    "baseLoanCapacity": 4,
+    "loanCapacityIncreasePer10AssetValue": 5,
+    "baseValueUpdateRule": {
+      "outcomes": [
+        {
+          "range": [
+            1,
+            1
+          ],
+          "delta": -1
+        },
+        {
+          "range": [
+            2,
+            3
+          ],
+          "delta": 0
+        },
+        {
+          "range": [
+            4,
+            5
+          ],
+          "delta": 2
+        },
+        {
+          "range": [
+            6,
+            6
+          ],
+          "delta": 3
+        }
+      ],
+      "industryMechanic": "Double-hit on 1\u20133 in negative GMI years. The Quant's inversion mechanic is eligible on this asset in any negative GMI year. This asset qualifies for the Quant's Pact Dividend roll each year it's held."
+    },
+    "verticalIntegrationRules": [
+      {
+        "requiresIndustry": "FINANCE",
+        "requiresPlacement": "MIDSTREAM",
+        "effectType": "SPECIAL",
+        "effectDescription": "The Quant's inversion mechanic is eligible on this asset in any negative GMI year. Non-Quant: +1 loan cap if GMI this year is negative (defensive spread positioning). This asset qualifies for the Quant's Pact Dividend roll each year it's held."
+      }
+    ],
+    "crossIndustrySynergies": [],
+    "flavourText": "The spread is the product. Everything else is theatre."
+  },
+  {
+    "cardType": "ASSET",
+    "companyName": "Distressed Asset Fund",
+    "industry": "FINANCE",
+    "placement": "DOWNSTREAM",
+    "tier": 2,
+    "baseValue": 16,
+    "stress": 2,
+    "income": 1,
+    "baseLoanCapacity": 5,
+    "loanCapacityIncreasePer10AssetValue": 5,
+    "baseValueUpdateRule": {
+      "outcomes": [
+        {
+          "range": [
+            1,
+            1
+          ],
+          "delta": -2
+        },
+        {
+          "range": [
+            2,
+            3
+          ],
+          "delta": 1
+        },
+        {
+          "range": [
+            4,
+            5
+          ],
+          "delta": 4
+        },
+        {
+          "range": [
+            6,
+            6
+          ],
+          "delta": 4
+        }
+      ],
+      "industryMechanic": "Double-hit on 1\u20133 in negative GMI years."
+    },
+    "verticalIntegrationRules": [
+      {
+        "requiresIndustry": "FINANCE",
+        "requiresPlacement": "MIDSTREAM",
+        "effectType": "SPECIAL",
+        "effectDescription": "Once per year: if any player triggers a forced sale this year, you may match the forced-sale price and acquire the asset before it returns to the market. Tax Attorney's Distressed Acquisition already acquires from the discard pile at half base value \u2014 this intercepts forced sales in real time, a different route to the same prey."
+      },
+      {
+        "requiresIndustry": "FINANCE",
+        "requiresPlacement": "UPSTREAM",
+        "effectType": "SPECIAL",
+        "effectDescription": "Treat repayment roll as one higher on this asset."
+      }
+    ],
+    "crossIndustrySynergies": [],
+    "flavourText": "One man's margin call is another man's discount."
+  },
+  {
+    "cardType": "ASSET",
+    "companyName": "Private Equity Platform",
+    "industry": "FINANCE",
+    "placement": "MIDSTREAM",
+    "tier": 2,
+    "baseValue": 15,
+    "stress": 2,
+    "income": 1,
+    "baseLoanCapacity": 5,
+    "loanCapacityIncreasePer10AssetValue": 5,
+    "baseValueUpdateRule": {
+      "outcomes": [
+        {
+          "range": [
+            1,
+            1
+          ],
+          "delta": -2
+        },
+        {
+          "range": [
+            2,
+            3
+          ],
+          "delta": 1
+        },
+        {
+          "range": [
+            4,
+            5
+          ],
+          "delta": 4
+        },
+        {
+          "range": [
+            6,
+            6
+          ],
+          "delta": 4
+        }
+      ],
+      "industryMechanic": "Double-hit on 1\u20133 in negative GMI years."
+    },
+    "verticalIntegrationRules": [
+      {
+        "requiresIndustry": "FINANCE",
+        "requiresPlacement": "UPSTREAM",
+        "effectType": "SPECIAL",
+        "effectDescription": "Once per year: during the auction phase, you may inspect one face-down market card before bidding (if any are face-down per variant rules). If all cards are face-up, gain +1 to your first bid this year instead. Synergizes with Tax Attorney's MARKET PREVIEW \u2014 stacked intelligence gives bidding advantage."
+      },
+      {
+        "requiresIndustry": "FINANCE",
+        "requiresPlacement": "DOWNSTREAM",
+        "effectType": "LOAN_CAPACITY_BONUS",
+        "effectMagnitude": 1,
+        "effectDescription": "+1 loan cap after 2 consecutive years without a negative value roll."
+      }
+    ],
+    "crossIndustrySynergies": [
+      {
+        "requiresIndustry": "MANUFACTURING",
+        "requiresPlacement": "MIDSTREAM",
+        "effectType": "LOAN_CAPACITY_BONUS",
+        "effectMagnitude": 1,
+        "effectDescription": "+1 loan cap for each MFG asset you own (max +2)."
+      }
+    ],
+    "flavourText": "Leverage other people's companies, then leverage the leverage."
+  },
+  {
+    "cardType": "ASSET",
+    "companyName": "Structured Products House",
+    "industry": "FINANCE",
+    "placement": "UPSTREAM",
+    "tier": 2,
+    "baseValue": 13,
+    "stress": 2,
+    "income": 0,
+    "baseLoanCapacity": 4,
+    "loanCapacityIncreasePer10AssetValue": 5,
+    "baseValueUpdateRule": {
+      "outcomes": [
+        {
+          "range": [
+            1,
+            1
+          ],
+          "delta": -2
+        },
+        {
+          "range": [
+            2,
+            3
+          ],
+          "delta": 1
+        },
+        {
+          "range": [
+            4,
+            5
+          ],
+          "delta": 4
+        },
+        {
+          "range": [
+            6,
+            6
+          ],
+          "delta": 4
+        }
+      ],
+      "industryMechanic": "Double-hit on 1\u20133 in negative GMI years."
+    },
+    "verticalIntegrationRules": [
+      {
+        "requiresIndustry": "FINANCE",
+        "requiresPlacement": "MIDSTREAM",
+        "effectType": "SPECIAL",
+        "effectDescription": "The Quant's inversion mechanic on this asset also generates +1 cash in any year where the double-hit fires, before resolution. Non-Quant: +2 loan cap if GMI this year is negative."
+      }
+    ],
+    "crossIndustrySynergies": [],
+    "flavourText": "Structure is what you call complexity when you're selling it."
+  },
+  {
+    "cardType": "ASSET",
+    "companyName": "Global Investment Bank",
+    "industry": "FINANCE",
+    "placement": "DOWNSTREAM",
+    "tier": 3,
+    "baseValue": 28,
+    "stress": 3,
+    "income": 2,
+    "baseLoanCapacity": 5,
+    "loanCapacityIncreasePer10AssetValue": 5,
+    "baseValueUpdateRule": {
+      "outcomes": [
+        {
+          "range": [
+            1,
+            1
+          ],
+          "delta": -4
+        },
+        {
+          "range": [
+            2,
+            3
+          ],
+          "delta": 1
+        },
+        {
+          "range": [
+            4,
+            5
+          ],
+          "delta": 4
+        },
+        {
+          "range": [
+            6,
+            6
+          ],
+          "delta": 6
+        }
+      ],
+      "industryMechanic": "Double-hit on 1\u20133 in negative GMI years."
+    },
+    "verticalIntegrationRules": [
+      {
+        "requiresIndustry": "FINANCE",
+        "requiresPlacement": "MIDSTREAM",
+        "effectType": "SPECIAL",
+        "effectDescription": "Once per year during settlement: look at the top 3 personal event cards. Return them in any order. You draw none \u2014 this is pure deck positioning. Tax Attorney's MARKET PREVIEW already lets them choose from top 2 to draw; this extends the window and lets you set up for other players' draws too."
+      },
+      {
+        "requiresIndustry": "FINANCE",
+        "requiresPlacement": "UPSTREAM",
+        "effectType": "SPECIAL",
+        "effectDescription": "Once per year: up to $2 of income this year may be counted as deferred rather than current \u2014 pay tax on it next year instead. Synergizes with Tax Attorney's reclassification (which removes income from tax entirely) \u2014 deferral is a weaker, non-CEO version of the same tool."
+      }
+    ],
+    "crossIndustrySynergies": [],
+    "flavourText": "Too big to fail. Too connected to jail."
+  },
+  {
+    "cardType": "ASSET",
+    "companyName": "Sovereign Wealth Fund",
+    "industry": "FINANCE",
+    "placement": "UPSTREAM",
+    "tier": 3,
+    "baseValue": 24,
+    "stress": 2,
+    "income": 0,
+    "baseLoanCapacity": 5,
+    "loanCapacityIncreasePer10AssetValue": 5,
+    "baseValueUpdateRule": {
+      "outcomes": [
+        {
+          "range": [
+            1,
+            1
+          ],
+          "delta": -4
+        },
+        {
+          "range": [
+            2,
+            3
+          ],
+          "delta": 1
+        },
+        {
+          "range": [
+            4,
+            5
+          ],
+          "delta": 4
+        },
+        {
+          "range": [
+            6,
+            6
+          ],
+          "delta": 6
+        }
+      ],
+      "industryMechanic": "Double-hit on 1\u20133 in negative GMI years. Quant's inversion mechanic on this asset operates without the second value loss being applied \u2014 the double-hit fires but the second delta is negated. Non-Quant: in any neg GMI year, this asset's value update roll is treated as one higher."
+    },
+    "verticalIntegrationRules": [
+      {
+        "requiresIndustry": "FINANCE",
+        "requiresPlacement": "MIDSTREAM",
+        "effectType": "SPECIAL",
+        "effectDescription": "Quant's inversion mechanic on this asset operates without the second value loss being applied \u2014 the double-hit fires but the second delta is negated. Non-Quant: in any neg GMI year, this asset's value update roll is treated as one higher."
+      }
+    ],
+    "crossIndustrySynergies": [
+      {
+        "requiresIndustry": "DEFENCE",
+        "requiresPlacement": "UPSTREAM",
+        "effectType": "LOAN_CAPACITY_BONUS",
+        "effectMagnitude": 1,
+        "effectDescription": "+1 loan cap; +2 additional if value exceeds 30."
+      }
+    ],
+    "flavourText": "Nations borrow. Sovereigns invest."
+  }
+]

@@ -1,0 +1,185 @@
+[
+  {
+    "cardType": "ASSET",
+    "companyName": "Community Health Clinic",
+    "industry": "REAL_ESTATE",
+    "hybridIndustry": "MANUFACTURING",
+    "placement": "DOWNSTREAM",
+    "tier": 1,
+    "baseValue": 6,
+    "stress": 0,
+    "income": 1,
+    "baseLoanCapacity": 5,
+    "loanCapacityIncreasePer10AssetValue": 5,
+    "baseValueUpdateRule": {
+      "outcomes": [
+        {
+          "range": [
+            1,
+            1
+          ],
+          "delta": -1
+        },
+        {
+          "range": [
+            2,
+            3
+          ],
+          "delta": 0
+        },
+        {
+          "range": [
+            4,
+            5
+          ],
+          "delta": 2
+        },
+        {
+          "range": [
+            6,
+            6
+          ],
+          "delta": 3
+        }
+      ],
+      "industryMechanic": "RE + MFG hybrid. Monk class (Actuary). STRESS-LINKED LOAN CAPACITY active. Stress determines loan capacity dynamically."
+    },
+    "verticalIntegrationRules": [
+      {
+        "requiresIndustry": "MANUFACTURING",
+        "requiresPlacement": "MIDSTREAM",
+        "effectType": "LOAN_CAPACITY_BONUS",
+        "effectMagnitude": 1,
+        "effectDescription": "If your current stress is \u2264 2: +1 loan cap on this asset. If stress is 0: +2 loan cap instead. Recalculate each settlement. Actuary CEO's formula determines the full dynamic range. This card grants a flat conditional bonus at fixed thresholds only \u2014 the CEO calculates, the card responds."
+      }
+    ],
+    "crossIndustrySynergies": [],
+    "flavourText": "Health is the one asset that depreciates whether you invest or not."
+  },
+  {
+    "cardType": "ASSET",
+    "companyName": "Hospital Network Holdings",
+    "industry": "REAL_ESTATE",
+    "hybridIndustry": "MANUFACTURING",
+    "placement": "MIDSTREAM",
+    "tier": 2,
+    "baseValue": 14,
+    "stress": 1,
+    "income": 2,
+    "baseLoanCapacity": 5,
+    "loanCapacityIncreasePer10AssetValue": 5,
+    "baseValueUpdateRule": {
+      "outcomes": [
+        {
+          "range": [
+            1,
+            1
+          ],
+          "delta": -2
+        },
+        {
+          "range": [
+            2,
+            3
+          ],
+          "delta": 0
+        },
+        {
+          "range": [
+            4,
+            5
+          ],
+          "delta": 2
+        },
+        {
+          "range": [
+            6,
+            6
+          ],
+          "delta": 4
+        }
+      ],
+      "industryMechanic": "RE + MFG hybrid. Monk class (Actuary). STRESS-LINKED LOAN CAPACITY active. Stress determines loan capacity dynamically."
+    },
+    "verticalIntegrationRules": [
+      {
+        "requiresIndustry": "REAL_ESTATE",
+        "requiresPlacement": "UPSTREAM",
+        "effectType": "SPECIAL",
+        "effectDescription": "\u22121 stress before your death roll once per year. Actuary CEO: this may cancel the roll entirely (per CEO triggered ability). Non-Actuary: reduces stress before roll but cannot prevent the roll if threshold is still met after reduction."
+      },
+      {
+        "requiresIndustry": "MANUFACTURING",
+        "requiresPlacement": "DOWNSTREAM",
+        "effectType": "LOAN_CAPACITY_BONUS",
+        "effectMagnitude": 1,
+        "effectDescription": "If your current stress is \u2264 2: +1 loan cap on this asset. If stress is 0: +2 loan cap; +1 additional if value exceeds 18."
+      }
+    ],
+    "crossIndustrySynergies": [],
+    "flavourText": "Hospitals are the only business where repeat customers are a failure."
+  },
+  {
+    "cardType": "ASSET",
+    "companyName": "Healthcare REIT Sovereign",
+    "industry": "REAL_ESTATE",
+    "hybridIndustry": "MANUFACTURING",
+    "placement": "UPSTREAM",
+    "tier": 3,
+    "baseValue": 22,
+    "stress": 2,
+    "income": 2,
+    "baseLoanCapacity": 5,
+    "loanCapacityIncreasePer10AssetValue": 5,
+    "baseValueUpdateRule": {
+      "outcomes": [
+        {
+          "range": [
+            1,
+            1
+          ],
+          "delta": -4
+        },
+        {
+          "range": [
+            2,
+            3
+          ],
+          "delta": 1
+        },
+        {
+          "range": [
+            4,
+            5
+          ],
+          "delta": 4
+        },
+        {
+          "range": [
+            6,
+            6
+          ],
+          "delta": 6
+        }
+      ],
+      "industryMechanic": "RE + MFG hybrid. Monk class (Actuary). STRESS-LINKED LOAN CAPACITY \u00d72 active. Peak Monk synergy at stress 0."
+    },
+    "verticalIntegrationRules": [
+      {
+        "requiresIndustry": "MANUFACTURING",
+        "requiresPlacement": "MIDSTREAM",
+        "effectType": "LOAN_CAPACITY_BONUS",
+        "effectMagnitude": 2,
+        "effectDescription": "If your current stress is \u2264 2: +2 loan cap on this asset (double the standard threshold bonus). If stress is 0: +4 loan cap. Actuary CEO's $5 longevity bonus stacks with maximum credit at stress 0 \u2014 peak Monk synergy."
+      },
+      {
+        "requiresIndustry": "MANUFACTURING",
+        "requiresPlacement": "DOWNSTREAM",
+        "effectType": "SPECIAL",
+        "effectDescription": "If you are alive at the final round, this asset's value counts as +3 for scoring."
+      }
+    ],
+    "crossIndustrySynergies": [],
+    "flavourText": "The longest-lived patients make the best landlords."
+  }
+]
