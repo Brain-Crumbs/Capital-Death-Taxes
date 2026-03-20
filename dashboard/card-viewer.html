@@ -900,21 +900,16 @@
 
     // ── Data loading ───────────────────────────────────────────────
 
-    // Asset cards: each industry is a subdirectory of data/cards/
-    // The server merges all .json files in the directory into an array.
-    const ASSET_INDUSTRY_DIRS = [
-      'technology',
-      'energy',
-      'real_estate',
-      'finance',
-      'manufacturing',
-      'media_entertainment',
-      'defence',
-      'healthcare',
-    ];
-
-    // Non-asset card files remain as flat JSON arrays
-    const FLAT_CARD_FILES = [
+    // All card files — each industry is now a consolidated JSON array file
+    const CARD_FILES = [
+      'technology.json',
+      'energy.json',
+      'real_estate.json',
+      'finance.json',
+      'manufacturing.json',
+      'media_entertainment.json',
+      'defence.json',
+      'healthcare.json',
       'starter-asset-cards.json',
       'ceo-cards.json',
       'global-event-cards.json',
@@ -940,10 +935,9 @@
       }
     }
 
-    const datasets = await Promise.all([
-      ...ASSET_INDUSTRY_DIRS.map(dir  => loadCards(`/cards/${dir}`)),
-      ...FLAT_CARD_FILES.map(file => loadCards(`/cards/${file}`)),
-    ]);
+    const datasets = await Promise.all(
+      CARD_FILES.map(file => loadCards(`/cards/${file}`))
+    );
 
     const allCards = datasets.flat();
 

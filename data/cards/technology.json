@@ -1,0 +1,498 @@
+[
+  {
+    "cardType": "ASSET",
+    "companyName": "SaaS Distribution Engine",
+    "industry": "TECHNOLOGY",
+    "placement": "DOWNSTREAM",
+    "tier": 1,
+    "baseValue": 7,
+    "stress": 1,
+    "income": 0,
+    "baseLoanCapacity": 3,
+    "loanCapacityIncreasePer10AssetValue": 3,
+    "isGmiImmune": true,
+    "baseValueUpdateRule": {
+      "outcomes": [
+        {
+          "range": [
+            1,
+            1
+          ],
+          "delta": -2
+        },
+        {
+          "range": [
+            2,
+            3
+          ],
+          "delta": -1
+        },
+        {
+          "range": [
+            4,
+            5
+          ],
+          "delta": 1
+        },
+        {
+          "range": [
+            6,
+            6
+          ],
+          "delta": 2
+        }
+      ],
+      "industryMechanic": "GMI-immune pre-integration. When the full TECH stack is held, loan suppression lifts per industry rules. Founder CEO: draw 2 personal event cards, keep 1 (per CEO once-per-game ability). Non-Founder: suppression lifts; no card draw."
+    },
+    "verticalIntegrationRules": [
+      {
+        "requiresIndustry": "TECHNOLOGY",
+        "requiresPlacement": "MIDSTREAM",
+        "effectType": "SPECIAL",
+        "effectDescription": "When the full TECH stack is held, loan suppression lifts per industry rules. Founder CEO: draw 2 personal event cards, keep 1 (per CEO once-per-game ability). Non-Founder: suppression lifts; no card draw."
+      }
+    ],
+    "crossIndustrySynergies": [],
+    "flavourText": "Recurring revenue is the closest thing to immortality."
+  },
+  {
+    "cardType": "ASSET",
+    "companyName": "Platform API Co",
+    "industry": "TECHNOLOGY",
+    "placement": "MIDSTREAM",
+    "tier": 1,
+    "baseValue": 6,
+    "stress": 1,
+    "income": 0,
+    "baseLoanCapacity": 3,
+    "loanCapacityIncreasePer10AssetValue": 3,
+    "isGmiImmune": true,
+    "baseValueUpdateRule": {
+      "outcomes": [
+        {
+          "range": [
+            1,
+            1
+          ],
+          "delta": -2
+        },
+        {
+          "range": [
+            2,
+            3
+          ],
+          "delta": -1
+        },
+        {
+          "range": [
+            4,
+            5
+          ],
+          "delta": 1
+        },
+        {
+          "range": [
+            6,
+            6
+          ],
+          "delta": 2
+        }
+      ],
+      "industryMechanic": "GMI-immune pre-integration. Loans suppressed until vertical integration is active. Founder CEO: MID alone suffices to activate UPSTREAM integration per CEO ability."
+    },
+    "verticalIntegrationRules": [
+      {
+        "requiresIndustry": "TECHNOLOGY",
+        "requiresPlacement": "UPSTREAM",
+        "effectType": "VALUE_GROWTH_BOOST",
+        "effectDescription": "Once integration is active on the UPSTREAM asset you own, treat that asset's value roll as one higher."
+      },
+      {
+        "requiresIndustry": "TECHNOLOGY",
+        "requiresPlacement": "DOWNSTREAM",
+        "effectType": "LOAN_CAPACITY_BONUS",
+        "effectMagnitude": 1,
+        "effectDescription": "+1 loan cap on this asset if full vertical stack is held."
+      }
+    ],
+    "crossIndustrySynergies": [
+      {
+        "requiresIndustry": "MEDIA_ENTERTAINMENT",
+        "requiresPlacement": "MIDSTREAM",
+        "effectType": "LOAN_CAPACITY_BONUS",
+        "effectMagnitude": 1,
+        "effectDescription": "+1 loan cap; +1 additional if value exceeds 12."
+      }
+    ],
+    "flavourText": "Every platform is a tollbooth with better UX."
+  },
+  {
+    "cardType": "ASSET",
+    "companyName": "GridRoot Systems",
+    "industry": "TECHNOLOGY",
+    "placement": "UPSTREAM",
+    "tier": 1,
+    "baseValue": 5,
+    "stress": 1,
+    "income": 0,
+    "baseLoanCapacity": 3,
+    "loanCapacityIncreasePer10AssetValue": 3,
+    "isGmiImmune": true,
+    "baseValueUpdateRule": {
+      "outcomes": [
+        {
+          "range": [
+            1,
+            1
+          ],
+          "delta": -2
+        },
+        {
+          "range": [
+            2,
+            3
+          ],
+          "delta": -1
+        },
+        {
+          "range": [
+            4,
+            5
+          ],
+          "delta": 1
+        },
+        {
+          "range": [
+            6,
+            6
+          ],
+          "delta": 2
+        }
+      ],
+      "industryMechanic": "GMI-immune pre-integration. Loans suppressed until vertical integration is active (loan suppression lifted per industry rules)."
+    },
+    "verticalIntegrationRules": [
+      {
+        "requiresIndustry": "TECHNOLOGY",
+        "requiresPlacement": "MIDSTREAM",
+        "effectType": "SPECIAL",
+        "effectDescription": "+1 to this asset's loanCapacityIncreasePer10AssetValue once vertical integration is active (loan suppression lifted per industry rules). Financing depth unlocks with proven integration, not before."
+      }
+    ],
+    "crossIndustrySynergies": [],
+    "flavourText": "The foundation nobody sees until it breaks."
+  },
+  {
+    "cardType": "ASSET",
+    "companyName": "Enterprise Software Group",
+    "industry": "TECHNOLOGY",
+    "placement": "DOWNSTREAM",
+    "tier": 2,
+    "baseValue": 16,
+    "stress": 2,
+    "income": 0,
+    "baseLoanCapacity": 3,
+    "loanCapacityIncreasePer10AssetValue": 3,
+    "isGmiImmune": true,
+    "baseValueUpdateRule": {
+      "outcomes": [
+        {
+          "range": [
+            1,
+            1
+          ],
+          "delta": -3
+        },
+        {
+          "range": [
+            2,
+            3
+          ],
+          "delta": -1
+        },
+        {
+          "range": [
+            4,
+            5
+          ],
+          "delta": 1
+        },
+        {
+          "range": [
+            6,
+            6
+          ],
+          "delta": 3
+        }
+      ],
+      "industryMechanic": "GMI-immune pre-integration. Loans suppressed until vertical integration is active. Stack complete: once per year, draw 1 personal event card, keep or sell. Founder's once-per-game stack bonus activates here."
+    },
+    "verticalIntegrationRules": [
+      {
+        "requiresIndustry": "TECHNOLOGY",
+        "requiresPlacement": "MIDSTREAM",
+        "effectType": "SPECIAL",
+        "effectDescription": "Stack complete: once per year, draw 1 personal event card, keep or sell. Founder's once-per-game stack bonus activates here."
+      }
+    ],
+    "crossIndustrySynergies": [
+      {
+        "requiresIndustry": "MANUFACTURING",
+        "requiresPlacement": "DOWNSTREAM",
+        "effectType": "LOAN_CAPACITY_BONUS",
+        "effectMagnitude": 1,
+        "effectDescription": "+1 loan cap; +1 additional if value exceeds 22."
+      }
+    ],
+    "flavourText": "Enterprise software: where innovation goes to get a salary."
+  },
+  {
+    "cardType": "ASSET",
+    "companyName": "AI Platform Systems",
+    "industry": "TECHNOLOGY",
+    "placement": "MIDSTREAM",
+    "tier": 2,
+    "baseValue": 14,
+    "stress": 2,
+    "income": 0,
+    "baseLoanCapacity": 3,
+    "loanCapacityIncreasePer10AssetValue": 3,
+    "isGmiImmune": true,
+    "baseValueUpdateRule": {
+      "outcomes": [
+        {
+          "range": [
+            1,
+            1
+          ],
+          "delta": -3
+        },
+        {
+          "range": [
+            2,
+            3
+          ],
+          "delta": -1
+        },
+        {
+          "range": [
+            4,
+            5
+          ],
+          "delta": 1
+        },
+        {
+          "range": [
+            6,
+            6
+          ],
+          "delta": 3
+        }
+      ],
+      "industryMechanic": "GMI-immune pre-integration. Loans suppressed until vertical integration is active."
+    },
+    "verticalIntegrationRules": [
+      {
+        "requiresIndustry": "TECHNOLOGY",
+        "requiresPlacement": "UPSTREAM",
+        "effectType": "CRASH_FLOOR",
+        "effectMagnitude": 8,
+        "effectDescription": "Value cannot fall below 8 from any single roll."
+      },
+      {
+        "requiresIndustry": "TECHNOLOGY",
+        "requiresPlacement": "DOWNSTREAM",
+        "effectType": "VALUE_GROWTH_BOOST",
+        "effectDescription": "Treat all positive value roll deltas as +1 higher when full stack is owned."
+      }
+    ],
+    "crossIndustrySynergies": [],
+    "flavourText": "Intelligence scales. Wisdom doesn't."
+  },
+  {
+    "cardType": "ASSET",
+    "companyName": "Cloud Infrastructure Ltd",
+    "industry": "TECHNOLOGY",
+    "placement": "UPSTREAM",
+    "tier": 2,
+    "baseValue": 12,
+    "stress": 1,
+    "income": 0,
+    "baseLoanCapacity": 3,
+    "loanCapacityIncreasePer10AssetValue": 3,
+    "isGmiImmune": true,
+    "baseValueUpdateRule": {
+      "outcomes": [
+        {
+          "range": [
+            1,
+            1
+          ],
+          "delta": -3
+        },
+        {
+          "range": [
+            2,
+            3
+          ],
+          "delta": -1
+        },
+        {
+          "range": [
+            4,
+            5
+          ],
+          "delta": 1
+        },
+        {
+          "range": [
+            6,
+            6
+          ],
+          "delta": 3
+        }
+      ],
+      "industryMechanic": "GMI-immune pre-integration. Loans suppressed until vertical integration is active."
+    },
+    "verticalIntegrationRules": [
+      {
+        "requiresIndustry": "TECHNOLOGY",
+        "requiresPlacement": "MIDSTREAM",
+        "effectType": "LOAN_CAPACITY_BONUS",
+        "effectMagnitude": 1,
+        "effectDescription": "+1 loan cap; +2 additional if this asset's current value exceeds 18 and integration is active."
+      }
+    ],
+    "crossIndustrySynergies": [
+      {
+        "requiresIndustry": "ENERGY",
+        "requiresPlacement": "UPSTREAM",
+        "effectType": "LOAN_CAPACITY_BONUS",
+        "effectMagnitude": 1,
+        "effectDescription": "+1 loan cap for each ENERGY asset you own (max +2)."
+      }
+    ],
+    "flavourText": "The cloud is just someone else's data centre \u2014 and someone else's debt."
+  },
+  {
+    "cardType": "ASSET",
+    "companyName": "Digital Monopoly Holdings",
+    "industry": "TECHNOLOGY",
+    "placement": "DOWNSTREAM",
+    "tier": 3,
+    "baseValue": 26,
+    "stress": 3,
+    "income": 0,
+    "baseLoanCapacity": 2,
+    "loanCapacityIncreasePer10AssetValue": 2,
+    "isGmiImmune": true,
+    "baseValueUpdateRule": {
+      "outcomes": [
+        {
+          "range": [
+            1,
+            1
+          ],
+          "delta": -4
+        },
+        {
+          "range": [
+            2,
+            3
+          ],
+          "delta": -2
+        },
+        {
+          "range": [
+            4,
+            5
+          ],
+          "delta": 2
+        },
+        {
+          "range": [
+            6,
+            6
+          ],
+          "delta": 4
+        }
+      ],
+      "industryMechanic": "GMI-immune pre-integration. Loans suppressed until vertical integration is active. Stack complete: +1 to loanCapacityIncreasePer10AssetValue on all owned TECH assets (applies once integration is active per industry rules)."
+    },
+    "verticalIntegrationRules": [
+      {
+        "requiresIndustry": "TECHNOLOGY",
+        "requiresPlacement": "MIDSTREAM",
+        "effectType": "SPECIAL",
+        "effectDescription": "Stack complete: +1 to loanCapacityIncreasePer10AssetValue on all owned TECH assets (applies once integration is active per industry rules)."
+      }
+    ],
+    "crossIndustrySynergies": [
+      {
+        "requiresIndustry": "FINANCE",
+        "requiresPlacement": "UPSTREAM",
+        "effectType": "LOAN_CAPACITY_BONUS",
+        "effectMagnitude": 1,
+        "effectDescription": "+1 loan cap; +2 additional if value exceeds 32."
+      }
+    ],
+    "flavourText": "Monopoly is just network effects with better lawyers."
+  },
+  {
+    "cardType": "ASSET",
+    "companyName": "Hyperscale AI Corp",
+    "industry": "TECHNOLOGY",
+    "placement": "UPSTREAM",
+    "tier": 3,
+    "baseValue": 22,
+    "stress": 2,
+    "income": 0,
+    "baseLoanCapacity": 2,
+    "loanCapacityIncreasePer10AssetValue": 2,
+    "isGmiImmune": true,
+    "baseValueUpdateRule": {
+      "outcomes": [
+        {
+          "range": [
+            1,
+            1
+          ],
+          "delta": -4
+        },
+        {
+          "range": [
+            2,
+            3
+          ],
+          "delta": -2
+        },
+        {
+          "range": [
+            4,
+            5
+          ],
+          "delta": 2
+        },
+        {
+          "range": [
+            6,
+            6
+          ],
+          "delta": 4
+        }
+      ],
+      "industryMechanic": "GMI-immune pre-integration. Loans suppressed until vertical integration is active."
+    },
+    "verticalIntegrationRules": [
+      {
+        "requiresIndustry": "TECHNOLOGY",
+        "requiresPlacement": "MIDSTREAM",
+        "effectType": "LOAN_CAPACITY_BONUS",
+        "effectMagnitude": 1,
+        "effectDescription": "+1 loan cap; +3 additional if value exceeds 30 and integration is active."
+      }
+    ],
+    "crossIndustrySynergies": [],
+    "flavourText": "At this scale, the model trains itself \u2014 and so does the debt."
+  }
+]
