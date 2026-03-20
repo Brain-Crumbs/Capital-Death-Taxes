@@ -11,10 +11,10 @@
   "loanCapacityIncreasePer10AssetValue": 5,
   "baseValueUpdateRule": {
     "outcomes": [
-      { "range": [1, 1], "delta": -2 },
-      { "range": [2, 3], "delta": -1 },
-      { "range": [4, 5], "delta": 1 },
-      { "range": [6, 6], "delta": 2 }
+      { "range": [1, 1], "delta": -1 },
+      { "range": [2, 3], "delta": 0 },
+      { "range": [4, 5], "delta": 2 },
+      { "range": [6, 6], "delta": 3 }
     ],
     "industryMechanic": "Double-hit on 1–3 in negative GMI years. The Quant's inversion mechanic is eligible on this asset in any negative GMI year. This asset qualifies for the Quant's Pact Dividend roll each year it's held."
   },

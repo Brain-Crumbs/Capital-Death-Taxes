@@ -9,11 +9,12 @@
   "income": 2,
   "baseLoanCapacity": 6,
   "loanCapacityIncreasePer10AssetValue": 6,
+  "gmiAmplifier": 2,
   "baseValueUpdateRule": {
     "outcomes": [
-      { "range": [1, 1], "delta": -3 },
-      { "range": [2, 3], "delta": -1 },
-      { "range": [4, 5], "delta": 1 },
+      { "range": [1, 1], "delta": -1 },
+      { "range": [2, 3], "delta": 0 },
+      { "range": [4, 5], "delta": 2 },
       { "range": [6, 6], "delta": 3 }
     ],
     "industryMechanic": "GMI amplified ×2. Choose 1 other player: their ENERGY assets treat negative GMI as halved this year. Druid party support — Geologist gives this to one ally in a downturn."

@@ -9,11 +9,12 @@
   "income": 2,
   "baseLoanCapacity": 6,
   "loanCapacityIncreasePer10AssetValue": 6,
+  "gmiAmplifier": 2,
   "baseValueUpdateRule": {
     "outcomes": [
-      { "range": [1, 1], "delta": -4 },
-      { "range": [2, 3], "delta": -2 },
-      { "range": [4, 5], "delta": 2 },
+      { "range": [1, 1], "delta": -2 },
+      { "range": [2, 3], "delta": 1 },
+      { "range": [4, 5], "delta": 4 },
       { "range": [6, 6], "delta": 4 }
     ],
     "industryMechanic": "GMI amplified ×2. Your own ENERGY assets halve negative GMI this year. (Party-wide protection belongs on global events, not individual asset bonuses.)"

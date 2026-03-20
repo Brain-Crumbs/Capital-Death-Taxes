@@ -14,8 +14,8 @@
     "outcomes": [
       { "range": [1, 1], "delta": -1 },
       { "range": [2, 3], "delta": 0 },
-      { "range": [4, 5], "delta": 1 },
-      { "range": [6, 6], "delta": 2 }
+      { "range": [4, 5], "delta": 2 },
+      { "range": [6, 6], "delta": 3 }
     ],
     "industryMechanic": "RE + MFG hybrid. Monk class (Actuary). STRESS-LINKED LOAN CAPACITY active. Stress determines loan capacity dynamically."
   },

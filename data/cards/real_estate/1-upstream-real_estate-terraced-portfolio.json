@@ -11,10 +11,10 @@
   "loanCapacityIncreasePer10AssetValue": 6,
   "baseValueUpdateRule": {
     "outcomes": [
-      { "range": [1, 1], "delta": -2 },
-      { "range": [2, 3], "delta": -1 },
-      { "range": [4, 5], "delta": 1 },
-      { "range": [6, 6], "delta": 2 }
+      { "range": [1, 1], "delta": -1 },
+      { "range": [2, 3], "delta": 0 },
+      { "range": [4, 5], "delta": 2 },
+      { "range": [6, 6], "delta": 3 }
     ],
     "industryMechanic": "Neutral GMI. Income from this asset is tax-exempt in any year GMI ≥ 0. Aligns with Trustee's first-$1 RE exemption — stacks for double shelter."
   },

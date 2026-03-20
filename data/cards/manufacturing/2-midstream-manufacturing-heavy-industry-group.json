@@ -11,10 +11,10 @@
   "loanCapacityIncreasePer10AssetValue": 5,
   "baseValueUpdateRule": {
     "outcomes": [
-      { "range": [1, 1], "delta": -3 },
-      { "range": [2, 3], "delta": -1 },
-      { "range": [4, 5], "delta": 1 },
-      { "range": [6, 6], "delta": 3 }
+      { "range": [1, 1], "delta": -2 },
+      { "range": [2, 3], "delta": 0 },
+      { "range": [4, 5], "delta": 2 },
+      { "range": [6, 6], "delta": 4 }
     ],
     "industryMechanic": "GMI halved. Depreciable — income offset eligible. Engineer CEO doubles stress reduction from integration."
   },

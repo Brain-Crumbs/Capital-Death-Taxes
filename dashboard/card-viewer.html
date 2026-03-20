@@ -328,6 +328,17 @@
           </div>
         </div>`;
 
+      // ── Mechanic Indicators ────────────────────────────────────
+      const indicatorBadges = [];
+      if (card.isBuzzDie) indicatorBadges.push('<span class="mechanic-badge buzz">BUZZ DIE</span>');
+      if (card.isCounterCyclical) indicatorBadges.push('<span class="mechanic-badge counter-cyclical">COUNTER-CYCLICAL</span>');
+      if (card.isGmiImmune) indicatorBadges.push('<span class="mechanic-badge gmi-immune">GMI IMMUNE</span>');
+      if (card.gmiAmplifier) indicatorBadges.push(`<span class="mechanic-badge gmi-amp">GMI \u00d7${card.gmiAmplifier}</span>`);
+      if (card.classifiedBonusCapacity != null) indicatorBadges.push('<span class="mechanic-badge classified">CLASSIFIED</span>');
+      const indicatorsHtml = indicatorBadges.length > 0
+        ? `<div class="mechanic-indicators">${indicatorBadges.join('')}</div>`
+        : '';
+
       // ── Value Update Roll ────────────────────────────────────────
       const vur = card.baseValueUpdateRule ?? {};
       const vurOutcomes = (vur.outcomes ?? []).map(o => `
@@ -400,6 +411,7 @@
         <div class="card">
           ${headerHtml}
           ${statsHtml}
+          ${indicatorsHtml}
           ${valueUpdateHtml}
           ${verticalIntegrationHtml}
           ${crossIndustrySynergyHtml}

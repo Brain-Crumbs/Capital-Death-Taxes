@@ -253,6 +253,24 @@
           "minimum": 0,
           "description": "DEFENCE assets only. Hidden loan capacity bonus. Revealed and permanently added to baseLoanCapacity when the player owns 2 or more DEFENCE placements simultaneously (or 1 with the General CEO). Omit on all non-DEFENCE assets."
         },
+        "isBuzzDie": {
+          "type": "boolean",
+          "description": "MEDIA_ENTERTAINMENT assets only. When true, this asset's value update uses a buzz die that overrides the GMI delta. The buzz die result replaces the normal GMI-modified value change. Omit or false on all non-MEDIA_ENTERTAINMENT assets."
+        },
+        "isCounterCyclical": {
+          "type": "boolean",
+          "description": "DEFENCE assets only. When true, negative GMI produces positive asset value delta and vice versa. The asset benefits from economic downturns. Omit or false on all non-DEFENCE assets."
+        },
+        "isGmiImmune": {
+          "type": "boolean",
+          "description": "TECHNOLOGY assets only. When true, this asset is immune to GMI effects prior to vertical integration. GMI deltas do not apply to this asset's value until loan suppression is lifted. Omit or false on all non-TECHNOLOGY assets."
+        },
+        "gmiAmplifier": {
+          "type": "integer",
+          "minimum": 2,
+          "maximum": 4,
+          "description": "ENERGY assets only. Multiplier applied to GMI delta for this asset. T1–T2 assets use ×2, T3 assets use ×3 (Geologist CEO may raise to ×4). Omit on all non-ENERGY assets."
+        },
         "loanCapacityIncreasePer10AssetValue": {
           "type": "integer",
           "minimum": 0,
